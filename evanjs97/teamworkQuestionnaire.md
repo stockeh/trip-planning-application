@@ -35,4 +35,4 @@
 1. __What will you do if one person seems to be dominating the team process?__ 
    Talk to them about it and let them know that we want want the whole team to be involved in the process.
 1. __What will you do if you feel most of the facilitation responsibilities are falling on you?__ 
-   Talk to my team about my concerns.
+   Talk to my team about my concerns and let someone else takes on some of my tasks if need be.
