@@ -4,13 +4,33 @@ class Calculator extends React.Component {
     /* state variables */
     this.state = { 
       sum: "",
-      operand1: "", 
+      operand1: "",
       operand2: ""
     };
     /* must bind all functions in constructor */
     this.calc = this.calc.bind(this);
     this.updateOperand1 = this.updateOperand1.bind(this);
     this.updateOperand2 = this.updateOperand2.bind(this);
+  }
+
+  toRadians(angle) { return angle * (Math.PI / 180); }
+
+  distance(lat1, lon1, lat2, lon2, unit) {
+    var x, y, z, radius, chordLength, centralAngle;
+    if (unit == "K")
+        radius = 6371.0088;
+    else radius = 3958.7613;
+    x = Math.cos(this.toRadians(lat2)) * Math.cos(this.toRadians(lon2)) -
+        Math.cos(this.toRadians(lat1)) * Math.cos(this.toRadians(lon1));
+    y = Math.cos(this.toRadians(lat2)) * Math.sin(this.toRadians(lon2)) -
+        Math.cos(this.toRadians(lat1)) * Math.sin(this.toRadians(lon1));
+    z = Math.sin(this.toRadians(lat2)) - Math.sin(this.toRadians(lat1));
+
+    chordLength = Math.sqrt(Math.pow(x,2) + Math.pow(y,2)+Math.pow(z,2));
+    centralAngle = 2 * Math.asin(chordLength / 2);
+
+    /* console.log("X: ", x, '\n',"Y: ", y, '\n',"Z: ", x, '\n',"R: ", radius, '\n',"C: ", chordLength, '\n',"Central Angle: ", centralAngle, '\n'); */
+    return Math.round(radius * centralAngle);
   }
 
   updateOperand1(event) {
@@ -52,7 +72,7 @@ class Calculator extends React.Component {
       </form>
 
     )
-  } 
+  }
 }
 
 class Application extends React.Component {
