@@ -30,7 +30,7 @@ class Calculator extends React.Component {
     centralAngle = 2 * Math.asin(chordLength / 2);
 
     /* console.log("X: ", x, '\n',"Y: ", y, '\n',"Z: ", x, '\n',"R: ", radius, '\n',"C: ", chordLength, '\n',"Central Angle: ", centralAngle, '\n'); */
-    return radius * centralAngle;
+    return Math.round(radius * centralAngle);
   }
 
   updateOperand1(event) {
