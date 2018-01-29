@@ -125,6 +125,14 @@ class Application extends React.Component {
         <h3>CS 314 - Simple Adder</h3>
         <hr/>
         <Calculator />
+      
+        <br/>
+        
+        <div className="fileinput fileinput-new" data-provides="fileinput">
+          <p>Select file to process</p>
+          <span className="btn btn-default btn-file"><span></span><input type="file" /></span>
+          <span className="fileinput-filename"></span><span className="fileinput-new"></span>
+        </div>
       </div>  
     )
   }
