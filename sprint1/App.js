@@ -130,9 +130,13 @@ class Application extends React.Component {
         
         <div className="fileinput fileinput-new" data-provides="fileinput">
           <p>Select file to process</p>
-          <span className="btn btn-default btn-file"><span></span><input type="file" /></span>
-          <span className="fileinput-filename"></span><span className="fileinput-new"></span>
-        </div>
+          <input id="upload" ref="upload" type="file" onChange={(event)=> { 
+                       this.fileListener(event) 
+                  }}
+                onClick={(event)=> { 
+                       event.target.value = null
+                  }}
+        />
       </div>  
     )
   }
