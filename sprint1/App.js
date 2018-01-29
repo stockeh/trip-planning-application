@@ -148,8 +148,8 @@ class Application extends React.Component {
                   }}
                 onClick={(event)=> { 
                        event.target.value = null
-                  }}
-        />
+                  }} />
+        </div>
       </div>  
     )
   }
