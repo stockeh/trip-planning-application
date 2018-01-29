@@ -118,6 +118,19 @@ class Calculator extends React.Component {
 }
 
 class Application extends React.Component {
+  
+  fileListener(event) {
+    var reader = new FileReader();
+    reader.onload = this.onReaderLoad;
+    reader.readAsText(event.target.files[0]);
+  }
+  
+  onReaderLoad(event){
+    console.log(event.target.result);
+    var obj = JSON.parse(event.target.result);
+    console.log(obj[0].id);
+  }
+  
   render() {
     /* separate the page layout from the calculator function */
     return (
