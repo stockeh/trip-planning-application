@@ -117,20 +117,37 @@ class Calculator extends React.Component {
   }
 }
 
+class FileIn extends React.Component {
+
+    fileListener(event) {
+        var reader = new FileReader();
+        reader.onload = this.onReaderLoad;
+        reader.readAsText(event.target.files[0]);
+    }
+
+    onReaderLoad(event){
+        console.log(event.target.result);
+        var obj = JSON.parse(event.target.result);
+        console.log(obj[0].id);
+    }
+
+    render() {
+      return (
+        <div className="fileinput fileinput-new" data-provides="fileinput">
+          <p>Select file to process</p>
+          <input id="upload" ref="upload" type="file" onChange={(event)=> {
+            this.fileListener(event)
+          }}
+            onClick={(event)=> {
+            event.target.value = null
+          }} />
+        </div>
+      )
+    }
+}
+
 class Application extends React.Component {
-  
-  fileListener(event) {
-    var reader = new FileReader();
-    reader.onload = this.onReaderLoad;
-    reader.readAsText(event.target.files[0]);
-  }
-  
-  onReaderLoad(event){
-    console.log(event.target.result);
-    var obj = JSON.parse(event.target.result);
-    console.log(obj[0].id);
-  }
-  
+
   render() {
     /* separate the page layout from the calculator function */
     return (
@@ -138,19 +155,10 @@ class Application extends React.Component {
         <h3>CS 314 - Simple Adder</h3>
         <hr/>
         <Calculator />
-      
+
         <br/>
-        
-        <div className="fileinput fileinput-new" data-provides="fileinput">
-          <p>Select file to process</p>
-          <input id="upload" ref="upload" type="file" onChange={(event)=> { 
-                       this.fileListener(event) 
-                  }}
-                onClick={(event)=> { 
-                       event.target.value = null
-                  }} />
-        </div>
-      </div>  
+        <FileIn />
+      </div>
     )
   }
 }
