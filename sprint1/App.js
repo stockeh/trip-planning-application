@@ -3,10 +3,13 @@ class Calculator extends React.Component {
     super(props);
     /* state variables */
     this.state = {
-      sum: "",
+      dist: "",
       operand1: "",
       operand2: "",
-      operand2: ""
+      latitude1: "",
+      longitude1: "",
+      latitude2: "",
+      longitude2: "",
     };
     /* must bind all functions in constructor */
     this.calc = this.calc.bind(this);
@@ -39,19 +42,20 @@ class Calculator extends React.Component {
   updateOperand1(event) {
     /* update the value of operand 1.  needs validation */
     this.setState({operand1 : event.target.value});
-    this.setState({sum : this.parseLocation(event)});
+    this.setState({latitude1 : this.parseLocation(event)[0]});
+    this.setState({longitude1 : this.parseLocation(event)[1]});
   }
-  //
+
   updateOperand2(event) {
     /* update the value of operand 2.  needs validation */
     this.setState({operand2 : event.target.value});
-    this.setState({sum : this.parseLocation(event)});
+    this.setState({latitude2 : this.parseLocation(event)[0]});
+    this.setState({longitude2 : this.parseLocation(event)[1]});
   }
 
   parseLocation(event) {
     var parsed = event.target.value.match(/(-?\d+((\.\d+))*|[NSEW])+/g);
     return this.decimalDegrees(parsed);
-
   }
 
   directionHandler(degree,direction){
@@ -65,11 +69,11 @@ class Calculator extends React.Component {
   }
 
   decimalDegrees(parsed){
-    if(parsed == null)return "";
+    if(parsed == null) return "";
     else if(parsed.length == 2)return parsed;
     else{
       var degrees = [];
-      var latitude = parsed.splice(0,parsed.length/2);
+      var latitude = parsed.splice(0,parsed.length/2); /** Assuming both Lat and Lon are the same format **/
       var longitude = parsed;
       if(latitude.length == 2){
         degrees.push(this.directionHandler(latitude[0],latitude[1]));
@@ -83,13 +87,11 @@ class Calculator extends React.Component {
       }
       return degrees;
     }
-
   }
 
 
   calc(event) {
-    /* Operands are text.  Must convert to add rather than concatenate. */
-    this.setState({sum : Number(this.state.operand1) + Number(this.state.operand2) })
+    this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.state.latitude2, this.state.longitude2, "M")) })
     event.preventDefault();
   }
 
@@ -107,10 +109,10 @@ class Calculator extends React.Component {
           value={this.state.operand2} onChange={this.updateOperand2}/> 
 
         <button className="btn btn-primary mr-sm-2" type="submit" value="submit" 
-          disabled>=</button>
+          enabled>=</button>
 
         <input type="text" className="text-right form-control mr-sm-2" 
-          value={this.state.sum} disabled/>
+          value={this.state.dist} disabled/>
       </form>
 
     )
