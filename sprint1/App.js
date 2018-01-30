@@ -3,18 +3,17 @@ class Calculator extends React.Component {
     super(props);
     /* state variables */
     this.state = {
-      dist: "",
-      operand1: "",
-      operand2: "",
+      dist: "", 
+      coordinate1: "",
+      coordinate2: "",
       latitude1: "",
       longitude1: "",
       latitude2: "",
       longitude2: "",
     };
     /* must bind all functions in constructor */
-    this.calc = this.calc.bind(this);
-    this.updateOperand1 = this.updateOperand1.bind(this);
-    this.updateOperand2 = this.updateOperand2.bind(this);
+    this.updateCoordinate1 = this.updateCoordinate1.bind(this);
+    this.updateCoordinate2 = this.updateCoordinate2.bind(this);
     this.parseLocation = this.parseLocation.bind(this);
     this.decimalDegrees = this.decimalDegrees.bind(this);
   }
@@ -35,22 +34,27 @@ class Calculator extends React.Component {
     chordLength = Math.sqrt(Math.pow(x,2) + Math.pow(y,2)+Math.pow(z,2));
     centralAngle = 2 * Math.asin(chordLength / 2);
 
-    /* console.log("X: ", x, '\n',"Y: ", y, '\n',"Z: ", x, '\n',"R: ", radius, '\n',"C: ", chordLength, '\n',"Central Angle: ", centralAngle, '\n'); */
     return Math.round(radius * centralAngle);
   }
 
-  updateOperand1(event) {
-    /* update the value of operand 1.  needs validation */
-    this.setState({operand1 : event.target.value});
+  updateCoordinate1(event) {
+    /* update the value of lat 1, lat1 and coordinate1 */
+    var coord2 = $('#input2').val(); /** Used so that the output field does not display results until both coordinates are inputted are met. **/
+    this.setState({coordinate1 : event.target.value});
     this.setState({latitude1 : this.parseLocation(event)[0]});
     this.setState({longitude1 : this.parseLocation(event)[1]});
+    if (coord2.length) /** Are there coordinates in the second field? **/
+       this.setState({dist : Number(this.distance(this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.latitude2, this.state.longitude2, "M")) });
   }
 
-  updateOperand2(event) {
-    /* update the value of operand 2.  needs validation */
-    this.setState({operand2 : event.target.value});
+  updateCoordinate2(event) {
+    /* update the value of lat 2, lat2 and coordinate2 */
+    var inputField1 = $('#input1').val(); /** Used so that the output field does not display results until both coordinates are inputted are met. **/
+    this.setState({coordinate2 : event.target.value});
     this.setState({latitude2 : this.parseLocation(event)[0]});
     this.setState({longitude2 : this.parseLocation(event)[1]});
+    if (inputField1.length) /** Are there coordinates in the first field? **/
+        this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.parseLocation(event)[0], this.parseLocation(event)[1], "M")) });
   }
 
   parseLocation(event) {
@@ -89,27 +93,16 @@ class Calculator extends React.Component {
     }
   }
 
-
-  calc(event) {
-    this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.state.latitude2, this.state.longitude2, "M")) })
-    event.preventDefault();
-  }
-
   render() {
     /* a simple form with text input and a submit button  */
     return (
       <form className="form-inline" onSubmit={this.calc}>
 
-        <input type="text" className="text-right form-control mr-sm-2" 
-          value={this.state.operand1} onChange={this.updateOperand1}/>
+        <input type="text" className="text-right form-control mr-sm-2" id="input1"
+          value={this.state.coordinate1} onChange={this.updateCoordinate1}/>
 
-        <button className="btn btn-secondary mr-sm-2" disabled>+</button>
-
-        <input type="text" className="text-right form-control mr-sm-2" 
-          value={this.state.operand2} onChange={this.updateOperand2}/> 
-
-        <button className="btn btn-primary mr-sm-2" type="submit" value="submit" 
-          enabled>=</button>
+        <input type="text" className="text-right form-control mr-sm-2" id="input2"
+          value={this.state.coordinate2} onChange={this.updateCoordinate2}/>
 
         <input type="text" className="text-right form-control mr-sm-2" 
           value={this.state.dist} disabled/>
@@ -154,10 +147,9 @@ class Application extends React.Component {
     /* separate the page layout from the calculator function */
     return (
       <div className="jumbotron">
-        <h3>CS 314 - Simple Adder</h3>
+        <h3>Distance Calculator</h3>
         <hr/>
         <Calculator />
-
         <br/>
         <FileIn />
       </div>
