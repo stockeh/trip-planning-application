@@ -96,15 +96,15 @@ class Calculator extends React.Component {
   render() {
     /* a simple form with text input and a submit button  */
     return (
-      <form className="form-inline" onSubmit={this.calc}>
+      <form className="form-inline">
 
-        <input type="text" className="text-right form-control mr-sm-2" id="input1"
+        <input type="text" className="text-right form-control mr-sm-2 col-3" placeholder="Input Starting Coordinates" id="input1"
           value={this.state.coordinate1} onChange={this.updateCoordinate1}/>
 
-        <input type="text" className="text-right form-control mr-sm-2" id="input2"
+        <input type="text" className="text-right form-control mr-sm-2 col-3" placeholder="Input Ending Coordinates" id="input2"
           value={this.state.coordinate2} onChange={this.updateCoordinate2}/>
 
-        <input type="text" className="text-right form-control mr-sm-2" 
+        <input type="text" className="text-right form-control mr-sm-2" placeholder="Resulting Distance"
           value={this.state.dist} disabled/>
       </form>
 
