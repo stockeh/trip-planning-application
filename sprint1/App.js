@@ -49,41 +49,74 @@ class Calculator extends React.Component {
   }
 
   parseLocation(event) {
-    var parsed = event.target.value.match(/(-?\d+((\.\d+))*|[NSEW])+/g);
-    return this.decimalDegrees(parsed);
+    const coordRegex = /^(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?')?(?:\s\d+(?:\.\d+)?")?\s[NS])\s(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?')?(?:\s\d+(?:\.\d+)?")?\s[EW])$/;
+    const coordArr = event.target.value.match(coordRegex);
+    if(coordArr == null){
+      return null;//this is where an error should be thrown since the entered coordinates were not in a supported format
+    }
+    let coordinates = coordArr[0];
 
+    coordinates = coordinates.replace(/°|'|"/g, "");
+    const latIndex = coordinates.search(/[NS]/);
+    const longIndex = coordinates.search(/[EW]/);
+    // console.log("COORDINATES: " + coordinates);
+    if (latIndex == -1 && longIndex == -1) {  //already in correct format so return in array
+      return coordinates.split(" ");
+
+    } else if (latIndex > 0 && longIndex > 0) {  //full format must analyze both latitude and longitude returns array formatted in decimal degrees
+      const latitude = coordinates.substring(0,latIndex + 1);
+      const longitude = coordinates.substring(latIndex+2);
+      console.log(latitude);
+      const latArr = latitude.split(" ");
+      const longArr = longitude.split(" ");
+      const latDegree = this.decimalDegrees(latArr);
+      const longDegree = this.decimalDegrees(longArr);
+      const result = [latDegree,longDegree];
+      // console.log("PARSED COORDS V1: " + result);
+      return result;
+
+    }else if(latIndex > 0 && longIndex == -1){  //latitude must be reduced further but longitude is in correct format
+      const latitude = coordinates.substring(0, latIndex + 1);
+      //console.log("INDEX: " + latitude);
+      const longDegree = coordinates.substring(latIndex+2);
+      const latArr = latitude.split(" ");
+      const result = [this.decimalDegrees(latArr), longDegree];
+      // console.log("PARSED COORDS V2: " + result);
+      return result;
+
+    }else if(latIndex == -1 && longIndex > 0){  //
+      const longitude = coordinates.substring(coordinates.indexOf(" ")+1);
+      const latDegree = coordinates.substring(0,coordinates.indexOf(" "));
+      const longArr = longitude.split(" ");
+      const result = [latDegree, this.decimalDegrees(longArr)];
+      // console.log("PARSED COORDS V3: " + result);
+      return result;
+    }
   }
 
   directionHandler(degree,direction){
-    //console.log(degree + " " + direction);
+    //returns inverted decimal degree if direction is South or West
     if(direction == 'S' || direction == 'W')return -degree;
     else return degree;
   }
 
-  calculateDegrees(degrees,minutes = 0,seconds = 0){
+  calculateDegrees(degrees,minutes,seconds){
+    //returns decimal degree from passed degrees minutes and seconds
+    //minutes and seconds are not required and will default to 0
+    if(minutes === undefined)minutes = 0;
+    if(seconds === undefined)seconds = 0;
     return (Number(degrees) + Number(minutes/60) + Number(seconds/3600));
   }
 
-  decimalDegrees(parsed){
-    if(parsed == null)return "";
-    else if(parsed.length == 2)return parsed;
-    else{
-      var degrees = [];
-      var latitude = parsed.splice(0,parsed.length/2);
-      var longitude = parsed;
-      if(latitude.length == 2){
-        degrees.push(this.directionHandler(latitude[0],latitude[1]));
-        degrees.push(this.directionHandler(longitude[0],longitude[1]));
-      }else if(latitude.length == 3){
-        degrees.push(this.directionHandler(this.calculateDegrees(latitude[0],latitude[1]),latitude[2]));
-        degrees.push(this.directionHandler(this.calculateDegrees(longitude[0],longitude[1]),longitude[2]));
-      }else if(latitude.length == 4){
-        degrees.push(this.directionHandler(this.calculateDegrees(latitude[0],latitude[1],latitude[2]),latitude[3]));
-        degrees.push(this.directionHandler(this.calculateDegrees(longitude[0],longitude[1],longitude[2]),longitude[3]));
-      }
-      return degrees;
+  decimalDegrees(coordArr){
+    //accepts array of coordinates with direction as last element and reformats to decimal degrees
+    if(coordArr.length == 2){
+      return this.directionHandler(this.calculateDegrees(coordArr[0]),coordArr[1]);
+    }else if(coordArr.length == 3){
+      return this.directionHandler(this.calculateDegrees(coordArr[0], coordArr[1]),coordArr[2]);
+    }else if(coordArr.length == 4){
+      return this.directionHandler(this.calculateDegrees(coordArr[0], coordArr[1], coordArr[2]),coordArr[3]);
     }
-
   }
 
 
