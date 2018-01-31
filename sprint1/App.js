@@ -109,7 +109,7 @@ class Calculator extends React.Component {
   }
 
   decimalDegrees(coordArr){
-    //accepts array of coordinates with direction as last element and reformats to decimal degrees
+    //accepts array of coordinates with direction as last element and reformats it to decimal degrees
     if(coordArr.length == 2){
       return this.directionHandler(this.calculateDegrees(coordArr[0]),coordArr[1]);
     }else if(coordArr.length == 3){
