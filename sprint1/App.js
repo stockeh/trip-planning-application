@@ -3,15 +3,17 @@ class Calculator extends React.Component {
     super(props);
     /* state variables */
     this.state = {
-      sum: "",
-      operand1: "",
-      operand2: "",
-      operand2: ""
+      dist: "", 
+      coordinate1: "",
+      coordinate2: "",
+      latitude1: "",
+      longitude1: "",
+      latitude2: "",
+      longitude2: "",
     };
     /* must bind all functions in constructor */
-    this.calc = this.calc.bind(this);
-    this.updateOperand1 = this.updateOperand1.bind(this);
-    this.updateOperand2 = this.updateOperand2.bind(this);
+    this.updateCoordinate1 = this.updateCoordinate1.bind(this);
+    this.updateCoordinate2 = this.updateCoordinate2.bind(this);
     this.parseLocation = this.parseLocation.bind(this);
     this.decimalDegrees = this.decimalDegrees.bind(this);
   }
@@ -32,20 +34,27 @@ class Calculator extends React.Component {
     chordLength = Math.sqrt(Math.pow(x,2) + Math.pow(y,2)+Math.pow(z,2));
     centralAngle = 2 * Math.asin(chordLength / 2);
 
-    /* console.log("X: ", x, '\n',"Y: ", y, '\n',"Z: ", x, '\n',"R: ", radius, '\n',"C: ", chordLength, '\n',"Central Angle: ", centralAngle, '\n'); */
     return Math.round(radius * centralAngle);
   }
 
-  updateOperand1(event) {
-    /* update the value of operand 1.  needs validation */
-    this.setState({operand1 : event.target.value});
-    this.setState({sum : this.parseLocation(event)});
+  updateCoordinate1(event) {
+    /* update the value of lat 1, lat1 and coordinate1 */
+    var coord2 = $('#input2').val(); /** Used so that the output field does not display results until both coordinates are inputted are met. **/
+    this.setState({coordinate1 : event.target.value});
+    this.setState({latitude1 : this.parseLocation(event)[0]});
+    this.setState({longitude1 : this.parseLocation(event)[1]});
+    if (coord2.length) /** Are there coordinates in the second field? **/
+       this.setState({dist : Number(this.distance(this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.latitude2, this.state.longitude2, "M")) });
   }
-  //
-  updateOperand2(event) {
-    /* update the value of operand 2.  needs validation */
-    this.setState({operand2 : event.target.value});
-    this.setState({sum : this.parseLocation(event)});
+
+  updateCoordinate2(event) {
+    /* update the value of lat 2, lat2 and coordinate2 */
+    var inputField1 = $('#input1').val(); /** Used so that the output field does not display results until both coordinates are inputted are met. **/
+    this.setState({coordinate2 : event.target.value});
+    this.setState({latitude2 : this.parseLocation(event)[0]});
+    this.setState({longitude2 : this.parseLocation(event)[1]});
+    if (inputField1.length) /** Are there coordinates in the first field? **/
+        this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.parseLocation(event)[0], this.parseLocation(event)[1], "M")) });
   }
 
   parseLocation(event) {
@@ -92,6 +101,7 @@ class Calculator extends React.Component {
       // console.log("PARSED COORDS V3: " + result);
       return result;
     }
+    return null;
   }
 
   directionHandler(degree,direction){
@@ -129,44 +139,63 @@ class Calculator extends React.Component {
   render() {
     /* a simple form with text input and a submit button  */
     return (
-      <form className="form-inline" onSubmit={this.calc}>
+      <form className="form-inline">
 
-        <input type="text" className="text-right form-control mr-sm-2" 
-          value={this.state.operand1} onChange={this.updateOperand1}/>
+        <input type="text" className="text-right form-control mr-sm-2 col-3" placeholder="Input Starting Coordinates" id="input1"
+          value={this.state.coordinate1} onChange={this.updateCoordinate1}/>
 
-        <button className="btn btn-secondary mr-sm-2" disabled>+</button>
+        <input type="text" className="text-right form-control mr-sm-2 col-3" placeholder="Input Ending Coordinates" id="input2"
+          value={this.state.coordinate2} onChange={this.updateCoordinate2}/>
 
-        <input type="text" className="text-right form-control mr-sm-2" 
-          value={this.state.operand2} onChange={this.updateOperand2}/> 
-
-        <button className="btn btn-primary mr-sm-2" type="submit" value="submit" 
-          disabled>=</button>
-
-        <input type="text" className="text-right form-control mr-sm-2" 
-          value={this.state.sum} disabled/>
+        <input type="text" className="text-right form-control mr-sm-2" placeholder="Resulting Distance"
+          value={this.state.dist} disabled/>
       </form>
 
     )
   }
 }
 
+class FileIn extends React.Component {
+
+    fileListener(event) {
+        var reader = new FileReader();
+        reader.onload = this.onReaderLoad;
+        reader.readAsText(event.target.files[0]);
+    }
+
+    onReaderLoad(event){
+        console.log(event.target.result);
+        var obj = JSON.parse(event.target.result);
+        console.log(obj[0].id);
+    }
+
+    render() {
+      return (
+        <div className="fileinput fileinput-new" data-provides="fileinput">
+          <p>Select file to process</p>
+          <input id="upload" ref="upload" type="file" onChange={(event)=> {
+            this.fileListener(event)
+          }}
+            onClick={(event)=> {
+            event.target.value = null
+          }} />
+        </div>
+      )
+    }
+}
+
 class Application extends React.Component {
+
   render() {
     /* separate the page layout from the calculator function */
     return (
       <div className="jumbotron">
-        <h3>CS 314 - Simple Adder</h3>
+        <h3>Distance Calculator</h3>
         <hr/>
         <Calculator />
-      
         <br/>
-        
-        <div className="fileinput fileinput-new" data-provides="fileinput">
-          <p>Select file to process</p>
-          <span className="btn btn-default btn-file"><span></span><input type="file" /></span>
-          <span className="fileinput-filename"></span><span className="fileinput-new"></span>
-        </div>
-      </div>  
+        <FileIn />
+      </div>
     )
   }
 }
