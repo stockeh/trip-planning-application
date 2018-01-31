@@ -21,6 +21,7 @@ class Calculator extends React.Component {
   toRadians(angle) { return angle * (Math.PI / 180); }
 
   distance(lat1, lon1, lat2, lon2, unit) {
+    console.log("Lat1: " + lat1 + " Long1: " + lon1 + " Lat2: " + lat2 + " lon2: " +lon2 + " Unit: " + unit);
     var x, y, z, radius, chordLength, centralAngle;
     if (unit == "K")
         radius = 6371.0088;
@@ -58,14 +59,15 @@ class Calculator extends React.Component {
   }
 
   parseLocation(event) {
-    const coordRegex = /^(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?')?(?:\s\d+(?:\.\d+)?")?\s[NS])\s(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?')?(?:\s\d+(?:\.\d+)?")?\s[EW])$/;
+    //returns null if coordinate format is invalid
+    const coordRegex = /^(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?['|`|'|‘|’|′])?(?:\s\d+(?:\.\d+)?["|”|“|″])?\s[NS])\s(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?['|`|'|‘|’|′])?(?:\s\d+(?:\.\d+)?["|”|“|″])?\s[EW])$/;
     const coordArr = event.target.value.match(coordRegex);
     if(coordArr == null){
       return null;//this is where an error should be thrown since the entered coordinates were not in a supported format
     }
     let coordinates = coordArr[0];
 
-    coordinates = coordinates.replace(/°|'|"/g, "");
+    coordinates = coordinates.replace(/°|'|`|'|‘|’|′|"|”|“|″/g, "");
     const latIndex = coordinates.search(/[NS]/);
     const longIndex = coordinates.search(/[EW]/);
     // console.log("COORDINATES: " + coordinates);
