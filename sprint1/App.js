@@ -78,11 +78,10 @@ class Calculator extends React.Component {
     let coordinates = coordArr[0];
     coordinates = coordinates.replace(/°|'|`|'|‘|’|′|"|”|“|″/g, "");
     coordinates = coordinates.replace(/\s\s+/g,' ');
-    const latIndex = coordinates.search(/[NS]/);
-    const longIndex = coordinates.search(/[EW]/);
     if(coordinates.charAt(0) == " ")coordinates = coordinates.substring(1);
     if(coordinates.charAt(coordinates.length-1) == " ") coordinates = coordinates.substring(0, coordinates.length -1);
-
+    const latIndex = coordinates.search(/[NS]/);
+    const longIndex = coordinates.search(/[EW]/);
     // console.log("COORDINATES: " + coordinates);
     let result = null;
     if (latIndex == -1 && longIndex == -1) {  //already in correct format so return in array
