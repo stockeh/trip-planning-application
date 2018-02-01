@@ -10,12 +10,14 @@ class Calculator extends React.Component {
       longitude1: "",
       latitude2: "",
       longitude2: "",
+      unit: "mi"
     };
     /* must bind all functions in constructor */
     this.updateCoordinate1 = this.updateCoordinate1.bind(this);
     this.updateCoordinate2 = this.updateCoordinate2.bind(this);
     this.parseLocation = this.parseLocation.bind(this);
     this.decimalDegrees = this.decimalDegrees.bind(this);
+    this.updateUnit = this.updateUnit.bind(this);
   }
 
   toRadians(angle) { return angle * (Math.PI / 180); }
@@ -23,7 +25,7 @@ class Calculator extends React.Component {
   distance(lat1, lon1, lat2, lon2, unit) {
     console.log("Lat1: " + lat1 + " Long1: " + lon1 + " Lat2: " + lat2 + " lon2: " +lon2 + " Unit: " + unit);
     var x, y, z, radius, chordLength, centralAngle;
-    if (unit == "K")
+    if (unit == "km")
         radius = 6371.0088;
     else radius = 3958.7613;
     x = Math.cos(this.toRadians(lat2)) * Math.cos(this.toRadians(lon2)) -
@@ -45,7 +47,7 @@ class Calculator extends React.Component {
     this.setState({latitude1 : this.parseLocation(event)[0]});
     this.setState({longitude1 : this.parseLocation(event)[1]});
     if (coord2.length) /** Are there coordinates in the second field? **/
-       this.setState({dist : Number(this.distance(this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.latitude2, this.state.longitude2, "M")) });
+       this.setState({dist : Number(this.distance(this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.latitude2, this.state.longitude2, this.state.unit)) });
   }
 
   updateCoordinate2(event) {
@@ -55,7 +57,7 @@ class Calculator extends React.Component {
     this.setState({latitude2 : this.parseLocation(event)[0]});
     this.setState({longitude2 : this.parseLocation(event)[1]});
     if (inputField1.length) /** Are there coordinates in the first field? **/
-        this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.parseLocation(event)[0], this.parseLocation(event)[1], "M")) });
+        this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.unit)) });
   }
 
   parseLocation(event) {
@@ -131,30 +133,46 @@ class Calculator extends React.Component {
     }
   }
 
+    updateUnit(event) {
+        this.setState({unit : event.target.value});
+        this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.state.latitude2, this.state.longitude2, event.target.value)) });
+    }
 
-  calc(event) {
-    /* Operands are text.  Must convert to add rather than concatenate. */
-    this.setState({sum : Number(this.state.operand1) + Number(this.state.operand2) })
-    event.preventDefault();
-  }
+    render() {
+        /* a simple form with text input and a submit button  */
+        return (
+            <form>
+                <div className="row">
+                    <div className="col-md-4">
+                        <input type="text" className="text-right form-control mr-sm-2" placeholder="Input Starting Coordinates" id="input1"
+                               value={this.state.coordinate1} onChange={this.updateCoordinate1}/>
+                    </div>
+                    <div className="col-md-4">
+                        <input type="text" className="text-right form-control mr-sm-2" placeholder="Input Ending Coordinates" id="input2"
+                               value={this.state.coordinate2} onChange={this.updateCoordinate2}/>
+                    </div>
+                </div>
 
-  render() {
-    /* a simple form with text input and a submit button  */
-    return (
-      <form className="form-inline">
-
-        <input type="text" className="text-right form-control mr-sm-2 col-3" placeholder="Input Starting Coordinates" id="input1"
-          value={this.state.coordinate1} onChange={this.updateCoordinate1}/>
-
-        <input type="text" className="text-right form-control mr-sm-2 col-3" placeholder="Input Ending Coordinates" id="input2"
-          value={this.state.coordinate2} onChange={this.updateCoordinate2}/>
-
-        <input type="text" className="text-right form-control mr-sm-2" placeholder="Resulting Distance"
-          value={this.state.dist} disabled/>
-      </form>
-
-    )
-  }
+                <div className="row mt-3">
+                    <div className="col-md-4">
+                        <input type="text" className="text-right form-control mr-sm-2" placeholder="Resulting Distance"
+                               value={this.state.dist} disabled/>
+                    </div>
+                    <div className="col-md-4 mt-1">
+                        <div className="btn-group">
+                            <label className="btn btn-outline-dark btn-sm">
+                                <input value="mi" type="radio" onChange={this.updateUnit} checked={this.state.unit == "mi"}/> Miles
+                            </label>
+                            <label className="btn btn-outline-dark btn-sm">
+                                <input value="km" type="radio" onChange={this.updateUnit} checked={this.state.unit == "km"}/> Kilometers
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+            </form>
+        )
+    }
 }
 
 class FileIn extends React.Component {
@@ -195,8 +213,8 @@ class Application extends React.Component {
         <h3>Distance Calculator</h3>
         <hr/>
         <Calculator />
-        <br/>
-        <FileIn />
+        {/*<br/>*/}
+        {/*<FileIn />*/}
       </div>
     )
   }
