@@ -70,19 +70,22 @@ class Calculator extends React.Component {
 
   parseLocation(event) {
     //returns null if coordinate format is invalid
-    const coordRegex = /^(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?['|`|'|‘|’|′])?(?:\s\d+(?:\.\d+)?["|”|“|″])?\s[NS])\s(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?['|`|'|‘|’|′])?(?:\s\d+(?:\.\d+)?["|”|“|″])?\s[EW])$/;
+    const coordRegex = /^\s*(?:-?\d+(?:\.\d+)?\s*[NS]?|(?:\d+(?:\.\d+)?\s*°)(?:\s*\d+(?:\.\d+)?\s*['|`|'|‘|’|′])?(?:\s*\d+(?:\.\d+)?\s*["|”|“|″])?\s*[NS])\s*(?:\s-?\d+(?:\.\d+)?\s*[EW]?|(?:\d+(?:\.\d+)?\s*°)(?:\s*\d+(?:\.\d+)?\s*['|`|'|‘|’|′])?(?:\s*\d+(?:\.\d+)?\s*["|”|“|″])?\s*[EW])\s*$/;
     const coordArr = event.target.value.match(coordRegex);
     if(coordArr == null){//this is where an error should be thrown since the entered coordinates were not in a supported format
       return [-1000,-1000];
     }
     let coordinates = coordArr[0];
     coordinates = coordinates.replace(/°|'|`|'|‘|’|′|"|”|“|″/g, "");
+    coordinates = coordinates.replace(/\s\s+/g,' ');
+    if(coordinates.charAt(0) == " ")coordinates = coordinates.substring(1);
+    if(coordinates.charAt(coordinates.length-1) == " ") coordinates = coordinates.substring(0, coordinates.length -1);
     const latIndex = coordinates.search(/[NS]/);
     const longIndex = coordinates.search(/[EW]/);
     // console.log("COORDINATES: " + coordinates);
     let result = null;
     if (latIndex == -1 && longIndex == -1) {  //already in correct format so return in array
-      result = coordinates.split(" ")
+      result = coordinates.split(" ");
 
     } else if (latIndex > 0 && longIndex > 0) {  //full format must analyze both latitude and longitude returns array formatted in decimal degrees
       const latitude = coordinates.substring(0,latIndex + 1);
