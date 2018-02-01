@@ -23,7 +23,7 @@ class Calculator extends React.Component {
   toRadians(angle) { return angle * (Math.PI / 180); }
 
   distance(lat1, lon1, lat2, lon2, unit) {
-    console.log("Lat1: " + lat1 + " Long1: " + lon1 + " Lat2: " + lat2 + " lon2: " +lon2 + " Unit: " + unit);
+    if(lat1 == -1000 || lat2 == -1000 || lon1 == -1000 || lat2 == -1000)return null;
     var x, y, z, radius, chordLength, centralAngle;
     if (unit == "km")
         radius = 6371.0088;
@@ -46,8 +46,12 @@ class Calculator extends React.Component {
     this.setState({coordinate1 : event.target.value});
     this.setState({latitude1 : this.parseLocation(event)[0]});
     this.setState({longitude1 : this.parseLocation(event)[1]});
-    if (coord2.length) /** Are there coordinates in the second field? **/
-       this.setState({dist : Number(this.distance(this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.latitude2, this.state.longitude2, this.state.unit)) });
+    if (coord2.length){ /** Are there coordinates in the second field? **/
+      var temp = this.distance(this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.latitude2, this.state.longitude2, this.state.unit);
+      if (temp != null)
+        this.setState({dist: Number(temp)});
+      else this.setState({dist: "Invalid Format"});
+    }
   }
 
   updateCoordinate2(event) {
@@ -56,56 +60,59 @@ class Calculator extends React.Component {
     this.setState({coordinate2 : event.target.value});
     this.setState({latitude2 : this.parseLocation(event)[0]});
     this.setState({longitude2 : this.parseLocation(event)[1]});
-    if (inputField1.length) /** Are there coordinates in the first field? **/
-        this.setState({dist : Number(this.distance(this.state.latitude1, this.state.longitude1, this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.unit)) });
+    if (inputField1.length) {/** Are there coordinates in the first field? **/
+      var temp = this.distance(this.state.latitude1, this.state.longitude1, this.parseLocation(event)[0], this.parseLocation(event)[1], this.state.unit);
+      if (temp != null)
+        this.setState({dist: Number(temp)});
+      else this.setState({dist: "Invalid Format"});
+    }
   }
 
   parseLocation(event) {
     //returns null if coordinate format is invalid
     const coordRegex = /^(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?['|`|'|‘|’|′])?(?:\s\d+(?:\.\d+)?["|”|“|″])?\s[NS])\s(?:-?\d+(?:\.\d+)?|(?:\d+(?:\.\d+)?°)(?:\s\d+(?:\.\d+)?['|`|'|‘|’|′])?(?:\s\d+(?:\.\d+)?["|”|“|″])?\s[EW])$/;
     const coordArr = event.target.value.match(coordRegex);
-    if(coordArr == null){
-      return null;//this is where an error should be thrown since the entered coordinates were not in a supported format
+    if(coordArr == null){//this is where an error should be thrown since the entered coordinates were not in a supported format
+      return [-1000,-1000];
     }
     let coordinates = coordArr[0];
-
     coordinates = coordinates.replace(/°|'|`|'|‘|’|′|"|”|“|″/g, "");
     const latIndex = coordinates.search(/[NS]/);
     const longIndex = coordinates.search(/[EW]/);
     // console.log("COORDINATES: " + coordinates);
+    let result = null;
     if (latIndex == -1 && longIndex == -1) {  //already in correct format so return in array
-      return coordinates.split(" ");
+      result = coordinates.split(" ")
 
     } else if (latIndex > 0 && longIndex > 0) {  //full format must analyze both latitude and longitude returns array formatted in decimal degrees
       const latitude = coordinates.substring(0,latIndex + 1);
       const longitude = coordinates.substring(latIndex+2);
-      console.log(latitude);
       const latArr = latitude.split(" ");
       const longArr = longitude.split(" ");
       const latDegree = this.decimalDegrees(latArr);
       const longDegree = this.decimalDegrees(longArr);
-      const result = [latDegree,longDegree];
+      result = [latDegree,longDegree];
       // console.log("PARSED COORDS V1: " + result);
-      return result;
 
     }else if(latIndex > 0 && longIndex == -1){  //latitude must be reduced further but longitude is in correct format
       const latitude = coordinates.substring(0, latIndex + 1);
       //console.log("INDEX: " + latitude);
       const longDegree = coordinates.substring(latIndex+2);
       const latArr = latitude.split(" ");
-      const result = [this.decimalDegrees(latArr), longDegree];
+      result = [this.decimalDegrees(latArr), longDegree];
       // console.log("PARSED COORDS V2: " + result);
-      return result;
 
     }else if(latIndex == -1 && longIndex > 0){  //
       const longitude = coordinates.substring(coordinates.indexOf(" ")+1);
       const latDegree = coordinates.substring(0,coordinates.indexOf(" "));
       const longArr = longitude.split(" ");
-      const result = [latDegree, this.decimalDegrees(longArr)];
+      result = [latDegree, this.decimalDegrees(longArr)];
       // console.log("PARSED COORDS V3: " + result);
-      return result;
     }
-    return null;
+    if(result[0] > 90 || result[0] < -90 || result[1] > 180 || result[1] < -180 || result == null){
+      result = [-1000,-1000];
+    }
+    return result;
   }
 
   directionHandler(degree,direction){
