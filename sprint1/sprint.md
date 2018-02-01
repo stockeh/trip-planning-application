@@ -42,26 +42,24 @@ Epics planned for this release.
 ## Review
 
 #### Completed user stories (epics) in Sprint Backlog
-* *user story*:  *comments*
-*
+* none
 
 #### Incomplete user stories / epics in Sprint Backlog
-* *user story*: *Explanation...*
-*
+* #51 Read in JSON file to form itinerary: Didn't have enough time to complete task.
 
 #### What went well
-* *something*
-*
+* Team go to know each other
+* We know how to use Bootstrap, HTML and ReactJS fairly well
+* We used gitHub well, using pull requests before pushing our code
 
 #### Problems encountered and resolutions
-* *something*
-*
+* Figuring out how to parse input using regular expressions. Took lots of time studying how regex works.
+* Learning how to configure radio buttons. Team worked together to have a working product.
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  |
-What we did well |  |  |
-What we need to work on |  |  |
-What we will change next time |  |  |
+What we did well | Inital communication | Happy the way we used git and gitHub | Using IntelliJ helped a lot!
+What we need to work on | More communication and following through | More commits, and testing for each commit | Get student version of IntelliJ before it expires
+What we will change next time | More communication, especially when hitting a wall | More testing! | Have a full storyboard
