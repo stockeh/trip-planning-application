@@ -223,8 +223,8 @@ class Application extends React.Component {
         <h3>Distance Calculator</h3>
         <hr/>
         <Calculator />
-        {/*<br/>*/}
-        {/*<FileIn />*/}
+        <br/>
+        <FileIn />
       </div>
     )
   }
