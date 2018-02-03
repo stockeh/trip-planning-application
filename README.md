@@ -10,3 +10,5 @@
 ### Sprint Leaders
 * Sprint 1
   - Jason Stock
+* Sprint 2
+  - Evan Steiner
