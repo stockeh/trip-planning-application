@@ -17,17 +17,35 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnit4.class)
 public class TestDist {
   CoordinateDistance distance;
+  CoordinateDistance distanceKM;
 
-  // Setup to be done before every test in TestPlan
+  // Setup to be done before every test in TestDist
   @Before
   public void initialize() {
     distance = new CoordinateDistance();
+    distanceKM = new CoordinateDistance("kilometers");
   }
 
+  @Test
+  public void testConversion() {
+    assertEquals(Math.PI / 6, distance.convertToRadian("30"), .0000);
+    assertEquals(Math.PI / 3, distance.convertToRadian("60"), .0000);
+    assertEquals(Math.PI / 2, distance.convertToRadian("90"), .0000);
+
+    assertEquals(-3 * Math.PI / 6, distance.convertToRadian("-90"), .0000);
+    assertEquals(0, distance.convertToRadian("0"), .0000);
+  }
+
+  @Test
+  public void testUnits() {
+    assertEquals("miles", distance.distance);
+    assertEquals("kilometers", distanceKM.distance);
+  }
 
   @Test
   public void testDistances() {
-    // Call the equals() method of the first object on the second object.
-    assertEquals(3959, distance.greatCirDist("", "","", ""));
+    assertEquals(0, distance.greatCirDist("", "","", ""));
+    assertEquals(1382, distance.greatCirDist("40.445", "-79.982","20.445", "-79.982"));
+    assertEquals(2224, distanceKM.greatCirDist("40.445", "-79.982","20.445", "-79.982"));
   }
 }

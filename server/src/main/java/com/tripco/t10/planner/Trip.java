@@ -49,12 +49,19 @@ public class Trip {
   private ArrayList<Integer> legDistances() {
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
-    if (places != null) {
-      CoordinateDistance distance = new CoordinateDistance();
-      distance.greatCirDist(this.places.get(0).latitude, this.places.get(0).longitude,
-              this.places.get(1).latitude, this.places.get(1).longitude);
+    if (this.places != null) {
+      if (!this.places.get(0).latitude.isEmpty()) { /* Temp. while still integrating itinerary. */
+        CoordinateDistance distance = new CoordinateDistance();
+
+        for (int i = 0; i < this.places.size() - 1; i++) /* Append all dest1 < - > dest2 to dist */
+          dist.add(distance.greatCirDist(this.places.get(i).latitude, this.places.get(i).longitude,
+                  this.places.get(i + 1).latitude, this.places.get(i + 1).longitude));
+
+        dist.add(distance.greatCirDist(this.places.get(this.places.size() - 1).latitude,
+                this.places.get(this.places.size() - 1).longitude, this.places.get(0).latitude, this.places.get(0).longitude));
+
+      }
     }
-    // hardcoded example
     dist.add(12);
     dist.add(23);
     dist.add(34);
