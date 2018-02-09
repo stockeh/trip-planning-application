@@ -28,7 +28,7 @@ public class Trip {
 
     this.map = svg();
     this.distances = legDistances();
-
+    System.out.println("TRIP.java - trip.title: " + this.title + ", type: " + this.type);
   }
 
   /**
@@ -49,7 +49,11 @@ public class Trip {
   private ArrayList<Integer> legDistances() {
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
-
+    if (places != null) {
+      CoordinateDistance distance = new CoordinateDistance();
+      distance.greatCirDist(this.places.get(0).latitude, this.places.get(0).longitude,
+              this.places.get(1).latitude, this.places.get(1).longitude);
+    }
     // hardcoded example
     dist.add(12);
     dist.add(23);
