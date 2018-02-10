@@ -25,7 +25,7 @@ public class Plan {
    */
   public Plan (Request request) {
     // first print the request
-    System.out.println(HTTP.echoRequest(request));
+    System.out.println("Request: " + HTTP.echoRequest(request));
 
     // extract the information from the body of the request.
     JsonParser jsonParser = new JsonParser();
@@ -39,7 +39,7 @@ public class Plan {
     trip.plan();
 
     // log something.
-    System.out.println(trip.title);
+    System.out.println("PLAN.java - " + trip.places.get(0).id);
   }
 
   /** Handles the response for a Trip object.
