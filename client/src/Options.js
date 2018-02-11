@@ -12,8 +12,8 @@ class Options extends Component{
   }
 
   changeOption(arg) {
-    console.log(arg);
-    //this.props.updateOptions(arg);
+    // console.log("changeOption " + arg.target.id);
+    this.props.updateOptions(arg.target.id);
   }
 
   render() {
@@ -25,12 +25,12 @@ class Options extends Component{
           </div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
-            <div className="btn-group btn-group-toggle" data-toggle="buttons">
-              <label className="btn btn-outline-dark active">
-                <input type="radio" id="miles" name="distance" autcomplete="off" defaultChecked/> Miles
+            <div className="btn-group">
+              <label className="btn btn-outline-dark btn-sm">
+                <input type="radio" id="miles" name="distance" onChange={this.changeOption}defaultChecked/> Miles
               </label>
-              <label className="btn btn-outline-dark ">
-                <input type="radio" id="kilometers" name="distance" autcomplete="off"/> Kilometers
+              <label className="btn btn-outline-dark btn-sm">
+                <input type="radio" id="kilometers" name="distance" onChange={this.changeOption}/> Kilometers
               </label>
             </div>
           </div>

@@ -28,12 +28,12 @@ public class TestDist {
 
   @Test
   public void testConversion() {
-    assertEquals(Math.PI / 6, distance.convertToRadian("30"), .0000);
-    assertEquals(Math.PI / 3, distance.convertToRadian("60"), .0000);
-    assertEquals(Math.PI / 2, distance.convertToRadian("90"), .0000);
+    assertEquals(Math.PI / 6, distance.convertToRadian("30"), .00000001);
+    assertEquals(Math.PI / 3, distance.convertToRadian("60"), .00000001);
+    assertEquals(Math.PI / 2, distance.convertToRadian("90"), .00000001);
 
-    assertEquals(-3 * Math.PI / 6, distance.convertToRadian("-90"), .0000);
-    assertEquals(0, distance.convertToRadian("0"), .0000);
+    assertEquals(-3 * Math.PI / 6, distance.convertToRadian("-90"), .00000001);
+    assertEquals(0, distance.convertToRadian("0"), .00000001);
   }
 
   @Test

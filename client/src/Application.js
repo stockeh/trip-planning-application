@@ -25,13 +25,16 @@ class Application extends Component {
 
   updateTrip(tffi){
     console.log("updateTrip");
-    console.log(tffi);
+    console.log("TFFI " + tffi);
     this.setState({trip:tffi});
   }
 
-  updateOptions(options){
-    console.log(options);
+  updateOptions(opt){
     // update the options in the trip.
+    console.log("APPLICATION " + opt);
+    var newDistance = Object.assign({}, this.state.trip);
+    newDistance.options.distance = opt;
+    this.setState({ trip: newDistance});
   }
 
   render() {

@@ -11,13 +11,19 @@ class Destinations extends Component {
   constructor(props) {
     super(props);
     this.loadTFFI = this.loadTFFI.bind(this);
+    this.parseFileLoad = this.parseFileLoad.bind(this);
   }
 
   loadTFFI(event) {
-    console.log(event.target.files[0].name);
-    // now you need to read the file and create a JSON.
-    // then you need to set the trip property
-    // this.props.updateTrip(??);
+    // console.log(event.target.files[0].name);
+    var reader = new FileReader();
+    reader.onload = this.parseFileLoad;
+    reader.readAsText(event.target.files[0]);
+  }
+  parseFileLoad(event){
+    // console.log(event.target.result);
+    var json = JSON.parse(event.target.result);
+    this.props.updateTrip(json);
   }
 
   render() {
