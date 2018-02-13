@@ -22,20 +22,13 @@ class Trip extends Component {
   fetchResponse(){
     // need to get the request body from the trip in state object.
     let requestBody = {
-        "type"    : "trip",
-        "title"   : "PLANNING",
+        "type"    : this.props.trip.type,
+        "title"   : "",
         "options" : { 
-          "distance":"miles",
+          "distance": this.props.trip.options.distance,
           "optimization":"none"
         },
-        "places"  : [
-          {"id":"dnvr", "name":"Denver", "latitude": "", "longitude": ""},
-          {"id":"bldr", "name":"Boulder", "latitude": "", "longitude": ""},
-          {"id":"foco", "name":"Fort Collins", "latitude": "", "longitude": ""},
-          {"id":"grly", "name":"Greeley", "latitude": "", "longitude": ""},
-          {"id":"fomo", "name":"Fort Morgan", "latitude": "", "longitude": ""},
-          {"id":"frst", "name":"Firestone", "latitude": "", "longitude": ""}
-          ]
+        "places"  : this.props.trip.places
       };
 
     console.log(process.env.SERVICE_URL);
