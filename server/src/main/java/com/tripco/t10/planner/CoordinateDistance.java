@@ -8,6 +8,10 @@ public class CoordinateDistance {
 
   public CoordinateDistance(String distance) { this.distance = distance; }
 
+  public double parseLatLong(String coordinate, boolean isLatitude){
+    return 0;
+  }
+
   public double convertToRadian(String angle) {
     if (angle.isEmpty()) angle += "0";
     return Double.parseDouble(angle) * (Math.PI / 180);
