@@ -1,4 +1,5 @@
 package com.tripco.t10.planner;
+import java.util.regex.*;
 
 public class CoordinateDistance {
 
@@ -9,7 +10,23 @@ public class CoordinateDistance {
   public CoordinateDistance(String distance) { this.distance = distance; }
 
   public double parseLatLong(String coordinate, boolean isLatitude){
+    coordinate = coordinate.trim();
+    Pattern format = Pattern.compile("^(?:(?:-?\\d+(?:\\.\\d+)?)|(?:\\d+(?:\\.\\d+)?\\s*°)(?:\\s*\\d+(?:\\.\\d+)?\\s*['|`|'|‘|’|′])?(?:\\s*\\d+(?:\\.\\d+)?\\s*[\"|”|“|″])?)\\s*[N|S|E|W]?$");
+    Matcher verifier = format.matcher(coordinate);
+    System.out.println("VERIFIER: " + verifier.matches());
+    if(verifier.matches()) {  //check if string matches format
+      coordinate = coordinate.replaceAll("[°|'|`|'|‘|’|′|\"|”|“|″]", " ");  //remove unnecessary characters from string
+      coordinate = coordinate.replaceAll("([N|S|E|W])", " $1");  //add extra spaces for parsing reasons
+      coordinate = coordinate.replaceAll("\\s+", " ");   //remove unnecessary spaces to prepare for split into array
+
+      if(isLatitude){
+
+      }else{
+
+      }
+    }else return -1000;
     return 0;
+//    System.out.println("COORDINATE: " + coordinate);
   }
 
   public double convertToRadian(String angle) {

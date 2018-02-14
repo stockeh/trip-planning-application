@@ -51,9 +51,9 @@ public class TestDist {
 
   @Test
   public void testParseLat() {
+    assertEquals(88.2 + (20.34 / 60) + (38.1 / 3600), distance.parseLatLong("88.2°20.34'38.1\"N", true),.00000001);  //test no spaces
     assertEquals(43.35 + (32 / 60) + (42.12 / 3600), distance.parseLatLong("43.35° 32' 42.12\" N", true),.00000001);  //test latitude general form
     assertEquals(-43.35 - (32 / 60) - (42.12 / 3600), distance.parseLatLong("43.35° 32' 42.12\" S", true),.00000001); //test negative sign
-    assertEquals(88.2 + (20.34 / 60) + (38.1 / 3600), distance.parseLatLong("88.2°20.34'38.1\"N", true),.00000001);  //test no spaces
     assertEquals(88.2 + (38.1 / 3600), distance.parseLatLong("88.2° 38.1\"", true),.00000001);  //test that direction isnt required
   }
 
@@ -63,7 +63,7 @@ public class TestDist {
     assertEquals(-88.2-(20.34/60)-(100.12/3600), distance.parseLatLong("31.2° 20' 100.12\" W",false),.00000001);  //test west and carryover from seconds
     assertEquals(179.32, distance.parseLatLong("   179.32   ",false),.00000001);  //test already in format longitude degrees and extra spaces
     assertEquals(-143.95, distance.parseLatLong("143.95° W",false),.00000001);  //test only degrees
-
+    assertEquals(143.95 + (32.1/60), distance.parseLatLong("143.95° 32.1'",false),.00000001);  //test no direction in full format
 
   }
 
