@@ -54,6 +54,16 @@ class Trip extends Component {
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){
+      let saveBody = {
+          "type"    : this.props.trip.type,
+          "title"   : "",
+          "options" : {
+              "distance": this.props.trip.options.distance,
+              "optimization":"none"
+          },
+          "places"  : this.props.trip.places
+      };
+      console.log(saveBody);
   }
 
   /* Renders the buttons, map, and itinerary.
