@@ -28,7 +28,8 @@ class Trip extends Component {
           "distance": this.props.trip.options.distance,
           "optimization":"none"
         },
-        "places"  : this.props.trip.places
+        "places"  : this.props.trip.places,
+        "map"     : this.props.trip.map
       };
 
     console.log(process.env.SERVICE_URL);
@@ -61,9 +62,14 @@ class Trip extends Component {
               "distance": this.props.trip.options.distance,
               "optimization":"none"
           },
-          "places"  : this.props.trip.places
+          "places"  : this.props.trip.places,
+          "map"     : this.props.trip.map
       };
-      console.log(saveBody);
+      console.log (saveBody);
+
+      var dirName = "";
+      var fileName = "";
+       
   }
 
   /* Renders the buttons, map, and itinerary.
