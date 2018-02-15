@@ -73,7 +73,9 @@ class Trip extends Component {
 
       var fileName = this.props.trip.title;
       if (fileName == "")
-          fileName = "Trip.json"
+          fileName = "Trip0000.json";
+      else
+          fileName += ".json";
 
 
       var blob = new Blob ([JSON.stringify(saveBody)], { type: 'text/plain' }),
