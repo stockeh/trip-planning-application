@@ -118,8 +118,9 @@ public class CoordinateDistance {
     return -1000;
   }
 
-  public double convertToRadian(Double angle) {
+  public double convertToRadian(double angle) {
 //    if (angle.isEmpty()) angle += "0";
+    if(angle == -1000)return -1;
     return angle * (Math.PI / 180);
   }
 
@@ -129,16 +130,16 @@ public class CoordinateDistance {
     if (this.distance == "kilometers")
       radius = 6371.0088;
     else radius = 3958.7613;
-    double decLat1 = parseLatLong(latitude1,true);
-    double decLat2 = parseLatLong(latitude2,true);
-    double decLong1 = parseLatLong(longitude1,false);
-    double decLong2 = parseLatLong(longitude2,false);
-    if(decLat1 == -1000 || decLat2 == -1000 || decLong1 == -1000 || decLong2 == -1000)return -1;
-    deltaX = Math.cos(this.convertToRadian(decLat2)) * Math.cos(this.convertToRadian(decLong2)) -
-            Math.cos(this.convertToRadian(decLat1)) * Math.cos(this.convertToRadian(decLong1));
-    deltaY = Math.cos(this.convertToRadian(decLat2)) * Math.sin(this.convertToRadian(decLong2)) -
-            Math.cos(this.convertToRadian(decLat1)) * Math.sin(this.convertToRadian(decLong1));
-    deltaZ = Math.sin(this.convertToRadian(decLat2)) - Math.sin(this.convertToRadian(decLat1));
+    double decLat1 = this.convertToRadian(parseLatLong(latitude1,true));
+    double decLat2 = this.convertToRadian(parseLatLong(latitude2,true));
+    double decLong1 = this.convertToRadian(parseLatLong(longitude1,false));
+    double decLong2 = this.convertToRadian(parseLatLong(longitude2,false));
+    if(decLat1 == -1 || decLat2 == -1 || decLong1 == -1 || decLong2 == -1)return -1;
+    deltaX = Math.cos(decLat2) * Math.cos(decLong2) -
+            Math.cos(decLat1) * Math.cos(decLong1);
+    deltaY = Math.cos(decLat2) * Math.sin(decLong2) -
+            Math.cos(decLat1) * Math.sin(decLong1);
+    deltaZ = Math.sin(decLat2) - Math.sin(decLat1);
 
     chordLen = Math.sqrt(Math.pow(deltaX,2) + Math.pow(deltaY,2) + Math.pow(deltaZ,2));
     centralAngle = 2 * Math.asin(chordLen / 2);
