@@ -93,5 +93,6 @@ public class TestDist {
     assertEquals(-1000, distance.parseLatLong("59.95°60' 43\" S",false),.00000001);  //test that longitude cant be north south
     assertEquals(-1000, distance.parseLatLong("        ",true),.00000001);
     assertEquals(-1000,distance.parseLatLong("20' 43 39.95° N", true),.00000001); //test out of order
+    assertEquals(-1000,distance.parseLatLong("N",true),.00000001);
   }
 }
