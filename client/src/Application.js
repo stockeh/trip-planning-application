@@ -27,6 +27,7 @@ class Application extends Component {
     console.log("updateTrip");
     console.log("TFFI " + tffi);
     this.setState({trip:tffi});
+    console.log("state.trip: " + this.state.trip.type);
   }
 
   updateOptions(opt){
