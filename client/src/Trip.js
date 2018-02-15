@@ -20,10 +20,11 @@ class Trip extends Component {
    * state for this object.
    */
   fetchResponse(){
+      var title = document.getElementsByClassName('trip-title')[0].value;
     // need to get the request body from the trip in state object.
     let requestBody = {
         "type"    : this.props.trip.type,
-        "title"   : "",
+        "title"   : title == "" ? this.props.trip.title : title,
         "options" : { 
           "distance": this.props.trip.options.distance,
           "optimization":"none"
@@ -57,7 +58,7 @@ class Trip extends Component {
   saveTFFI(){
       let saveBody = {
           "type"    : this.props.trip.type,
-          "title"   : "",
+          "title"   : this.props.trip.title,
           "options" : {
               "distance": this.props.trip.options.distance,
               "optimization":"none"
@@ -65,11 +66,16 @@ class Trip extends Component {
           "places"  : this.props.trip.places,
           "map"     : this.props.trip.map
       };
-      console.log (saveBody);
 
-      var dirName = "";
-      var fileName = "";
-       
+      var fileName = "test.json"; //this.props.trip.title;
+
+      var blob = new Blob ([JSON.stringify(saveBody)], { type: 'text/plain' }),
+          anchor = document.createElement('a');
+
+      anchor.download = fileName;
+      anchor.href = (window.URL).createObjectURL (blob);
+      anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join (':');
+      anchor.click();
   }
 
   /* Renders the buttons, map, and itinerary.
@@ -87,7 +93,7 @@ class Trip extends Component {
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
             </span>
-              <input type="text" className="form-control" placeholder="Trip title..."/>
+              <input type="text" className="form-control trip-title" placeholder="Trip title..."/>
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
             </span>
