@@ -73,7 +73,7 @@ class Trip extends Component {
 
       var fileName = this.props.trip.title;
       if (fileName == "")
-          fileName = "Trip0000.json";
+          fileName = "Trip.json";
       else
           fileName += ".json";
 
