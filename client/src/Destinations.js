@@ -24,6 +24,7 @@ class Destinations extends Component {
     // console.log(event.target.result);
     var json = JSON.parse(event.target.result);
     this.props.updateTrip(json);
+    document.getElementById('trip-title').value = this.props.trip.title;
   }
 
   render() {

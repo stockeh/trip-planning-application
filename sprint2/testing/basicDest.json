@@ -1,6 +1,6 @@
 {
   "type"      : "trip",
-  "title"     : "",
+  "title"     : "intest",
   "options"   : { "distance":"miles" },
   "places"    : [
     {"id":"dnvr", "name":"Denver", "latitude":"39.7392° N", "longitude":"104.9903° W"},
