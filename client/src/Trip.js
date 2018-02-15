@@ -21,11 +21,10 @@ class Trip extends Component {
    * state for this object.
    */
   fetchResponse(){
-      var title = document.getElementsByClassName('trip-title')[0].value;
     // need to get the request body from the trip in state object.
     let requestBody = {
         "type"    : this.props.trip.type,
-        "title"   : title == "" ? this.props.trip.title : title,
+        "title"   : this.props.trip.title,
         "options" : { 
           "distance": this.props.trip.options.distance,
           "optimization":"none"
@@ -72,7 +71,10 @@ class Trip extends Component {
           "map"     : this.props.trip.map
       };
 
-      var fileName = "test.json"; //this.props.trip.title;
+      var fileName = this.props.trip.title;
+      if (fileName == "")
+          fileName = "Trip.json"
+
 
       var blob = new Blob ([JSON.stringify(saveBody)], { type: 'text/plain' }),
           anchor = document.createElement('a');
