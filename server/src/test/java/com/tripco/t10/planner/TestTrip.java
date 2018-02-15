@@ -30,7 +30,7 @@ public class TestTrip {
   }
 
   @Test
-  public void testDistances() {
+  public void testHardDistances() {
     trip.plan();
     ArrayList<Integer> expectedDistances = new ArrayList<Integer>();
     Collections.addAll(expectedDistances, 12, 23, 34, 45, 65, 19);
