@@ -13,6 +13,7 @@ class Trip extends Component {
 
     this.plan = this.plan.bind(this);
     this.saveTFFI = this.saveTFFI.bind(this);
+    this.updateT = this.updateT.bind(this);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -53,12 +54,13 @@ class Trip extends Component {
     }
   }
 
+  updateT(event){
+      this.props.updateTitle(event.target.value);
+  }
+
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){
-      var newTitle = document.getElementById('trip-title')[0].value;
-      this.props.updateOptions(newTitle);
-
       let saveBody = {
           "type"    : this.props.trip.type,
           "title"   : this.props.trip.title,
@@ -96,7 +98,7 @@ class Trip extends Component {
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
             </span>
-              <input id="trip-title" type="text" className="form-control trip-title" placeholder="Trip title..."/>
+              <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
             </span>
