@@ -24,11 +24,12 @@ class Destinations extends Component {
     // console.log(event.target.result);
     var json = JSON.parse(event.target.result);
     this.props.updateTrip(json);
+    document.getElementById('trip-title').value = this.props.trip.title;
   }
 
   render() {
     // need to clean up the button
-    const count = 99; // need to count the number in the trip
+    const count = this.props.trip.places.length; // need to count the number in the trip
     return (
         <div id="destinations" className="card">
           <div className="card-header bg-info text-white">
