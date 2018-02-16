@@ -27,24 +27,27 @@ public class CoordinateDistance {
   //returns direction present in string or 0 if it doesn't have one.
   //coordinate should be inputted so that character is at end of string
   public char hasDirection(String coordinate){
-    char c = coordinate.charAt(coordinate.length()-1);
-    if(c == 'N' || c == 'S' || c == 'W' || c =='E'){
-      return c;
-    }else return '0';
+    if(coordinate.length() > 0) {
+      char c = coordinate.charAt(coordinate.length() - 1);
+      if (c == 'N' || c == 'S' || c == 'W' || c == 'E') {
+        return c;
+      }
+    }
+    return '0';
   }
 
   //returns true if passed direction and degree is a valid Latitude coordinate and false otherwise
   public boolean validLatitude(char direction, double degree){
     if(direction == '0' || direction == 'N' || direction == 'S'){
-      if(degree <= 90 && degree >= -90) return true;
+      if(degree <= 41 && degree >= 37) return true;
     }
     return false;
   }
 
   //returns true if passed direction and degree is a valid longitude coordinate and false otherwise
   public boolean validLongitude(char direction, double degree){
-    if(direction == '0' || direction == 'E' || direction == 'W'){
-      if(degree <= 180 && degree >= -180) return true;
+    if(direction == '0' || direction == 'W' || direction == 'E'){
+      if(degree <= -102.05 && degree >= -109.05) return true;
     }
     return false;
   }
@@ -54,7 +57,7 @@ public class CoordinateDistance {
     else return degree;
   }
 
-  //accepts location string without direction containining 0 spaces
+  //accepts location string without direction containing 0 spaces
   //returns array containing degrees minutes and seconds which are allocated to 0 if they weren't in the passed location
   public double[] getLocationArray(String coordinate){
     double[] location = {0,0,0};
@@ -91,10 +94,12 @@ public class CoordinateDistance {
   //returns -1000 if string is invalid
   public double parseLatLong(String coordinate, boolean isLatitude){
     coordinate = coordinate.trim();  //trim spaces from front and back of string
-    Pattern format = Pattern.compile("^(?:(?:-?\\d+(?:\\.\\d+)?)|(?:\\d+(?:\\.\\d+)?\\s*°)?(?:\\s*\\d+(?:\\.\\d+)?\\s*['|`|'|‘|’|′])?(?:\\s*\\d+(?:\\.\\d+)?\\s*[\"|”|“|″])?)\\s*[N|S|E|W]?$");
+    Pattern format = Pattern.compile("^\\s*(?:(?:-?\\d+(?:\\.\\d+)?)|(?:-?\\d+(?:\\.\\d+)?\\s*°)?(?:\\s*-?\\d+(?:\\.\\d+)?\\s*['|`|'|‘|’|′])?(?:\\s*-?\\d+(?:\\.\\d+)?\\s*[\"|”|“|″])?)\\s*[N|S|E|W]?\\s*$");
     Matcher verifier = format.matcher(coordinate);
     if(verifier.matches()) {  //check if string matches format
       char direction = hasDirection(coordinate);  //parse direction from string
+      coordinate.replaceAll("['|`|'|‘|’|′]","'");
+      coordinate.replaceAll("[\"|”|“|″]","\"");
       coordinate = coordinate.replaceAll("[N|S|E|W]","");  //remove direction from string
       coordinate = coordinate.replaceAll("\\s+", "");   //remove unnecessary spaces to prepare for split into array
       double[] location = getLocationArray(coordinate);
@@ -113,9 +118,10 @@ public class CoordinateDistance {
     return -1000;
   }
 
-  public double convertToRadian(String angle) {
-    if (angle.isEmpty()) angle += "0";
-    return Double.parseDouble(angle) * (Math.PI / 180);
+  public double convertToRadian(double angle) {
+//    if (angle.isEmpty()) angle += "0";
+    if(angle == -1000)return -1;
+    return angle * (Math.PI / 180);
   }
 
   public int greatCirDist(String latitude1, String longitude1, String latitude2, String longitude2) {
@@ -124,12 +130,16 @@ public class CoordinateDistance {
     if (this.distance == "kilometers")
       radius = 6371.0088;
     else radius = 3958.7613;
-
-    deltaX = Math.cos(this.convertToRadian(latitude2)) * Math.cos(this.convertToRadian(longitude2)) -
-            Math.cos(this.convertToRadian(latitude1)) * Math.cos(this.convertToRadian(longitude1));
-    deltaY = Math.cos(this.convertToRadian(latitude2)) * Math.sin(this.convertToRadian(longitude2)) -
-            Math.cos(this.convertToRadian(latitude1)) * Math.sin(this.convertToRadian(longitude1));
-    deltaZ = Math.sin(this.convertToRadian(latitude2)) - Math.sin(this.convertToRadian(latitude1));
+    double decLat1 = this.convertToRadian(parseLatLong(latitude1,true));
+    double decLat2 = this.convertToRadian(parseLatLong(latitude2,true));
+    double decLong1 = this.convertToRadian(parseLatLong(longitude1,false));
+    double decLong2 = this.convertToRadian(parseLatLong(longitude2,false));
+    if(decLat1 == -1 || decLat2 == -1 || decLong1 == -1 || decLong2 == -1)return -1;
+    deltaX = Math.cos(decLat2) * Math.cos(decLong2) -
+            Math.cos(decLat1) * Math.cos(decLong1);
+    deltaY = Math.cos(decLat2) * Math.sin(decLong2) -
+            Math.cos(decLat1) * Math.sin(decLong1);
+    deltaZ = Math.sin(decLat2) - Math.sin(decLat1);
 
     chordLen = Math.sqrt(Math.pow(deltaX,2) + Math.pow(deltaY,2) + Math.pow(deltaZ,2));
     centralAngle = 2 * Math.asin(chordLen / 2);
