@@ -1,15 +1,6 @@
 package com.tripco.t10.planner;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.tripco.t10.server.HTTP;
-import spark.Request;
-
-import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The Trip class supports TFFI so it can easily be converted to/from Json by Gson.
@@ -43,10 +34,20 @@ public class Trip {
    * It might need to reorder the places in the future.
    */
   public void plan() {
-
+    ArrayList<Double> decimalDegrees = getDecimalDegrees();
     this.map = svg();
-    this.distances = legDistances();
+    this.distances = legDistances(decimalDegrees);
     System.out.println("TRIP.java - trip.title: " + this.title + ", type: " + this.type);
+  }
+
+  public ArrayList<Double> getDecimalDegrees(){
+    Parser parser = new Parser();
+    ArrayList<Double> decimalDegrees = new ArrayList<Double>();
+    for(Place place : places){
+      decimalDegrees.add(parser.parseLatLong(place.latitude,true));
+      decimalDegrees.add(parser.parseLatLong(place.longitude,false));
+    }
+    return decimalDegrees;
   }
 
   /**
@@ -69,17 +70,17 @@ public class Trip {
    * including the return to the starting point to make a round trip.
    * @return
    */
-  public ArrayList<Integer> legDistances() {
+  public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees) {
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
     CoordinateDistance distance = new CoordinateDistance(this.options.distance);
 
-    for (int i = 0; i < this.places.size() - 1; i++) /* Append all dest1 < - > dest2 to dist */
-      dist.add(distance.greatCirDist(this.places.get(i).latitude, this.places.get(i).longitude,
-          this.places.get(i + 1).latitude, this.places.get(i + 1).longitude));
+    for (int i = 0; i < coordDegrees.size() - 2; i+=2) /* Append all dest1 < - > dest2 to dist */
+      dist.add(distance.greatCirDist(coordDegrees.get(i), coordDegrees.get(i+1),
+          coordDegrees.get(i+2), coordDegrees.get(i+3)));
 
-    dist.add(distance.greatCirDist(this.places.get(this.places.size() - 1).latitude,
-          this.places.get(this.places.size() - 1).longitude, this.places.get(0).latitude, this.places.get(0).longitude));
+    dist.add(distance.greatCirDist(coordDegrees.get(coordDegrees.size()-2),
+          coordDegrees.get(coordDegrees.size()-1), coordDegrees.get(0), coordDegrees.get(1)));
     return dist;
   }
 
