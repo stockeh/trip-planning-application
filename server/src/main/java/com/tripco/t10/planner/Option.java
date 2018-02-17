@@ -9,4 +9,8 @@ public class Option {
   public String distance;
   public String optimization;
 
+  public Option(String distance, String optimization){
+    this.distance = distance;
+    this.optimization = optimization;
+  }
 }
