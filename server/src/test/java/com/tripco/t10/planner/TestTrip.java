@@ -35,11 +35,12 @@ public class TestTrip {
 
   @Test
   public void testLegDistances() {
+    ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419));
     ArrayList<Integer> distancesM = new ArrayList<Integer>(Arrays.asList(24, 41, 59));
-    assertEquals(distancesM ,trip.legDistances());  //test miles
+    assertEquals(distancesM ,trip.legDistances(degrees));  //test miles
     trip.setOptions("kilometers");
     ArrayList<Integer> distancesKM = new ArrayList<Integer>(Arrays.asList(39, 65, 94));
-    assertEquals(distancesKM ,trip.legDistances()); //test km
+    assertEquals(distancesKM ,trip.legDistances(degrees)); //test km
   }
 
 }
