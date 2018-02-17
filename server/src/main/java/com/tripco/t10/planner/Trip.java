@@ -42,9 +42,10 @@ public class Trip {
     GatherSVG gsvg = new GatherSVG();
     String ColoradoBG = gsvg.readInSVG("/Colorado.svg");
     String SVGLines = gsvg.getSVGLines();
-    //* System.out.println(ColoradoBG); Verification of Colorado.svg */
+    System.out.println(ColoradoBG); // Verification of Colorado.svg
+    System.out.println(SVGLines); // Verification of SVGLines
     return "<svg width=\"1066.6073\" height=\"783.0824\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">" +
-            ColoradoBG + "<svg width=\"1066.6073\" height=\"783.0824\"> " +
+            ColoradoBG + "<svg id=\"svg_0\" width=\"1066.6073\" height=\"783.0824\" y=\"35\" x=\"35\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">>" +
             SVGLines + "</svg></svg>";
   }
 

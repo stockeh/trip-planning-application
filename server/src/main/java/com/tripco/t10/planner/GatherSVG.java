@@ -24,10 +24,18 @@ public class GatherSVG {
     }
   }
 
+  public String computePoints() {
+    return "";
+  }
+
   public String getSVGLines() {
     if (!fileFound) return "";
-    /* Background SVG dimensions : <svg width="1066.6073" height="783.0824" */
-    return "";
+    System.out.println("getSVGLines() ... ");
+    return "<g id=\"svg_1\">" +
+            "<title>Boarder and Points</title>" +
+            "<polygon points=\"0,0 993,0 993,710 0,710\" stroke-width=\"4\" stroke=\"brown\" fill=\"none\" id=\"svg_2\"/>" +
+            "<polyline points=\"0,0 960,480 480,0 0,480 960,0 480,480 0,0\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_3\"/>" +
+           "</g>";
   }
 
 }

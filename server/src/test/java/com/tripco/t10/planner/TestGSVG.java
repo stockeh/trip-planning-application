@@ -30,7 +30,12 @@ public class TestGSVG {
   }
 
   @Test
-  public void testgetSVGLines() {
-    assertEquals("", gsvg.getSVGLines());
+  public void testGetSVGLines() {
+    // assertEquals("", gsvg.getSVGLines());
+  }
+
+  @Test
+  public void testComputePoints() {
+     assertEquals("", gsvg.computePoints());
   }
 }
