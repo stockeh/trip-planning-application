@@ -1,15 +1,6 @@
 package com.tripco.t10.planner;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.tripco.t10.server.HTTP;
-import spark.Request;
-
-import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The Trip class supports TFFI so it can easily be converted to/from Json by Gson.
