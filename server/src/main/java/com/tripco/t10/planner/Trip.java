@@ -7,6 +7,7 @@ import com.tripco.t10.server.HTTP;
 import spark.Request;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,12 +17,26 @@ import java.util.Scanner;
  */
 public class Trip {
   // The variables in this class should reflect TFFI.
+
   public String type;
   public String title;
   public Option options;
   public ArrayList<Place> places;
   public ArrayList<Integer> distances;
   public String map;
+
+  public Trip(ArrayList<Place> places, String distance){
+    this.places = places;
+    this.options = new Option(distance,"");
+  }
+
+  public void setOptions(String distance){
+    this.options = new Option(distance, "");
+  }
+
+  public void setPlaces(ArrayList<Place> placeList){
+    places = placeList;
+  }
 
   /** The top level method that does planning.
    * At this point it just adds the map and distances for the places in order.
@@ -53,29 +68,17 @@ public class Trip {
    * including the return to the starting point to make a round trip.
    * @return
    */
-  private ArrayList<Integer> legDistances() {
+  public ArrayList<Integer> legDistances() {
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
-    if (this.places != null) {
-      if (!this.places.get(0).latitude.isEmpty()) { /* Temp. while still integrating itinerary. */
-        CoordinateDistance distance = new CoordinateDistance(this.options.distance);
+    CoordinateDistance distance = new CoordinateDistance(this.options.distance);
 
-        for (int i = 0; i < this.places.size() - 1; i++) /* Append all dest1 < - > dest2 to dist */
-          dist.add(distance.greatCirDist(this.places.get(i).latitude, this.places.get(i).longitude,
-                  this.places.get(i + 1).latitude, this.places.get(i + 1).longitude));
+    for (int i = 0; i < this.places.size() - 1; i++) /* Append all dest1 < - > dest2 to dist */
+      dist.add(distance.greatCirDist(this.places.get(i).latitude, this.places.get(i).longitude,
+          this.places.get(i + 1).latitude, this.places.get(i + 1).longitude));
 
-        dist.add(distance.greatCirDist(this.places.get(this.places.size() - 1).latitude,
-                this.places.get(this.places.size() - 1).longitude, this.places.get(0).latitude, this.places.get(0).longitude));
-
-      }
-    }
-    dist.add(12);
-    dist.add(23);
-    dist.add(34);
-    dist.add(45);
-    dist.add(65);
-    dist.add(19);
-
+    dist.add(distance.greatCirDist(this.places.get(this.places.size() - 1).latitude,
+          this.places.get(this.places.size() - 1).longitude, this.places.get(0).latitude, this.places.get(0).longitude));
     return dist;
   }
 
