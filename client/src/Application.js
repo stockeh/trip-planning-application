@@ -18,9 +18,10 @@ class Application extends Component {
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
       }
-    }
+    };
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
   }
 
   updateTrip(tffi){
@@ -38,6 +39,14 @@ class Application extends Component {
     this.setState({ trip: newDistance});
   }
 
+  updateTitle(t){
+    var newTitle = Object.assign({}, this.state.trip),
+        title = t;
+    //console.log("APPLICATION title " + title);
+    newTitle.title = title;
+    this.setState({trip: newTitle});
+  }
+
   render() {
     return(
         <div id="application" className="container">
@@ -49,7 +58,7 @@ class Application extends Component {
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
-                <Trip trip={this.state.trip} updateTrip={this.updateTrip} />
+                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle} />
             </div>
           </div>
         </div>

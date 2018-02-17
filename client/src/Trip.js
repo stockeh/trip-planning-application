@@ -13,6 +13,7 @@ class Trip extends Component {
 
     this.plan = this.plan.bind(this);
     this.saveTFFI = this.saveTFFI.bind(this);
+    this.updateT = this.updateT.bind(this);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -23,7 +24,7 @@ class Trip extends Component {
     // need to get the request body from the trip in state object.
     let requestBody = {
         "type"    : this.props.trip.type,
-        "title"   : "",
+        "title"   : this.props.trip.title,
         "options" : { 
           "distance": this.props.trip.options.distance,
           "optimization":"none"
@@ -35,7 +36,7 @@ class Trip extends Component {
     console.log(process.env.SERVICE_URL);
     console.log(requestBody);
 
-    return fetch(process.env.SERVICE_URL + '/plan', {
+      return fetch('http://' + location.host + '/plan', {
       method:"POST",
       body: JSON.stringify(requestBody)
     });
@@ -52,24 +53,39 @@ class Trip extends Component {
     }
   }
 
+  updateT(event){
+      this.props.updateTitle(event.target.value);
+  }
+
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){
       let saveBody = {
           "type"    : this.props.trip.type,
-          "title"   : "",
+          "title"   : this.props.trip.title,
           "options" : {
               "distance": this.props.trip.options.distance,
               "optimization":"none"
           },
-          "places"  : this.props.trip.places,
-          "map"     : this.props.trip.map
+          "places"      : this.props.trip.places,
+          "distances"   : this.props.trip.distances,
+          "map"         : this.props.trip.map
       };
-      console.log (saveBody);
 
-      var dirName = "";
-      var fileName = "";
-       
+      var fileName = this.props.trip.title;
+      if (fileName == "")
+          fileName = "Trip.json";
+      else
+          fileName += ".json";
+
+
+      var blob = new Blob ([JSON.stringify(saveBody)], { type: 'text/plain' }),
+          anchor = document.createElement('a');
+
+      anchor.download = fileName;
+      anchor.href = (window.URL).createObjectURL (blob);
+      anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join (':');
+      anchor.click();
   }
 
   /* Renders the buttons, map, and itinerary.
@@ -87,7 +103,7 @@ class Trip extends Component {
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
             </span>
-              <input type="text" className="form-control" placeholder="Trip title..."/>
+              <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
             </span>
