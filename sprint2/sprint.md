@@ -73,8 +73,9 @@ Story Points |  *28*  | *value*
 
 Date | Tasks done  | Tasks in progress | Impediments
 :--- | :--- | :--- | :---
-02/03/2018 | *Issues #95* | *Issues #72* | none
- | | |
+02/03/2018 | *Not Started* | *#102, #51, #107* | none
+02/13/2018 | *Issues #102, #51, #107*| *Issues #87, #94, #88*| setting up unix systems
+02/17/2018 | *Issues #87, #94, #88* | *Issues #96*| resolving unneeded code and testing
 
 
 ## Review

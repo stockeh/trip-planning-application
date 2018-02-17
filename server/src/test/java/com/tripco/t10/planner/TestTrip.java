@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.Assert.*;
@@ -16,11 +17,14 @@ import static org.junit.Assert.*;
 @RunWith(JUnit4.class)
 public class TestTrip {
   Trip trip;
-
   // Setup to be done before every test in TestPlan
   @Before
   public void initialize() {
-    trip = new Trip();
+      Place denver = new Place("dnvr", "Denver","39.7392° N", "104.9903° W");
+      Place boulder = new Place("bldr", "Boulder","40.0149900", "-105.2705500");
+      Place fortcollins = new Place("foco", "Fort Collins","40° 35' 6.9288\" N","105° 5' 3.9084\" W");
+      ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(denver,boulder,fortcollins));
+      trip = new Trip(places, "miles");
   }
 
   @Test
@@ -30,11 +34,12 @@ public class TestTrip {
   }
 
   @Test
-  public void testHardDistances() {
-    trip.plan();
-    ArrayList<Integer> expectedDistances = new ArrayList<Integer>();
-    Collections.addAll(expectedDistances, 12, 23, 34, 45, 65, 19);
-    // Call the equals() method of the first object on the second object.
-    assertEquals(expectedDistances, trip.distances);
+  public void testLegDistances() {
+    ArrayList<Integer> distancesM = new ArrayList<Integer>(Arrays.asList(24, 41, 59));
+    assertEquals(distancesM ,trip.legDistances());  //test miles
+    trip.setOptions("kilometers");
+    ArrayList<Integer> distancesKM = new ArrayList<Integer>(Arrays.asList(39, 65, 94));
+    assertEquals(distancesKM ,trip.legDistances()); //test km
   }
+
 }
