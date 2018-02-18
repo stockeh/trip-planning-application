@@ -40,19 +40,29 @@ public class GatherSVG {
     System.out.println("getSVGLines() ... ");
 
     String polyPoints = "";
-
+    String first = "", second = "", startingLocation = "";
     for (int index = 0; index < arr.size(); index++) {
+      System.out.println(arr.get(index));
       if (index % 2 == 0) // Latitude Value
-        polyPoints += Double.toString(computePoints(arr.get(index), false)) + ",";
-
+        second = Double.toString(computePoints(arr.get(index), false));
       else // Longitude Value
-        polyPoints += Double.toString(computePoints(arr.get(index), true));
+        first = Double.toString(computePoints(arr.get(index), true));
+
+      if (!first.isEmpty() && !second.isEmpty()) {
+        if (index == 1)
+          startingLocation = " " + first + "," + second;
+        polyPoints += " " + first + "," + second;
+        first = ""; second = "";
+      }
     }
+
+    polyPoints += startingLocation;
+    // System.out.println(polyPoints);
 
     return "<g id=\"svg_1\">" +
             "<title>Boarder and Points</title>" +
             "<polygon points=\"0,0 993,0 993,710 0,710\" stroke-width=\"4\" stroke=\"brown\" fill=\"none\" id=\"svg_2\"/>" +
-            "<polyline points=" + polyPoints + " fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_3\"/>" +
+            "<polyline points= \"" + polyPoints + "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_3\"/>" +
            "</g>";
   }
 

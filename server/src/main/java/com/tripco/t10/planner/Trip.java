@@ -35,7 +35,7 @@ public class Trip {
    */
   public void plan() {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
-    this.map = svg();
+    this.map = svg(decimalDegrees);
     this.distances = legDistances(decimalDegrees);
     System.out.println("TRIP.java - trip.title: " + this.title + ", type: " + this.type);
   }
@@ -54,12 +54,12 @@ public class Trip {
    * Returns an SVG containing the background and the legs of the trip.
    * @return
    */
-  private String svg() {
+  private String svg(ArrayList<Double> decimalDegrees) {
     GatherSVG gsvg = new GatherSVG();
     String ColoradoBG = gsvg.readInSVG("/Colorado.svg");
-    String SVGLines = gsvg.getSVGLines();
-    System.out.println(ColoradoBG); // Verification of Colorado.svg
-    System.out.println(SVGLines); // Verification of SVGLines
+    String SVGLines = gsvg.getSVGLines(decimalDegrees);
+//    System.out.println(ColoradoBG); // Verification of Colorado.svg
+//    System.out.println(SVGLines); // Verification of SVGLines
     return "<svg width=\"1066.6073\" height=\"783.0824\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">" +
             ColoradoBG + "<svg id=\"svg_0\" width=\"1066.6073\" height=\"783.0824\" y=\"35\" x=\"35\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">>" +
             SVGLines + "</svg></svg>";
