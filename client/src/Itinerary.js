@@ -8,7 +8,7 @@ class Itinerary extends Component {
   }
 
   createTable () {
-    let distance = 0;  // need to sum this from real the trip
+    let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = this.props.trip.options.distance;
     let dests = this.props.trip.places.map((item) => <td>{item.name}</td>);
     let dists = this.props.trip.distances.map((item) => <td>{item}</td>);
