@@ -25,9 +25,10 @@ public class CoordinateDistance {
   public int greatCirDist(double latitude1, double longitude1, double latitude2, double longitude2) {
     double deltaX, deltaY, deltaZ, radius, chordLen, centralAngle;
 
-    if (this.distance == "kilometers")
+    if (this.distance.equals("kilometers"))
       radius = 6371.0088;
     else radius = 3958.7613;
+//    System.out.println("Coord Dist: " + this.distance + " " + radius); // Check distance and radius.
     double decLat1 = this.convertToRadian(latitude1);
     double decLat2 = this.convertToRadian(latitude2);
     double decLong1 = this.convertToRadian(longitude1);

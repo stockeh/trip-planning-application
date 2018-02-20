@@ -37,12 +37,11 @@ public class GatherSVG {
 
   public String getSVGLines(ArrayList<Double> arr) {
     if (!fileFound) return "";
-    System.out.println("getSVGLines() ... ");
+//    System.out.println("getSVGLines() ... ");
 
     String polyPoints = "";
     String first = "", second = "", startingLocation = "";
     for (int index = 0; index < arr.size(); index++) {
-      System.out.println(arr.get(index));
       if (index % 2 == 0) // Latitude Value
         second = Double.toString(computePoints(arr.get(index), false));
       else // Longitude Value
@@ -57,7 +56,7 @@ public class GatherSVG {
     }
 
     polyPoints += startingLocation;
-    // System.out.println(polyPoints);
+    // System.out.println(polyPoints); // Check coordinate to pixel points next to each other.
 
     return "<g id=\"svg_1\">" +
             "<title>Boarder and Points</title>" +
