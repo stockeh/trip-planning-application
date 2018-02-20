@@ -44,8 +44,9 @@ public class Trip {
     Parser parser = new Parser();
     ArrayList<Double> decimalDegrees = new ArrayList<Double>();
     for(Place place : places){
-      decimalDegrees.add(parser.parseLatLong(place.latitude,true));
-      decimalDegrees.add(parser.parseLatLong(place.longitude,false));
+      double latitude = parser.parseLatLong(place.latitude,true);
+      double longitude = parser.parseLatLong(place.longitude,false);
+      if(latitude != -1000 && longitude != -1000){decimalDegrees.add(latitude); decimalDegrees.add(longitude);}
     }
     return decimalDegrees;
   }
