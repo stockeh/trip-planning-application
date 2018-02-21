@@ -1,32 +1,27 @@
 package com.tripco.t10.planner;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/*
-  This class contains tests for the CoordinateDistance class.
+/**
+ * This class contains tests for the Distance class.
  */
 @RunWith(JUnit4.class)
 public class TestDist {
-  CoordinateDistance distance;
-  CoordinateDistance distanceKM;
+  Distance distance;
+  Distance distanceKM;
 
   // Setup to be done before every test in TestDist
   @Before
   public void initialize() {
-    distance = new CoordinateDistance();
-    distanceKM = new CoordinateDistance("kilometers");
+    distance = new Distance("miles");
+    distanceKM = new Distance("kilometers");
   }
 
   @Test
