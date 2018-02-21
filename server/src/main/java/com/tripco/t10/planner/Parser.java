@@ -4,6 +4,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
+
+    /**
+     *
+     * @param location array is a double array of latitude or longitude
+     *                 in order of degrees minutes seconds. Should have all
+     *                 three even if some are 0
+     * @return decimalDegrees which is the coordinate converted to decimal degrees
+     */
+
     public double convertDecimalDegrees(double[] location){
         double decimalDegrees = 0;
         double divisor = 1.0;
@@ -14,8 +23,10 @@ public class Parser {
         return decimalDegrees;
     }
 
-    //returns direction present in string or 0 if it doesn't have one.
-    //coordinate should be inputted so that character is at end of string
+    /**
+     * @returns direction present in string or 0 if it doesn't have one.
+     * @param coordinate should be inputted so that character is at end of string
+     */
     public char hasDirection(String coordinate){
         if(coordinate.length() > 0) {
             char c = coordinate.charAt(coordinate.length() - 1);
@@ -26,7 +37,10 @@ public class Parser {
         return '0';
     }
 
-    //returns true if passed direction and degree is a valid Latitude coordinate and false otherwise
+    /**@returns true if passed direction and degree is a valid Latitude coordinate and false otherwise
+     *@param direction which is any char
+     *@param degree which is any double
+     */
     public boolean validLatitude(char direction, double degree){
         if(direction == '0' || direction == 'N' || direction == 'S'){
             if(degree <= 41 && degree >= 37) return true;
@@ -34,7 +48,10 @@ public class Parser {
         return false;
     }
 
-    //returns true if passed direction and degree is a valid longitude coordinate and false otherwise
+    /**@returns true if passed direction and degree is a valid longitude coordinate and false otherwise
+     *@param direction which is any char
+     *@param degree which is any double
+     */
     public boolean validLongitude(char direction, double degree){
         if(direction == '0' || direction == 'W' || direction == 'E'){
             if(degree <= -102 && degree >= -109) return true;
@@ -42,13 +59,20 @@ public class Parser {
         return false;
     }
 
+    /**
+     *
+     * @param direction is any char
+     * @param degree is any double
+     * @returns passed double inverted if direction is w or S
+     */
     public double flipDegrees(char direction, double degree){
         if(direction == 'S' || direction == 'W')return -degree;
         else return degree;
     }
 
-    //accepts location string without direction containing 0 spaces
-    //returns array containing degrees minutes and seconds which are allocated to 0 if they weren't in the passed location
+    /**@param coordinate string without direction containing 0 spaces
+     * @returns array containing degrees minutes and seconds which are allocated to 0 if they weren't in the passed location
+     */
     public double[] getLocationArray(String coordinate){
         double[] location = {0,0,0};
         boolean isSimplified = true;
@@ -79,9 +103,12 @@ public class Parser {
     }
 
 
-    //accepts a coordinate string and a boolean that is true for latitude and false for longitude
-    //parses coordinate string returning coordinate string converted to decimal degrees
-    //returns -1000 if string is invalid
+    /**@param coordinate a string of a latitude or longitude coordinate
+     *@param isLatitude a boolean that is true for latitude and false for longitude
+     *parses coordinate string
+     *@returns coordinate string converted to decimal degrees
+     *@returns -1000 if string is invalid
+     */
     public double parseLatLong(String coordinate, boolean isLatitude){
         coordinate = coordinate.trim();  //trim spaces from front and back of string
         Pattern format = Pattern.compile("^\\s*(?:(?:-?\\d+(?:\\.\\d+)?)|(?:-?\\d+(?:\\.\\d+)?\\s*°)?(?:\\s*-?\\d+(?:\\.\\d+)?\\s*['|`|'|‘|’|′])?(?:\\s*-?\\d+(?:\\.\\d+)?\\s*[\"|”|“|″])?)\\s*[N|S|E|W]?\\s*$");
