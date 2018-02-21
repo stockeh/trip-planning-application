@@ -75,7 +75,6 @@ public class Trip {
     CoordinateDistance distance = new CoordinateDistance(this.options.distance);
 
     if (coordDegrees.size() > 0)
-      dist.add(0);
     for (int i = 0; i < coordDegrees.size() - 2; i += 2) /* Append all dest1 < - > dest2 to dist */
       dist.add(distance.greatCirDist(coordDegrees.get(i), coordDegrees.get(i+1),
           coordDegrees.get(i+2), coordDegrees.get(i+3)));
