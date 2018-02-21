@@ -41,14 +41,6 @@ public class Trip {
     // System.out.println("TRIP.java - trip.title: " + this.title + ", type: " + this.type);
   }
 
-  /**
-   *
-   * @returns decimalDegrees arraylist which is arraylist of lat and long decimaldegrees
-   * from as converted from places list
-   * Note: invalid places are removed from list here if their decimaldegrees is deemed
-   * to be outside of Colorado.
-   */
-
   public ArrayList<Double> getDecimalDegrees(){
     Parser parser = new Parser();
     ArrayList<Double> decimalDegrees = new ArrayList<Double>();
