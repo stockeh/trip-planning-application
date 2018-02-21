@@ -21,16 +21,6 @@ public class Distance {
   public Distance(String distance) { this.distance = distance; }
 
   /**
-   * Converts the decimal coordinate angle to radians.
-   *
-   * @param angle Coordinate angle.  Either latitude or longitude.
-   * @return Retuns the converted value to radians.
-   */
-  public double convertToRadian(double angle) {
-    return angle * (Math.PI / 180);
-  }
-
-  /**
    * Computes the grate circle distance between two coordinates.  The distance units
    * provided from the constructor determine the radius for the computation.
    *
