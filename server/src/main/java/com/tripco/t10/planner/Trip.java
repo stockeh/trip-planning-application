@@ -41,6 +41,14 @@ public class Trip {
     // System.out.println("TRIP.java - trip.title: " + this.title + ", type: " + this.type);
   }
 
+  /**
+   *
+   * @returns decimalDegrees arraylist which is arraylist of lat and long decimaldegrees
+   * from as converted from places list
+   * Note: invalid places are removed from list here if their decimaldegrees is deemed
+   * to be outside of Colorado.
+   */
+
   public ArrayList<Double> getDecimalDegrees(){
     Parser parser = new Parser();
     ArrayList<Double> decimalDegrees = new ArrayList<Double>();
@@ -52,12 +60,6 @@ public class Trip {
         if(latitude != -1000 && longitude != -1000){decimalDegrees.add(latitude); decimalDegrees.add(longitude);}
         else iterator.remove();
     }
-//    for(Place place : places){
-//      double latitude = parser.parseLatLong(place.latitude,true);
-//      double longitude = parser.parseLatLong(place.longitude,false);
-//      if(latitude != -1000 && longitude != -1000){decimalDegrees.add(latitude); decimalDegrees.add(longitude);}
-////      else places.remove(place);
-//    }
     return decimalDegrees;
   }
 
