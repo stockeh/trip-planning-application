@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Gather SVG class is responsible for calculating the SVG points/lines given
+ * the decimale coordinates from places.  As well as reading in a SVG map to
+ * be drawn on.
+ */
 public class GatherSVG {
 
   private boolean fileFound = true;
@@ -13,8 +18,15 @@ public class GatherSVG {
                  mLongitude = -109, nLongitude = -102,
                  mLatitude = 41, nLatitude = 37;
 
+  /**
+   * Returns in the SVG from the .jar file as a String.
+   * This is later injected to a string for the map.
+   * @see Trip#svg(ArrayList) Method to return too.
+   * @param svg Name of the file to be found in .jar file.
+   * @return A string of the .svg if file exists, or Error otherwise.
+   */
   public String readInSVG(String svg) {
-    InputStream istr = getClass().getResourceAsStream(svg); /* Read in file from .jar into istr */
+    InputStream istr = getClass().getResourceAsStream(svg);
     try {
       BufferedReader reader = new BufferedReader(new InputStreamReader(istr));
       Scanner s = new Scanner(istr).useDelimiter("\\A");
@@ -28,6 +40,15 @@ public class GatherSVG {
     }
   }
 
+  /**
+   * Returns a scaled value of the decimal coordinate to SVG.
+   * This algorithm uses the interpolation equation to compute.
+   * @see GatherSVG#getSVGLines(ArrayList) takes this value to
+   * insert to a pair of points
+   * @param input is the decimal coordinate to be interpolated
+   * @param coordinate determines if the value is latitude or longitude
+   * @return the decimal value of the coordinate as a pixel component
+   */
   public double computePoints(double input, boolean coordinate) {
     if (coordinate) // xAxis value for coordinate
       return ((input - this.mLongitude) * this.xAxis) / (this.nLongitude - this.mLongitude);
@@ -35,9 +56,14 @@ public class GatherSVG {
       return ((input - this.mLatitude) * this.yAxis) / (this.nLatitude - this.mLatitude);
   }
 
+  /**
+   * Returns a SVG group for the polypoints/polylines to be rendered on top
+   * of the desired map.
+   * @param arr is an array of decimal latitude and longitude values.
+   * @return the SVG snippet for the lines between each point.
+   */
   public String getSVGLines(ArrayList<Double> arr) {
     if (!fileFound) return "";
-//    System.out.println("getSVGLines() ... ");
 
     String polyPoints = "";
     String first = "", second = "", startingLocation = "";

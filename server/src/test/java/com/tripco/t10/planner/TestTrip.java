@@ -11,8 +11,8 @@ import java.util.Collections;
 
 import static org.junit.Assert.*;
 
-/*
-  This class contains tests for the Trip class.
+/**
+ * This class contains tests for the Trip class.
  */
 @RunWith(JUnit4.class)
 public class TestTrip {
