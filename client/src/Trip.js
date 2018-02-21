@@ -11,9 +11,22 @@ class Trip extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+        reverse:    false
+    };
+
     this.plan = this.plan.bind(this);
     this.saveTFFI = this.saveTFFI.bind(this);
     this.updateT = this.updateT.bind(this);
+    this.reverse = this.reverse.bind(this);
+  }
+
+  reverse(){
+      this.setState({reverse: true},
+          function() {
+            this.plan();
+          });
+      console.log("HELLLOOOO" + this.state.reverse);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -22,6 +35,8 @@ class Trip extends Component {
    */
   fetchResponse(){
     // need to get the request body from the trip in state object.
+    var places = (this.state.reverse == true) ? this.props.trip.places.reverse() : this.props.trip.places;
+    console.log("HELLLOOOO" + this.state.reverse);
     let requestBody = {
         "type"    : this.props.trip.type,
         "title"   : this.props.trip.title,
@@ -29,7 +44,7 @@ class Trip extends Component {
           "distance": this.props.trip.options.distance,
           "optimization":"none"
         },
-        "places"  : this.props.trip.places,
+        "places"  : places,
         "map"     : this.props.trip.map
       };
 
@@ -102,7 +117,8 @@ class Trip extends Component {
             <div className="input-group" role="group">
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
-            </span>
+              <button className="btn btn-primary " onClick={this.reverse} type="button">Reverse</button>
+              </span>
               <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>

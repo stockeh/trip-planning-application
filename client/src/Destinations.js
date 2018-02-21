@@ -17,14 +17,24 @@ class Destinations extends Component {
   loadTFFI(event) {
     // console.log(event.target.files[0].name);
     var reader = new FileReader();
-    reader.onload = this.parseFileLoad;
-    reader.readAsText(event.target.files[0]);
+    try {
+        reader.onload = this.parseFileLoad;
+        reader.readAsText(event.target.files[0]);
+    } catch (e) {
+        console.log(e);
+    }
   }
   parseFileLoad(event){
-    // console.log(event.target.result);
-    var json = JSON.parse(event.target.result);
-    this.props.updateTrip(json);
-    document.getElementById('trip-title').value = this.props.trip.title;
+      var title;
+      try {
+          var json = JSON.parse(event.target.result);
+          this.props.updateTrip(json);
+          title = this.props.trip.title;;
+      } catch (error) {
+          console.log(error);
+          title = "Error Loading File";
+      }
+      document.getElementById('trip-title').value = title;
   }
 
   render() {
