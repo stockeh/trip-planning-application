@@ -15,10 +15,14 @@ class Itinerary extends Component {
     let dests = this.props.trip.places.map((item) => <td>{item.name}</td>);
     if (this.props.trip.places.length > 1) // There is a round trip.
       dests.push(<td>{ "Return to " + this.props.trip.places[0].name }</td>);
-
     let dists = this.props.trip.distances.map((item) => <td>{item}</td>);
     var cumul = 0;
     let cumulative = this.props.trip.distances.map((item) => <td>{ cumul += item }</td>);
+
+    if (this.props.trip.distances.length > 0) { // Append a leading '0' for trip distances.
+      dists.unshift(<td>{"0"}</td>);
+      cumulative.unshift(<td>{"0"}</td>);
+    }
 
     console.log(this.props.trip);
 
