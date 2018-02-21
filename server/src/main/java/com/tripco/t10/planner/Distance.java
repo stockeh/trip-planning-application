@@ -39,10 +39,10 @@ public class Distance {
       radius = 6371.0088;
     else radius = 3958.7613;
 
-    double decLat1 = this.convertToRadian(latitude1);
-    double decLat2 = this.convertToRadian(latitude2);
-    double decLong1 = this.convertToRadian(longitude1);
-    double decLong2 = this.convertToRadian(longitude2);
+    double decLat1 = Math.toRadians(latitude1);
+    double decLat2 = Math.toRadians(latitude2);
+    double decLong1 = Math.toRadians(longitude1);
+    double decLong2 = Math.toRadians(longitude2);
 
     deltaX = Math.cos(decLat2) * Math.cos(decLong2) -
             Math.cos(decLat1) * Math.cos(decLong1);
