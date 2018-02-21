@@ -86,8 +86,7 @@ public class GatherSVG {
 
     return "<g id=\"svg_1\">" +
             "<title>Boarder and Points</title>" +
-            "<polygon points=\"0,0 993,0 993,710 0,710\" stroke-width=\"4\" stroke=\"brown\" fill=\"none\" id=\"svg_2\"/>" +
-            "<polyline points= \"" + polyPoints + "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_3\"/>" +
+            "<polyline points= \"" + polyPoints + "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_2\"/>" +
            "</g>";
   }
 

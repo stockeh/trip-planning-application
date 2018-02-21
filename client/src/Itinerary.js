@@ -10,7 +10,7 @@ class Itinerary extends Component {
   createTable () {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = this.props.trip.options.distance;
-    if (units != "miles" && units != "kilometers") //Default to miles
+    if (units != "miles" && units != "kilometers") // Default to miles
       units = "miles";
     let dests = this.props.trip.places.map((item) => <td>{item.name}</td>);
     if (this.props.trip.places.length > 1) // There is a round trip.
@@ -24,9 +24,14 @@ class Itinerary extends Component {
       cumulative.unshift(<td>{"0"}</td>);
     }
 
-    console.log(this.props.trip);
+    let rows = [];
+      for (var i = 0; i < dests.length; ++i) {
+          rows.push(<tr>{ dests[i] }{ dists[i] }{ cumulative[i] }</tr>);
+      }
 
-    return {distance, units, dests, dists, cumulative};
+    // console.log(this.props.trip);
+
+    return {distance, units, rows};
   }
 
   render() {
@@ -35,23 +40,17 @@ class Itinerary extends Component {
     return(
         <div id="itinerary">
             <h4>Round trip distance of {table.distance} <b>{table.units}</b>. </h4>
-          <table className="table table-responsive table-bordered">
-            <thead>
-            <tr className="table-info">
-              <th className="align-middle">Destination</th>
-              {table.dests}
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <th className="table-info align-middle">Individual</th>
-              {table.dists}
-            </tr>
-            <tr>
-                <th className="table-info align-middle">Cumulative</th>
-                {table.cumulative}
-            </tr>
-            </tbody>
+          <table className="table table-responsive table-bordered table-hover">
+              <thead>
+              <tr>
+                <th className="table-info align-middle" scope="col">Destinations</th>
+                <th className="table-info align-middle" scope="col">Leg Distance</th>
+                <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
+              </tr>
+              </thead>
+              <tbody>
+                {table.rows}
+              </tbody>
           </table>
         </div>
     )
