@@ -37,7 +37,7 @@ public class Parser {
     //returns true if passed direction and degree is a valid longitude coordinate and false otherwise
     public boolean validLongitude(char direction, double degree){
         if(direction == '0' || direction == 'W' || direction == 'E'){
-            if(degree <= -102.05 && degree >= -109.05) return true;
+            if(degree <= -102 && degree >= -109) return true;
         }
         return false;
     }

@@ -1,6 +1,7 @@
 package com.tripco.t10.planner;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * The Trip class supports TFFI so it can easily be converted to/from Json by Gson.
@@ -43,10 +44,20 @@ public class Trip {
   public ArrayList<Double> getDecimalDegrees(){
     Parser parser = new Parser();
     ArrayList<Double> decimalDegrees = new ArrayList<Double>();
-    for(Place place : places){
-      decimalDegrees.add(parser.parseLatLong(place.latitude,true));
-      decimalDegrees.add(parser.parseLatLong(place.longitude,false));
+    Iterator<Place> iterator = places.iterator();
+    while(iterator.hasNext()){
+        Place place = iterator.next();
+        double latitude = parser.parseLatLong(place.latitude,true);
+        double longitude = parser.parseLatLong(place.longitude,false);
+        if(latitude != -1000 && longitude != -1000){decimalDegrees.add(latitude); decimalDegrees.add(longitude);}
+        else iterator.remove();
     }
+//    for(Place place : places){
+//      double latitude = parser.parseLatLong(place.latitude,true);
+//      double longitude = parser.parseLatLong(place.longitude,false);
+//      if(latitude != -1000 && longitude != -1000){decimalDegrees.add(latitude); decimalDegrees.add(longitude);}
+////      else places.remove(place);
+//    }
     return decimalDegrees;
   }
 
