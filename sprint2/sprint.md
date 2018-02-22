@@ -76,31 +76,41 @@ Date | Tasks done  | Tasks in progress | Impediments
 02/03/2018 | *Not Started* | *#102, #51, #107* | none
 02/13/2018 | *Issues #102, #51, #107*| *Issues #87, #94, #88*| setting up unix systems
 02/17/2018 | *Issues #87, #94, #88* | *Issues #96*| resolving unneeded code and testing
+02/20/2018 | *Issues #96, #73, #75, #104, #78, #81* | *Issues #120, #121, #126, #86, #132, #76, #135, #129, #128, #74, #134* | SVG latitude and longitude flipping
+02/21/2018 | *Issues #120, #121, #126, #86, #132, #76, #135, #129, #128, #74, #134* | none | Maven Dependencies
 
 
 ## Review
 
 #### Completed epics in Sprint Backlog
-* *user story*:  *comments*
-*
+* *Let the user save their trip*:  *let the user save the trip to any file name with default trip.json*
+* *Show an itinerary of the round trip*:  *displayed location, distance for each leg of trip and cumulative distance for each trip*
+* *Plan trips in the state of Colorado*:  *let users plan trips inside the state but not outside it*
+* *Show a map of the round trip*:  *visually appealing map!*
+* *Let the user load a file with destinations*:  *loading in TFFI file format...exciting!*
 
 #### Incomplete epics in Sprint Backlog
-* *user story*: *explanation...*
-*
+* *Give the user the option to display what information to display in itinerary*: *Did not have enough time and were focusing on more important epics*
+* *Let the user choose a new starting location*: *Did not have time to allow user to choose other orders for trip aside from file order*
+* *Plan the trip in the destination order the user provided*: *Did not have time to allow user to choose any order :(*
+* *Give the user the option to view a shorter trip*:*Didn't have enough time and this was not a priority*
 
 #### What went well
-* *something*
-*
+* *Fast update of itinerary*
+* *Correct distances*
+* *accurate beautiful map*
 
 #### Problems encountered and resolutions
-* *something*
-*
+* *Issues with build, had to run mvn clean to resolve*
+* *SVG problems with coordinate axis, took a second look to catch the error*
+* *Files wouldn't load without distances attribute, resolved by adding distances attribute to file*
+* *Passing decimaldegrees to different classes that needed them and avoiding double calculations, resolved by creating arraylist of them*
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  |
-What we did well |  |  |
-What we need to work on |  |  |
-What we will change next time |  |  |
+What we will change this time |More Communication| More Testing | Have a full storyboard
+What we did well |no major merge conflicts and quick fixes if there were, quick checking of pull requests | seemless integration, master was not broken, a good number of tests| lots of issues and epics in storyboard
+What we need to work on |Bouncing ideas back and forth| more tests for everything, documentation using Javadoc before implementation | add more and better issues to storyboard/have a mid sprint meeting to add more issues, Zenhub
+What we will change next time |More communication of ideas| write more of our tests before coding | Not wait until the last minutes to add issues to github
