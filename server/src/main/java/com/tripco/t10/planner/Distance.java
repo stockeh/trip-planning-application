@@ -1,6 +1,7 @@
 package com.tripco.t10.planner;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  * The Distance class is responsible for calculating the distance between
