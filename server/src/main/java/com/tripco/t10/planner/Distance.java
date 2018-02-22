@@ -1,6 +1,7 @@
 package com.tripco.t10.planner;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  * The Distance class is responsible for calculating the distance between
@@ -21,16 +22,6 @@ public class Distance {
   public Distance(String distance) { this.distance = distance; }
 
   /**
-   * Converts the decimal coordinate angle to radians.
-   *
-   * @param angle Coordinate angle.  Either latitude or longitude.
-   * @return Retuns the converted value to radians.
-   */
-  public double convertToRadian(double angle) {
-    return angle * (Math.PI / 180);
-  }
-
-  /**
    * Computes the grate circle distance between two coordinates.  The distance units
    * provided from the constructor determine the radius for the computation.
    *
@@ -49,10 +40,10 @@ public class Distance {
       radius = 6371.0088;
     else radius = 3958.7613;
 
-    double decLat1 = this.convertToRadian(latitude1);
-    double decLat2 = this.convertToRadian(latitude2);
-    double decLong1 = this.convertToRadian(longitude1);
-    double decLong2 = this.convertToRadian(longitude2);
+    double decLat1 = Math.toRadians(latitude1);
+    double decLat2 = Math.toRadians(latitude2);
+    double decLong1 = Math.toRadians(longitude1);
+    double decLong2 = Math.toRadians(longitude2);
 
     deltaX = Math.cos(decLat2) * Math.cos(decLong2) -
             Math.cos(decLat1) * Math.cos(decLong1);
