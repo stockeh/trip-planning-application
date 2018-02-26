@@ -21,9 +21,9 @@ public class Plan {
 
   /** Handles trip planning request, creating a new trip object from the trip request.
    * Does the conversion from Json to a Java class before planning the trip.
-   * @param request
+   * @param request request from the server, .println(HTTP.echoRequest(request));
    */
-  public Plan (Request request) {
+  public Plan(Request request) {
     // first print the request
     // System.out.println("Request: " + HTTP.echoRequest(request));
 
@@ -42,8 +42,9 @@ public class Plan {
 
   /** Handles the response for a Trip object.
    * Does the conversion from a Java class to a Json string.*
+   * @return Returns a JSON of the trip object.
    */
-  public String getTrip () {
+  public String getTrip() {
     Gson gson = new Gson();
     return gson.toJson(trip);
   }
