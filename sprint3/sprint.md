@@ -71,7 +71,7 @@ Story Points |  *39*  | *1*
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*02/25/2018* | *Not Started Yet* | *#166 #151* | none
+*02/25/2018* | *Not Started Yet* | *#166 #151 #164 #165* | none
  | | | 
  
 
