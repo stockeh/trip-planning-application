@@ -1,0 +1,395 @@
+{
+  "type": "trip",
+  "title": "Colorado's County Seats",
+  "options": {
+    "distance": "kilometers"
+  },
+  "places": [
+    {
+      "id": "1",
+      "name": "Adams County",
+      "latitude": "39.87°N",
+      "longitude": "104.33°W"
+    },
+    {
+      "id": "2",
+      "name": "Alamosa County",
+      "latitude": "37.57°N",
+      "longitude": "105.79°W"
+    },
+    {
+      "id": "3",
+      "name": "Arapahoe County",
+      "latitude": "39.64°N",
+      "longitude": "104.33°W"
+    },
+    {
+      "id": "4",
+      "name": "Archuleta County",
+      "latitude": "37.20°N",
+      "longitude": "107.05°W"
+    },
+    {
+      "id": "5",
+      "name": "Baca County",
+      "latitude": "37.30°N",
+      "longitude": "102.54°W"
+    },
+    {
+      "id": "6",
+      "name": "Bent County",
+      "latitude": "37.93°N",
+      "longitude": "103.08°W"
+    },
+    {
+      "id": "7",
+      "name": "Boulder County",
+      "latitude": "40.09°N",
+      "longitude": "105.40°W"
+    },
+    {
+      "id": "8",
+      "name": "City and County of Broomfield",
+      "latitude": "39.95°N",
+      "longitude": "105.05°W"
+    },
+    {
+      "id": "9",
+      "name": "Chaffee County",
+      "latitude": "38.74°N",
+      "longitude": "106.32°W"
+    },
+    {
+      "id": "10",
+      "name": "Cheyenne County",
+      "latitude": "38.84°N",
+      "longitude": "102.60°W"
+    },
+    {
+      "id": "11",
+      "name": "Clear Creek County",
+      "latitude": "39.69°N",
+      "longitude": "105.67°W"
+    },
+    {
+      "id": "12",
+      "name": "Conejos County",
+      "latitude": "37.21°N",
+      "longitude": "106.18°W"
+    },
+    {
+      "id": "13",
+      "name": "Costilla County",
+      "latitude": "37.28°N",
+      "longitude": "105.43°W"
+    },
+    {
+      "id": "14",
+      "name": "Crowley County",
+      "latitude": "38.32°N",
+      "longitude": "103.79°W"
+    },
+    {
+      "id": "15",
+      "name": "Custer County",
+      "latitude": "38.10°N",
+      "longitude": "105.37°W"
+    },
+    {
+      "id": "16",
+      "name": "Delta County",
+      "latitude": "38.86°N",
+      "longitude": "107.86°W"
+    },
+    {
+      "id": "17",
+      "name": "City and County of Denver",
+      "latitude": "39.76°N",
+      "longitude": "104.88°W"
+    },
+    {
+      "id": "18",
+      "name": "Dolores County",
+      "latitude": "37.75°N",
+      "longitude": "108.53°W"
+    },
+    {
+      "id": "19",
+      "name": "Douglas County",
+      "latitude": "39.33°N",
+      "longitude": "104.93°W"
+    },
+    {
+      "id": "20",
+      "name": "Eagle County",
+      "latitude": "39.63°N",
+      "longitude": "106.69°W"
+    },
+    {
+      "id": "21",
+      "name": "Elbert County",
+      "latitude": "39.31°N",
+      "longitude": "104.12°W"
+    },
+    {
+      "id": "22",
+      "name": "El Paso County",
+      "latitude": "38.83°N",
+      "longitude": "104.53°W"
+    },
+    {
+      "id": "23",
+      "name": "Fremont County",
+      "latitude": "38.46°N",
+      "longitude": "105.42°W"
+    },
+    {
+      "id": "24",
+      "name": "Garfield County",
+      "latitude": "39.60°N",
+      "longitude": "107.91°W"
+    },
+    {
+      "id": "25",
+      "name": "Gilpin County",
+      "latitude": "39.86°N",
+      "longitude": "105.53°W"
+    },
+    {
+      "id": "26",
+      "name": "Grand County",
+      "latitude": "40.12°N",
+      "longitude": "106.10°W"
+    },
+    {
+      "id": "27",
+      "name": "Gunnison County",
+      "latitude": "38.67°N",
+      "longitude": "107.08°W"
+    },
+    {
+      "id": "28",
+      "name": "Hinsdale County",
+      "latitude": "37.81°N",
+      "longitude": "107.38°W"
+    },
+    {
+      "id": "29",
+      "name": "Huerfano County",
+      "latitude": "37.69°N",
+      "longitude": "104.96°W"
+    },
+    {
+      "id": "30",
+      "name": "Jackson County",
+      "latitude": "40.66°N",
+      "longitude": "106.33°W"
+    },
+    {
+      "id": "31",
+      "name": "Jefferson County",
+      "latitude": "39.59°N",
+      "longitude": "105.25°W"
+    },
+    {
+      "id": "32",
+      "name": "Kiowa County",
+      "latitude": "38.39°N",
+      "longitude": "102.76°W"
+    },
+    {
+      "id": "33",
+      "name": "Kit Carson County",
+      "latitude": "39.31°N",
+      "longitude": "102.60°W"
+    },
+    {
+      "id": "34",
+      "name": "Lake County",
+      "latitude": "39.20°N",
+      "longitude": "106.35°W"
+    },
+    {
+      "id": "35",
+      "name": "La Plata County",
+      "latitude": "37.29°N",
+      "longitude": "107.84°W"
+    },
+    {
+      "id": "36",
+      "name": "Larimer County",
+      "latitude": "40.66°N",
+      "longitude": "105.48°W"
+    },
+    {
+      "id": "37",
+      "name": "Las Animas County",
+      "latitude": "37.32°N",
+      "longitude": "104.04°W"
+    },
+    {
+      "id": "38",
+      "name": "Lincoln County",
+      "latitude": "38.99°N",
+      "longitude": "103.51°W"
+    },
+    {
+      "id": "39",
+      "name": "Logan County",
+      "latitude": "40.73°N",
+      "longitude": "103.09°W"
+    },
+    {
+      "id": "40",
+      "name": "Mesa County",
+      "latitude": "39.02°N",
+      "longitude": "108.46°W"
+    },
+    {
+      "id": "41",
+      "name": "Mineral County",
+      "latitude": "37.65°N",
+      "longitude": "106.93°W"
+    },
+    {
+      "id": "42",
+      "name": "Moffat County",
+      "latitude": "40.57°N",
+      "longitude": "108.20°W"
+    },
+    {
+      "id": "43",
+      "name": "Montezuma County",
+      "latitude": "37.34°N",
+      "longitude": "108.60°W"
+    },
+    {
+      "id": "44",
+      "name": "Montrose County",
+      "latitude": "38.41°N",
+      "longitude": "108.26°W"
+    },
+    {
+      "id": "45",
+      "name": "Morgan County",
+      "latitude": "40.26°N",
+      "longitude": "103.81°W"
+    },
+    {
+      "id": "46",
+      "name": "Otero County",
+      "latitude": "37.88°N",
+      "longitude": "103.72°W"
+    },
+    {
+      "id": "47",
+      "name": "Ouray County",
+      "latitude": "38.15°N",
+      "longitude": "107.77°W"
+    },
+    {
+      "id": "48",
+      "name": "Park County",
+      "latitude": "39.12°N",
+      "longitude": "105.72°W"
+    },
+    {
+      "id": "49",
+      "name": "Phillips County",
+      "latitude": "40.59°N",
+      "longitude": "102.35°W"
+    },
+    {
+      "id": "50",
+      "name": "Pitkin County",
+      "latitude": "39.22°N",
+      "longitude": "106.92°W"
+    },
+    {
+      "id": "51",
+      "name": "Prowers County",
+      "latitude": "37.96°N",
+      "longitude": "102.39°W"
+    },
+    {
+      "id": "52",
+      "name": "Pueblo County",
+      "latitude": "38.17°N",
+      "longitude": "104.49°W"
+    },
+    {
+      "id": "53",
+      "name": "Rio Blanco County",
+      "latitude": "39.97°N",
+      "longitude": "108.20°W"
+    },
+    {
+      "id": "54",
+      "name": "Rio Grande County",
+      "latitude": "37.49°N",
+      "longitude": "106.45°W"
+    },
+    {
+      "id": "55",
+      "name": "Routt County",
+      "latitude": "40.48°N",
+      "longitude": "106.99°W"
+    },
+    {
+      "id": "56",
+      "name": "Saguache County[7][8]",
+      "latitude": "38.03°N",
+      "longitude": "106.25°W"
+    },
+    {
+      "id": "57",
+      "name": "San Juan County",
+      "latitude": "37.78°N",
+      "longitude": "107.67°W"
+    },
+    {
+      "id": "58",
+      "name": "San Miguel County",
+      "latitude": "38.01°N",
+      "longitude": "108.43°W"
+    },
+    {
+      "id": "59",
+      "name": "Sedgwick County",
+      "latitude": "40.87°N",
+      "longitude": "102.36°W"
+    },
+    {
+      "id": "60",
+      "name": "Summit County",
+      "latitude": "39.62°N",
+      "longitude": "106.14°W"
+    },
+    {
+      "id": "61",
+      "name": "Teller County",
+      "latitude": "38.87°N",
+      "longitude": "105.18°W"
+    },
+    {
+      "id": "62",
+      "name": "Washington County",
+      "latitude": "39.97°N",
+      "longitude": "103.21°W"
+    },
+    {
+      "id": "63",
+      "name": "Weld County",
+      "latitude": "40.56°N",
+      "longitude": "104.38°W"
+    },
+    {
+      "id": "64",
+      "name": "Yuma County",
+      "latitude": "40.00°N",
+      "longitude": "102.42°W"
+    }
+  ],
+  "distances": [],
+  "map": "<svg width=\"1920\" height=\"2\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
+}
