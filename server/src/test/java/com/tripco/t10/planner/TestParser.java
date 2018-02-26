@@ -18,6 +18,24 @@ public class TestParser {
     }
 
     @Test
+    public void testPrepareString() {
+        assertEquals("88.2°20.34'38.1\"N",parser.prepareString("88.2°20.34'38.1\"N"));
+        assertEquals("88.2°20.34'38.1\"N",parser.prepareString("88.2 °20.34   '  38.1\"N  "));
+        assertEquals("88.2°20.34'38.1\"N",parser.prepareString("  88.2°   20.34 '38.1\" N  "));
+        assertEquals("88.2 20.34 38.1\"S",parser.prepareString("88.2  20.34  38.1  \"  S  "));
+    }
+
+    @Test
+    public void testGetDMS() {
+        assertEquals("88.2",parser.getDMS("88.2°20.34'38.1\"N","°")[0]);
+        assertEquals("20.34'38.1\"N",parser.getDMS("88.2°20.34'38.1\"N","°")[1]);
+        assertEquals("20.34",parser.getDMS("20.34'38.1\"N","'")[0]);
+        assertEquals("38.1",parser.getDMS("38.1\"N","\"")[0]);
+        assertEquals("20.34",parser.getDMS("20.34 38.1\"N","°")[0]);
+
+    }
+
+    @Test
     public void testHasDirection() {
         assertEquals('N',parser.hasDirection("88.2°20.34'38.1\"N"));
         assertEquals('E',parser.hasDirection("88.2°20.34'38.1\"E"));
@@ -26,9 +44,18 @@ public class TestParser {
 
     @Test
     public void testGetLocationArray(){
-        assertArrayEquals(new double[]{88.2,20.34,38.1},parser.getLocationArray("88.2°20.34'38.1\""),.00000001);
+        assertArrayEquals(new double[]{88.2,-20.34,38.1},parser.getLocationArray("88.2°-20.34'38.1\""),.00000001);
         assertArrayEquals(new double[]{0,0,0},parser.getLocationArray(""),.00000001);
+        assertArrayEquals(new double[]{0,-3.2,0},parser.getLocationArray("-3.2'"),.00000001);
         assertArrayEquals(new double[]{0,3.2,0},parser.getLocationArray("3.2'"),.00000001);
+        assertArrayEquals(new double[]{43,12,3.2},parser.getLocationArray("43 12 3.2\""),.00000001);
+        assertArrayEquals(new double[]{43,12,3.2},parser.getLocationArray("43°12'3.2"),.00000001);
+        assertArrayEquals(new double[]{43,0,0},parser.getLocationArray("43"),.00000001);
+    }
+
+    @Test
+    public void testGetLocationErrors(){
+        assertArrayEquals(null,parser.getLocationArray("43 12 3.2'"),.00000001);
     }
 
 
