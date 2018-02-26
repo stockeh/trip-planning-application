@@ -1,0 +1,107 @@
+{
+  "type": "trip",
+  "title": "Colorado Ski Resorts",
+  "options": {
+    "distance": "miles"
+  },
+  "places": [
+    {
+      "id": "1",
+      "name": "Wolf Creek",
+      "latitude": "37°28'20 N",
+      "longitude": "106°47'35 W"
+    },
+    {
+      "id": "2",
+      "name": "Telluride",
+      "latitude": "37°56'11 N",
+      "longitude": "107°50'46 W"
+    },
+    {
+      "id": "3",
+      "name": "Monarch",
+      "latitude": "38°30'48N",
+      "longitude": "106°19'57 W"
+    },
+    {
+      "id": "4",
+      "name": "Silverton",
+      "latitude": "37°53'1 N",
+      "longitude": "107°40'2 W"
+    },
+    {
+      "id": "5",
+      "name": "Purgatory",
+      "latitude": "37°37'49 N",
+      "longitude": "107°48'52 W"
+    },
+    {
+      "id": "6",
+      "name": "Crested Butte",
+      "latitude": "38°53'56 N",
+      "longitude": "106°57'53 W"
+    },
+    {
+      "id": "7",
+      "name": "Powderhorn",
+      "latitude": "39° 3'54 N",
+      "longitude": "108° 8'58 W"
+    },
+    {
+      "id": "8",
+      "name": "Aspen mountain",
+      "latitude": "39°11'31 N",
+      "longitude": "106°49'46 W"
+    },
+    {
+      "id": "9",
+      "name": "Ski Cooper",
+      "latitude": "39°21'38 N",
+      "longitude": "106°18'9 W"
+    },
+    {
+      "id": "10",
+      "name": "Vail",
+      "latitude": "39°38'24 N",
+      "longitude": "106°22'27 W"
+    },
+    {
+      "id": "11",
+      "name": "Breckenridge",
+      "latitude": "39°28'53 N",
+      "longitude": "106° 2'18 W"
+    },
+    {
+      "id": "12",
+      "name": "Echo Mountain",
+      "latitude": "39°41'3 N",
+      "longitude": "105°31'15 W"
+    },
+    {
+      "id": "13",
+      "name": "Steamboat",
+      "latitude": "40°27'14 N",
+      "longitude": "106°48'16 W"
+    },
+    {
+      "id": "14",
+      "name": "Estes Valley",
+      "latitude": "40°16'51 N",
+      "longitude": "105°32'7 W"
+    },
+    {
+      "id": "15",
+      "name": "Eldora Mountain",
+      "latitude": "39°56'18 N",
+      "longitude": "105°34'57 W"
+    },
+    {
+      "id": "16",
+      "name": "Winter Park",
+      "latitude": "39°53'14 N",
+      "longitude": "105°45'38 W"
+    }
+  ],
+  "distances": [],
+  "map": "<svg width=\"1920\" height=\"2\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
+}

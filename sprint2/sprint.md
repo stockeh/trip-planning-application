@@ -35,16 +35,16 @@
 
 Epics planned for this release.
 
-* *## Let the user load a file with destinations*
+* *Let the user load a file with destinations*
   * Load a file containing a list of destinations in TFFI format.
   * Show all of the information provided in the file, such as trip name, distances, map, and itinerary.
 
-* *## Show an itinerary of the round trip.*
+* *Show an itinerary of the round trip.*
   * The itinerary should describe each destination in the order, with the leg distance and cumulative trip distance to reach that location.
   * The starting point should list zero for the leg and cumulative distance.
   * The itinerary should be for a round trip, returning to the first destination (starting point) in the list.
 
-* *## Plan the trip in the destination order the user provided*
+* *Plan the trip in the destination order the user provided*
   * Output of all possible destinations that can be moved to users trip.
   * The user picked the order, follow it.
 
@@ -53,11 +53,11 @@ Epics planned for this release.
   * Let the user select which of the available attributes to display.
   * Set a reasonable default - the minimum is the "name" attribute.
 
-* *## Show a map of the round trip.*
+* *Show a map of the round trip.*
   * Create a map in SVG format with the round trip overlaid on a background SVG.
   * Background image will be supplied.
 
-* *## Plan trips in the state of Colorado.*
+* *Plan trips in the state of Colorado.*
   * local for now, global later.
 
 *These include a list of Epics as seen in our ZenHub backlog.  These do not include the Epics in our icebox*
@@ -66,8 +66,8 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *17*   | *value*
-Story Points |  *28*  | *value*
+Tasks |  *17*   | *33*
+Story Points |  *28*  | *43*
 
 ## Daily Scrums
 

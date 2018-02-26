@@ -19,7 +19,7 @@ public class Distance {
    * @param distance the units in the trip.
    * @see Trip class for trip variables.
    */
-  public Distance(String distance) { this.distance = distance; }
+  public Distance(String distance) { this.distance = distance.toLowerCase(); }
 
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
@@ -34,7 +34,8 @@ public class Distance {
    * @return Returns the rounded distance between two coordinate points in decimal degrees.
    */
   public int greatCirDist(double latitude1, double longitude1, double latitude2, double longitude2) {
-    double deltaX, deltaY, deltaZ, radius, chordLen, centralAngle;
+    double deltaX, deltaY, deltaZ;
+    double radius, chordLen, centralAngle;
 
     if (this.distance.equals("kilometers"))
       radius = 6371.0088;

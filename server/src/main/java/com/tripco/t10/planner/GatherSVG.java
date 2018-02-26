@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class GatherSVG {
 
   private boolean fileFound = true;
-  private double xAxis = 993, yAxis = 710,
+  final private double xAxis = 993, yAxis = 710,
                  mLongitude = -109, nLongitude = -102,
                  mLatitude = 41, nLatitude = 37;
 
@@ -29,14 +29,15 @@ public class GatherSVG {
     InputStream istr = getClass().getResourceAsStream(svg);
     try {
       BufferedReader reader = new BufferedReader(new InputStreamReader(istr));
-      Scanner s = new Scanner(istr).useDelimiter("\\A");
-      return s.hasNext() ? s.next() : ""; /* Convert istr to a String */
+      Scanner scan = new Scanner(istr).useDelimiter("\\A");
+      return scan.hasNext() ? scan.next() : ""; /* Convert istr to a String */
     } catch (Exception e) {
       e.printStackTrace();
       this.fileFound = false;
-      return "<text x=\"300\" y=\"350\" font-family=\"Verdana\" font-size=\"35\" fill=\"red\">" +
-              "ERROR! No File Found." +
-              "</text>"; /* Files does not exist, should 'throw e', but this is nice (Open to change) */
+      return "<text x=\"300\" y=\"350\" font-family=\"Verdana\" font-size=\"35\" fill=\"red\">"
+             + "ERROR! No File Found."
+             + "</text>"; /* Files does not exist, should 'throw e',
+                            but this is nice (Open to change) */
     }
   }
 
@@ -65,29 +66,22 @@ public class GatherSVG {
   public String getSVGLines(ArrayList<Double> arr) {
     if (!fileFound) return "";
 
-    String polyPoints = "";
-    String first = "", second = "", startingLocation = "";
-    for (int index = 0; index < arr.size(); index++) {
-      if (index % 2 == 0) // Latitude Value
+    String first, second;
+    String polyPoints = "", startingLocation = "";
+    for (int index = 0; index < arr.size()-1; index += 2) {
         second = Double.toString(computePoints(arr.get(index), false));
-      else // Longitude Value
-        first = Double.toString(computePoints(arr.get(index), true));
-
-      if (!first.isEmpty() && !second.isEmpty()) {
-        if (index == 1)
+        first = Double.toString(computePoints(arr.get(index+1), true));
+        if (index == 0)
           startingLocation = " " + first + "," + second;
         polyPoints += " " + first + "," + second;
-        first = ""; second = "";
-      }
     }
 
     polyPoints += startingLocation;
     // System.out.println(polyPoints); // Check coordinate to pixel points next to each other.
 
-    return "<g id=\"svg_1\">" +
-            "<title>Boarder and Points</title>" +
-            "<polyline points= \"" + polyPoints + "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_2\"/>" +
-           "</g>";
+    return "<g id=\"svg_1\"><title>Boarder and Points</title><polyline points= \""
+            + polyPoints
+            + "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_2\"/></g>";
   }
 
 }

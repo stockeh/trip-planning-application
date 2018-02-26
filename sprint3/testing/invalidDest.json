@@ -1,0 +1,23 @@
+{
+"type"      : "trip",
+"title"     : "invalid json",
+"options"   : { "distance":"" },
+"places"    : [
+	{"id": "lvlnd", "name": "Loveland", "latitude": "40°23'40.48\" N", "longitude": "105°4'26.65\" W"},
+	{"id": "aspn", "name": "", "latitude": "39°11'24\" N", "longitude": "106°49'06\" W"},
+	{"id": "cstlrck", "name": "NotInCoLat", "latitude": "80°22'51\" N", "longitude": "104°52'06\" W"},
+	{"id": "bertha", "name": "Berthoud", "latitude": "40°18'18.36\" N", "longitude": "105°4'44.4\" W"},
+	{"id": "lngmnt", "name": "NotInCoLong", "latitude": "40°09'34\" N", "longitude": "110°06'07\" W"},
+	{"id": "aurora", "name": "Aurora", "latitude": "39°39'09\" N", "longitude": "104°48'43\" W"},
+	{"id": "springs", "name": "Invalid Lat", "latitude": "38 48'\" N", "longitude": "104°49'38\" W"},
+	{"id": "buena", "name": "Buena Vista", "latitude": "38°50'26.01\" N", "longitude": "106°7'57.43\" W"},
+	{"id": "durango", "name": "Invalid Long", "latitude": "37°16'11\" N", "longitude": "1 52 49\" W"},
+	{"id": "prkr", "name": "Parker", "latitude": "39°31'36\" N", "longitude": "104°46'12\" W"},
+	{"id": "brghtn", "name": "Brighton", "latitude": "39°59'18.0\" N", "longitude": "104°49'16.8\" W"},
+	{"id": "flor", "name": "Florence", "latitude": "38°23'19.24\" N", "longitude": "105°07'05.83\" W"},
+	{"id": "brghtn", "name": "Brighton2", "latitude": "39°59'18.0\" N", "longitude": "104°49'16.8\" W"},
+	{"id": "louis", "name": "Louisville", "latitude": "39°58'33.888\" N", "longitude": "105°7'43.1436\" W"}
+],
+"distances" : [],
+  "map"     : "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
+}

@@ -12,3 +12,5 @@
   - Jason Stock
 * Sprint 2
   - Evan Steiner
+* Sprint 3
+  - Alex Segura
