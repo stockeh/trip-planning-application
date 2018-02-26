@@ -51,11 +51,14 @@ public class TestParser {
         assertArrayEquals(new double[]{43,12,3.2},parser.getLocationArray("43 12 3.2\""),.00000001);
         assertArrayEquals(new double[]{43,12,3.2},parser.getLocationArray("43°12'3.2"),.00000001);
         assertArrayEquals(new double[]{43,0,0},parser.getLocationArray("43"),.00000001);
+        assertArrayEquals(new double[]{0,43,44},parser.getLocationArray("43'44"),.00000001);
     }
 
     @Test
     public void testGetLocationErrors(){
         assertArrayEquals(null,parser.getLocationArray("43 12 3.2'"),.00000001);
+        assertArrayEquals(null,parser.getLocationArray("43 12° 3.2"),.00000001);
+        assertArrayEquals(null,parser.getLocationArray("43A 12 3.2"),.00000001);
     }
 
 
@@ -70,6 +73,7 @@ public class TestParser {
 
     @Test
     public void testParseLong() {
+        assertEquals(-108.2+(20.64/60.0)+(38.1/3600.0), parser.parseLatLong("-108.2   ° 20.64 ' 38.1  ",false),.00000001);
         assertEquals(-108.2+(20.64/60.0)+(38.1/3600.0), parser.parseLatLong("-108.2° 20.64' 38.1\" E",false),.00000001); //test longitude general form
         assertEquals(-102.2-(20.0/60.0)-(100.12/3600.0), parser.parseLatLong("102.2° 20' 100.12\" W",false),.00000001);  //test west and carryover from seconds
         assertEquals(-107.32, parser.parseLatLong("   -107.32   ",false),.00000001);  //test already in format longitude degrees and extra spaces
@@ -86,5 +90,6 @@ public class TestParser {
         assertEquals(-1000, parser.parseLatLong("        ",true),.00000001);
         assertEquals(-1000,parser.parseLatLong("20' 43 39.95° N", true),.00000001); //test out of order
         assertEquals(-1000,parser.parseLatLong("N",true),.00000001);
+        assertEquals(-1000, parser.parseLatLong("43 12° 3.2",true),.00000001);
     }
 }
