@@ -16,6 +16,10 @@ class Itinerary extends Component {
     this.updateLongitude = this.updateLongitude.bind(this);
   }
 
+  /*
+  Functions to update the state that checkboxes are dependant on
+  Toggles the corresponding state
+   */
   updateID () {
       this.setState({updateID: !this.state.updateID});
   }
@@ -28,6 +32,9 @@ class Itinerary extends Component {
       this.setState({updateLong: !this.state.updateLong});
   }
 
+  /*
+  Logic to populate the itinerary table with corresponding data
+   */
   createTable () {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = this.props.trip.options.distance;
