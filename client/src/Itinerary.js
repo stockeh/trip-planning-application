@@ -4,7 +4,28 @@ class Itinerary extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+        updateID:   false,
+        updateLat:  false,
+        updateLong: false
+    };
+
     this.createTable = this.createTable.bind(this);
+    this.updateID = this.updateID.bind(this);
+    this.updateLatitude = this.updateLatitude.bind(this);
+    this.updateLongitude = this.updateLongitude.bind(this);
+  }
+
+  updateID () {
+      this.setState({updateID: !this.state.updateID});
+  }
+
+  updateLatitude () {
+      this.setState({updateLat: !this.state.updateLat});
+  }
+
+  updateLongitude () {
+      this.setState({updateLong: !this.state.updateLong});
   }
 
   createTable () {
