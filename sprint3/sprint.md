@@ -64,15 +64,15 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *29*   | *2* 
+Tasks |  *22*   | *2* 
 Story Points |  *39*  | *1* 
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*02/25/2018* | *Not Started Yet* | *#166 #151 #164 #165* | none
- | | | 
+*02/25/2018* | *Not Started Yet* | *#166 #151 #164 #165* | *none*
+*03/01/2018* | *#167, #166, #165, #164, #168, #153, #169, #152, #170*| *#151, #154, #150, #171* | *Intigration, Implimenting Slider, Installing npm libraries*
  
 
 ## Review
