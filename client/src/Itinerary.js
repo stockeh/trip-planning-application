@@ -66,20 +66,36 @@ class Itinerary extends Component {
     let table = this.createTable();
 
     return(
-        <div id="itinerary">
-            <h4>Round trip distance of {table.distance} <b>{table.units}</b>. </h4>
-          <table className="table table-responsive table-bordered table-hover">
-              <thead>
-              <tr>
-                <th className="table-info align-middle" scope="col">Destinations</th>
-                <th className="table-info align-middle" scope="col">Leg Distance</th>
-                <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
-              </tr>
-              </thead>
-              <tbody>
-                {table.rows}
-              </tbody>
-          </table>
+        <div id="itinerary" className="container">
+            <div className="row">
+                <div className="col-md-auto">
+                    <h4>Round trip distance of {table.distance} <b>{table.units}</b>. </h4>
+                    <table className="table table-responsive table-hover">
+                        <thead>
+                        <tr>
+                            <th className="table-info align-middle" scope="col">Destinations</th>
+                            <th className="table-info align-middle" scope="col">Leg Distance</th>
+                            <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {table.rows}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="col-md-auto">
+                    Choose What to Include in Itinerary!
+                    <div className="checkbox">
+                        <label><input type="checkbox" onChange={this.updateID}/> ID </label>
+                    </div>
+                    <div className="checkbox">
+                        <label><input type="checkbox" onChange={this.updateLatitude}/> Latitude </label>
+                    </div>
+                    <div className="checkbox">
+                        <label><input type="checkbox" onChange={this.updateLongitude}/> Longitude </label>
+                    </div>
+                </div>
+            </div>
         </div>
     )
   }
