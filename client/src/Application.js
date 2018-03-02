@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip';
+import Itinerary from "./Itinerary";
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -22,13 +23,13 @@ class Application extends Component {
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.reverseTrip = this.reverseTrip.bind(this);
   }
 
   updateTrip(tffi){
     console.log("updateTrip");
     console.log("TFFI " + tffi);
     this.setState({trip:tffi});
-    console.log("state.trip: " + this.state.trip.type);
   }
 
   updateOptions(opt){
@@ -43,8 +44,18 @@ class Application extends Component {
     var newTitle = Object.assign({}, this.state.trip),
         title = t;
     //console.log("APPLICATION title " + title);
-    newTitle.title = title;
+    newTitle.title = t;
     this.setState({trip: newTitle});
+  }
+
+  reverseTrip(){
+      var newTrip = Object.assign({}, this.state.trip),
+          startingLocation = newTrip.places.shift();
+      newTrip.places = newTrip.places.reverse();
+      newTrip.places.unshift(startingLocation);
+      if(this.state.trip.distances.length)
+        newTrip.distances = newTrip.distances.reverse();
+      this.setState({trip: newTrip});
   }
 
   render() {
@@ -55,10 +66,10 @@ class Application extends Component {
                 <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-12">
-                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle} />
+                <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
-                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle} />
+                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle} reverseTrip={this.reverseTrip}/>
             </div>
           </div>
         </div>

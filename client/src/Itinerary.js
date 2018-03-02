@@ -14,6 +14,10 @@ class Itinerary extends Component {
     this.updateID = this.updateID.bind(this);
     this.updateLatitude = this.updateLatitude.bind(this);
     this.updateLongitude = this.updateLongitude.bind(this);
+    this.reverse = this.reverse.bind(this);
+  }
+  reverse(){
+    this.props.reverseTrip();
   }
 
   /*
@@ -37,14 +41,14 @@ class Itinerary extends Component {
    */
   createTable () {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
-    let units = this.props.trip.options.distance;
-    if (units != "miles" && units != "kilometers") // Default to miles
-      units = "miles";
-    let dests = this.props.trip.places.map((item) => <td>{item.name}</td>);
-    if (this.props.trip.places.length > 1) // There is a round trip.
-      dests.push(<td>{ "Return to " + this.props.trip.places[0].name }</td>);
+    let units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
+
+    let destinations = this.props.trip.places.map((item) => <td>{item.name}</td>);
+    if (destinations.length > 1) // There is a round trip.
+        destinations.push(<td>{"Return to " + this.props.trip.places[0].name}</td>);
+
     let dists = this.props.trip.distances.map((item) => <td>{item}</td>);
-    var cumul = 0;
+    let cumul = 0;
     let cumulative = this.props.trip.distances.map((item) => <td>{ cumul += item }</td>);
 
     if (this.props.trip.distances.length > 0) { // Append a leading '0' for trip distances.
@@ -53,11 +57,9 @@ class Itinerary extends Component {
     }
 
     let rows = [];
-      for (var i = 0; i < dests.length; ++i) {
-          rows.push(<tr>{ dests[i] }{ dists[i] }{ cumulative[i] }</tr>);
+      for (var i = 0; i < destinations.length; ++i) {
+          rows.push(<tr>{ destinations[i] }{ dists[i] }{ cumulative[i] }</tr>);
       }
-
-    // console.log(this.props.trip);
 
     return {distance, units, rows};
   }
@@ -83,8 +85,8 @@ class Itinerary extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="col-md-auto">
-                    Choose What to Include in Itinerary!
+                <div className="col-md-6">
+                    <h5>Choose to change in the itinerary!</h5>
                     <div className="checkbox">
                         <label><input type="checkbox" onChange={this.updateID}/> ID </label>
                     </div>
@@ -93,6 +95,9 @@ class Itinerary extends Component {
                     </div>
                     <div className="checkbox">
                         <label><input type="checkbox" onChange={this.updateLongitude}/> Longitude </label>
+                    </div>
+                    <div className="checkbox">
+                        <label><input type="checkbox" onChange={this.reverse}/> Reverse Trip </label>
                     </div>
                 </div>
             </div>
