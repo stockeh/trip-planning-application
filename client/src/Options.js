@@ -8,12 +8,27 @@ import React, {Component} from 'react';
 class Options extends Component{
   constructor(props) {
     super(props);
+
+    this.state = {
+      optimization: 0
+    }
+
     this.changeOption = this.changeOption.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   changeOption(arg) {
     // console.log("changeOption " + arg.target.id);
     this.props.updateOptions(arg.target.id);
+
+  }
+
+  handleOnChange (arg) {
+    // this.props.updateOptimization(arg.target.id);
+    this.setState({
+      optimization: arg.target.value
+    });
+    this.changeOption(arg);
   }
 
   render() {
@@ -32,6 +47,9 @@ class Options extends Component{
               <label className="btn btn-outline-dark btn-sm">
                 <input type="radio" id="kilometers" name="distance" onChange={this.changeOption}/> Kilometers
               </label>
+            </div>
+            <div className="slidercontainer">
+              <input type="range" id={this.state.optimization} min="0" max="1" value={this.state.optimization} className="slider" onChange={this.handleOnChange} />
             </div>
           </div>
         </div>

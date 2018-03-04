@@ -13,7 +13,7 @@ class Application extends Component {
       trip: { // default TFFI
         type: "trip",
         title: "",
-        options : {distance: ""},
+        options : {distance: "", optimization:0},
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
@@ -31,11 +31,17 @@ class Application extends Component {
     console.log("state.trip: " + this.state.trip.type);
   }
 
+
   updateOptions(opt){
     // update the options in the trip.
     console.log("APPLICATION " + opt);
     var newDistance = Object.assign({}, this.state.trip);
-    newDistance.options.distance = opt;
+    if(Number.isInteger(parseInt(opt))){
+      newDistance.options.optimization=parseInt(opt);
+    }else {
+      newDistance.options.distance = opt;
+    }
+
     this.setState({ trip: newDistance});
   }
 
