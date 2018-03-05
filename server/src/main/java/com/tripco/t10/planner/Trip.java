@@ -94,7 +94,7 @@ public class Trip {
 
   /**
    * Returns the optimized trip between places,including the return to the starting
-   * point to make a round trip. Also alters the places to correct order.
+   * point to make a round trip. TODO, needs to alter the places to correct order.
    * @param coordDegrees Contains the decimal degrees for each place.
    *                     Alternating latitude(0), longitude(0), latitude(1),
    *                     longitude(1), ..., latitude(n), longitude(n).

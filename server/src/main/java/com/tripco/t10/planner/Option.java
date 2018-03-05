@@ -1,7 +1,5 @@
 package com.tripco.t10.planner;
 
-import java.lang.Integer;
-
 /**
  * Describes the options to apply when planning a trip in TFFI format.
  * At this point we are only using the values provided.
