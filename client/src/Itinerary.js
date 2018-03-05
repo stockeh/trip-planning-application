@@ -7,17 +7,15 @@ class Itinerary extends Component {
     this.state = {
         updateID:   false,
         updateLat:  false,
-        updateLong: false,
-        start: 0
+        updateLong: false
     };
 
     this.createTable = this.createTable.bind(this);
     this.updateID = this.updateID.bind(this);
     this.updateLatitude = this.updateLatitude.bind(this);
     this.updateLongitude = this.updateLongitude.bind(this);
-    this.updateStarting = this.updateStarting.bind(this);
     this.reverse = this.reverse.bind(this);
-    this.buildDocu = this.buildDocu.bind(this);
+    this.buildDestination = this.buildDestination.bind(this);
   }
   reverse(){
     this.props.reverseTrip();
@@ -39,19 +37,13 @@ class Itinerary extends Component {
       this.setState({updateLong: !this.state.updateLong});
   }
 
-  updateStarting(index) {
-    this.setState({start : index});
-    console.log(this.state.start)
-  }
-
-
-  buildDocu(item, index) {
+  buildDestination(item, index) {
     var destinationName = [item.name];
     if (index !== 0) {
       destinationName.push(<a className="text-info font-weight-light"
                               style={{cursor:'pointer'}}
                               onClick={() => {
-                                this.updateStarting(index);
+                                this.props.updateStartingLocation(index);
                               }}><br/><small> Make Start </small></a>);
     }
     return destinationName;
@@ -64,7 +56,7 @@ class Itinerary extends Component {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
 
-    let destinations = this.props.trip.places.map((item, index) => <td>{this.buildDocu(item, index)}</td>);
+    let destinations = this.props.trip.places.map((item, index) => <td>{this.buildDestination(item, index)}</td>);
     if (destinations.length > 1) // There is a round trip.
         destinations.push(<td>{"Return to " + this.props.trip.places[0].name}</td>);
 

@@ -24,6 +24,7 @@ class Application extends Component {
     this.updateOptions = this.updateOptions.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
     this.reverseTrip = this.reverseTrip.bind(this);
+    this.updateStartingLocation = this.updateStartingLocation.bind(this);
   }
 
   updateTrip(tffi){
@@ -34,28 +35,63 @@ class Application extends Component {
 
   updateOptions(opt){
     // update the options in the trip.
-    console.log("APPLICATION " + opt);
-    var newDistance = Object.assign({}, this.state.trip);
+    let newDistance = Object.assign({}, this.state.trip);
     newDistance.options.distance = opt;
     this.setState({ trip: newDistance});
   }
 
   updateTitle(t){
-    var newTitle = Object.assign({}, this.state.trip),
-        title = t;
-    //console.log("APPLICATION title " + title);
+    let newTitle = Object.assign({}, this.state.trip);
     newTitle.title = t;
     this.setState({trip: newTitle});
   }
 
   reverseTrip(){
-      var newTrip = Object.assign({}, this.state.trip),
+      let newTrip = Object.assign({}, this.state.trip),
           startingLocation = newTrip.places.shift();
       newTrip.places = newTrip.places.reverse();
       newTrip.places.unshift(startingLocation);
       if(this.state.trip.distances.length)
         newTrip.distances = newTrip.distances.reverse();
       this.setState({trip: newTrip});
+  }
+
+  updateStartingLocation(startingIndex) {
+    /*This function swaps numElements starting at index first
+    with numElements starting at index second */
+    function swap(arr, first, second, numElements) {
+      let index, temp;
+      for (index = 0; index < numElements; ++index) {
+        temp = arr[first + index];
+        arr[first + index] = arr[second + index];
+        arr[second + index] = temp;
+      }
+    }
+    let newTrip = Object.assign({}, this.state.trip);
+    let distances = newTrip.distances;
+
+    let start = startingIndex,
+        diff = newTrip.places.length - start;
+    while (start !== diff) {
+      if(start < diff) { /*A is shorter*/
+        if (distances.length)
+          swap(newTrip.distances, startingIndex-start, startingIndex+diff-start, start);
+        swap(newTrip.places, startingIndex-start, startingIndex+diff-start, start);
+        diff -= start;
+      }
+      else { /*B is shorter*/
+        if (distances.length)
+          swap(newTrip.distances, startingIndex-start, startingIndex, diff);
+        swap(newTrip.places, startingIndex-start, startingIndex, diff);
+        start -= diff;
+      }
+    }
+    /*Finally, block swap A and B*/
+    if (distances.length)
+      swap(newTrip.distances, startingIndex-start, startingIndex, start);
+    swap(newTrip.places, startingIndex-start, startingIndex, start);
+
+    this.setState({trip: newTrip});
   }
 
   render() {
@@ -69,7 +105,8 @@ class Application extends Component {
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
-                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle} reverseTrip={this.reverseTrip}/>
+                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle}
+                      reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}/>
             </div>
           </div>
         </div>
