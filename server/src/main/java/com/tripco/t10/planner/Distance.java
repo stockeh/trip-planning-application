@@ -42,13 +42,13 @@ public class Distance {
    * Computes the grate circle distance between two coordinates.  The distance units
    * provided from the constructor determine the radius for the computation.
    *
-   * @param latitude1  initial latitude in decimal degrees.
-   * @param longitude1 initial longitude in decimal degrees.
-   * @param latitude2  terminal latitude in decimal degrees.
-   * @param longitude2 terminal longitude in decimal degrees.
-   * @return Returns the rounded distance between two coordinate points in decimal degrees.
    * @see Trip#legDistances(ArrayList) method used the distance to populate distances.
    * @see Trip#getDecimalDegrees()
+   * @param latitude1  initial latitude in decimal degrees.
+   * @param longitude1 initial longitude in decimal degrees.
+   * @param latitude2 terminal latitude in decimal degrees.
+   * @param longitude2 terminal longitude in decimal degrees.
+   * @return Returns the rounded distance between two coordinate points in decimal degrees.
    */
   public int greatCirDist(double latitude1, double longitude1, double latitude2, double longitude2) {
     double deltaX, deltaY, deltaZ;
@@ -77,9 +77,9 @@ public class Distance {
   /**
    * Method that is called from legDistances in Trip,
    * this is the "0" level or no optimization algorithm
-   *
+   * @see Trip#legDistances(ArrayList) that calls this method
    * @param coordDegrees the coordinates of the places in the trip
-   * @see Trip class for trip variables.
+   * @return Returns an array of leg distances in order with no optimization
    */
 
   public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
