@@ -48,7 +48,7 @@ public class Trip {
    * It might need to reorder the places in the future.
    *
    */
-  public void plan(){
+  public void plan() {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
     this.distances = legDistances(decimalDegrees);
     //decimalDegrees = getDecimalDegrees(); to reorganize the trip coordinates to display on the svg when an optimization algorithm is used
