@@ -14,7 +14,7 @@ class Application extends Component {
       trip: { // default TFFI
         type: "trip",
         title: "",
-        options : {distance: ""},
+        options : {distance: "", optimization: ""},
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"

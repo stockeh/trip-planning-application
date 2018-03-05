@@ -42,6 +42,7 @@ public class TestParser {
         assertEquals('0',parser.hasDirection("88.2°20.34'38.1"));
     }
 
+
     @Test
     public void testGetLocationArray(){
         assertArrayEquals(new double[]{88.2,-20.34,38.1},parser.getLocationArray("88.2°-20.34'38.1\""),.00000001);

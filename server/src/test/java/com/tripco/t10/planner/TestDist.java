@@ -16,18 +16,25 @@ import static org.junit.Assert.assertTrue;
 public class TestDist {
   Distance distance;
   Distance distanceKM;
+  Distance distNearNeigh;
+  Distance distKMNearNeigh;
+
 
   // Setup to be done before every test in TestDist
   @Before
   public void initialize() {
     distance = new Distance("miles");
     distanceKM = new Distance("kilometers");
+    distNearNeigh = new Distance("miles", 1);
+    distKMNearNeigh = new Distance("kilometers", 1);
   }
 
   @Test
   public void testUnits() {
     assertEquals("miles", distance.distance);
     assertEquals("kilometers", distanceKM.distance);
+    assertEquals("miles", distNearNeigh.distance);
+    assertEquals("kilometers", distKMNearNeigh.distance);
   }
 
   @Test
