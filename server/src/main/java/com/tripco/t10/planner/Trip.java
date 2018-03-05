@@ -51,7 +51,7 @@ public class Trip {
   public void plan(){
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
     this.distances = legDistances(decimalDegrees);
-    //decimalDegrees = getDecimalDegrees(); to reorganize the trip coordinates to display on the svg
+    //decimalDegrees = getDecimalDegrees(); to reorganize the trip coordinates to display on the svg when an optimization algorithm is used
     this.map = svg(decimalDegrees);
   }
 
@@ -108,7 +108,8 @@ public class Trip {
     ArrayList<Integer> rtrn = new ArrayList<Integer>();
 
     // no optimization
-    rtrn = distance.inOrder(coordDegrees);
+    //if (distance.optimization == 0)
+      rtrn = distance.inOrder(coordDegrees);
 
     //if (distance.optimization == 1) {} // work in progress (nearest neighbor greedy algorithm)
     //setPlaces(placez);

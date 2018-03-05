@@ -1,7 +1,6 @@
 package com.tripco.t10.planner;
 
 import java.util.ArrayList;
-import java.lang.Integer;
 import java.lang.Math;
 
 /**
@@ -28,10 +27,10 @@ public class Distance {
 
   /**
    * Constructor that sets the distance global to the correct units,
-   * i.e.,"miles" or "kilometers".
-   *
+   * i.e.,"miles" or "kilometers", and the optimization level, 0 1 2 3
+   *  optimization is parsed from a string to an int in legDistances - Trip.java
    * @param distance the units in the trip.
-   * @param optimization the level of optimization applied to this trip, 0 1 2 3
+   * @param optimization the level of optimization applied to this trip
    * @see Trip class for trip variables.
    */
   public Distance(String distance, int optimization) {
@@ -75,9 +74,15 @@ public class Distance {
 
     return (int) Math.round(radius * centralAngle);
   }
+  /**
+   * Method that is called from legDistances in Trip,
+   * this is the "0" level or no optimization algorithm
+   *
+   * @param coordDegrees the coordinates of the places in the trip
+   * @see Trip class for trip variables.
+   */
 
   public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
-    //if (coordDegrees.size() > 0)
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
       for (int i = 0; i < coordDegrees.size() - 2; i += 2) /* Append all dest1 < - > dest2 to dist */
