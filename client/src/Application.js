@@ -57,39 +57,16 @@ class Application extends Component {
   }
 
   updateStartingLocation(startingIndex) {
-    /*This function swaps numElements starting at index first
-    with numElements starting at index second */
-    function swap(arr, first, second, numElements) {
-      let index, temp;
-      for (index = 0; index < numElements; ++index) {
-        temp = arr[first + index];
-        arr[first + index] = arr[second + index];
-        arr[second + index] = temp;
-      }
-    }
     let newTrip = Object.assign({}, this.state.trip);
-    let distances = newTrip.distances;
 
-    let start = startingIndex,
-        diff = newTrip.places.length - start;
-    while (start !== diff) {
-      if(start < diff) { /*A is shorter*/
-        if (distances.length)
-          swap(newTrip.distances, startingIndex-start, startingIndex+diff-start, start);
-        swap(newTrip.places, startingIndex-start, startingIndex+diff-start, start);
-        diff -= start;
-      }
-      else { /*B is shorter*/
-        if (distances.length)
-          swap(newTrip.distances, startingIndex-start, startingIndex, diff);
-        swap(newTrip.places, startingIndex-start, startingIndex, diff);
-        start -= diff;
+    for (let i = 0; i < startingIndex; ++i) {
+      let first = newTrip.places.shift();
+      newTrip.places.push(first);
+      if(newTrip.distances.length !== 0) {
+        let first = newTrip.distances.shift();
+        newTrip.distances.push(first);
       }
     }
-    /*Finally, block swap A and B*/
-    if (distances.length)
-      swap(newTrip.distances, startingIndex-start, startingIndex, start);
-    swap(newTrip.places, startingIndex-start, startingIndex, start);
 
     this.setState({trip: newTrip});
   }
