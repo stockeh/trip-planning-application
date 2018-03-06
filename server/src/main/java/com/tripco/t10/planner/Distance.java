@@ -76,7 +76,7 @@ public class Distance {
   }
   /**
    * Method that is called from legDistances in Trip,
-   * this is the "0" level or no optimization algorithm
+   * this is the "0" level or no optimization algorithm.
    * @see Trip#legDistances(ArrayList) that calls this method
    * @param coordDegrees the coordinates of the places in the trip
    * @return Returns an array of leg distances in order with no optimization
@@ -85,9 +85,10 @@ public class Distance {
   public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
-      for (int i = 0; i < coordDegrees.size() - 2; i += 2) /* Append all dest1 < - > dest2 to dist */
+      for (int i = 0; i < coordDegrees.size() - 2; i += 2) {
         dist.add(greatCirDist(coordDegrees.get(i), coordDegrees.get(i + 1),
                 coordDegrees.get(i + 2), coordDegrees.get(i + 3)));
+      }
 
     dist.add(greatCirDist(coordDegrees.get(coordDegrees.size() - 2),
             coordDegrees.get(coordDegrees.size() - 1), coordDegrees.get(0), coordDegrees.get(1)));

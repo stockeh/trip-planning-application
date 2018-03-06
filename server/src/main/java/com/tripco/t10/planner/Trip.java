@@ -51,7 +51,7 @@ public class Trip {
   public void plan() {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
     this.distances = legDistances(decimalDegrees);
-    //decimalDegrees = getDecimalDegrees(); to reorganize the trip coordinates to display on the svg when an optimization algorithm is used
+    //decimalDegrees = getDecimalDegrees(); to reorganize the trip coordinates used by svg
     this.map = svg(decimalDegrees);
   }
 
@@ -104,7 +104,8 @@ public class Trip {
    */
   public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees) {
     //int[] dist = new int[coordDegrees.size()/2];
-    Distance distance = new Distance(this.options.distance, Integer.parseInt(this.options.optimization));
+    Distance distance;
+    distance = new Distance(this.options.distance, Integer.parseInt(this.options.optimization));
     ArrayList<Integer> rtrn = new ArrayList<Integer>();
 
     // no optimization
