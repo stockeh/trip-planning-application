@@ -19,16 +19,11 @@ public class Trip {
 
   public Trip(ArrayList<Place> places, String distance){
     this.places = places;
-    this.options = new Option(distance, "0"); // default no optimization
+    this.options = new Option(distance,"");
   }
 
-  public Trip(ArrayList<Place> places, String distance, String optimization){
-    this.places = places;
-    this.options = new Option(distance, optimization);
-  }
-
-  public void setOptions(String distance, String optimization){
-    this.options = new Option(distance, optimization);
+  public void setOptions(String distance){
+    this.options = new Option(distance, "");
   }
 
   /**
@@ -36,7 +31,7 @@ public class Trip {
    * @param placeList
    */
   public void setPlaces(ArrayList<Place> placeList){
-      places = placeList;
+    places = placeList;
   }
 
   /**
@@ -50,9 +45,8 @@ public class Trip {
    */
   public void plan() {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
-    this.distances = legDistances(decimalDegrees);
-    //decimalDegrees = getDecimalDegrees(); to reorganize the trip coordinates used by svg
     this.map = svg(decimalDegrees);
+    this.distances = legDistances(decimalDegrees);
   }
 
   /**
@@ -93,8 +87,8 @@ public class Trip {
   }
 
   /**
-   * Returns the optimized trip between places,including the return to the starting
-   * point to make a round trip. TODO, needs to alter the places to correct order.
+   * Returns the distances between consecutive places,
+   * including the return to the starting point to make a round trip.
    * @param coordDegrees Contains the decimal degrees for each place.
    *                     Alternating latitude(0), longitude(0), latitude(1),
    *                     longitude(1), ..., latitude(n), longitude(n).
@@ -103,23 +97,17 @@ public class Trip {
    * valid locations.
    */
   public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees) {
-    //int[] dist = new int[coordDegrees.size()/2];
-    Distance distance;
-    distance = new Distance(this.options.distance, Integer.parseInt(this.options.optimization));
-    ArrayList<Integer> rtrn = new ArrayList<Integer>();
+    ArrayList<Integer> dist = new ArrayList<Integer>();
+    Distance distance = new Distance(this.options.distance);
 
-    // no optimization
-    //if (distance.optimization == 0)
-      rtrn = distance.inOrder(coordDegrees);
+    if (coordDegrees.size() > 0)
+    for (int i = 0; i < coordDegrees.size() - 2; i += 2) /* Append all dest1 < - > dest2 to dist */
+      dist.add(distance.greatCirDist(coordDegrees.get(i), coordDegrees.get(i+1),
+          coordDegrees.get(i+2), coordDegrees.get(i+3)));
 
-    //if (distance.optimization == 1) {} // work in progress (nearest neighbor greedy algorithm)
-    //setPlaces(placez);
-
-    // 2NC optimization algorithm
-
-    // 3NC optimization algorithm
-
-    return rtrn;
+    dist.add(distance.greatCirDist(coordDegrees.get(coordDegrees.size()-2),
+          coordDegrees.get(coordDegrees.size()-1), coordDegrees.get(0), coordDegrees.get(1)));
+    return dist;
   }
 
 }
