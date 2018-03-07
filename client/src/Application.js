@@ -14,7 +14,7 @@ class Application extends Component {
       trip: { // default TFFI
         type: "trip",
         title: "",
-        options : {distance: ""},
+        options : {distance: "", optimization:0},
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
@@ -27,16 +27,27 @@ class Application extends Component {
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
   }
 
+
+
   updateTrip(tffi){
     console.log("updateTrip");
     console.log("TFFI " + tffi);
     this.setState({trip:tffi});
   }
 
+
   updateOptions(opt){
     // update the options in the trip.
+    console.log("APPLICATION " + opt);
     let newDistance = Object.assign({}, this.state.trip);
-    newDistance.options.distance = opt;
+    if(Number.isInteger(parseInt(opt))){
+      newDistance.options.optimization=parseInt(opt);
+    }else {
+      newDistance.options.distance = opt;
+    }
+
+    // let newDistance = Object.assign({}, this.state.trip);
+    // newDistance.options.distance = opt;
     this.setState({ trip: newDistance});
   }
 
@@ -90,5 +101,7 @@ class Application extends Component {
     )
   }
 }
+
+
 
 export default Application;
