@@ -28,7 +28,7 @@ class Options extends Component{
     this.setState({
       optimization: arg.target.value
     });
-    this.changeOption(arg);
+    this.props.updateOptions(arg.target.value);
   }
 
   render() {
@@ -49,7 +49,7 @@ class Options extends Component{
               </label>
             </div>
             <div className="slidercontainer">
-              <input type="range" id={this.state.optimization} min="0" max="1" value={this.state.optimization} className="slider" onChange={this.handleOnChange} />
+              <input type="range" id="optimizer" min="0" max="1" value={this.state.optimization} className="slider" onChange={this.handleOnChange} />
             </div>
           </div>
         </div>
