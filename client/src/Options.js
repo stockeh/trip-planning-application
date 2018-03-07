@@ -24,10 +24,6 @@ class Options extends Component{
   }
 
   handleOnChange (arg) {
-    // this.props.updateOptimization(arg.target.id);
-    // this.setState({
-    //   optimization: arg.target.value
-    // });
     this.props.updateOptions(arg.target.value);
   }
 
@@ -48,8 +44,12 @@ class Options extends Component{
                 <input type="radio" id="kilometers" name="distance" onChange={this.changeOption}/> Kilometers
               </label>
             </div>
-            <div className="slidercontainer">
+            <div className="slider_container">
               <input type="range" id="optimizer" min="0" max="1" value={this.props.optimization} className="slider" onChange={this.handleOnChange} />
+              <div className="row pl-3">
+                <h6 className="pr-4 m-0">Longer</h6>
+                <h6 className="m-0">Shorter</h6>
+              </div>
             </div>
           </div>
         </div>
