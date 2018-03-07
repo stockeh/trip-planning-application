@@ -1,7 +1,7 @@
 {
 "type"      : "trip",
 "title"     : "valid json",
-"options"   : { "distance":"" },
+"options"   : { "distance":"mi", "optimization":"0" },
 "places"    : [
 	{"id": "aspn", "name": "Aspen", "latitude": "39°11'24\" N", "longitude": "106°49'06\" W"},
 	{"id": "cstlrck", "name": "Castle Rock", "latitude": "39°22'51\" N", "longitude": "104°52'06\" W"},
