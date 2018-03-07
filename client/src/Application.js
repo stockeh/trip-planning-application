@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip';
+import Itinerary from "./Itinerary";
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -22,35 +23,61 @@ class Application extends Component {
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.reverseTrip = this.reverseTrip.bind(this);
+    this.updateStartingLocation = this.updateStartingLocation.bind(this);
   }
 
   updateTrip(tffi){
     console.log("updateTrip");
     console.log("TFFI " + tffi);
     this.setState({trip:tffi});
-    console.log("state.trip: " + this.state.trip.type);
   }
 
 
   updateOptions(opt){
     // update the options in the trip.
     console.log("APPLICATION " + opt);
-    var newDistance = Object.assign({}, this.state.trip);
+    let newDistance = Object.assign({}, this.state.trip);
     if(Number.isInteger(parseInt(opt))){
       newDistance.options.optimization=parseInt(opt);
     }else {
       newDistance.options.distance = opt;
     }
 
+    // let newDistance = Object.assign({}, this.state.trip);
+    // newDistance.options.distance = opt;
     this.setState({ trip: newDistance});
   }
 
   updateTitle(t){
-    var newTitle = Object.assign({}, this.state.trip),
-        title = t;
-    //console.log("APPLICATION title " + title);
-    newTitle.title = title;
+    let newTitle = Object.assign({}, this.state.trip);
+    newTitle.title = t;
     this.setState({trip: newTitle});
+  }
+
+  reverseTrip(){
+      let newTrip = Object.assign({}, this.state.trip),
+          startingLocation = newTrip.places.shift();
+      newTrip.places = newTrip.places.reverse();
+      newTrip.places.unshift(startingLocation);
+      if(this.state.trip.distances.length)
+        newTrip.distances = newTrip.distances.reverse();
+      this.setState({trip: newTrip});
+  }
+
+  updateStartingLocation(startingIndex) {
+    let newTrip = Object.assign({}, this.state.trip);
+
+    for (let i = 0; i < startingIndex; ++i) {
+      let first = newTrip.places.shift();
+      newTrip.places.push(first);
+      if(newTrip.distances.length !== 0) {
+        let first = newTrip.distances.shift();
+        newTrip.distances.push(first);
+      }
+    }
+
+    this.setState({trip: newTrip});
   }
 
   render() {
@@ -61,10 +88,11 @@ class Application extends Component {
                 <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-12">
-                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle} />
+                <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
-                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle} />
+                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle}
+                      reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}/>
             </div>
           </div>
         </div>
