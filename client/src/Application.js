@@ -27,6 +27,8 @@ class Application extends Component {
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
   }
 
+
+
   updateTrip(tffi){
     console.log("updateTrip");
     console.log("TFFI " + tffi);
@@ -99,5 +101,7 @@ class Application extends Component {
     )
   }
 }
+
+
 
 export default Application;

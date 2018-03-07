@@ -9,9 +9,9 @@ class Options extends Component{
   constructor(props) {
     super(props);
 
-    this.state = {
-      optimization: 0
-    }
+    // this.state = {
+    //   optimization: 0
+    // }
 
     this.changeOption = this.changeOption.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -25,9 +25,9 @@ class Options extends Component{
 
   handleOnChange (arg) {
     // this.props.updateOptimization(arg.target.id);
-    this.setState({
-      optimization: arg.target.value
-    });
+    // this.setState({
+    //   optimization: arg.target.value
+    // });
     this.props.updateOptions(arg.target.value);
   }
 
@@ -49,7 +49,7 @@ class Options extends Component{
               </label>
             </div>
             <div className="slidercontainer">
-              <input type="range" id="optimizer" min="0" max="1" value={this.state.optimization} className="slider" onChange={this.handleOnChange} />
+              <input type="range" id="optimizer" min="0" max="1" value={this.props.optimization} className="slider" onChange={this.handleOnChange} />
             </div>
           </div>
         </div>
