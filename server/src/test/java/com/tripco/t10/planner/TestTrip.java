@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 @RunWith(JUnit4.class)
 public class TestTrip {
   Trip trip;
+  Trip trip2;
   // Setup to be done before every test in TestPlan
   @Before
   public void initialize() {
@@ -24,7 +25,10 @@ public class TestTrip {
       Place boulder = new Place("bldr", "Boulder","40.0149900", "-105.2705500");
       Place fortcollins = new Place("foco", "Fort Collins","40° 35' 6.9288\" N","105° 5' 3.9084\" W");
       ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(denver,boulder,fortcollins));
-      trip = new Trip(places, "miles");
+      trip = new Trip(places, "miles"); // no optimization value is defaulted to 0
+
+      ArrayList<Place> places2 = new ArrayList<Place>(Arrays.asList(fortcollins,boulder,denver));
+      trip2 = new Trip(places2, "miles", 0); // optimization value is set to 0
   }
 
   @Test
@@ -36,11 +40,17 @@ public class TestTrip {
   @Test
   public void testLegDistances() {
     ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419));
+    ArrayList<Double> degrees2 = new ArrayList<>(Arrays.asList(40.585258, -105.084419, 40.0149900, -105.2705500, 39.7392, -104.9903));
     ArrayList<Integer> distancesM = new ArrayList<Integer>(Arrays.asList(24, 41, 59));
+    ArrayList<Integer> distancesM2 = new ArrayList<Integer>(Arrays.asList(41, 24, 59));
     assertEquals(distancesM ,trip.legDistances(degrees));  //test miles
-    trip.setOptions("kilometers");
+    assertEquals(distancesM2 ,trip2.legDistances(degrees2));  //test miles
+    trip2.setOptions("kilometers", 0);
+    trip.setOptions("kilometers", 0);
     ArrayList<Integer> distancesKM = new ArrayList<Integer>(Arrays.asList(39, 65, 94));
+    ArrayList<Integer> distancesKM2 = new ArrayList<Integer>(Arrays.asList(65, 39, 94));
     assertEquals(distancesKM ,trip.legDistances(degrees)); //test km
+    assertEquals(distancesKM2 ,trip2.legDistances(degrees2)); //test km
   }
 
 }

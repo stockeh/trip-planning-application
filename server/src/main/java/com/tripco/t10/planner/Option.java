@@ -7,9 +7,9 @@ package com.tripco.t10.planner;
 public class Option {
 
   public String distance;
-  public String optimization;
+  public double optimization;
 
-  public Option(String distance, String optimization){
+  public Option(String distance, double optimization){
     this.distance = distance;
     this.optimization = optimization;
   }
