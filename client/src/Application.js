@@ -58,6 +58,7 @@ class Application extends Component {
     // let newDistance = Object.assign({}, this.state.trip);
     // newDistance.options.distance = opt;
     this.setState({ trip: newDistance});
+    console.log(this.state);
   }
 
   updateTitle(t){
@@ -95,10 +96,10 @@ class Application extends Component {
     return(
         <div id="application" className="container">
           <div className="row">
-            <div className="col-12">
+            <div className="col-xs-12 col-md-6">
                 <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
             </div>
-            <div className="col-12">
+            <div className="col-xs-12 col-md-6">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
