@@ -11,6 +11,7 @@ public class Distance {
   // Defining variables and constructors
 
   public String distance;
+  public double optimization;
 
   /**
    * Constructor that sets the distance global to the correct units,
@@ -19,8 +20,23 @@ public class Distance {
    * @param distance the units in the trip.
    * @see Trip class for trip variables.
    */
-  public Distance(String distance) { this.distance = distance.toLowerCase(); }
+  public Distance(String distance) {
+    this.distance = distance.toLowerCase();
+    this.optimization = 0;
+  }
 
+  /**
+   * Constructor that sets the distance global to the correct units,
+   * i.e.,"miles" or "kilometers" and the level of optimization for the trip
+   * Optimization level can be 0 1 2 3
+   * @param distance the units in the trip.
+   * @param optimization level for the trip
+   * @see Trip class for trip variables.
+   */
+  public Distance(String distance, double optimization){
+    this.distance = distance.toLowerCase();
+    this.optimization = optimization;
+  }
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
    * provided from the constructor determine the radius for the computation.
@@ -56,6 +72,27 @@ public class Distance {
     centralAngle = 2 * Math.asin(chordLen / 2);
 
     return (int)Math.round(radius * centralAngle);
+  }
+
+  /**
+    * Method that is called from legDistances in Trip,
+    * this is the "0" level or no optimization algorithm.
+    * @see Trip#legDistances(ArrayList) that calls this method
+    * @param coordDegrees the coordinates of the places in the trip
+    * @return Returns an array of leg distances in order with no optimization
+    */
+
+  public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees) {
+
+    ArrayList<Integer> dist = new ArrayList<Integer>();
+      for (int i = 0; i < coordDegrees.size() - 2; i += 2) {
+        dist.add(greatCirDist(coordDegrees.get(i), coordDegrees.get(i + 1),
+                coordDegrees.get(i + 2), coordDegrees.get(i + 3)));
+      }
+      dist.add(greatCirDist(coordDegrees.get(coordDegrees.size() - 2),
+              coordDegrees.get(coordDegrees.size() - 1), coordDegrees.get(0), coordDegrees.get(1)));
+
+  return dist;
   }
 
 }

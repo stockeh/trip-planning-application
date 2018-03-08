@@ -65,7 +65,7 @@ class Trip extends Component {
           "title"   : this.props.trip.title,
           "options" : {
               "distance": this.props.trip.options.distance,
-              "optimization":"none"
+              "optimization": this.props.trip.options.optimization
           },
           "places"      : this.props.trip.places,
           "distances"   : this.props.trip.distances,

@@ -2,6 +2,7 @@ package com.tripco.t10.planner;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.lang.Double;
 
 /**
  * The Trip class supports TFFI so it can easily be converted to/from Json by Gson.
@@ -20,11 +21,16 @@ public class Trip {
 
   public Trip(ArrayList<Place> places, String distance){
     this.places = places;
-    this.options = new Option(distance,"");
+    this.options = new Option(distance, 0);
   }
 
-  public void setOptions(String distance){
-    this.options = new Option(distance, "");
+  public Trip(ArrayList<Place> places, String distance, double optimization){
+    this.places = places;
+    this.options = new Option(distance, optimization);
+  }
+
+  public void setOptions(String distance, double optimization){
+    this.options = new Option(distance, optimization);
   }
 
   /**
@@ -99,15 +105,13 @@ public class Trip {
    */
   public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees) {
     ArrayList<Integer> dist = new ArrayList<Integer>();
-    Distance distance = new Distance(this.options.distance);
+    Distance distance = new Distance(this.options.distance, this.options.optimization);
 
-    if (coordDegrees.size() > 0)
-    for (int i = 0; i < coordDegrees.size() - 2; i += 2) /* Append all dest1 < - > dest2 to dist */
-      dist.add(distance.greatCirDist(coordDegrees.get(i), coordDegrees.get(i+1),
-          coordDegrees.get(i+2), coordDegrees.get(i+3)));
+    //if (distance.optimization == 1) // nearest neighbor optimization algorithm
 
-    dist.add(distance.greatCirDist(coordDegrees.get(coordDegrees.size()-2),
-          coordDegrees.get(coordDegrees.size()-1), coordDegrees.get(0), coordDegrees.get(1)));
+      dist = distance.inOrder(coordDegrees);
+
+
     return dist;
   }
 
