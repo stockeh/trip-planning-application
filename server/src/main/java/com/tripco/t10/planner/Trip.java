@@ -10,6 +10,7 @@ import java.util.Iterator;
 public class Trip {
   // The variables in this class should reflect TFFI.
 
+  public String version;
   public String type;
   public String title;
   public Option options;
