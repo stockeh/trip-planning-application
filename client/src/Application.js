@@ -12,9 +12,10 @@ class Application extends Component {
     super(props);
     this.state = {
       trip: { // default TFFI
-        type: "trip",
+        version: 0,
+        type: "",
         title: "",
-        options : {distance: ""},
+        options : {distance: "", optimization:0},
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
@@ -27,17 +28,37 @@ class Application extends Component {
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
   }
 
+
+
   updateTrip(tffi){
     console.log("updateTrip");
     console.log("TFFI " + tffi);
     this.setState({trip:tffi});
   }
 
+  // tripVersionHandling(){
+  //   if(this.trip.version === 1){
+  //     this.trip.options.optimization="none"
+  //   }else if(isNaN(this.trip.options.optimization)){
+  //     this.trip.options.optimization = 0;
+  //   }
+  // }
+
+
   updateOptions(opt){
     // update the options in the trip.
+    console.log("APPLICATION " + opt);
     let newDistance = Object.assign({}, this.state.trip);
-    newDistance.options.distance = opt;
+    if(Number.isInteger(parseInt(opt))){
+      newDistance.options.optimization=parseInt(opt);
+    }else {
+      newDistance.options.distance = opt;
+    }
+
+    // let newDistance = Object.assign({}, this.state.trip);
+    // newDistance.options.distance = opt;
     this.setState({ trip: newDistance});
+    console.log(this.state);
   }
 
   updateTitle(t){
@@ -75,10 +96,10 @@ class Application extends Component {
     return(
         <div id="application" className="container">
           <div className="row">
-            <div className="col-12">
+            <div className="col-xs-12 col-md-6">
                 <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
             </div>
-            <div className="col-12">
+            <div className="col-xs-12 col-md-6">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
             </div>
             <div className="col-12">
@@ -90,5 +111,7 @@ class Application extends Component {
     )
   }
 }
+
+
 
 export default Application;

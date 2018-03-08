@@ -83,7 +83,7 @@ class Itinerary extends Component {
     return(
         <div id="itinerary" className="container">
             <div className="row">
-                <div className="col-md-auto">
+                <div className="col-xs-12 col-md-8 order-last order-md-first">
                     <h4>Round trip distance of {table.distance} <b>{table.units}</b>. </h4>
                     <table className="table table-responsive table-hover">
                         <thead>
@@ -98,7 +98,7 @@ class Itinerary extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="col-md-6">
+                <div className="col-xs-12 col-md-4 order-first order-md-last">
                     <h5>Choose to change in the itinerary!</h5>
                     <div className="checkbox">
                         <label><input type="checkbox" onChange={this.updateID}/> ID </label>
