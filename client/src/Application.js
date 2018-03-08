@@ -12,7 +12,8 @@ class Application extends Component {
     super(props);
     this.state = {
       trip: { // default TFFI
-        type: "trip",
+        version: 0,
+        type: "",
         title: "",
         options : {distance: "", optimization:0},
         places: [],
@@ -34,6 +35,14 @@ class Application extends Component {
     console.log("TFFI " + tffi);
     this.setState({trip:tffi});
   }
+
+  // tripVersionHandling(){
+  //   if(this.trip.version === 1){
+  //     this.trip.options.optimization="none"
+  //   }else if(isNaN(this.trip.options.optimization)){
+  //     this.trip.options.optimization = 0;
+  //   }
+  // }
 
 
   updateOptions(opt){
