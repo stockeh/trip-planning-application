@@ -1,3 +1,5 @@
+import React, {Component} from 'react';
+
 class Query extends Component {
   constructor(props){
     super(props);
@@ -15,7 +17,6 @@ class Query extends Component {
   render() {
     return(
       <div id="query" className="container">
-
       </div>
     )
   }
