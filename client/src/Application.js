@@ -68,13 +68,15 @@ class Application extends Component {
   }
 
   reverseTrip(){
+    if (this.state.trip.places.length) {
       let newTrip = Object.assign({}, this.state.trip),
-          startingLocation = newTrip.places.shift();
+        startingLocation = newTrip.places.shift();
       newTrip.places = newTrip.places.reverse();
       newTrip.places.unshift(startingLocation);
-      if(this.state.trip.distances.length)
+      if (this.state.trip.distances.length)
         newTrip.distances = newTrip.distances.reverse();
       this.setState({trip: newTrip});
+    }
   }
 
   updateStartingLocation(startingIndex) {
