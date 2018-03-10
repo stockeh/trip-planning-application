@@ -31,7 +31,7 @@ class Query extends Component {
   updateQuery(event) {
     let newSearch = Object.assign({}, this.state.search);
     newSearch.query = event.target.value
-    this.setState({search: newQuery})
+    this.setState({search: newSearch})
   }
 
   render() {
@@ -52,12 +52,12 @@ class Query extends Component {
 
               <div className="modal-body">
                 <h6>Enter the name of a destination that you would like to visit!</h6>
-                <input id="destination" type="text" className="form-control" onChange={this.updateSearch} placeholder="Destination name..."/>
+                <input id="destination" type="text" className="form-control" onChange={this.updateQuery} placeholder="Destination name..."/>
                 <br/> @todo ... add clickable itinerary to add destinations to tip.
               </div>
 
               <div className="modal-footer">
-                <Search search={this.state.search} updateQuery={this.updateSearch}/>
+                <Search search={this.state.search} updateSearch={this.updateSearch}/>
               </div>
             </div>
           </div>
