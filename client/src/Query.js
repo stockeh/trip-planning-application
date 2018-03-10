@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Search from './Search';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -9,19 +10,28 @@ class Query extends Component {
   constructor(props){
     super(props);
     this.state = {
-      trip: { // default Query
+      search: { // default Query
         version : 2,
         type    : "query",
         query   : "",
         places  : []
       },
-      destination : ""
+      destination: ""
     };
     this.updateSearch = this.updateSearch.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
+  }
+
+  updateQuery(tffi){
+    console.log("updateQuery");
+    console.log("TFFI " + tffi);
+    this.setState({search:tffi});
   }
 
   updateSearch(event) {
-    this.setState({destination : event.target.value})
+    let newQuery = Object.assign({}, this.state.search);
+    newQuery.query = event.target.value
+    this.setState({search: newQuery})
   }
 
   render() {
@@ -47,7 +57,7 @@ class Query extends Component {
               </div>
 
               <div className="modal-footer">
-                @todo ... button to send search query
+                <Search search={this.state.search} updateQuery={this.updateQuery}/>
               </div>
             </div>
           </div>
