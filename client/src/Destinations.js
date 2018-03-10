@@ -47,12 +47,13 @@ class Destinations extends Component {
             Destinations
           </div>
           <div className="card-body">
-            <Query query/>
             <p>Load destinations from a file.</p>
             <div className="form-group" role="group">
                 <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
             </div>
-            <h5>There are {count} destinations. </h5>
+            <p>Find destinations to add to your trip.</p>
+            <Query query/>
+            <br/><h5>There are {count} destinations. </h5>
           </div>
         </div>
     )
