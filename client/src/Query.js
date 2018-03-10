@@ -22,15 +22,15 @@ class Query extends Component {
     this.updateQuery = this.updateQuery.bind(this);
   }
 
-  updateQuery(tffi){
-    console.log("updateQuery");
+  updateSearch(tffi){
+    console.log("updateSearch");
     console.log("TFFI " + tffi);
     this.setState({search:tffi});
   }
 
-  updateSearch(event) {
-    let newQuery = Object.assign({}, this.state.search);
-    newQuery.query = event.target.value
+  updateQuery(event) {
+    let newSearch = Object.assign({}, this.state.search);
+    newSearch.query = event.target.value
     this.setState({search: newQuery})
   }
 
@@ -57,7 +57,7 @@ class Query extends Component {
               </div>
 
               <div className="modal-footer">
-                <Search search={this.state.search} updateQuery={this.updateQuery}/>
+                <Search search={this.state.search} updateQuery={this.updateSearch}/>
               </div>
             </div>
           </div>

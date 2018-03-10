@@ -34,7 +34,7 @@ class Search extends Component {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
       console.log(tffi);
-      this.props.updateQuery(tffi);
+      this.props.updateSearch(tffi);
     } catch(err) {
       console.error(err);
     }
