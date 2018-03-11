@@ -39,7 +39,7 @@ class Query extends Component {
   updateDestinations(index) {
     let newSearch = Object.assign({}, this.state.search);
     let removedItem = newSearch.places.splice(index, 1);
-    // this.props.updatePlaces(removedItem);
+    this.props.updatePlaces(removedItem[0]);
     this.setState({search: newSearch});
   }
 
