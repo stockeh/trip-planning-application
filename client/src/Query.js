@@ -24,10 +24,8 @@ class Query extends Component {
     this.createTable = this.createTable.bind(this);
   }
 
-  updateSearch(tffi){
-    console.log("updateSearch");
-    console.log("TFFI " + tffi);
-    this.setState({search:tffi});
+  updateSearch(tffi) {
+    this.setState({search : tffi});
   }
 
   updateQuery(event) {
@@ -54,10 +52,12 @@ class Query extends Component {
   }
 
   createTable() {
-    let destinations = this.state.search.places.map((item, index) => <td>{this.buildDestination(item, index)}</td>);
+    let dest = this.state.search.places.map((item, index) => {
+        return <td>{this.buildDestination(item, index)}</td>;
+    });
     let table = [];
-    for (let i = 0; i < destinations.length; ++i) {
-        table.push(<tr key={i}>{ destinations[i] }</tr>);
+    for (let i = 0; i < dest.length; ++i) {
+        table.push(<tr key={i}>{ dest[i] }</tr>);
     }
     return (
       <table className="table table-responsive table-hover">
