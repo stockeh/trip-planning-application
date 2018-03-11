@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Query from './Query';
 
 /* Destinations reside in the parent object so they may be shared
  * with the Trip object.
@@ -50,7 +51,9 @@ class Destinations extends Component {
             <div className="form-group" role="group">
                 <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
             </div>
-            <h5>There are {count} destinations. </h5>
+            <p>Find destinations to add to your trip.</p>
+            <Query trip={this.props.trip}/>
+            <br/><h5>There are {count} destinations. </h5>
           </div>
         </div>
     )
