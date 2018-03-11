@@ -26,6 +26,7 @@ class Application extends Component {
     this.updateTitle = this.updateTitle.bind(this);
     this.reverseTrip = this.reverseTrip.bind(this);
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
+    this.updatePlaces = this.updatePlaces.bind(this);
   }
 
 
@@ -34,6 +35,13 @@ class Application extends Component {
     console.log("updateTrip");
     console.log("TFFI " + tffi);
     this.setState({trip:tffi});
+  }
+
+  updatePlaces(place) {
+    let newTrip = Object.assign({}, this.state.trip);
+    newTrip.places.push(place);
+    this.setState({trip : newTrip});
+    console.log(this.state.trip.places);
   }
 
   // tripVersionHandling(){
@@ -102,7 +110,7 @@ class Application extends Component {
                 <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-xs-12 col-md-6">
-                <Destinations trip={this.state.trip} updateTrip={this.updateTrip}/>
+                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}/>
             </div>
             <div className="col-12">
                 <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle}
