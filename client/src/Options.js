@@ -9,10 +9,6 @@ class Options extends Component{
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   optimization: 0
-    // }
-
     this.changeOption = this.changeOption.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
   }

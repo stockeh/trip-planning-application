@@ -23,10 +23,13 @@ class Trip extends Component {
   fetchResponse(){
     // need to get the request body from the trip in state object.
     let requestBody = {
+        "version" : this.props.version,
         "type"    : this.props.trip.type,
         "title"   : this.props.trip.title,
         "options" : { 
           "distance": this.props.trip.options.distance,
+          "userUnit": this.props.trip.options.userUnit,
+          "userRadius": this.props.trip.options.userRadius,
           "optimization":this.props.trip.options.optimization
         },
         "places"  : this.props.trip.places,
@@ -61,10 +64,13 @@ class Trip extends Component {
    */
   saveTFFI(){
       let saveBody = {
+          "version" : this.props.version,
           "type"    : this.props.trip.type,
           "title"   : this.props.trip.title,
           "options" : {
               "distance": this.props.trip.options.distance,
+              "userUnit": this.props.trip.options.userUnit,
+              "userRadius": this.props.trip.options.userRadius,
               "optimization": this.props.trip.options.optimization
           },
           "places"      : this.props.trip.places,

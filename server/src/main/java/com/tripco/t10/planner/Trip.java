@@ -11,13 +11,17 @@ import java.lang.Double;
 public class Trip {
   // The variables in this class should reflect TFFI.
 
-  public String version;
+  public int version;
   public String type;
   public String title;
   public Option options;
   public ArrayList<Place> places;
   public ArrayList<Integer> distances;
   public String map;
+
+  public Trip(){
+    this.version=1;
+  }
 
   public Trip(ArrayList<Place> places, String distance){
     this.places = places;
