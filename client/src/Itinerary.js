@@ -26,19 +26,41 @@ class Itinerary extends Component {
   Toggles the corresponding state
    */
   updateID () {
-      this.setState({updateID: !this.state.updateID});
+      this.setState({updateID: !this.state.updateID},
+          function () {
+            this.createTable();
+          });
   }
 
   updateLatitude () {
-      this.setState({updateLat: !this.state.updateLat});
+      this.setState({updateLat: !this.state.updateLat},
+          function () {
+              this.createTable();
+          });
   }
 
   updateLongitude () {
-      this.setState({updateLong: !this.state.updateLong});
+      this.setState({updateLong: !this.state.updateLong},
+          function () {
+              this.createTable();
+          });
   }
 
   buildDestination(item, index) {
     var destinationName = [item.name];
+
+    if (this.state.updateID) {
+        destinationName.push(item.id);
+    }
+
+    if (this.state.updateLat) {
+        destinationName.push(item.latitude);
+    }
+
+    if (this.state.updateLong) {
+        destinationName.push(item.longitude);
+    }
+
     if (index !== 0) {
       destinationName.push(<a className="text-info font-weight-light"
                               style={{cursor:'pointer'}}
