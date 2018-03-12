@@ -11,23 +11,6 @@ class Trip extends Component {
   constructor(props) {
       super(props);
 
-      this.state = {
-        body: {
-        "version" : this.props.version,
-        "type"    : this.props.trip.type,
-        "title"   : this.props.trip.title,
-        "options" : {
-          "distance": this.props.trip.options.distance,
-          "userUnit": this.props.trip.options.userUnit,
-          "userRadius": this.props.trip.options.userRadius,
-          "optimization": this.props.trip.options.optimization
-        },
-        "places"      : this.props.trip.places,
-        "distances"   : this.props.trip.distances,
-        "map"         : this.props.trip.map
-      }
-    }
-
       this.plan = this.plan.bind(this);
       this.saveTFFI = this.saveTFFI.bind(this);
       this.updateT = this.updateT.bind(this);
