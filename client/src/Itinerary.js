@@ -50,15 +50,15 @@ class Itinerary extends Component {
     var destinationName = [item.name];
 
     if (this.state.updateID) {
-        destinationName.push(item.id);
+        destinationName.push(<span><br/><small>ID: {item.id}</small></span>);
     }
 
     if (this.state.updateLat) {
-        destinationName.push(item.latitude);
+        destinationName.push(<span><br/><small>Latitude: {item.latitude}</small></span>);
     }
 
     if (this.state.updateLong) {
-        destinationName.push(item.longitude);
+        destinationName.push(<span><br/><small>Longitude: {item.longitude}</small></span>);
     }
 
     if (index !== 0) {
