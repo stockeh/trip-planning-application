@@ -11,6 +11,23 @@ class Trip extends Component {
   constructor(props) {
       super(props);
 
+      this.state = {
+        body: {
+        "version" : this.props.version,
+        "type"    : this.props.trip.type,
+        "title"   : this.props.trip.title,
+        "options" : {
+          "distance": this.props.trip.options.distance,
+          "userUnit": this.props.trip.options.userUnit,
+          "userRadius": this.props.trip.options.userRadius,
+          "optimization": this.props.trip.options.optimization
+        },
+        "places"      : this.props.trip.places,
+        "distances"   : this.props.trip.distances,
+        "map"         : this.props.trip.map
+      }
+    }
+
       this.plan = this.plan.bind(this);
       this.saveTFFI = this.saveTFFI.bind(this);
       this.updateT = this.updateT.bind(this);
@@ -22,16 +39,7 @@ class Trip extends Component {
    */
   fetchResponse(){
     // need to get the request body from the trip in state object.
-    let requestBody = {
-        "type"    : this.props.trip.type,
-        "title"   : this.props.trip.title,
-        "options" : { 
-          "distance": this.props.trip.options.distance,
-          "optimization":this.props.trip.options.optimization
-        },
-        "places"  : this.props.trip.places,
-        "map"     : this.props.trip.map
-      };
+    let requestBody = this.props.trip;
 
     console.log(process.env.SERVICE_URL);
     console.log(requestBody);
@@ -60,17 +68,7 @@ class Trip extends Component {
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){
-      let saveBody = {
-          "type"    : this.props.trip.type,
-          "title"   : this.props.trip.title,
-          "options" : {
-              "distance": this.props.trip.options.distance,
-              "optimization": this.props.trip.options.optimization
-          },
-          "places"      : this.props.trip.places,
-          "distances"   : this.props.trip.distances,
-          "map"         : this.props.trip.map
-      };
+      let saveBody = this.props.trip;
 
       var fileName = this.props.trip.title;
       if (fileName == "")
