@@ -145,7 +145,7 @@ class Itinerary extends Component {
                         <label><input type="checkbox" onChange={this.reverse}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
-                        <button className="btn btn-danger " onClick={this.removeDestinations} type="button">Remove All Destinations</button>
+                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.removeDestinations() }} type="button">Remove All Destinations</button>
                     </span>
                 </div>
             </div>
