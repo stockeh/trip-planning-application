@@ -28,6 +28,7 @@ class Application extends Component {
     this.reverseTrip = this.reverseTrip.bind(this);
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
     this.updatePlaces = this.updatePlaces.bind(this);
+    this.resetDestinations = this.resetDestinations.bind(this);
   }
 
 
@@ -103,6 +104,14 @@ class Application extends Component {
     this.setState({trip: newTrip});
   }
 
+  resetDestinations() {
+      let newTrip = Object.assign({}, this.state.trip);
+      newTrip.places = [];
+      newTrip.distances = [];
+      newTrip.map = "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>";
+      this.setState({trip: newTrip});
+  }
+
   render() {
     return(
         <div id="application" className="container">
@@ -115,7 +124,8 @@ class Application extends Component {
             </div>
             <div className="col-12">
                 <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle}
-                      reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}/>
+                      reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
+                      resetDestinations={this.resetDestinations}/>
             </div>
           </div>
         </div>
