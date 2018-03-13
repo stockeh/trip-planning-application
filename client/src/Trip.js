@@ -90,7 +90,7 @@ class Trip extends Component {
             </span>
             </div>
             <Map trip={this.props.trip} />
-            <Itinerary trip={this.props.trip} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation}/>
+            <Itinerary trip={this.props.trip} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
           </div>
         </div>
     )
