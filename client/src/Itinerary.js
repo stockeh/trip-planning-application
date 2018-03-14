@@ -16,6 +16,7 @@ class Itinerary extends Component {
     this.updateLongitude = this.updateLongitude.bind(this);
     this.reverse = this.reverse.bind(this);
     this.buildDestination = this.buildDestination.bind(this);
+    this.removeDestinations = this.removeDestinations.bind(this);
   }
   reverse(){
     this.props.reverseTrip();
@@ -69,6 +70,15 @@ class Itinerary extends Component {
                               }}><br/><small> Make Start </small></a>);
     }
     return destinationName;
+  }
+
+  /*
+  Called when remove all button is pressed.
+  Removes places, destinations and clears map.
+   */
+  removeDestinations() {
+      this.props.resetDestinations();
+      this.createTable();
   }
 
   /*
@@ -134,6 +144,9 @@ class Itinerary extends Component {
                     <div className="checkbox">
                         <label><input type="checkbox" onChange={this.reverse}/> Reverse Trip </label>
                     </div>
+                    <span className="input-group-btn">
+                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.removeDestinations() }} type="button">Remove All Destinations</button>
+                    </span>
                 </div>
             </div>
         </div>
