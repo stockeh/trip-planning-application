@@ -5,40 +5,45 @@ class Itinerary extends Component {
     super(props);
 
     this.state = {
-        information : [false,false,false] // ID, Latitude, Longitude
+            ID        : false,
+            Latitude  : false,
+            Longitude : false
     };
 
     this.createTable = this.createTable.bind(this);
     this.buildDestination = this.buildDestination.bind(this);
     this.removeDestinations = this.removeDestinations.bind(this);
     this.showInformation = this.showInformation.bind(this);
+    this.addInformation = this.addInformation.bind(this);
   }
 
   /* Functions to update the state that checkboxes are dependant on
    * Toggles the corresponding state
    */
   showInformation(event) {
-    let newInformation = Object.assign({}, this.state.information);
-    newInformation[event.target.value] = !newInformation[event.target.value];
-    this.setState({information:newInformation},
+    let str = "this.state." + event.target.id;
+    let newInformation = Object.assign({}, eval(str));
+    newInformation = !eval(str);
+    this.setState({[event.target.id]:newInformation},
         function () {
         this.createTable();
       });
   }
 
+  addInformation(destinationName, item, k) {
+      let str = "item." + k.toLowerCase();
+      destinationName.push(<span key={eval(str)}><br/><small>{k}: {eval(str)}</small></span>);
+      return destinationName;
+  }
+
   buildDestination(item, index) {
-    var destinationName = [item.name];
+    let destinationName = [item.name];
 
-    if (this.state.information[0]) {
-        destinationName.push(<span key={item.id}><br/><small>ID: {item.id}</small></span>);
-    }
-
-    if (this.state.information[1]) {
-        destinationName.push(<span key={item.latitude}><br/><small>Latitude: {item.latitude}</small></span>);
-    }
-
-    if (this.state.information[2]) {
-        destinationName.push(<span key={item.longitude}><br/><small>Longitude: {item.longitude}</small></span>);
+    let keys = ['ID', 'Latitude', 'Longitude'];
+    for (let k of keys) {
+        if (this.state[k]) {
+          destinationName = this.addInformation(destinationName, item, k);
+      }
     }
 
     if (index !== 0) {
@@ -112,13 +117,13 @@ class Itinerary extends Component {
                 <div className="col-xs-12 col-md-4 order-first order-md-last">
                     <h5>Choose to change in the itinerary!</h5>
                     <div className="checkbox">
-                        <label><input type="checkbox" value={0} onChange={this.showInformation}/> ID </label>
+                        <label><input type="checkbox" id={"ID"} onChange={this.showInformation}/> ID </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value={1} onChange={this.showInformation}/> Latitude </label>
+                        <label><input type="checkbox" id={"Latitude"} onChange={this.showInformation}/> Latitude </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" value={2} onChange={this.showInformation}/> Longitude </label>
+                        <label><input type="checkbox" id={"Longitude"} onChange={this.showInformation}/> Longitude </label>
                     </div>
                     <div className="checkbox">
                         <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
