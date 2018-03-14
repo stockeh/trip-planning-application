@@ -9,15 +9,14 @@ class Itinerary extends Component {
     };
 
     this.createTable = this.createTable.bind(this);
-    this.reverse = this.reverse.bind(this);
     this.buildDestination = this.buildDestination.bind(this);
     this.removeDestinations = this.removeDestinations.bind(this);
     this.showInformation = this.showInformation.bind(this);
   }
-  reverse(){
-    this.props.reverseTrip();
-  }
 
+  /* Functions to update the state that checkboxes are dependant on
+   * Toggles the corresponding state
+   */
   showInformation(event) {
     let newInformation = Object.assign({}, this.state.information);
     newInformation[event.target.value] = !newInformation[event.target.value];
@@ -25,31 +24,6 @@ class Itinerary extends Component {
         function () {
         this.createTable();
       });
-  }
-
-  /*
-  Functions to update the state that checkboxes are dependant on
-  Toggles the corresponding state
-   */
-  updateID () {
-      this.setState({updateID: !this.state.updateID},
-          function () {
-            this.createTable();
-          });
-  }
-
-  updateLatitude () {
-      this.setState({updateLat: !this.state.updateLat},
-          function () {
-              this.createTable();
-          });
-  }
-
-  updateLongitude () {
-      this.setState({updateLong: !this.state.updateLong},
-          function () {
-              this.createTable();
-          });
   }
 
   buildDestination(item, index) {
@@ -147,7 +121,7 @@ class Itinerary extends Component {
                         <label><input type="checkbox" value={2} onChange={this.showInformation}/> Longitude </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.reverse}/> Reverse Trip </label>
+                        <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
                         <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.removeDestinations() }} type="button">Remove All Destinations</button>
