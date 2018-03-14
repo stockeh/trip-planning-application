@@ -39,11 +39,10 @@ class Itinerary extends Component {
   buildDestination(item, index) {
     let destinationName = [item.name];
 
-    let keys = ['ID', 'Latitude', 'Longitude'];
+    const keys = ['ID', 'Latitude', 'Longitude'];
     for (let k of keys) {
-        if (this.state[k]) {
-          destinationName = this.addInformation(destinationName, item, k);
-      }
+      if (this.state[k])
+        destinationName = this.addInformation(destinationName, item, k);
     }
 
     if (index !== 0) {
