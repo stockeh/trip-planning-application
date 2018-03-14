@@ -55,7 +55,7 @@ public class Search {
   public void find(){
     baseSearch += "'" + query +"'";
     this.searchColumns();
-    baseSearch += "limit 10";
+    baseSearch += " limit 10";
     try {
       Class.forName(myDriver);
 // connect to the database and query
