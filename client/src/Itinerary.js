@@ -5,21 +5,26 @@ class Itinerary extends Component {
     super(props);
 
     this.state = {
-        updateID:   false,
-        updateLat:  false,
-        updateLong: false
+        information : [false,false,false] // ID, Latitude, Longitude
     };
 
     this.createTable = this.createTable.bind(this);
-    this.updateID = this.updateID.bind(this);
-    this.updateLatitude = this.updateLatitude.bind(this);
-    this.updateLongitude = this.updateLongitude.bind(this);
     this.reverse = this.reverse.bind(this);
     this.buildDestination = this.buildDestination.bind(this);
     this.removeDestinations = this.removeDestinations.bind(this);
+    this.showInformation = this.showInformation.bind(this);
   }
   reverse(){
     this.props.reverseTrip();
+  }
+
+  showInformation(event) {
+    let newInformation = Object.assign({}, this.state.information);
+    newInformation[event.target.value] = !newInformation[event.target.value];
+    this.setState({information:newInformation},
+        function () {
+        this.createTable();
+      });
   }
 
   /*
@@ -50,15 +55,15 @@ class Itinerary extends Component {
   buildDestination(item, index) {
     var destinationName = [item.name];
 
-    if (this.state.updateID) {
+    if (this.state.information[0]) {
         destinationName.push(<span><br/><small>ID: {item.id}</small></span>);
     }
 
-    if (this.state.updateLat) {
+    if (this.state.information[1]) {
         destinationName.push(<span><br/><small>Latitude: {item.latitude}</small></span>);
     }
 
-    if (this.state.updateLong) {
+    if (this.state.information[2]) {
         destinationName.push(<span><br/><small>Longitude: {item.longitude}</small></span>);
     }
 
@@ -133,13 +138,13 @@ class Itinerary extends Component {
                 <div className="col-xs-12 col-md-4 order-first order-md-last">
                     <h5>Choose to change in the itinerary!</h5>
                     <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.updateID}/> ID </label>
+                        <label><input type="checkbox" value={0} onChange={this.showInformation}/> ID </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.updateLatitude}/> Latitude </label>
+                        <label><input type="checkbox" value={1} onChange={this.showInformation}/> Latitude </label>
                     </div>
                     <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.updateLongitude}/> Longitude </label>
+                        <label><input type="checkbox" value={2} onChange={this.showInformation}/> Longitude </label>
                     </div>
                     <div className="checkbox">
                         <label><input type="checkbox" onChange={this.reverse}/> Reverse Trip </label>
