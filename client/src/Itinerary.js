@@ -12,14 +12,13 @@ class Itinerary extends Component {
 
     this.createTable = this.createTable.bind(this);
     this.buildDestination = this.buildDestination.bind(this);
-    this.removeDestinations = this.removeDestinations.bind(this);
     this.showInformation = this.showInformation.bind(this);
     this.addInformation = this.addInformation.bind(this);
     this.renderCheckbox = this.renderCheckbox.bind(this);
   }
 
-  /* Functions to update the state that checkboxes are dependant on
-   * Toggles the corresponding state
+  /* Function to update the state that checkboxes are dependant on.
+   * Toggles the corresponding state.
    */
   showInformation(event) {
     let str = "this.state." + event.target.id;
@@ -52,17 +51,8 @@ class Itinerary extends Component {
   }
 
   /*
-  Called when remove all button is pressed.
-  Removes places, destinations and clears map.
+   * Logic to populate the itinerary table with corresponding data
    */
-  removeDestinations() {
-      this.props.resetDestinations();
-      this.createTable();
-  }
-
-  /*
- Logic to populate the itinerary table with corresponding data
-  */
   createTable () {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
@@ -110,9 +100,7 @@ class Itinerary extends Component {
                             <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
                         </tr>
                         </thead>
-                        <tbody>
-                            {table.rows}
-                        </tbody>
+                        <tbody>{table.rows}</tbody>
                     </table>
                 </div>
                 <div className="col-xs-12 col-md-4 order-first order-md-last">
@@ -124,7 +112,7 @@ class Itinerary extends Component {
                         <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
-                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.removeDestinations() }} type="button">Remove All Destinations</button>
+                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }} type="button">Remove All Destinations</button>
                     </span>
                 </div>
             </div>
