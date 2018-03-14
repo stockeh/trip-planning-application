@@ -24,10 +24,7 @@ class Itinerary extends Component {
     let str = "this.state." + event.target.id;
     let newInformation = Object.assign({}, eval(str));
     newInformation = !eval(str);
-    this.setState({[event.target.id]:newInformation},
-        function () {
-        this.createTable();
-      });
+    this.setState({[event.target.id]:newInformation});
   }
 
   addInformation(destinationName, item, k) {
