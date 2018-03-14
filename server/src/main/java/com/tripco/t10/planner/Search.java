@@ -15,13 +15,13 @@ public class Search {
   public String query;
   public ArrayList<Place> places;
 
-  private String baseSearch = "select id,name,municipality," +
-    "latitude,longitude,type from airports where id = ";
+  private String baseSearch = "select id,name,municipality,"
+    + "latitude,longitude,type from airports where id = ";
   private static final String myDriver = "com.mysql.jdbc.Driver";
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
   /**
-   * Some defaults for the Search object
+   * Some defaults for the Search object.
    */
   public Search(){
     this.version = 2;
@@ -30,14 +30,14 @@ public class Search {
   }
 
   /**
-   * For testing the search function off campus
+   * For testing the search function off campus.
    * @param args  args[0] = query
    */
   public static void main(String[] args){
-    String search = "select id,name,municipality,latitude," +
-      "longitude,type from airports where name like '%" + args[0] +"%'" +
-      "or municipality like '%" + args[2] +"%' " +
-      "order by municipality,name limit 10";
+    String search = "select id,name,municipality,latitude,"
+      + "longitude,type from airports where name like '%" + args[0] +"%'"
+      + "or municipality like '%" + args[2] +"%' "
+      + "order by municipality,name limit 10";
     try {
       Class.forName(myDriver);
 // connect to the database and query
@@ -58,7 +58,7 @@ public class Search {
 
   /**
    * decides which columns to search in based on query and
-   * sets up the search query accordingly
+   * sets up the search query accordingly.
    */
   public void searchColumns(){
     if(query.matches(".*\\d+.*")){
@@ -75,7 +75,7 @@ public class Search {
 
   /**
    * searches database from constructed query and
-   * updates places variable of object accordingly
+   * updates places variable of object accordingly.
    */
   public void find(){
     baseSearch += "'" + query +"'";
