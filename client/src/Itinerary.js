@@ -15,6 +15,7 @@ class Itinerary extends Component {
     this.removeDestinations = this.removeDestinations.bind(this);
     this.showInformation = this.showInformation.bind(this);
     this.addInformation = this.addInformation.bind(this);
+    this.renderCheckbox = this.renderCheckbox.bind(this);
   }
 
   /* Functions to update the state that checkboxes are dependant on
@@ -89,6 +90,12 @@ class Itinerary extends Component {
     return {distance, units, rows};
   }
 
+  renderCheckbox(label) {
+    return <div className="checkbox">
+        <label><input type="checkbox" id={label} onChange={this.showInformation}/> {label} </label>
+    </div>;
+  }
+
   render() {
     let table = this.createTable();
 
@@ -112,15 +119,9 @@ class Itinerary extends Component {
                 </div>
                 <div className="col-xs-12 col-md-4 order-first order-md-last">
                     <h5>Choose to change in the itinerary!</h5>
-                    <div className="checkbox">
-                        <label><input type="checkbox" id={"ID"} onChange={this.showInformation}/> ID </label>
-                    </div>
-                    <div className="checkbox">
-                        <label><input type="checkbox" id={"Latitude"} onChange={this.showInformation}/> Latitude </label>
-                    </div>
-                    <div className="checkbox">
-                        <label><input type="checkbox" id={"Longitude"} onChange={this.showInformation}/> Longitude </label>
-                    </div>
+                    {this.renderCheckbox("ID")}
+                    {this.renderCheckbox("Latitude")}
+                    {this.renderCheckbox("Longitude")}
                     <div className="checkbox">
                         <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
