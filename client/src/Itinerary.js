@@ -30,19 +30,19 @@ class Itinerary extends Component {
     var destinationName = [item.name];
 
     if (this.state.information[0]) {
-        destinationName.push(<span><br/><small>ID: {item.id}</small></span>);
+        destinationName.push(<span key={item.id}><br/><small>ID: {item.id}</small></span>);
     }
 
     if (this.state.information[1]) {
-        destinationName.push(<span><br/><small>Latitude: {item.latitude}</small></span>);
+        destinationName.push(<span key={item.latitude}><br/><small>Latitude: {item.latitude}</small></span>);
     }
 
     if (this.state.information[2]) {
-        destinationName.push(<span><br/><small>Longitude: {item.longitude}</small></span>);
+        destinationName.push(<span key={item.longitude}><br/><small>Longitude: {item.longitude}</small></span>);
     }
 
     if (index !== 0) {
-      destinationName.push(<a className="text-info font-weight-light"
+      destinationName.push(<a key={item.name} className="text-info font-weight-light"
                               style={{cursor:'pointer'}}
                               onClick={() => {
                                 this.props.updateStartingLocation(index);
@@ -81,8 +81,8 @@ class Itinerary extends Component {
     }
 
     let rows = [];
-      for (var i = 0; i < destinations.length; ++i) {
-          rows.push(<tr>{ destinations[i] }{ dists[i] }{ cumulative[i] }</tr>);
+      for (let i = 0; i < destinations.length; ++i) {
+          rows.push(<tr key={i}>{ destinations[i] }{ dists[i] }{ cumulative[i] }</tr>);
       }
 
     return {distance, units, rows};
