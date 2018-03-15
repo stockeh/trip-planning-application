@@ -108,10 +108,9 @@ public class Distance {
     ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
     placez.clear();
     boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places
-    Integer nearestNeighbor = Integer.MAX_VALUE; // close to infinity
+    int nearestNeighbor = 0;
     int source = 0; // used to keep track of current place
     int destination = 0; // used to keep track of nearest neighbor index
-    int tmp = 0; // used to store distance between current places to avoid recalculating
     int placesToGo = visited.length; // used to know when trip is done
 
     placez.add(placezCopy.get(0));
@@ -119,16 +118,9 @@ public class Distance {
     placesToGo-=1;
 
     while (placesToGo > 0) {
-      for (int j = 0; j < coordDegrees.size(); j += 2) {
-        if ((source != j) && (visited[j/2] == false)) {
-          tmp = greatCirDist(coordDegrees.get(source), coordDegrees.get(source + 1), coordDegrees.get(j), coordDegrees.get(j + 1));
-          if (nearestNeighbor > tmp) {
-            nearestNeighbor = tmp;
-            destination = j;
-          }
-        }
-      }
-
+      destination = findNN(coordDegrees, source, visited);
+      nearestNeighbor = greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
+              coordDegrees.get(destination), coordDegrees.get(destination+1));
       placez.add(placezCopy.get(destination/2));
       visited[destination/2] = true;
       source = destination; // source becomes destination
@@ -139,8 +131,35 @@ public class Distance {
     }
 
     distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
-            coordDegrees.get(0), coordDegrees.get(1)));
+            coordDegrees.get(0), coordDegrees.get(1))); // return to last city
     return distances;
+  }
+
+  /**
+   * Helper method used by the nearest neighbor algorithm, it iterates through
+   * all the places and finds the index of the nearest unvisited place.
+   * @see Distance#nearestNeighbor(ArrayList, ArrayList) that calls this method
+   * @param degrees the latitude/longitude of all places
+   * @param src the place used to calcultate distances to all other places to find nearest neighbor
+   * @param visited the boolean array that keeps track of visited places
+   * @return returns the index of the nearest neighbor
+   */
+
+  public int findNN(ArrayList<Double> degrees, int src, boolean[] visited){
+    int tmp = 0;
+    int dest = 0;
+    Integer nn = Integer.MAX_VALUE;
+    for (int j = 0; j < degrees.size(); j += 2) {
+      if ((src != j) && (visited[j/2] == false)) {
+      tmp = greatCirDist(degrees.get(src), degrees.get(src + 1),
+                degrees.get(j), degrees.get(j + 1));
+        if (nn > tmp) {
+          nn = tmp;
+          dest = j;
+        }
+      }
+    }
+    return dest;
   }
 
 }
