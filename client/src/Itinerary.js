@@ -5,65 +5,43 @@ class Itinerary extends Component {
     super(props);
 
     this.state = {
-        updateID:   false,
-        updateLat:  false,
-        updateLong: false
+            ID        : false,
+            Latitude  : false,
+            Longitude : false
     };
 
     this.createTable = this.createTable.bind(this);
-    this.updateID = this.updateID.bind(this);
-    this.updateLatitude = this.updateLatitude.bind(this);
-    this.updateLongitude = this.updateLongitude.bind(this);
-    this.reverse = this.reverse.bind(this);
     this.buildDestination = this.buildDestination.bind(this);
-    this.removeDestinations = this.removeDestinations.bind(this);
-  }
-  reverse(){
-    this.props.reverseTrip();
+    this.showInformation = this.showInformation.bind(this);
+    this.addInformation = this.addInformation.bind(this);
+    this.renderCheckbox = this.renderCheckbox.bind(this);
   }
 
-  /*
-  Functions to update the state that checkboxes are dependant on
-  Toggles the corresponding state
+  /* Function to update the state that checkboxes are dependant on.
+   * Toggles the corresponding state.
    */
-  updateID () {
-      this.setState({updateID: !this.state.updateID},
-          function () {
-            this.createTable();
-          });
+  showInformation(event) {
+    let str = "this.state." + event.target.id;
+    this.setState({[event.target.id]:!eval(str)});
   }
 
-  updateLatitude () {
-      this.setState({updateLat: !this.state.updateLat},
-          function () {
-              this.createTable();
-          });
-  }
-
-  updateLongitude () {
-      this.setState({updateLong: !this.state.updateLong},
-          function () {
-              this.createTable();
-          });
+  addInformation(destinationName, item, k) {
+      let str = "item." + k.toLowerCase();
+      destinationName.push(<span key={eval(str)}><br/><small>{k}: {eval(str)}</small></span>);
+      return destinationName;
   }
 
   buildDestination(item, index) {
-    var destinationName = [item.name];
+    let destinationName = [item.name];
 
-    if (this.state.updateID) {
-        destinationName.push(<span><br/><small>ID: {item.id}</small></span>);
-    }
-
-    if (this.state.updateLat) {
-        destinationName.push(<span><br/><small>Latitude: {item.latitude}</small></span>);
-    }
-
-    if (this.state.updateLong) {
-        destinationName.push(<span><br/><small>Longitude: {item.longitude}</small></span>);
+    const keys = ['ID', 'Latitude', 'Longitude'];
+    for (let k of keys) {
+      if (this.state[k])
+        destinationName = this.addInformation(destinationName, item, k);
     }
 
     if (index !== 0) {
-      destinationName.push(<a className="text-info font-weight-light"
+      destinationName.push(<a key={item.name} className="text-info font-weight-light"
                               style={{cursor:'pointer'}}
                               onClick={() => {
                                 this.props.updateStartingLocation(index);
@@ -73,17 +51,8 @@ class Itinerary extends Component {
   }
 
   /*
-  Called when remove all button is pressed.
-  Removes places, destinations and clears map.
+   * Logic to populate the itinerary table with corresponding data
    */
-  removeDestinations() {
-      this.props.resetDestinations();
-      this.createTable();
-  }
-
-  /*
- Logic to populate the itinerary table with corresponding data
-  */
   createTable () {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
@@ -102,11 +71,17 @@ class Itinerary extends Component {
     }
 
     let rows = [];
-      for (var i = 0; i < destinations.length; ++i) {
-          rows.push(<tr>{ destinations[i] }{ dists[i] }{ cumulative[i] }</tr>);
+      for (let i = 0; i < destinations.length; ++i) {
+          rows.push(<tr key={i}>{ destinations[i] }{ dists[i] }{ cumulative[i] }</tr>);
       }
 
     return {distance, units, rows};
+  }
+
+  renderCheckbox(label) {
+    return <div className="checkbox">
+        <label><input type="checkbox" id={label} onChange={this.showInformation}/> {label} </label>
+    </div>;
   }
 
   render() {
@@ -125,27 +100,19 @@ class Itinerary extends Component {
                             <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
                         </tr>
                         </thead>
-                        <tbody>
-                            {table.rows}
-                        </tbody>
+                        <tbody>{table.rows}</tbody>
                     </table>
                 </div>
                 <div className="col-xs-12 col-md-4 order-first order-md-last">
                     <h5>Choose to change in the itinerary!</h5>
+                    {this.renderCheckbox("ID")}
+                    {this.renderCheckbox("Latitude")}
+                    {this.renderCheckbox("Longitude")}
                     <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.updateID}/> ID </label>
-                    </div>
-                    <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.updateLatitude}/> Latitude </label>
-                    </div>
-                    <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.updateLongitude}/> Longitude </label>
-                    </div>
-                    <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.reverse}/> Reverse Trip </label>
+                        <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
-                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.removeDestinations() }} type="button">Remove All Destinations</button>
+                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }} type="button">Remove All Destinations</button>
                     </span>
                 </div>
             </div>
