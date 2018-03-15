@@ -118,7 +118,7 @@ public class Distance {
     placesToGo-=1;
 
     while (placesToGo > 0) {
-      destination = findNN(coordDegrees, source, visited);
+      destination = findNearestNeigh(coordDegrees, source, visited);
       nearestNeighbor = greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
               coordDegrees.get(destination), coordDegrees.get(destination+1));
       placez.add(placezCopy.get(destination/2));
@@ -142,10 +142,10 @@ public class Distance {
    * @param degrees the latitude/longitude of all places
    * @param src the place used to calcultate distances to all other places to find nearest neighbor
    * @param visited the boolean array that keeps track of visited places
-   * @return returns the index of the nearest neighbor
+   * @return returns the index to coordDegrees of the nearest neighbor
    */
 
-  public int findNN(ArrayList<Double> degrees, int src, boolean[] visited){
+  public int findNearestNeigh(ArrayList<Double> degrees, int src, boolean[] visited){
     int tmp = 0;
     int dest = 0;
     Integer nn = Integer.MAX_VALUE;
@@ -153,10 +153,10 @@ public class Distance {
       if ((src != j) && (visited[j/2] == false)) {
       tmp = greatCirDist(degrees.get(src), degrees.get(src + 1),
                 degrees.get(j), degrees.get(j + 1));
-        if (nn > tmp) {
+      if (nn > tmp) {
           nn = tmp;
           dest = j;
-        }
+      }
       }
     }
     return dest;
