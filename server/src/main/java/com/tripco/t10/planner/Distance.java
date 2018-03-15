@@ -102,18 +102,19 @@ public class Distance {
    * @param placez the places of the trip, passed in to reorder for optimization
    * @return Returns an array of leg distances in optimized order
    */
-  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees, ArrayList<Place> placez){
+
+  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
     ArrayList<Integer> distances = new ArrayList<Integer>();
-    ArrayList<Place> pCopy = new ArrayList<Place>(placez);
+    ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
     placez.clear();
-    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places, all booleans are initially false by default
+    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places
     Integer nearestNeighbor = Integer.MAX_VALUE; // close to infinity
     int source = 0; // used to keep track of current place
     int destination = 0; // used to keep track of nearest neighbor index
     int tmp = 0; // used to store distance between current places to avoid recalculating
     int placesToGo = visited.length; // used to know when trip is done
 
-    placez.add(pCopy.get(0));
+    placez.add(placezCopy.get(0));
     visited[0] = true;
     placesToGo-=1;
 
@@ -128,7 +129,7 @@ public class Distance {
         }
       }
 
-      placez.add(pCopy.get(destination/2));
+      placez.add(placezCopy.get(destination/2));
       visited[destination/2] = true;
       source = destination; // source becomes destination
 
@@ -137,7 +138,8 @@ public class Distance {
       placesToGo -= 1;
     }
 
-    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1), coordDegrees.get(0), coordDegrees.get(1)));
+    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
+            coordDegrees.get(0), coordDegrees.get(1)));
     return distances;
   }
 

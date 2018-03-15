@@ -3,10 +3,12 @@ package com.tripco.t10.planner;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.lang.Double;
+
 /**
  * The Trip class supports TFFI so it can easily be converted to/from Json by Gson.
  *
  */
+
 public class Trip {
   // The variables in this class should reflect TFFI.
 
@@ -107,7 +109,7 @@ public class Trip {
    * @return Returns an ArrayList of Integers containing the distance between
    * valid locations.
    */
-  public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees) {
+  public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees){
     ArrayList<Integer> dist = new ArrayList<Integer>();
     Distance distance = new Distance(this.options.distance, this.options.optimization);
 
