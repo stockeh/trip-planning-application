@@ -82,7 +82,7 @@ public class Distance {
     * @return Returns an array of leg distances in order with no optimization
     */
 
-  public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees) {
+  public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
       for (int i = 0; i < coordDegrees.size() - 2; i += 2) {
@@ -93,6 +93,73 @@ public class Distance {
               coordDegrees.get(coordDegrees.size() - 1), coordDegrees.get(0), coordDegrees.get(1)));
 
   return dist;
+  }
+  /**
+   * Method that is called from legDistances in Trip,
+   * this is the "1" level or nearest neighbor algorithm.
+   * @see Trip#legDistances(ArrayList) that calls this method
+   * @param coordDegrees the coordinates of the places in the trip
+   * @param placez the places of the trip, passed in to reorder for optimization
+   * @return Returns an array of leg distances in optimized order
+   */
+
+  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
+    ArrayList<Integer> distances = new ArrayList<Integer>();
+    ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
+    placez.clear();
+    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places
+    int nearestNeighbor = 0;
+    int source = 0; // used to keep track of current place
+    int destination = 0; // used to keep track of nearest neighbor index
+    int placesToGo = visited.length; // used to know when trip is done
+
+    placez.add(placezCopy.get(0));
+    visited[0] = true;
+    placesToGo-=1;
+
+    while (placesToGo > 0) {
+      destination = findNearestNeigh(coordDegrees, source, visited);
+      nearestNeighbor = greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
+              coordDegrees.get(destination), coordDegrees.get(destination+1));
+      placez.add(placezCopy.get(destination/2));
+      visited[destination/2] = true;
+      source = destination; // source becomes destination
+
+      distances.add(nearestNeighbor);
+      nearestNeighbor = Integer.MAX_VALUE;
+      placesToGo -= 1;
+    }
+
+    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
+            coordDegrees.get(0), coordDegrees.get(1))); // return to last city
+    return distances;
+  }
+
+  /**
+   * Helper method used by the nearest neighbor algorithm, it iterates through
+   * all the places and finds the index of the nearest unvisited place.
+   * @see Distance#nearestNeighbor(ArrayList, ArrayList) that calls this method
+   * @param degrees the latitude/longitude of all places
+   * @param src the place used to calcultate distances to all other places to find nearest neighbor
+   * @param visited the boolean array that keeps track of visited places
+   * @return returns the index to coordDegrees of the nearest neighbor
+   */
+
+  public int findNearestNeigh(ArrayList<Double> degrees, int src, boolean[] visited){
+    int tmp = 0;
+    int dest = 0;
+    Integer nn = Integer.MAX_VALUE;
+    for (int j = 0; j < degrees.size(); j += 2) {
+      if ((src != j) && (visited[j/2] == false)) {
+      tmp = greatCirDist(degrees.get(src), degrees.get(src + 1),
+                degrees.get(j), degrees.get(j + 1));
+      if (nn > tmp) {
+          nn = tmp;
+          dest = j;
+      }
+      }
+    }
+    return dest;
   }
 
 }
