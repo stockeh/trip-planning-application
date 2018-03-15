@@ -3,7 +3,6 @@ package com.tripco.t10.planner;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.lang.Double;
-
 /**
  * The Trip class supports TFFI so it can easily be converted to/from Json by Gson.
  *
@@ -56,8 +55,9 @@ public class Trip {
    */
   public void plan() {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
-    this.map = svg(decimalDegrees);
     this.distances = legDistances(decimalDegrees);
+    decimalDegrees = getDecimalDegrees();
+    this.map = svg(decimalDegrees);
   }
 
   /**
@@ -111,10 +111,12 @@ public class Trip {
     ArrayList<Integer> dist = new ArrayList<Integer>();
     Distance distance = new Distance(this.options.distance, this.options.optimization);
 
-    //if (distance.optimization == 1) // nearest neighbor optimization algorithm
-
+    if (distance.optimization == 1) { // nearest neighbor optimization algorithm
+      dist = distance.nearestNeighbor(coordDegrees, this.places);
+    }
+    else {
       dist = distance.inOrder(coordDegrees);
-
+    }
 
     return dist;
   }

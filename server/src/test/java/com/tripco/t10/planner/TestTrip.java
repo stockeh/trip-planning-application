@@ -26,8 +26,7 @@ public class TestTrip {
       Place fortcollins = new Place("foco", "Fort Collins","40° 35' 6.9288\" N","105° 5' 3.9084\" W");
       ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(denver,boulder,fortcollins));
       trip = new Trip(places, "miles"); // no optimization value is defaulted to 0
-
-      ArrayList<Place> places2 = new ArrayList<Place>(Arrays.asList(fortcollins,boulder,denver));
+      ArrayList<Place> places2 = new ArrayList<Place>(Arrays.asList(fortcollins,denver,boulder));
       trip2 = new Trip(places2, "miles", 0); // optimization value is set to 0
   }
 
@@ -40,12 +39,12 @@ public class TestTrip {
   @Test
   public void testLegDistances() {
     ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419));
-    ArrayList<Double> degrees2 = new ArrayList<>(Arrays.asList(40.585258, -105.084419, 40.0149900, -105.2705500, 39.7392, -104.9903));
+    ArrayList<Double> degrees2 = new ArrayList<>(Arrays.asList(40.585258, -105.084419, 39.7392, -104.9903, 40.0149900, -105.2705500));
     ArrayList<Integer> distancesM = new ArrayList<Integer>(Arrays.asList(24, 41, 59));
-    ArrayList<Integer> distancesM2 = new ArrayList<Integer>(Arrays.asList(41, 24, 59));
+    ArrayList<Integer> distancesM2 = new ArrayList<Integer>(Arrays.asList(59, 24, 41));
     assertEquals(distancesM ,trip.legDistances(degrees));  //test miles
     assertEquals(distancesM2 ,trip2.legDistances(degrees2));  //test miles
-    trip2.setOptions("kilometers", 0);
+    trip2.setOptions("kilometers", 1); // nearest neighbor optimization
     trip.setOptions("kilometers", 0);
     ArrayList<Integer> distancesKM = new ArrayList<Integer>(Arrays.asList(39, 65, 94));
     ArrayList<Integer> distancesKM2 = new ArrayList<Integer>(Arrays.asList(65, 39, 94));

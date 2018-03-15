@@ -82,7 +82,7 @@ public class Distance {
     * @return Returns an array of leg distances in order with no optimization
     */
 
-  public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees) {
+  public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
       for (int i = 0; i < coordDegrees.size() - 2; i += 2) {
@@ -93,6 +93,52 @@ public class Distance {
               coordDegrees.get(coordDegrees.size() - 1), coordDegrees.get(0), coordDegrees.get(1)));
 
   return dist;
+  }
+  /**
+   * Method that is called from legDistances in Trip,
+   * this is the "1" level or nearest neighbor algorithm.
+   * @see Trip#legDistances(ArrayList) that calls this method
+   * @param coordDegrees the coordinates of the places in the trip
+   * @param placez the places of the trip, passed in to reorder for optimization
+   * @return Returns an array of leg distances in optimized order
+   */
+  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees, ArrayList<Place> placez){
+    ArrayList<Integer> distances = new ArrayList<Integer>();
+    ArrayList<Place> pCopy = new ArrayList<Place>(placez);
+    placez.clear();
+    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places, all booleans are initially false by default
+    Integer nearestNeighbor = Integer.MAX_VALUE; // close to infinity
+    int source = 0; // used to keep track of current place
+    int destination = 0; // used to keep track of nearest neighbor index
+    int tmp = 0; // used to store distance between current places to avoid recalculating
+    int placesToGo = visited.length; // used to know when trip is done
+
+    placez.add(pCopy.get(0));
+    visited[0] = true;
+    placesToGo-=1;
+
+    while (placesToGo > 0) {
+      for (int j = 0; j < coordDegrees.size(); j += 2) {
+        if ((source != j) && (visited[j/2] == false)) {
+          tmp = greatCirDist(coordDegrees.get(source), coordDegrees.get(source + 1), coordDegrees.get(j), coordDegrees.get(j + 1));
+          if (nearestNeighbor > tmp) {
+            nearestNeighbor = tmp;
+            destination = j;
+          }
+        }
+      }
+
+      placez.add(pCopy.get(destination/2));
+      visited[destination/2] = true;
+      source = destination; // source becomes destination
+
+      distances.add(nearestNeighbor);
+      nearestNeighbor = Integer.MAX_VALUE;
+      placesToGo -= 1;
+    }
+
+    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1), coordDegrees.get(0), coordDegrees.get(1)));
+    return distances;
   }
 
 }
