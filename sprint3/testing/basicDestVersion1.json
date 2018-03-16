@@ -1,7 +1,7 @@
 {
   "type"      : "trip",
   "title"     : "",
-  "options"   : { "distance":"" },
+  "options"   : {},
   "places"    : [
     {"id":"dnvr", "name":"Denver", "latitude":"39.7392° N", "longitude":"104.9903° W"},
     {"id":"bldr", "name":"Boulder", "latitude":"40.0149900", "longitude":"-105.2705500"},
