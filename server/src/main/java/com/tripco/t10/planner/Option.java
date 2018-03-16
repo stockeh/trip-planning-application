@@ -1,4 +1,5 @@
 package com.tripco.t10.planner;
+import java.lang.Math;
 
 /**
  * Describes the options to apply when planning a trip in TFFI format.
@@ -29,7 +30,7 @@ public class Option {
    */
   public Option(String distance, double optimization){
     this.distance = distance;
-    this.optimization = optimization;
+    this.optimization = Math.round(optimization);
   }
 
   /**
@@ -43,6 +44,6 @@ public class Option {
     this.distance = distance;
     this.userUnit = userUnit;
     this.userRadius = userRadius;
-    this.optimization = optimization;
+    this.optimization = Math.round(optimization);
   }
 }
