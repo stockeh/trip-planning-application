@@ -61,7 +61,8 @@ class Destinations extends Component {
                 <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
             </div>
             <p>Find destinations to add to your trip.</p>
-            <Query trip={this.props.trip} setPreCheck={this.setPreCheck} precheck={this.state.precheck} updatePlaces={this.props.updatePlaces}/>
+            <Query trip={this.props.trip} setPreCheck={this.setPreCheck} precheck={this.state.precheck}
+                   updateQuery={this.props.updateQuery} updatePlaces={this.props.updatePlaces}/>
             <br/><h5>There are {count} destinations. </h5>
           </div>
         </div>

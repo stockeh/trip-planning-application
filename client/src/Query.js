@@ -30,9 +30,8 @@ class Query extends Component {
   }
 
   updateQuery(event) {
-    let newSearch = Object.assign({}, this.state.search);
-    newSearch.query = event.target.value;
-    this.setState({search: newSearch});
+    console.log(event.target.value);
+    this.props.updateQuery(event.target.value);
   }
 
   updateDestinations(index) {

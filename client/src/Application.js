@@ -29,13 +29,19 @@ class Application extends Component {
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
     this.reverseTrip = this.reverseTrip.bind(this);
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
     this.updatePlaces = this.updatePlaces.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
   }
 
-
+  updateQuery(query){
+    let newQuery = Object.assign({}, this.state.trip);
+    newQuery.query = query;
+    this.setState({trip: newQuery});
+    console.log("TRIP: " + this.state.trip.query);
+  }
 
   updateTrip(tffi){
     console.log("updateTrip");
@@ -124,7 +130,8 @@ class Application extends Component {
                 <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-xs-12 col-md-6">
-                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}/>
+                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
+                              updateQuery={this.updateQuery}/>
             </div>
             <div className="col-12">
                 <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle}
