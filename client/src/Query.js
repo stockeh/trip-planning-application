@@ -13,7 +13,7 @@ class Query extends Component {
       search: { // default Query
         version : 2,
         type    : "query",
-        query   : "",
+        query   : "denver",
         places  : []
       }
     };
@@ -22,6 +22,7 @@ class Query extends Component {
     this.buildDestination = this.buildDestination.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
     this.createTable = this.createTable.bind(this);
+    this.loadedQuery = this.loadedQuery.bind(this);
   }
 
   updateSearch(tffi) {
@@ -71,11 +72,19 @@ class Query extends Component {
     );
   }
 
-  render() {
+  loadedQuery() {
+    if (this.props.precheck) {
+      if (this.props.trip.type === "query") {
+        document.getElementById("lookUp").click();
+      }
+    }
+  }
 
+  render() {
+    this.loadedQuery();
     return(
       <div id="query">
-        <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
+        <button type="button" id={"lookUp"} className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
 
         <div className="modal fade" id="customSearchModal" tabIndex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
@@ -95,7 +104,7 @@ class Query extends Component {
               </div>
 
               <div className="modal-footer">
-                <Search search={this.state.search} updateSearch={this.updateSearch}/>
+                <Search search={this.state.search} precheck={this.props.precheck} trip={this.props.trip} setPreCheck={this.props.setPreCheck} updateSearch={this.updateSearch}/>
               </div>
             </div>
           </div>

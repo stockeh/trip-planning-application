@@ -11,8 +11,16 @@ import Query from './Query';
 class Destinations extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      precheck : true
+    };
     this.loadTFFI = this.loadTFFI.bind(this);
     this.parseFileLoad = this.parseFileLoad.bind(this);
+    this.setPreCheck = this.setPreCheck.bind(this);
+  }
+
+  setPreCheck(bool) {
+    this.setState({precheck : bool});
   }
 
   loadTFFI(event) {
@@ -30,11 +38,12 @@ class Destinations extends Component {
       try {
           var json = JSON.parse(event.target.result);
           this.props.updateTrip(json);
-          title = this.props.trip.title;;
+          title = this.props.trip.title;
       } catch (error) {
           console.log(error);
           title = "Error Loading File";
       }
+      this.setPreCheck(true);
       document.getElementById('trip-title').value = title;
   }
 
@@ -52,7 +61,7 @@ class Destinations extends Component {
                 <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
             </div>
             <p>Find destinations to add to your trip.</p>
-            <Query trip={this.props.trip} updatePlaces={this.props.updatePlaces}/>
+            <Query trip={this.props.trip} setPreCheck={this.setPreCheck} precheck={this.state.precheck} updatePlaces={this.props.updatePlaces}/>
             <br/><h5>There are {count} destinations. </h5>
           </div>
         </div>

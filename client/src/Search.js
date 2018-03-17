@@ -7,6 +7,7 @@ class Search extends Component {
     this.search = this.search.bind(this);
   }
 
+
   /* Sends a request to the server with the query.
    * Receives a response containing the places and updates the
    * state for this object.
@@ -14,9 +15,9 @@ class Search extends Component {
   fetchResponse(){
     // need to get the request body from the query in state object.
     let requestBody = {
-        "version" : this.props.search.version,
-        "type"    : this.props.search.type,
-        "query"   : this.props.search.query,
+        "version" : this.props.trip.version,
+        "type"    : this.props.trip.type,
+        "query"   : this.props.trip.query,
         "places"  : []
     };
 
@@ -32,6 +33,7 @@ class Search extends Component {
   async search(){
     try {
       let serverResponse = await this.fetchResponse();
+      this.props.setPreCheck(false);
       let tffi = await serverResponse.json();
       console.log(tffi);
       this.props.updateSearch(tffi);
@@ -40,9 +42,13 @@ class Search extends Component {
     }
   }
   render(){
+    if (this.props.precheck) {
+      if (this.props.trip.type === "query" && this.props.trip.query !== "")
+        document.getElementById("checkButton").click();
+    }
     return(
       <div id="search">
-          <button className="btn btn-primary " onClick={this.search} type="button">Search</button>
+          <button className="btn btn-primary" id="checkButton" onClick={this.search} type="button">Search</button>
       </div>
     )
   }
