@@ -67,9 +67,10 @@ class Query extends Component {
 
   loadedQuery() {
     if (this.props.precheck) {
-      if (this.props.trip.type === "query") {
+      if (this.props.trip.type === "query")
         document.getElementById("lookUp").click();
-      }
+      if (this.props.trip.query)
+        document.getElementById("destination").value = this.props.trip.query;
     }
   }
 
@@ -77,7 +78,7 @@ class Query extends Component {
     this.loadedQuery();
     return(
       <div id="query">
-        <button type="button" id={"lookUp"} className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
+        <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
 
         <div className="modal fade" id="customSearchModal" tabIndex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
