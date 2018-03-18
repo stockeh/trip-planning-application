@@ -28,7 +28,8 @@ class Query extends Component {
   }
 
   updateQuery(event) {
-    this.props.updateQuery(event.target.value);
+    // this.props.updateQuery(event.target.value);
+    this.props.updateInformation(event.target.value, "query");
   }
 
   updateDestinations(index) {

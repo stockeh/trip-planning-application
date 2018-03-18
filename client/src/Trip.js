@@ -45,7 +45,7 @@ class Trip extends Component {
   }
 
   updateT(event){
-      this.props.updateTitle(event.target.value);
+      this.props.updateInformation(event.target.value, "title");
   }
 
   /* Saves the map and itinerary to the local file system.

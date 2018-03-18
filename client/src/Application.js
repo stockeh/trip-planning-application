@@ -27,19 +27,13 @@ class Application extends Component {
       }
     };
     this.updateTrip = this.updateTrip.bind(this);
-    this.updateOptions = this.updateOptions.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
-    this.updateQuery = this.updateQuery.bind(this);
-    this.reverseTrip = this.reverseTrip.bind(this);
-    this.updateStartingLocation = this.updateStartingLocation.bind(this);
+    this.updateInformation = this.updateInformation.bind(this);
     this.updatePlaces = this.updatePlaces.bind(this);
-    this.resetDestinations = this.resetDestinations.bind(this);
-  }
+    this.updateOptions = this.updateOptions.bind(this);
+    this.updateStartingLocation = this.updateStartingLocation.bind(this);
 
-  updateQuery(query){
-    let newQuery = Object.assign({}, this.state.trip);
-    newQuery.query = query;
-    this.setState({trip: newQuery});
+    this.reverseTrip = this.reverseTrip.bind(this);
+    this.resetDestinations = this.resetDestinations.bind(this);
   }
 
   updateTrip(tffi){
@@ -48,21 +42,18 @@ class Application extends Component {
     this.setState({trip:tffi});
   }
 
+  updateInformation(data, obj) {
+    let newTrip = Object.assign({}, this.state.trip);
+    newTrip[obj] = data;
+    this.setState({trip: newTrip});
+  }
+
   updatePlaces(place) {
     let newTrip = Object.assign({}, this.state.trip);
     newTrip.places.push(place);
     this.setState({trip : newTrip});
     console.log(this.state.trip.places);
   }
-
-  // tripVersionHandling(){
-  //   if(this.trip.version === 1){
-  //     this.trip.options.optimization="none"
-  //   }else if(isNaN(this.trip.options.optimization)){
-  //     this.trip.options.optimization = 0;
-  //   }
-  // }
-
 
   updateOptions(opt){
     // update the options in the trip.
@@ -80,24 +71,6 @@ class Application extends Component {
     console.log(this.state);
   }
 
-  updateTitle(t){
-    let newTitle = Object.assign({}, this.state.trip);
-    newTitle.title = t;
-    this.setState({trip: newTitle});
-  }
-
-  reverseTrip(){
-    if (this.state.trip.places.length) {
-      let newTrip = Object.assign({}, this.state.trip),
-        startingLocation = newTrip.places.shift();
-      newTrip.places = newTrip.places.reverse();
-      newTrip.places.unshift(startingLocation);
-      if (this.state.trip.distances.length)
-        newTrip.distances = newTrip.distances.reverse();
-      this.setState({trip: newTrip});
-    }
-  }
-
   updateStartingLocation(startingIndex) {
     let newTrip = Object.assign({}, this.state.trip);
 
@@ -113,6 +86,18 @@ class Application extends Component {
     this.setState({trip: newTrip});
   }
 
+  reverseTrip(){
+    if (this.state.trip.places.length) {
+      let newTrip = Object.assign({}, this.state.trip),
+        startingLocation = newTrip.places.shift();
+      newTrip.places = newTrip.places.reverse();
+      newTrip.places.unshift(startingLocation);
+      if (this.state.trip.distances.length)
+        newTrip.distances = newTrip.distances.reverse();
+      this.setState({trip: newTrip});
+    }
+  }
+
   resetDestinations() {
       let newTrip = Object.assign({}, this.state.trip);
       newTrip.places = [];
@@ -120,6 +105,14 @@ class Application extends Component {
       newTrip.map = "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>";
       this.setState({trip: newTrip});
   }
+
+  // tripVersionHandling(){
+  //   if(this.trip.version === 1){
+  //     this.trip.options.optimization="none"
+  //   }else if(isNaN(this.trip.options.optimization)){
+  //     this.trip.options.optimization = 0;
+  //   }
+  // }
 
   render() {
     return(
@@ -130,10 +123,10 @@ class Application extends Component {
             </div>
             <div className="col-xs-12 col-md-6">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
-                              updateQuery={this.updateQuery}/>
+                              updateInformation={this.updateInformation}/>
             </div>
             <div className="col-12">
-                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateTitle={this.updateTitle}
+                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
                       reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
                       resetDestinations={this.resetDestinations}/>
             </div>
