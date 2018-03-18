@@ -25,7 +25,7 @@ class Options extends Component{
 
   render() {
     // @todo need to update the options when a button is pressed
-    console.log(this.props);
+    // console.log(this.props);
     return(
         <div id="options" className="card">
           <div className="card-header bg-info text-white">
@@ -42,7 +42,7 @@ class Options extends Component{
               </label>
             </div>
             <div className="slider_container">
-              <input type="range" id="optimizer" min="0" max="1" value={this.props.options.optimization}className="slider" onChange={this.handleOnChange} />
+              <input type="range" id="optimizer" min="0" max="1" value={this.props.options.optimization} className="slider" onChange={this.handleOnChange} />
               <div className="row pl-3">
                 <h6 className="pr-4 m-0">Longer</h6>
                 <h6 className="m-0">Shorter</h6>

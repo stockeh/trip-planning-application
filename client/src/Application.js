@@ -40,7 +40,6 @@ class Application extends Component {
     let newQuery = Object.assign({}, this.state.trip);
     newQuery.query = query;
     this.setState({trip: newQuery});
-    console.log("TRIP: " + this.state.trip.query);
   }
 
   updateTrip(tffi){

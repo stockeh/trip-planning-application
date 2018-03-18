@@ -10,14 +10,9 @@ class Query extends Component {
   constructor(props){
     super(props);
     this.state = {
-      search: { // default Query
-        version : 2,
-        type    : "query",
-        query   : "denver",
         places  : []
-      }
     };
-    this.updateSearch = this.updateSearch.bind(this);
+    this.updateDataPlaces = this.updateDataPlaces.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
     this.buildDestination = this.buildDestination.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
@@ -25,20 +20,19 @@ class Query extends Component {
     this.loadedQuery = this.loadedQuery.bind(this);
   }
 
-  updateSearch(tffi) {
-    this.setState({search : tffi});
+  updateDataPlaces(tffiPlaces) {
+    this.setState({places : tffiPlaces});
   }
 
   updateQuery(event) {
-    console.log(event.target.value);
     this.props.updateQuery(event.target.value);
   }
 
   updateDestinations(index) {
-    let newSearch = Object.assign({}, this.state.search);
-    let removedItem = newSearch.places.splice(index, 1);
+    let newPlaces =this.state.places;
+    let removedItem = newPlaces.splice(index, 1);
     this.props.updatePlaces(removedItem[0]);
-    this.setState({search: newSearch});
+    this.setState({places: newPlaces});
   }
 
   buildDestination(item, index) {
@@ -52,7 +46,7 @@ class Query extends Component {
   }
 
   createTable() {
-    let dest = this.state.search.places.map((item, index) => {
+    let dest = this.state.places.map((item, index) => {
         return <td>{this.buildDestination(item, index)}</td>;
     });
     let table = [];
@@ -103,7 +97,7 @@ class Query extends Component {
               </div>
 
               <div className="modal-footer">
-                <Search search={this.state.search} precheck={this.props.precheck} trip={this.props.trip} setPreCheck={this.props.setPreCheck} updateSearch={this.updateSearch}/>
+                <Search precheck={this.props.precheck} trip={this.props.trip} setPreCheck={this.props.setPreCheck} updateDataPlaces={this.updateDataPlaces}/>
               </div>
             </div>
           </div>

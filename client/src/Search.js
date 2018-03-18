@@ -36,19 +36,21 @@ class Search extends Component {
       this.props.setPreCheck(false);
       let tffi = await serverResponse.json();
       console.log(tffi);
-      this.props.updateSearch(tffi);
+      this.props.updateDataPlaces(tffi.places);
     } catch(err) {
       console.error(err);
     }
   }
+
   render(){
     if (this.props.precheck) {
       if (this.props.trip.type === "query" && this.props.trip.query !== "")
-        document.getElementById("checkButton").click();
+        document.getElementById("searchButton").click();
     }
     return(
       <div id="search">
-          <button className="btn btn-primary" id="checkButton" onClick={this.search} type="button">Search</button>
+          <button className="btn btn-primary" id="searchButton" onClick={this.search}
+                  type="button">Search</button>
       </div>
     )
   }
