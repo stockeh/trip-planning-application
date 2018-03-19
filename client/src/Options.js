@@ -38,7 +38,7 @@ class Options extends Component{
                 {buttons}
             </ButtonGroup>
             <div className="slider_container">
-              <br/><input type="range" id="optimizer" min="0" max="1" value={this.props.options.optimization} className="slider" onChange={this.handleOnChange} />
+              <br/><input type="range" id="optimizer" min="0" max="1" step={this.props.optimization} value={this.props.options.optimization} className="slider" onChange={this.handleOnChange} />
               <div className="row pl-3">
                 <h6 className="pr-4 m-0">Longer</h6>
                 <h6 className="m-0">Shorter</h6>

@@ -49,6 +49,13 @@ class Application extends Component {
     this.setState({trip: newTrip});
   }
 
+  updateOptimization(optimization){
+    let newTrip = Object.assign({}, this.state.trip);
+    newTrip.optimization = optimization;
+    this.setState({trip : newTrip});
+    console.log("UpdateOptimization: " + this.state.trip.optimization);
+  }
+
   updatePlaces(place) {
     let newTrip = Object.assign({}, this.state.trip);
     newTrip.places.push(place);
