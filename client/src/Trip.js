@@ -61,6 +61,7 @@ class Trip extends Component {
           delete saveBody.version;  // version 1 doesn't contain version attribute
           delete saveBody.options.userUnit;
           delete saveBody.options.userRadius;
+          delete saveBody.options.optimization;
           delete saveBody.query;
       }
 
