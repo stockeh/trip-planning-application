@@ -12,15 +12,16 @@ class Application extends Component {
     super(props);
     this.state = {
       trip: { // default TFFI
-        version: 1,
+        version: 2,
         type: "",
         query: "",
         title: "",
         options : {
-          distance: "",
+          distance: "miles",
           userUnit: "",
           userRadius: "",
           optimization: 0.0},
+        optimization: 1,
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
