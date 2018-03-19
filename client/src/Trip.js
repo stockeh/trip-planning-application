@@ -58,9 +58,10 @@ class Trip extends Component {
       /* if version 1, remove new version data to save*/
       if (this.props.trip.version == 1) {
           console.log("Deleting data for V1");
-          delete saveBody.version;
+          delete saveBody.version;  // version 1 doesn't contain version attribute
           delete saveBody.options.userUnit;
           delete saveBody.options.userRadius;
+          delete saveBody.query;
       }
 
       var fileName = this.props.trip.title;
