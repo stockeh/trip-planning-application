@@ -51,7 +51,11 @@ class Trip extends Component {
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){
+      console.log("SaveTFFI");
+      console.log("Version: " + this.props.trip.version);
       let saveBody = this.props.trip;
+
+      if (this.props.trip.version == 1) console.log("Yay");g
 
       var fileName = this.props.trip.title;
       if (fileName == "")
