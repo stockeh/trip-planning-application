@@ -57,6 +57,11 @@ class Itinerary extends Component {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
 
+    if (this.props.trip.options.userUnit !== "") { // custom units given
+        console.log("USERUNIT: " + this.props.trip.options.userUnit);
+        units = this.props.trip.options.userUnit;
+    }
+
     let destinations = this.props.trip.places.map((item, index) => <td>{this.buildDestination(item, index)}</td>);
     if (destinations.length > 1) // There is a round trip.
         destinations.push(<td>{"Return to " + this.props.trip.places[0].name}</td>);
