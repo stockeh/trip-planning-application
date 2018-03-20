@@ -1,6 +1,5 @@
 package com.tripco.t10.server;
 
-import com.tripco.t10.planner.Config;
 import com.tripco.t10.planner.Plan;
 import com.tripco.t10.planner.Query;
 
@@ -40,10 +39,10 @@ public class MicroServer {
     get("/echo", this::echo);
     get("/hello/:name", this::hello);
     get("/team", this::team);
+    get("/config",this::config);
     // client is sending data, so a HTTP POST is used instead of a GET
     post("/plan", this::plan);
     post("/query", this::query);
-    post("/config",this::config);
 
     System.out.println("\n\nServer running on port: " + this.port + "\n\n");
   }
@@ -116,7 +115,7 @@ public class MicroServer {
   private String config(Request request, Response response) {
     response.type("application/json");
 
-    return (new Config(request)).getConfig();
+    return ("{ \"type\" : \"config\", \"version\" : \"config\", \"optimization\" : \"2\"}");
   }
 
   /** A REST API that returns the team information associated with the server.

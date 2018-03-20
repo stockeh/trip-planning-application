@@ -12,7 +12,6 @@ public class Option {
   public String userUnit;
   public String userRadius;
   public double optimization;
-
   /**
    * For setting default values to options
    * primarily for GSON

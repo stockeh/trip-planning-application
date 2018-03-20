@@ -2,13 +2,11 @@ import React, {Component} from 'react';
 import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip';
-import Itinerary from "./Itinerary";
-
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
  */
 class Application extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       trip: { // default TFFI
@@ -16,12 +14,12 @@ class Application extends Component {
         type: "",
         query: "",
         title: "",
-        options : {
+        options: {
           distance: "miles",
           userUnit: "",
           userRadius: "",
-          optimization: 0.0},
-        optimization: 1,
+          optimization: 0.0
+        },
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
@@ -35,6 +33,7 @@ class Application extends Component {
 
     this.reverseTrip = this.reverseTrip.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
+
   }
 
   updateTrip(tffi){
@@ -49,13 +48,6 @@ class Application extends Component {
     this.setState({trip: newTrip});
   }
 
-  updateOptimization(optimization){
-    let newTrip = Object.assign({}, this.state.trip);
-    newTrip.optimization = optimization;
-    this.setState({trip : newTrip});
-    console.log("UpdateOptimization: " + this.state.trip.optimization);
-  }
-
   updatePlaces(place) {
     let newTrip = Object.assign({}, this.state.trip);
     newTrip.places.push(place);
@@ -67,8 +59,8 @@ class Application extends Component {
     // update the options in the trip.
     console.log("APPLICATION " + opt);
     let newDistance = Object.assign({}, this.state.trip);
-    if(Number.isInteger(parseInt(opt))){
-      newDistance.options.optimization=parseInt(opt);
+    if(parseFloat(opt) !== null){
+      newDistance.options.optimization=parseFloat(opt);
     }else {
       newDistance.options.distance = opt;
     }
@@ -123,11 +115,12 @@ class Application extends Component {
   // }
 
   render() {
+
     return(
         <div id="application" className="container">
           <div className="row">
             <div className="col-xs-12 col-md-6">
-                <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
+                <Options trip={this.state.trip} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-xs-12 col-md-6">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
