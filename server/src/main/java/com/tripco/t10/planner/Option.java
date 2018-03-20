@@ -12,16 +12,6 @@ public class Option {
   public String userUnit;
   public String userRadius;
   public double optimization;
-  /**
-   * For setting default values to options
-   * primarily for GSON
-   */
-  public Option(){
-    this.distance="";
-    this.userUnit="";
-    this.userRadius="";
-    this.optimization=0;
-  }
 
   /**
    * For testing with version 1

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {ButtonGroup, Button} from 'reactstrap'
-import Config from "./Config";
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -8,6 +7,7 @@ import Config from "./Config";
  * Allows the user to set the options used by the application via a set of buttons.
  */
 class Options extends Component{
+
   constructor(props) {
     super(props);
     this.state = {
@@ -37,8 +37,8 @@ class Options extends Component{
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
-      console.log("TESTING: " + tffi);
-      this.setState({optimization : Number.parseInt(tffi.optimization)});
+      console.log("TESTING: " + tffi.optimization);
+      this.setState({config : tffi});
       this.setState({check:false});
     } catch(err) {
       console.error(err);
@@ -50,7 +50,7 @@ class Options extends Component{
   }
 
   slider(){
-    let step = this.state.optimization;
+    let step = this.state.config.optimization;
     if (step !== undefined)
       return(
         <div className="slider_container">
@@ -77,6 +77,7 @@ class Options extends Component{
     if(this.state.check === true) this.getConfig();
     const buttons = this.distanceButtons();
     let slider = null;
+    console.log("OPTIMIZATIONS: " + this.state.config.optimization)
     if(this.props.trip.version > 1 && this.state.config.optimization > 0){
       slider = this.slider();
     }
