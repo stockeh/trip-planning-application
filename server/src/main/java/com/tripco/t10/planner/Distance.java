@@ -12,7 +12,7 @@ public class Distance {
 
   public String distance;
   public double optimization;
-  public int memo[][];
+  public int[][] memo;
 
   /**
    * Constructor that sets the distance global to the correct units,
@@ -40,9 +40,24 @@ public class Distance {
   }
 
   /**
+   * Inserts the computed distance into the 2D array.
+   * Note that A to B is that same as B to A.
+   * @param degrees an array list of decimal degrees.
+   * @param i current starting A in array.
+   * @param j index of the destination to compute distance too.
+   */
+  public void memoizeInsert(ArrayList<Double> degrees, int i, int j) {
+    if (j >= i) {
+      memo[i][j] = greatCirDist(degrees.get(i * 2), degrees.get(i * 2 + 1),
+              degrees.get(j * 2), degrees.get(j * 2 + 1));
+      memo[j][i] = memo[i][j];
+    }
+  }
+
+  /**
    * Populates a 2D array to memoize the distances between locations.
    * Computing distance between 0-n for each n.
-   * @param degrees an array list of decimal degrees
+   * @param degrees an array list of decimal degrees.
    */
   public void memoizeDistance(ArrayList<Double> degrees) {
     int size = degrees.size()/2;
@@ -50,11 +65,7 @@ public class Distance {
 
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        if (j >= i) {
-          memo[i][j] = greatCirDist(degrees.get(i * 2), degrees.get(i * 2 + 1)
-                  , degrees.get(j * 2), degrees.get(j * 2 + 1));
-          memo[j][i] = memo[i][j];
-        }
+        memoizeInsert(degrees, i, j);
       }
     }
   }
