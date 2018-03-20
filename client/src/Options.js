@@ -18,7 +18,6 @@ class Options extends Component{
       },
       check : true
     };
-    console.log(this.props.options);
     this.handleOnChange = this.handleOnChange.bind(this);
     this.distanceButtons = this.distanceButtons.bind(this);
     this.getConfig = this.getConfig.bind(this);
@@ -26,7 +25,6 @@ class Options extends Component{
   }
 
   fetchResponse(){
-    let requestBody;
 
     return fetch('http://' + location.host + '/config', {
       method:"GET",
@@ -54,7 +52,7 @@ class Options extends Component{
     if (step !== undefined)
       return(
         <div className="slider_container">
-          <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={this.props.trip.options.optimization} className="slider" onChange={this.handleOnChange} />
+          <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={parseFloat(this.props.trip.options.optimization)} className="slider" onChange={this.handleOnChange} />
           <div className="row pl-3">
             <h6 className="pr-4 m-0">Longer</h6>
             <h6 className="m-0">Shorter</h6>
@@ -77,7 +75,6 @@ class Options extends Component{
     if(this.state.check === true) this.getConfig();
     const buttons = this.distanceButtons();
     let slider = null;
-    console.log("OPTIMIZATIONS: " + this.state.config.optimization)
     if(this.props.trip.version > 1 && this.state.config.optimization > 0){
       slider = this.slider();
     }
