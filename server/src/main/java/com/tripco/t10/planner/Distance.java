@@ -39,14 +39,22 @@ public class Distance {
     this.optimization = optimization;
   }
 
+  /**
+   * Populates a 2D array to memoize the distances between locations.
+   * Computing distance between 0-n for each n.
+   * @param degrees an array list of decimal degrees
+   */
   public void memoizeDistance(ArrayList<Double> degrees) {
     int size = degrees.size()/2;
     memo = new int[size][size];
 
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        memo[i][j] = greatCirDist(degrees.get(i*2), degrees.get(i*2+1)
-                                    ,degrees.get(j*2), degrees.get(j*2+1));
+        if (j >= i) {
+          memo[i][j] = greatCirDist(degrees.get(i * 2), degrees.get(i * 2 + 1)
+                  , degrees.get(j * 2), degrees.get(j * 2 + 1));
+          memo[j][i] = memo[i][j];
+        }
       }
     }
   }
@@ -94,7 +102,6 @@ public class Distance {
     * @param coordDegrees the coordinates of the places in the trip
     * @return Returns an array of leg distances in order with no optimization
     */
-
   public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
