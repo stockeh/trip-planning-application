@@ -73,10 +73,37 @@ public class Distance {
   }
 
   public ArrayList<Integer> nearestNeighbor(ArrayList<Double> degrees, ArrayList<Place> places) {
+    // Initialize Globals.
     this.memoizeDistance(degrees);
     placesIndex = IntStream.range(0, places.size()).toArray();
+
     ArrayList<Integer> out = new ArrayList<Integer>();
     out.add(0); out.add(0); out.add(0);
+
+    boolean[] visited = new boolean[places.size()]; // keeps track of visited places
+    int nearestNeighbor = 0;
+    int source = 0; // used to keep track of current place
+    int destination = 0; // used to keep track of nearest neighbor index
+    int placesToGo = visited.length; // used to know when trip is done
+
+    visited[0] = true;
+    placesToGo-=1;
+
+    while (placesToGo > 0) {
+      destination = findNearestNeigh(degrees, source, visited);
+      nearestNeighbor = memo[source/2][destination/2];
+//      places.add(degrees.get(destination/2));
+      visited[destination/2] = true;
+      source = destination; // source becomes destination
+
+//      distances.add(nearestNeighbor);
+      nearestNeighbor = Integer.MAX_VALUE;
+      placesToGo -= 1;
+    }
+
+//    degrees.add(greatCirDist(degrees.get(source), degrees.get(source+1),
+//            degrees.get(0), degrees.get(1))); // return to last city
+
     return out;
   }
 
