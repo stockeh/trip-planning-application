@@ -51,7 +51,17 @@ class Trip extends Component {
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){
+      console.log("SaveTFFI");
+      console.log("Version: " + this.props.trip.version);
       let saveBody = this.props.trip;
+
+      /* if version 1, remove new version data to save*/
+      if (this.props.trip.version == 1) {
+          console.log("Deleting data for V1");
+          delete saveBody.version;  // version 1 doesn't contain version attribute
+          delete saveBody.options.userUnit;
+          delete saveBody.options.userRadius;
+      }
 
       var fileName = this.props.trip.title;
       if (fileName == "")
@@ -60,12 +70,12 @@ class Trip extends Component {
           fileName += ".json";
 
 
-      var blob = new Blob ([JSON.stringify(saveBody)], { type: 'text/plain' }),
+      var blob = new Blob ([JSON.stringify(saveBody)], { type: 'application/json' }),
           anchor = document.createElement('a');
 
       anchor.download = fileName;
       anchor.href = (window.URL).createObjectURL (blob);
-      anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join (':');
+      anchor.dataset.downloadurl = ['application/json', anchor.download, anchor.href].join (':');
       anchor.click();
   }
 

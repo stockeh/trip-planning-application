@@ -120,7 +120,7 @@ public class Trip {
     else {
       dist = distance.inOrder(coordDegrees);
     }
-
+    distance.memo = null;
     return dist;
   }
 
