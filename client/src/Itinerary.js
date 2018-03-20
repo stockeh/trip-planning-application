@@ -57,7 +57,7 @@ class Itinerary extends Component {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
 
-    if (this.props.trip.options.userUnit !== "") { // custom units given
+    if (this.props.trip.options.userUnit !== "" && this.props.trip.options.distance === "user defined") { // custom units given
         console.log("USERUNIT: " + this.props.trip.options.userUnit);
         units = this.props.trip.options.userUnit;
     }
