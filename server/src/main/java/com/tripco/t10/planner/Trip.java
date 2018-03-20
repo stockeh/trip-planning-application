@@ -111,7 +111,8 @@ public class Trip {
    */
   public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees){
     ArrayList<Integer> dist = new ArrayList<Integer>();
-    Distance distance = new Distance(this.options.distance, Double.parseDouble(this.options.optimization));
+    Distance distance;
+    distance = new Distance(this.options.distance, Double.parseDouble(this.options.optimization));
 
     if (distance.optimization == 1) { // nearest neighbor optimization algorithm
       dist = distance.nearestNeighbor(coordDegrees, this.places);
