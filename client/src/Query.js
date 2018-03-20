@@ -79,9 +79,7 @@ class Query extends Component {
           <br/> {this.createTable()}
         </div>
 
-        <div className="modal-footer">
-          <Search query={this.state.query} updateData={this.updateData}/>
-        </div>
+        <div className="modal-footer"><Search query={this.state.query} updateData={this.updateData}/></div>
       </div>
     )
   }
