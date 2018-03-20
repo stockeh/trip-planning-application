@@ -12,6 +12,7 @@ public class Distance {
 
   public String distance;
   public double optimization;
+  public int memo[][];
 
   /**
    * Constructor that sets the distance global to the correct units,
@@ -36,6 +37,19 @@ public class Distance {
   public Distance(String distance, double optimization){
     this.distance = distance.toLowerCase();
     this.optimization = optimization;
+  }
+
+  public int[][] memoizeDistance(ArrayList<Double> coordDegrees) {
+    int size = coordDegrees.size()/2;
+    memo = new int[size][];
+
+    int itr = 0;
+    while (size > 0) {
+      memo[itr++] = new int[size--];
+    }
+
+
+    return memo;
   }
   /**
    * Computes the grate circle distance between two coordinates.  The distance units

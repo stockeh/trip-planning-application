@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,8 +23,8 @@ public class TestDist {
   // Setup to be done before every test in TestDist
   @Before
   public void initialize() {
-    distance = new Distance("miles");
-    distanceKM = new Distance("kilometers");
+    distance = new Distance("miles", 0);
+    distanceKM = new Distance("kilometers", 0);
   }
 
   @Test
@@ -44,5 +47,16 @@ public class TestDist {
     assertEquals(59, distance.greatCirDist(40.585258, -105.084419, 39.7392, -104.9903));
   }
 
+  @Test
+  public void testMemoizeDistance() {
+    ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419));
+    int size = degrees.size()/2;
+    int[][] results = new int[size][];
+    int itr = 0;
+    while (size > 0) {
+      results[itr++] = new int[size--];
+    }
+    assertArrayEquals(results, distance.memoizeDistance(degrees));
+  }
 
 }
