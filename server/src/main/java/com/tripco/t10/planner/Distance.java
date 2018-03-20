@@ -39,13 +39,15 @@ public class Distance {
     this.optimization = optimization;
   }
 
-  public int[][] memoizeDistance(ArrayList<Double> coordDegrees) {
-    int size = coordDegrees.size()/2;
-    memo = new int[size][];
+  public int[][] memoizeDistance(ArrayList<Double> degrees) {
+    int size = degrees.size()/2;
+    memo = new int[size][size];
 
-    int itr = 0;
-    while (size > 0) {
-      memo[itr++] = new int[size--];
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        memo[i][j] = greatCirDist(degrees.get(i*2), degrees.get(i*2+1)
+                                    ,degrees.get(j*2), degrees.get(j*2+1));
+      }
     }
 
 

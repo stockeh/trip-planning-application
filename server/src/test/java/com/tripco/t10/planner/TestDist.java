@@ -51,11 +51,14 @@ public class TestDist {
   public void testMemoizeDistance() {
     ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419));
     int size = degrees.size()/2;
-    int[][] results = new int[size][];
-    int itr = 0;
-    while (size > 0) {
-      results[itr++] = new int[size--];
-    }
+    int[][] results = new int[size][size];
+
+    // A -> A,          A -> B,             A -> C
+    results[0][0] = 0; results[0][1] = 24; results[0][2] = 59;
+    // B -> A,          B -> B,             B - C
+    results[1][0] = 24; results[1][1] = 0; results[1][2] = 41;
+    // C -> A,          C -> B,             C -> C
+    results[2][0] = 59; results[2][1] = 41; results[2][2] = 0;
     assertArrayEquals(results, distance.memoizeDistance(degrees));
   }
 
