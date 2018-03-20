@@ -10,30 +10,23 @@ class Query extends Component {
   constructor(props){
     super(props);
     this.state = {
-        places  : []
+        query : "",
+        places: []
     };
-    this.updateDataPlaces = this.updateDataPlaces.bind(this);
-    this.updateQuery = this.updateQuery.bind(this);
+    this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
 
     this.createDestination = this.createDestination.bind(this);
     this.createTable = this.createTable.bind(this);
-    this.loadedQuery = this.loadedQuery.bind(this);
 
     this.modalContent = this.modalContent.bind(this);
   }
 
-  updateDataPlaces(tffiPlaces) {
-    this.setState({places : tffiPlaces});
+  updateData(data, obj) {
+    this.setState({[obj]: data});
   }
-
-  updateQuery(event) {
-    // this.props.updateQuery(event.target.value);
-    this.props.updateInformation(event.target.value, "query");
-  }
-
   updateDestinations(index) {
-    let newPlaces =this.state.places;
+    let newPlaces = this.state.places;
     let removedItem = newPlaces.splice(index, 1);
     this.props.updatePlaces(removedItem[0]);
     this.setState({places: newPlaces});
@@ -69,15 +62,6 @@ class Query extends Component {
     );
   }
 
-  loadedQuery() {
-    if (this.props.precheck) {
-      if (this.props.trip.type === "query")
-        document.getElementById("lookUp").click();
-      if (this.props.trip.query)
-        document.getElementById("destination").value = this.props.trip.query;
-    }
-  }
-
   modalContent() {
     return (
       <div className="modal-content">
@@ -90,19 +74,20 @@ class Query extends Component {
 
         <div className="modal-body">
           <h6>Enter the name of a destination that you would like to visit!</h6>
-          <input id="destination" type="text" className="form-control" onChange={this.updateQuery} placeholder="Destination name..."/>
+          <input id="destination" type="text" className="form-control"
+                 onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
           <br/> {this.createTable()}
         </div>
 
         <div className="modal-footer">
-          <Search precheck={this.props.precheck} trip={this.props.trip} setPreCheck={this.props.setPreCheck} updateDataPlaces={this.updateDataPlaces}/>
+          <Search query={this.state.query} updateData={this.updateData}/>
         </div>
       </div>
     )
   }
 
   render() {
-    this.loadedQuery();
+
     return(
       <div id="query">
         <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>

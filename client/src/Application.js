@@ -13,15 +13,13 @@ class Application extends Component {
     this.state = {
       trip: { // default TFFI
         version: 2,
-        type: "",
-        query: "",
+        type: "trip",
         title: "",
         options : {
           distance: "miles",
           userUnit: "",
           userRadius: "",
           optimization: 0.0},
-        optimization: 1,
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
@@ -106,14 +104,6 @@ class Application extends Component {
       newTrip.map = "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>";
       this.setState({trip: newTrip});
   }
-
-  // tripVersionHandling(){
-  //   if(this.trip.version === 1){
-  //     this.trip.options.optimization="none"
-  //   }else if(isNaN(this.trip.options.optimization)){
-  //     this.trip.options.optimization = 0;
-  //   }
-  // }
 
   render() {
     return(

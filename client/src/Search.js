@@ -15,9 +15,9 @@ class Search extends Component {
   fetchResponse(){
     // need to get the request body from the query in state object.
     let requestBody = {
-        "version" : this.props.trip.version,
-        "type"    : this.props.trip.type,
-        "query"   : this.props.trip.query,
+        "version" : 2,
+        "type"    : "query",
+        "query"   : this.props.query,
         "places"  : []
     };
 
@@ -33,20 +33,15 @@ class Search extends Component {
   async search(){
     try {
       let serverResponse = await this.fetchResponse();
-      this.props.setPreCheck(false);
       let tffi = await serverResponse.json();
       console.log(tffi);
-      this.props.updateDataPlaces(tffi.places);
+      this.props.updateData(tffi.places, "places");
     } catch(err) {
       console.error(err);
     }
   }
 
   render(){
-    if (this.props.precheck) {
-      if (this.props.trip.type === "query" && this.props.trip.query !== "")
-        document.getElementById("searchButton").click();
-    }
     return(
       <div id="search">
           <button className="btn btn-primary" id="searchButton" onClick={this.search}
