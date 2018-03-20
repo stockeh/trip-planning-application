@@ -2,20 +2,18 @@ import React, {Component} from 'react';
 import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip';
-import Itinerary from "./Itinerary";
-
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
  */
 class Application extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       trip: { // default TFFI
         version: 2,
         type: "trip",
         title: "",
-        options : {
+        options: {
           distance: "miles",
           userUnit: "",
           userRadius: "",
@@ -33,6 +31,7 @@ class Application extends Component {
 
     this.reverseTrip = this.reverseTrip.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
+
   }
 
   updateTrip(tffi){
@@ -58,8 +57,8 @@ class Application extends Component {
     // update the options in the trip.
     console.log("APPLICATION " + opt);
     let newDistance = Object.assign({}, this.state.trip);
-    if(Number.isInteger(parseInt(opt))){
-      newDistance.options.optimization=parseInt(opt);
+    if(parseFloat(opt) !== null){
+      newDistance.options.optimization=parseFloat(opt);
     }else {
       newDistance.options.distance = opt;
     }
@@ -106,11 +105,12 @@ class Application extends Component {
   }
 
   render() {
+
     return(
         <div id="application" className="container">
           <div className="row">
             <div className="col-xs-12 col-md-6">
-                <Options options={this.state.trip.options} updateOptions={this.updateOptions}/>
+                <Options trip={this.state.trip} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-xs-12 col-md-6">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
