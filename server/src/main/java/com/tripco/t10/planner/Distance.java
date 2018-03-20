@@ -9,20 +9,17 @@ import java.lang.Math;
  */
 public class Distance {
   // Defining variables and constructors
-
-  public String distance;
-  public double optimization;
+  public Option options;
 
   /**
    * Constructor that sets the distance global to the correct units,
    * i.e.,"miles" or "kilometers".
    *
-   * @param distance the units in the trip.
+   * @param option the options in the trip.
    * @see Trip class for trip variables.
    */
-  public Distance(String distance) {
-    this.distance = distance.toLowerCase();
-    this.optimization = 0;
+  public Distance(Option option) {
+    options = option;
   }
 
   /**
@@ -34,8 +31,8 @@ public class Distance {
    * @see Trip class for trip variables.
    */
   public Distance(String distance, double optimization){
-    this.distance = distance.toLowerCase();
-    this.optimization = optimization;
+    this.options.distance = distance.toLowerCase();
+    this.options.optimization = optimization;
   }
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
@@ -53,9 +50,13 @@ public class Distance {
     double deltaX, deltaY, deltaZ;
     double radius, chordLen, centralAngle;
 
-    if (this.distance.equals("kilometers"))
+    if (this.options.distance.equals("kilometers"))
       radius = 6371.0088;
-    else radius = 3958.7613;
+    else if (this.options.distance.equals("nautical miles"))
+      radius = 3440.0695;
+    else if (this.options.distance.equals("user defined"))
+      radius = Double.parseDouble(this.options.userRadius);
+    else radius = 3958.7613; // miles
 
     double decLat1 = Math.toRadians(latitude1);
     double decLat2 = Math.toRadians(latitude2);
