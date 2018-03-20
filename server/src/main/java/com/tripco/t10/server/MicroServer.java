@@ -1,8 +1,8 @@
 package com.tripco.t10.server;
 
 import com.tripco.t10.planner.Plan;
-
 import com.tripco.t10.planner.Query;
+
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -39,6 +39,7 @@ public class MicroServer {
     get("/echo", this::echo);
     get("/hello/:name", this::hello);
     get("/team", this::team);
+    get("/config",this::config);
     // client is sending data, so a HTTP POST is used instead of a GET
     post("/plan", this::plan);
     post("/query", this::query);
@@ -99,10 +100,22 @@ public class MicroServer {
     return (new Plan(request)).getTrip();
   }
 
+  /** A REST API to support queries.
+   *
+   * @param request
+   * @param response
+   * @return the query result
+   */
   private String query(Request request, Response response) {
     response.type("application/json");
 
     return (new Query(request)).getSearch();
+  }
+
+  private String config(Request request, Response response) {
+    response.type("application/json");
+
+    return ("{ \"type\" : \"config\", \"version\" : \"config\", \"optimization\" : \"1\"}");
   }
 
   /** A REST API that returns the team information associated with the server.
