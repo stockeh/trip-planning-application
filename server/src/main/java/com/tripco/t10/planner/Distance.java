@@ -43,14 +43,14 @@ public class Distance {
    * Inserts the computed distance into the 2D array.
    * Note that A to B is that same as B to A.
    * @param degrees an array list of decimal degrees.
-   * @param i current starting A in array.
-   * @param j index of the destination to compute distance too.
+   * @param from current starting A in array.
+   * @param too index of the destination to compute distance too.
    */
-  public void memoizeInsert(ArrayList<Double> degrees, int i, int j) {
-    if (j >= i) {
-      memo[i][j] = greatCirDist(degrees.get(i * 2), degrees.get(i * 2 + 1),
-              degrees.get(j * 2), degrees.get(j * 2 + 1));
-      memo[j][i] = memo[i][j];
+  public void memoizeInsert(ArrayList<Double> degrees, int from, int too) {
+    if (too >= from) {
+      memo[from][too] = greatCirDist(degrees.get(from * 2), degrees.get(from * 2 + 1),
+              degrees.get(too * 2), degrees.get(too * 2 + 1));
+      memo[too][from] = memo[from][too];
     }
   }
 
