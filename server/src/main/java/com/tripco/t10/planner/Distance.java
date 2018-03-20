@@ -34,6 +34,28 @@ public class Distance {
     this.options.distance = distance.toLowerCase();
     this.options.optimization = optimization;
   }
+
+  /**
+   * Takes in options.distance and returns the corresponding radius for the units
+   * @param distance unit or user defined
+   */
+  public double getRadius(String distance) {
+    double radius;
+    switch (distance) {
+      case "kilometers":
+        radius = 6371.0088;
+        break;
+      case "nautical miles":
+        radius = 3440.0695;
+        break;
+      case "user defined":
+        radius = Double.parseDouble(this.options.userRadius);
+        break;
+      default:
+        radius = 3958.7613; // miles
+    }
+    return radius;
+  }
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
    * provided from the constructor determine the radius for the computation.
@@ -50,19 +72,7 @@ public class Distance {
     double deltaX, deltaY, deltaZ;
     double radius, chordLen, centralAngle;
 
-    switch (this.options.distance) {
-      case "kilometers":
-        radius = 6371.0088;
-        break;
-      case "nautical miles":
-        radius = 3440.0695;
-        break;
-      case "user defined":
-        radius = Double.parseDouble(this.options.userRadius);
-        break;
-      default:
-        radius = 3958.7613; // miles
-    }
+    radius = getRadius(this.options.distance);
 
     double decLat1 = Math.toRadians(latitude1);
     double decLat2 = Math.toRadians(latitude2);
