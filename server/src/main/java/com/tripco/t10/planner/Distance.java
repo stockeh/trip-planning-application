@@ -50,13 +50,19 @@ public class Distance {
     double deltaX, deltaY, deltaZ;
     double radius, chordLen, centralAngle;
 
-    if (this.options.distance.equals("kilometers"))
-      radius = 6371.0088;
-    else if (this.options.distance.equals("nautical miles"))
-      radius = 3440.0695;
-    else if (this.options.distance.equals("user defined"))
-      radius = Double.parseDouble(this.options.userRadius);
-    else radius = 3958.7613; // miles
+    switch (this.options.distance) {
+      case "kilometers":
+        radius = 6371.0088;
+        break;
+      case "nautical miles":
+        radius = 3440.0695;
+        break;
+      case "user defined":
+        radius = Double.parseDouble(this.options.userRadius);
+        break;
+      default:
+        radius = 3958.7613; // miles
+    }
 
     double decLat1 = Math.toRadians(latitude1);
     double decLat2 = Math.toRadians(latitude2);
