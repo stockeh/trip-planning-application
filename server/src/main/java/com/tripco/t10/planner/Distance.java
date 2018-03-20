@@ -30,7 +30,7 @@ public class Distance {
    * @param optimization level for the trip
    * @see Trip class for trip variables.
    */
-  public Distance(String distance, double optimization){
+  public Distance(String distance, String optimization){
     this.options.distance = distance.toLowerCase();
     this.options.optimization = optimization;
   }
