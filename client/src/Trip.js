@@ -60,7 +60,7 @@ class Trip extends Component {
           console.log("Deleting data for V1");
           delete saveBody.version;  // version 1 doesn't contain version attribute
           delete saveBody.options.userUnit;
-          delete saveBody.options.userRadius;g
+          delete saveBody.options.userRadius;
       }
 
       var fileName = this.props.trip.title;
