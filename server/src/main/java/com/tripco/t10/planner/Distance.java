@@ -12,6 +12,7 @@ public class Distance {
 
   public String distance;
   public double optimization;
+  public int[][] memo;
 
   /**
    * Constructor that sets the distance global to the correct units,
@@ -36,6 +37,37 @@ public class Distance {
   public Distance(String distance, double optimization){
     this.distance = distance.toLowerCase();
     this.optimization = optimization;
+  }
+
+  /**
+   * Inserts the computed distance into the 2D array.
+   * Note that A to B is that same as B to A.
+   * @param degrees an array list of decimal degrees.
+   * @param from current starting A in array.
+   * @param too index of the destination to compute distance too.
+   */
+  public void memoizeInsert(ArrayList<Double> degrees, int from, int too) {
+    if (too >= from) {
+      memo[from][too] = greatCirDist(degrees.get(from * 2), degrees.get(from * 2 + 1),
+              degrees.get(too * 2), degrees.get(too * 2 + 1));
+      memo[too][from] = memo[from][too];
+    }
+  }
+
+  /**
+   * Populates a 2D array to memoize the distances between locations.
+   * Computing distance between 0-n for each n.
+   * @param degrees an array list of decimal degrees.
+   */
+  public void memoizeDistance(ArrayList<Double> degrees) {
+    int size = degrees.size()/2;
+    memo = new int[size][size];
+
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        memoizeInsert(degrees, i, j);
+      }
+    }
   }
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
@@ -81,7 +113,6 @@ public class Distance {
     * @param coordDegrees the coordinates of the places in the trip
     * @return Returns an array of leg distances in order with no optimization
     */
-
   public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
@@ -104,6 +135,7 @@ public class Distance {
    */
 
   public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
+    memoizeDistance(coordDegrees);
     ArrayList<Integer> distances = new ArrayList<Integer>();
     ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
     placez.clear();
@@ -119,8 +151,7 @@ public class Distance {
 
     while (placesToGo > 0) {
       destination = findNearestNeigh(coordDegrees, source, visited);
-      nearestNeighbor = greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
-              coordDegrees.get(destination), coordDegrees.get(destination+1));
+      nearestNeighbor = memo[source/2][destination/2];
       placez.add(placezCopy.get(destination/2));
       visited[destination/2] = true;
       source = destination; // source becomes destination
@@ -151,8 +182,7 @@ public class Distance {
     Integer nn = Integer.MAX_VALUE;
     for (int j = 0; j < degrees.size(); j += 2) {
       if ((src != j) && (!visited[j/2])) {
-      tmp = greatCirDist(degrees.get(src), degrees.get(src + 1),
-                degrees.get(j), degrees.get(j + 1));
+      tmp = memo[src/2][j/2];
       if (nn > tmp) {
           nn = tmp;
           dest = j;
