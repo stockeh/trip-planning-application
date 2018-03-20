@@ -2,6 +2,7 @@ package com.tripco.t10.planner;
 
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.stream.IntStream;
 
 /**
  * The Distance class is responsible for calculating the distance between
@@ -13,6 +14,7 @@ public class Distance {
   public String distance;
   public double optimization;
   public int[][] memo;
+  public int[] placesIndex;
 
   /**
    * Constructor that sets the distance global to the correct units,
@@ -69,6 +71,15 @@ public class Distance {
       }
     }
   }
+
+  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> degrees, ArrayList<Place> places) {
+    this.memoizeDistance(degrees);
+    placesIndex = IntStream.range(0, places.size()).toArray();
+    ArrayList<Integer> out = new ArrayList<Integer>();
+    out.add(0); out.add(0); out.add(0);
+    return out;
+  }
+
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
    * provided from the constructor determine the radius for the computation.
@@ -125,6 +136,7 @@ public class Distance {
 
   return dist;
   }
+
   /**
    * Method that is called from legDistances in Trip,
    * this is the "1" level or nearest neighbor algorithm.
@@ -133,38 +145,37 @@ public class Distance {
    * @param placez the places of the trip, passed in to reorder for optimization
    * @return Returns an array of leg distances in optimized order
    */
-
-  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
-    memoizeDistance(coordDegrees);
-    ArrayList<Integer> distances = new ArrayList<Integer>();
-    ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
-    placez.clear();
-    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places
-    int nearestNeighbor = 0;
-    int source = 0; // used to keep track of current place
-    int destination = 0; // used to keep track of nearest neighbor index
-    int placesToGo = visited.length; // used to know when trip is done
-
-    placez.add(placezCopy.get(0));
-    visited[0] = true;
-    placesToGo-=1;
-
-    while (placesToGo > 0) {
-      destination = findNearestNeigh(coordDegrees, source, visited);
-      nearestNeighbor = memo[source/2][destination/2];
-      placez.add(placezCopy.get(destination/2));
-      visited[destination/2] = true;
-      source = destination; // source becomes destination
-
-      distances.add(nearestNeighbor);
-      nearestNeighbor = Integer.MAX_VALUE;
-      placesToGo -= 1;
-    }
-
-    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
-            coordDegrees.get(0), coordDegrees.get(1))); // return to last city
-    return distances;
-  }
+//  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
+//    memoizeDistance(coordDegrees);
+//    ArrayList<Integer> distances = new ArrayList<Integer>();
+//    ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
+//    placez.clear();
+//    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places
+//    int nearestNeighbor = 0;
+//    int source = 0; // used to keep track of current place
+//    int destination = 0; // used to keep track of nearest neighbor index
+//    int placesToGo = visited.length; // used to know when trip is done
+//
+//    placez.add(placezCopy.get(0));
+//    visited[0] = true;
+//    placesToGo-=1;
+//
+//    while (placesToGo > 0) {
+//      destination = findNearestNeigh(coordDegrees, source, visited);
+//      nearestNeighbor = memo[source/2][destination/2];
+//      placez.add(placezCopy.get(destination/2));
+//      visited[destination/2] = true;
+//      source = destination; // source becomes destination
+//
+//      distances.add(nearestNeighbor);
+//      nearestNeighbor = Integer.MAX_VALUE;
+//      placesToGo -= 1;
+//    }
+//
+//    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
+//            coordDegrees.get(0), coordDegrees.get(1))); // return to last city
+//    return distances;
+//  }
 
   /**
    * Helper method used by the nearest neighbor algorithm, it iterates through

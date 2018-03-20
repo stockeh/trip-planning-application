@@ -63,4 +63,16 @@ public class TestDist {
     assertArrayEquals(results, distance.memo);
   }
 
+  @Test
+  public void testNearestNeighbor() {
+    Place denver = new Place("dnvr", "Denver","39.7392° N", "104.9903° W");
+    Place boulder = new Place("bldr", "Boulder","40.0149900", "-105.2705500");
+    Place fortcollins = new Place("foco", "Fort Collins","40° 35' 6.9288\" N","105° 5' 3.9084\" W");
+    ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(denver,boulder,fortcollins));
+    ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419));
+    ArrayList<Integer> results = new ArrayList<Integer>();
+    results.add(0); results.add(0); results.add(0);
+    assertEquals(results, distance.nearestNeighbor(degrees, places));
+  }
+
 }
