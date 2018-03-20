@@ -51,11 +51,26 @@ class Itinerary extends Component {
   }
 
   /*
+   * Logic to find what units to display and use
+   */
+  getUnits() {
+      let units;
+
+      if (this.props.trip.options.userUnit !== "" && this.props.trip.options.distance === "user defined") { // custom units given
+          console.log("USERUNIT: " + this.props.trip.options.userUnit);
+          units = this.props.trip.options.userUnit;
+      } else {
+          units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
+      }
+
+      return units;
+  }
+  /*
    * Logic to populate the itinerary table with corresponding data
    */
   createTable () {
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
-    let units = (this.props.trip.options.distance) ? this.props.trip.options.distance : "miles";
+    let units = this.getUnits();
 
     let destinations = this.props.trip.places.map((item, index) => <td>{this.buildDestination(item, index)}</td>);
     if (destinations.length > 1) // There is a round trip.

@@ -9,7 +9,7 @@ import java.lang.Math;
  */
 public class Distance {
   // Defining variables and constructors
-
+  public Option options;
   public String distance;
   public double optimization;
   public int[][] memo;
@@ -18,12 +18,11 @@ public class Distance {
    * Constructor that sets the distance global to the correct units,
    * i.e.,"miles" or "kilometers".
    *
-   * @param distance the units in the trip.
+   * @param option the options in the trip.
    * @see Trip class for trip variables.
    */
-  public Distance(String distance) {
-    this.distance = distance.toLowerCase();
-    this.optimization = 0;
+  public Distance(Option option) {
+    options = option;
   }
 
   /**
@@ -34,9 +33,31 @@ public class Distance {
    * @param optimization level for the trip
    * @see Trip class for trip variables.
    */
-  public Distance(String distance, double optimization){
-    this.distance = distance.toLowerCase();
-    this.optimization = optimization;
+  public Distance(String distance, String optimization){
+    this.options.distance = distance.toLowerCase();
+    this.options.optimization = optimization;
+  }
+
+  /**
+   * Takes in options.distance and returns the corresponding radius for the units
+   * @param distance unit or user defined
+   */
+  public double getRadius(String distance) {
+    double radius;
+    switch (distance) {
+      case "kilometers":
+        radius = 6371.0088;
+        break;
+      case "nautical miles":
+        radius = 3440.0695;
+        break;
+      case "user defined":
+        radius = Double.parseDouble(this.options.userRadius);
+        break;
+      default:
+        radius = 3958.7613; // miles
+    }
+    return radius;
   }
 
   /**
@@ -85,9 +106,7 @@ public class Distance {
     double deltaX, deltaY, deltaZ;
     double radius, chordLen, centralAngle;
 
-    if (this.distance.equals("kilometers"))
-      radius = 6371.0088;
-    else radius = 3958.7613;
+    radius = getRadius(this.options.distance);
 
     double decLat1 = Math.toRadians(latitude1);
     double decLat2 = Math.toRadians(latitude2);
