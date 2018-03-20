@@ -150,7 +150,7 @@ public class Distance {
     int dest = 0;
     Integer nn = Integer.MAX_VALUE;
     for (int j = 0; j < degrees.size(); j += 2) {
-      if ((src != j) && (visited[j/2] == false)) {
+      if ((src != j) && (!visited[j/2])) {
       tmp = greatCirDist(degrees.get(src), degrees.get(src + 1),
                 degrees.get(j), degrees.get(j + 1));
       if (nn > tmp) {

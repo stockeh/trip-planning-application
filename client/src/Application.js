@@ -17,7 +17,7 @@ class Application extends Component {
           distance: "miles",
           userUnit: "",
           userRadius: "",
-          optimization: 0.0},
+          optimization: "0.0"},
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
@@ -55,10 +55,9 @@ class Application extends Component {
 
   updateOptions(opt){
     // update the options in the trip.
-    console.log("APPLICATION " + opt);
     let newDistance = Object.assign({}, this.state.trip);
-    if(parseFloat(opt) !== null){
-      newDistance.options.optimization=parseFloat(opt);
+    if(!isNaN(parseFloat(opt))){
+      newDistance.options.optimization=opt;
     }else {
       newDistance.options.distance = opt;
     }

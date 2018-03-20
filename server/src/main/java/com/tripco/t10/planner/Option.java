@@ -11,7 +11,7 @@ public class Option {
   public String distance;
   public String userUnit;
   public String userRadius;
-  public double optimization;
+  public String optimization;
 
   /**
    * For testing with version 1
@@ -20,7 +20,7 @@ public class Option {
    */
   public Option(String distance, double optimization){
     this.distance = distance;
-    this.optimization = Math.round(optimization);
+    this.optimization = Double.toString(Math.round(optimization));
   }
 
   /**
@@ -34,6 +34,6 @@ public class Option {
     this.distance = distance;
     this.userUnit = userUnit;
     this.userRadius = userRadius;
-    this.optimization = Math.round(optimization);
+    this.optimization = Double.toString(Math.round(optimization));
   }
 }
