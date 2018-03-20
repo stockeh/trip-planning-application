@@ -39,7 +39,7 @@ public class Distance {
     this.optimization = optimization;
   }
 
-  public int[][] memoizeDistance(ArrayList<Double> degrees) {
+  public void memoizeDistance(ArrayList<Double> degrees) {
     int size = degrees.size()/2;
     memo = new int[size][size];
 
@@ -49,9 +49,6 @@ public class Distance {
                                     ,degrees.get(j*2), degrees.get(j*2+1));
       }
     }
-
-
-    return memo;
   }
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
@@ -120,6 +117,7 @@ public class Distance {
    */
 
   public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
+    memoizeDistance(coordDegrees);
     ArrayList<Integer> distances = new ArrayList<Integer>();
     ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
     placez.clear();
@@ -135,8 +133,7 @@ public class Distance {
 
     while (placesToGo > 0) {
       destination = findNearestNeigh(coordDegrees, source, visited);
-      nearestNeighbor = greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
-              coordDegrees.get(destination), coordDegrees.get(destination+1));
+      nearestNeighbor = memo[source/2][destination/2];
       placez.add(placezCopy.get(destination/2));
       visited[destination/2] = true;
       source = destination; // source becomes destination
@@ -167,8 +164,7 @@ public class Distance {
     Integer nn = Integer.MAX_VALUE;
     for (int j = 0; j < degrees.size(); j += 2) {
       if ((src != j) && (!visited[j/2])) {
-      tmp = greatCirDist(degrees.get(src), degrees.get(src + 1),
-                degrees.get(j), degrees.get(j + 1));
+      tmp = memo[src/2][j/2];
       if (nn > tmp) {
           nn = tmp;
           dest = j;

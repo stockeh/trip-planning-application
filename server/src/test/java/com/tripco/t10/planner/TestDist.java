@@ -59,7 +59,8 @@ public class TestDist {
     results[1][0] = 24; results[1][1] = 0; results[1][2] = 41;
     // C -> A,          C -> B,             C -> C
     results[2][0] = 59; results[2][1] = 41; results[2][2] = 0;
-    assertArrayEquals(results, distance.memoizeDistance(degrees));
+    distance.memoizeDistance(degrees);
+    assertArrayEquals(results, distance.memo);
   }
 
 }
