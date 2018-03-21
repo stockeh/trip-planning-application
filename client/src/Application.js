@@ -8,7 +8,6 @@ import Trip from './Trip';
 class Application extends Component {
   constructor(props) {
     super(props);
-    console.log("APPLICATION: " + this.props.config.optimization);
     this.state = {
       trip: { // default TFFI
         version: 2,

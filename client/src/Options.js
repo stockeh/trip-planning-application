@@ -26,8 +26,15 @@ class Options extends Component{
         <div className="slider_container">
           <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={parseFloat(this.props.trip.options.optimization)} className="slider" onChange={this.handleOnChange} />
           <div className="row pl-3">
-            <h6 className="pr-4 m-0">Longer</h6>
-            <h6 className="m-0">Shorter</h6>
+            <div className="col-6">
+              <div className="row">
+                <h6 className="pr-4 m-0">Longer</h6>
+                <h6 className="m-0">Shorter</h6>
+              </div>
+            </div>
+          </div>
+          <div className="pt-4">
+            <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
           </div>
         </div>
       );
