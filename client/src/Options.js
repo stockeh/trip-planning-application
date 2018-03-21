@@ -10,37 +10,9 @@ class Options extends Component{
 
   constructor(props) {
     super(props);
-    this.state = {
-      config: {
-        type: "config",
-        version : 2,
-        optimization: 1
-      },
-      check : true
-    };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.distanceButtons = this.distanceButtons.bind(this);
-    this.getConfig = this.getConfig.bind(this);
     this.slider = this.slider.bind(this);
-  }
-
-  fetchResponse(){
-
-    return fetch('http://' + location.host + '/config', {
-      method:"GET",
-    });
-  }
-
-  async getConfig(){
-    try {
-      let serverResponse = await this.fetchResponse();
-      let tffi = await serverResponse.json();
-      console.log("TESTING: " + tffi.optimization);
-      this.setState({config : tffi});
-      this.setState({check:false});
-    } catch(err) {
-      console.error(err);
-    }
   }
 
   handleOnChange(arg) {
@@ -48,7 +20,7 @@ class Options extends Component{
   }
 
   slider(){
-    let step = this.state.config.optimization;
+    let step = this.props.config.optimization;
     if (step !== undefined)
       return(
         <div className="slider_container">
@@ -72,10 +44,9 @@ class Options extends Component{
   }
 
   render() {
-    if(this.state.check === true) this.getConfig();
     const buttons = this.distanceButtons();
     let slider = null;
-    if(this.props.trip.version > 1 && this.state.config.optimization > 0){
+    if(this.props.trip.version > 1 && this.props.config.optimization > 0){
       slider = this.slider();
     }
     return(

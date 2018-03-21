@@ -8,7 +8,36 @@ class App extends Component {
     super(props);
     this.state = {
       number: "10",
-      name: "Andromeda"
+      name: "Andromeda",
+      config: {
+        type: "config",
+        version : 2,
+        optimization: 1
+      }
+    };
+
+    this.getConfig = this.getConfig.bind(this);
+  }
+
+  componentWillMount(){
+    this.getConfig();
+  }
+
+  fetchResponse(){
+
+    return fetch('http://' + location.host + '/config', {
+      method:"GET",
+    });
+  }
+
+  async getConfig(){
+    try {
+      let serverResponse = await this.fetchResponse();
+      let tffi = await serverResponse.json();
+      console.log("TESTING: " + tffi.optimization);
+      this.setState({config : tffi});
+    } catch(err) {
+      console.error(err);
     }
   }
 
@@ -16,7 +45,7 @@ class App extends Component {
     return(
         <div id="tripco">
             <Header number={this.state.number} name={this.state.name}/>
-            <Application />
+            <Application config={this.state.config}/>
             <Footer number={this.state.number} name={this.state.name}/>
         </div>
     );

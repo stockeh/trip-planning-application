@@ -8,6 +8,7 @@ import Trip from './Trip';
 class Application extends Component {
   constructor(props) {
     super(props);
+    console.log("APPLICATION: " + this.props.config.optimization);
     this.state = {
       trip: { // default TFFI
         version: 2,
@@ -109,7 +110,7 @@ class Application extends Component {
         <div id="application" className="container">
           <div className="row">
             <div className="col-xs-12 col-md-6">
-                <Options trip={this.state.trip} updateOptions={this.updateOptions}/>
+                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions}/>
             </div>
             <div className="col-xs-12 col-md-6">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
