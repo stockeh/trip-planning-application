@@ -82,8 +82,7 @@ public class Distance {
    * Computing distance between 0-n for each n.
    * @param degrees an array list of decimal degrees.
    */
-  public void memoizeDistance(ArrayList<Double> degrees) {
-    int size = degrees.size()/2;
+  public void memoizeDistance(ArrayList<Double> degrees, int size) {
     memo = new int[size][size];
 
     for (int i = 0; i < size; i++) {
@@ -93,38 +92,31 @@ public class Distance {
     }
   }
 
+  public static void swapper (int[] arr, int first, int second){
+    int temp = arr[first];
+    arr[first] = arr[second];
+    arr[second] = temp;
+  }
+
   public ArrayList<Integer> nearestNeighbor(ArrayList<Double> degrees, ArrayList<Place> places) {
     // Initialize Globals.
-    this.memoizeDistance(degrees);
+    int size = degrees.size()/2;
+    this.memoizeDistance(degrees, size);
     placesIndex = IntStream.range(0, places.size()).toArray();
+    int[] currentPlaces, currentDistance = new int[size];
+    int totalDistance;
+
+    int minimum, src, nearestSrc;
+    for (int index = 0; index < size; ++index) {
+      for (int dest = index + 1;  dest < size; ++dest) {
+        src = placesIndex[index];
+        nearestSrc = placesIndex[dest];
+        minimum = memo[src][nearestSrc];
+      }
+    }
 
     ArrayList<Integer> out = new ArrayList<Integer>();
     out.add(0); out.add(0); out.add(0);
-
-    boolean[] visited = new boolean[places.size()]; // keeps track of visited places
-    int nearestNeighbor = 0;
-    int source = 0; // used to keep track of current place
-    int destination = 0; // used to keep track of nearest neighbor index
-    int placesToGo = visited.length; // used to know when trip is done
-
-    visited[0] = true;
-    placesToGo-=1;
-
-    while (placesToGo > 0) {
-      destination = findNearestNeigh(degrees, source, visited);
-      nearestNeighbor = memo[source/2][destination/2];
-//      places.add(degrees.get(destination/2));
-      visited[destination/2] = true;
-      source = destination; // source becomes destination
-
-//      distances.add(nearestNeighbor);
-      nearestNeighbor = Integer.MAX_VALUE;
-      placesToGo -= 1;
-    }
-
-//    degrees.add(greatCirDist(degrees.get(source), degrees.get(source+1),
-//            degrees.get(0), degrees.get(1))); // return to last city
-
     return out;
   }
 
