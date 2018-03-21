@@ -10,37 +10,9 @@ class Options extends Component{
 
   constructor(props) {
     super(props);
-    this.state = {
-      config: {
-        type: "config",
-        version : 2,
-        optimization: 1
-      },
-      check : true
-    };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.distanceButtons = this.distanceButtons.bind(this);
-    this.getConfig = this.getConfig.bind(this);
     this.slider = this.slider.bind(this);
-  }
-
-  fetchResponse(){
-
-    return fetch('http://' + location.host + '/config', {
-      method:"GET",
-    });
-  }
-
-  async getConfig(){
-    try {
-      let serverResponse = await this.fetchResponse();
-      let tffi = await serverResponse.json();
-      console.log("TESTING: " + tffi.optimization);
-      this.setState({config : tffi});
-      this.setState({check:false});
-    } catch(err) {
-      console.error(err);
-    }
   }
 
   handleOnChange(arg) {
@@ -48,14 +20,21 @@ class Options extends Component{
   }
 
   slider(){
-    let step = this.state.config.optimization;
+    let step = this.props.config.optimization;
     if (step !== undefined)
       return(
         <div className="slider_container">
           <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={parseFloat(this.props.trip.options.optimization)} className="slider" onChange={this.handleOnChange} />
           <div className="row pl-3">
-            <h6 className="pr-4 m-0">Longer</h6>
-            <h6 className="m-0">Shorter</h6>
+            <div className="col-6">
+              <div className="row">
+                <h6 className="pr-4 m-0">Longer</h6>
+                <h6 className="m-0">Shorter</h6>
+              </div>
+            </div>
+          </div>
+          <div className="pt-4">
+            <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
           </div>
         </div>
       );
@@ -72,10 +51,9 @@ class Options extends Component{
   }
 
   render() {
-    if(this.state.check === true) this.getConfig();
     const buttons = this.distanceButtons();
     let slider = null;
-    if(this.props.trip.version > 1 && this.state.config.optimization > 0){
+    if(this.props.trip.version > 1 && this.props.config.optimization > 0){
       slider = this.slider();
     }
     return(
