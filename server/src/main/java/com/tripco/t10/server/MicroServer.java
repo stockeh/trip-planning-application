@@ -115,7 +115,7 @@ public class MicroServer {
   private String config(Request request, Response response) {
     response.type("application/json");
 
-    return ("{ \"type\" : \"config\", \"version\" : \"config\", \"optimization\" : \"1\"}");
+    return ("{ \"type\" : \"config\", \"version\" : 2, \"optimization\" : 1}");
   }
 
   /** A REST API that returns the team information associated with the server.

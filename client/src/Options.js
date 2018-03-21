@@ -12,8 +12,8 @@ class Options extends Component{
     super(props);
     this.state = {
       config: {
-        version : 2,
         type: "config",
+        version : 2,
         optimization: 1
       },
       check : true
