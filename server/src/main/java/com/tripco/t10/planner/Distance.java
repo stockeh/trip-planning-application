@@ -2,6 +2,8 @@ package com.tripco.t10.planner;
 
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.IntStream;
 
 /**
@@ -104,6 +106,26 @@ public class Distance {
     arr[second] = temp;
   }
 
+  public int constructNearestNeighbor(int[] placesIndexCopy, int size) {
+    int src, nearestSrc, temp, cummulativeDist = 0;
+    Integer minimum = Integer.MAX_VALUE;
+    for (int index = 0; index < size; ++index) {
+      for (int dest = index + 1; dest < size; ++dest) {
+        src = placesIndexCopy[index];
+        nearestSrc = placesIndexCopy[dest];
+        temp = memo[src][nearestSrc];
+        if (minimum > temp) {
+          minimum = temp;
+          this.swap(placesIndexCopy, index + 1, dest);
+        }
+      }
+      if (index + 1 < size) cummulativeDist += minimum;
+      minimum = Integer.MAX_VALUE;
+    }
+    cummulativeDist += memo[placesIndexCopy[size-1]][placesIndexCopy[0]];
+    return cummulativeDist;
+  }
+
   /**
    * Compute the nearest neighbor between all given places.
    * @param degrees the converted decimal degrees of coordinates.
@@ -115,28 +137,39 @@ public class Distance {
     int size = degrees.size()/2;
     this.memoizeDistance(degrees, size);
     placesIndex = IntStream.range(0, places.size()).toArray();
-    int[] currentPlaces, currentDistance = new int[size];
-    int totalDistance = 0;
+    int[] placesIndexOriginal = placesIndex.clone(),
+          placesIndexCopy = placesIndex.clone();
+    int currCummulDist, totalCummulDist = 0, start = 0;
 
-    int src, nearestSrc, temp;
-    for (int index = 0; index < size; ++index) {
-      Integer minimum = Integer.MAX_VALUE;
-      for (int dest = index + 1;  dest < size; ++dest) {
-        src = placesIndex[index];
-        nearestSrc = placesIndex[dest];
-        temp = memo[src][nearestSrc];
-        if (minimum > temp) {
-          minimum = temp;
-          this.swap(placesIndex, index + 1, dest);
-          currentDistance[index] = minimum;
-        }
+    while (start < size) {
+      currCummulDist = this.constructNearestNeighbor(placesIndexCopy, size);
+      if (start++ == 0) {
+        totalCummulDist = currCummulDist;
+        placesIndex = placesIndexCopy.clone();
+      }
+      if (currCummulDist < totalCummulDist) {
+        totalCummulDist = currCummulDist;
+        placesIndex = placesIndexCopy.clone();
+      }
+      for (int i = 0; i < size; i++) {
+        placesIndexCopy[i] = placesIndexOriginal[(i + start) % placesIndexOriginal.length];
       }
     }
-    currentDistance[size-1] = memo[placesIndex[size-1]][placesIndex[0]];
-    for (int i : currentDistance) { totalDistance += i; }
-    System.out.println("Total Distance: " + totalDistance);
-    ArrayList<Integer> out = new ArrayList<Integer>();
-    for (int i : currentDistance) { out.add(i); }
+
+    return nearestOutput(places, size);
+  }
+
+  public ArrayList<Integer> nearestOutput(ArrayList<Place> places, int size) {
+    ArrayList<Integer> out = new ArrayList<>();
+    for (int index = 0; index < size; ++index) {
+      out.add(memo[placesIndex[index]][placesIndex[(index+1) % size]]);
+    }
+    ArrayList<Place> newPlaces = new ArrayList<>();
+    for (int index = 0; index < size; ++index) {
+      newPlaces.add(places.get(placesIndex[index]));
+    }
+    places.clear();
+    places.addAll(newPlaces);
     return out;
   }
 
@@ -194,71 +227,4 @@ public class Distance {
 
   return dist;
   }
-
-  /**
-   * Method that is called from legDistances in Trip,
-   * this is the "1" level or nearest neighbor algorithm.
-   * @see Trip#legDistances(ArrayList) that calls this method
-   * @param coordDegrees the coordinates of the places in the trip
-   * @param placez the places of the trip, passed in to reorder for optimization
-   * @return Returns an array of leg distances in optimized order
-   */
-//  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
-//    memoizeDistance(coordDegrees);
-//    ArrayList<Integer> distances = new ArrayList<Integer>();
-//    ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
-//    placez.clear();
-//    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places
-//    int nearestNeighbor = 0;
-//    int source = 0; // used to keep track of current place
-//    int destination = 0; // used to keep track of nearest neighbor index
-//    int placesToGo = visited.length; // used to know when trip is done
-//
-//    placez.add(placezCopy.get(0));
-//    visited[0] = true;
-//    placesToGo-=1;
-//
-//    while (placesToGo > 0) {
-//      destination = findNearestNeigh(coordDegrees, source, visited);
-//      nearestNeighbor = memo[source/2][destination/2];
-//      placez.add(placezCopy.get(destination/2));
-//      visited[destination/2] = true;
-//      source = destination; // source becomes destination
-//
-//      distances.add(nearestNeighbor);
-//      nearestNeighbor = Integer.MAX_VALUE;
-//      placesToGo -= 1;
-//    }
-//
-//    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
-//            coordDegrees.get(0), coordDegrees.get(1))); // return to last city
-//    return distances;
-//  }
-
-  /**
-   * Helper method used by the nearest neighbor algorithm, it iterates through
-   * all the places and finds the index of the nearest unvisited place.
-   * @see Distance#nearestNeighbor(ArrayList, ArrayList) that calls this method
-   * @param degrees the latitude/longitude of all places
-   * @param src the place used to calcultate distances to all other places to find nearest neighbor
-   * @param visited the boolean array that keeps track of visited places
-   * @return returns the index to coordDegrees of the nearest neighbor
-   */
-
-  public int findNearestNeigh(ArrayList<Double> degrees, int src, boolean[] visited){
-    int tmp = 0;
-    int dest = 0;
-    Integer nn = Integer.MAX_VALUE;
-    for (int j = 0; j < degrees.size(); j += 2) {
-      if ((src != j) && (!visited[j/2])) {
-      tmp = memo[src/2][j/2];
-      if (nn > tmp) {
-          nn = tmp;
-          dest = j;
-      }
-      }
-    }
-    return dest;
-  }
-
 }

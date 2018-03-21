@@ -79,11 +79,15 @@ public class TestDist {
     Place aspen = new Place("aspn", "Aspen", "39.5149900", "-106.2705500");
     Place castlerock = new Place("cstlrck", "Castle Rock", "39.0149900", "-104.2705500");
 
-    ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(denver,boulder,fortcollins,aspen,castlerock));
+    ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(fortcollins, aspen, denver, castlerock, boulder));
     ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(
-            39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419, 39.5149900, -106.2705500, 39.0149900, -104.2705500));
+            40.585258, -105.084419, // fortcollins
+            39.5149900, -106.2705500, // aspen
+            39.7392, -104.9903, // denver
+            39.0149900, -104.2705500, // castlerock
+            40.0149900, -105.2705500)); // boulder
     ArrayList<Integer> results = new ArrayList<Integer>(); // 24, 41, 59
-    results.add(24); results.add(41); results.add(97); results.add(112); results.add(63);
+    results.add(41); results.add(24); results.add(63); results.add(112); results.add(97);
     assertEquals(results, distance.nearestNeighbor(degrees, places));
   }
 
