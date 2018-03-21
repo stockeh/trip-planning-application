@@ -92,31 +92,51 @@ public class Distance {
     }
   }
 
-  public static void swapper (int[] arr, int first, int second){
+  /**
+   * Swaps the values at the index defined by first and second.
+   * @param arr is the array whose values are to be swapped.
+   * @param first index.
+   * @param second second index.
+   */
+  public void swap(int[] arr, int first, int second){
     int temp = arr[first];
     arr[first] = arr[second];
     arr[second] = temp;
   }
 
+  /**
+   * Compute the nearest neighbor between all given places.
+   * @param degrees the converted decimal degrees of coordinates.
+   * @param places is the arrayList of place objects to be rearranged.
+   * @return the an arrayList containing the ordered distances.
+   */
   public ArrayList<Integer> nearestNeighbor(ArrayList<Double> degrees, ArrayList<Place> places) {
     // Initialize Globals.
     int size = degrees.size()/2;
     this.memoizeDistance(degrees, size);
     placesIndex = IntStream.range(0, places.size()).toArray();
     int[] currentPlaces, currentDistance = new int[size];
-    int totalDistance;
+    int totalDistance = 0;
 
-    int minimum, src, nearestSrc;
+    int src, nearestSrc, temp;
     for (int index = 0; index < size; ++index) {
+      Integer minimum = Integer.MAX_VALUE;
       for (int dest = index + 1;  dest < size; ++dest) {
         src = placesIndex[index];
         nearestSrc = placesIndex[dest];
-        minimum = memo[src][nearestSrc];
+        temp = memo[src][nearestSrc];
+        if (minimum > temp) {
+          minimum = temp;
+          this.swap(placesIndex, index + 1, dest);
+          currentDistance[index] = minimum;
+        }
       }
     }
-
+    currentDistance[size-1] = memo[placesIndex[size-1]][placesIndex[0]];
+    for (int i : currentDistance) { totalDistance += i; }
+    System.out.println("Total Distance: " + totalDistance);
     ArrayList<Integer> out = new ArrayList<Integer>();
-    out.add(0); out.add(0); out.add(0);
+    for (int i : currentDistance) { out.add(i); }
     return out;
   }
 

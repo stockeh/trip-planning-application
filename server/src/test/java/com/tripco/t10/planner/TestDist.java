@@ -76,11 +76,23 @@ public class TestDist {
     Place denver = new Place("dnvr", "Denver","39.7392° N", "104.9903° W");
     Place boulder = new Place("bldr", "Boulder","40.0149900", "-105.2705500");
     Place fortcollins = new Place("foco", "Fort Collins","40° 35' 6.9288\" N","105° 5' 3.9084\" W");
-    ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(denver,boulder,fortcollins));
-    ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419));
-    ArrayList<Integer> results = new ArrayList<Integer>();
-    results.add(0); results.add(0); results.add(0);
+    Place aspen = new Place("aspn", "Aspen", "39.5149900", "-106.2705500");
+    Place castlerock = new Place("cstlrck", "Castle Rock", "39.0149900", "-104.2705500");
+
+    ArrayList<Place> places = new ArrayList<Place>(Arrays.asList(denver,boulder,fortcollins,aspen,castlerock));
+    ArrayList<Double> degrees = new ArrayList<>(Arrays.asList(
+            39.7392, -104.9903, 40.0149900, -105.2705500, 40.585258, -105.084419, 39.5149900, -106.2705500, 39.0149900, -104.2705500));
+    ArrayList<Integer> results = new ArrayList<Integer>(); // 24, 41, 59
+    results.add(24); results.add(41); results.add(97); results.add(112); results.add(63);
     assertEquals(results, distance.nearestNeighbor(degrees, places));
+  }
+
+  @Test
+  public void swap() {
+    int[] arr = new int[]{0,1,2,3};
+    int[] results = new int[]{0,2,1,3};
+    distance.swap(arr, 1, 2);
+    assertArrayEquals(results, arr);
   }
 
 }
