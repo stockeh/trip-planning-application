@@ -24,12 +24,28 @@ public class TestDist {
   Option options2 = new Option("kilometers", "", "", 0);
   Option options3 = new Option("user defined", "inches", "123456", 0);  //RADIUS NOT ACTUAL SIZE!!!!!!!!!!!!!!!!!!
 
+  private ArrayList<Place> places;
+  private ArrayList<Double> degrees;
+
   // Setup to be done before every test in TestDist
   @Before
   public void initialize() {
     distance = new Distance(options1);
     distanceKM = new Distance(options2);
     distanceUser = new Distance(options3);
+    Place denver = new Place("dnvr", "Denver","39.7392° N", "104.9903° W");
+    Place boulder = new Place("bldr", "Boulder","40.0149900", "-105.2705500");
+    Place fortcollins = new Place("foco", "Fort Collins","40° 35' 6.9288\" N","105° 5' 3.9084\" W");
+    Place aspen = new Place("aspn", "Aspen", "39.5149900", "-106.2705500");
+    Place castlerock = new Place("cstlrck", "Castle Rock", "39.0149900", "-104.2705500");
+
+    places = new ArrayList<Place>(Arrays.asList(fortcollins, aspen, denver, castlerock, boulder));
+    degrees = new ArrayList<Double>(Arrays.asList(
+            40.585258, -105.084419,     // fortcollins
+            39.5149900, -106.2705500,   // aspen
+            39.7392, -104.9903,         // denver
+            39.0149900, -104.2705500,   // castlerock
+            40.0149900, -105.2705500)); // boulder
   }
 
   @Test
@@ -67,8 +83,65 @@ public class TestDist {
     results[1][0] = 24; results[1][1] = 0; results[1][2] = 41;
     // C -> A,          C -> B,             C -> C
     results[2][0] = 59; results[2][1] = 41; results[2][2] = 0;
-    distance.memoizeDistance(degrees);
+    distance.memoizeDistance(degrees, size);
     assertArrayEquals(results, distance.memo);
+  }
+
+  /**
+   * Formulating distances from degrees global.
+   */
+  @Test
+  public void testNearestNeighbor() {
+    ArrayList<Integer> results = new ArrayList<Integer>();
+    results.add(41); results.add(24); results.add(63); results.add(112); results.add(97);
+    assertEquals(results, distance.nearestNeighbor(degrees, places));
+  }
+
+  @Test
+  public void testSwap() {
+    int[] arr = new int[]{0,1,2,3};
+    int[] results = new int[]{0,2,1,3};
+    distance.swap(arr, 1, 2);
+    assertArrayEquals(results, arr);
+  }
+
+  @Test
+  public void testRotateArray() {
+    int[] arr = new int[]{0,1,2,3};
+    int[] copied = new int[4];
+
+    int[] results = new int[]{1,2,3,0};
+    int start = 1, size = arr.length;
+    distance.rotateArray(copied, arr, start, size);
+    assertArrayEquals(results, copied);
+  }
+
+  /**
+   * Same cumulative distances between these common destinations.
+   * Specifically, in1, in3 and in4 share a common distance.
+   */
+  @Test
+  public void testConstructNearestNeighbor() {
+    int size = degrees.size()/2;
+    distance.memoizeDistance(degrees, size);
+    int[] in1 = new int[]{0,1,2,3,4};
+    assertEquals(337, distance.constructNearestNeighbor(in1, size));
+
+
+    int[] in2 = new int[]{1,2,3,4,0};
+    assertEquals(375, distance.constructNearestNeighbor(in2, size));
+
+
+    int[] in3 = new int[]{2,3,4,0,1};
+    assertEquals(337, distance.constructNearestNeighbor(in3, size));
+
+
+    int[] in4 = new int[]{3,4,0,1,2};
+    assertEquals(337, distance.constructNearestNeighbor(in4, size));
+
+
+    int[] in5 = new int[]{4,0,1,2,3};
+    assertEquals(379, distance.constructNearestNeighbor(in5, size));
   }
 
 }

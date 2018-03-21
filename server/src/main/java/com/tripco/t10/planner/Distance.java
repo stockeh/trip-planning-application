@@ -2,6 +2,9 @@ package com.tripco.t10.planner;
 
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.IntStream;
 
 /**
  * The Distance class is responsible for calculating the distance between
@@ -13,6 +16,7 @@ public class Distance {
   public String distance;
   public double optimization;
   public int[][] memo;
+  public int[] placesIndex;
 
   /**
    * Constructor that sets the distance global to the correct units,
@@ -80,8 +84,7 @@ public class Distance {
    * Computing distance between 0-n for each n.
    * @param degrees an array list of decimal degrees.
    */
-  public void memoizeDistance(ArrayList<Double> degrees) {
-    int size = degrees.size()/2;
+  public void memoizeDistance(ArrayList<Double> degrees, int size) {
     memo = new int[size][size];
 
     for (int i = 0; i < size; i++) {
@@ -90,6 +93,126 @@ public class Distance {
       }
     }
   }
+
+  /**
+   * Swaps the values at the index defined by first and second.
+   * @param arr is the array whose values are to be swapped.
+   * @param first index to swap.
+   * @param second second index that was swapped.
+   */
+  public void swap(int[] arr, int first, int second){
+    int temp = arr[first];
+    arr[first] = arr[second];
+    arr[second] = temp;
+  }
+
+  /**
+   * Constructs the nearest neighbor from a given starting location.
+   * Returning the total cumulative distance between all of the destinations,
+   * including the one back "home" - completing a round trip.
+   * @param placesIndexCopy is the array to be re organized to represent the route.
+   * @param size is the number of elements in the array.
+   * @return Returns a integer of the total cumulative distance.
+   */
+  public int constructNearestNeighbor(int[] placesIndexCopy, int size) {
+    int src;
+    int nearestSrc;
+    int temp;
+    int cumulativeDist = 0;
+    Integer minimum = Integer.MAX_VALUE;
+    for (int index = 0; index < size; ++index) {
+      for (int dest = index + 1; dest < size; ++dest) {
+        src = placesIndexCopy[index];
+        nearestSrc = placesIndexCopy[dest];
+        temp = memo[src][nearestSrc];
+        if (minimum > temp) {
+          minimum = temp;
+          this.swap(placesIndexCopy, index + 1, dest);
+        }
+      }
+      if (index + 1 < size) {
+        cumulativeDist += minimum;
+      }
+      minimum = Integer.MAX_VALUE;
+    }
+    cumulativeDist += memo[placesIndexCopy[size-1]][placesIndexCopy[0]];
+    return cumulativeDist;
+  }
+
+  /**
+   * Compute the nearest neighbor between all given places.
+   * Iterates over every starting point, comparing the total trip distances with others.
+   * @see #constructNearestNeighbor(int[], int) which compute the individual cumulative distance
+   *     then also rearanges the int[] to represent the indicies of the places.
+   * @see #rotateArray(int[], int[], int, int) rotates the origional array to test from each start.
+   * @see #nearestOutput(ArrayList, int) formats the output to return an ArrayList of distances.
+   *     Also rearanges the places ArrayList of Places.
+   * @param degrees the converted decimal degrees of coordinates.
+   * @param places is the arrayList of place objects to be rearranged.
+   * @return the an arrayList containing the ordered distances.
+   */
+  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> degrees, ArrayList<Place> places) {
+    // Initialize Globals.
+    int size = degrees.size()/2;
+    this.memoizeDistance(degrees, size);
+    placesIndex = IntStream.range(0, places.size()).toArray();
+    int[] placesIndexOriginal = placesIndex.clone();
+    int[] placesIndexCopy = placesIndex.clone();
+    int currCumulDist;
+    int totalCumulDist = 0;
+    int start = 0;
+
+    while (start < size) {
+      currCumulDist = this.constructNearestNeighbor(placesIndexCopy, size);
+      if (start++ == 0) {
+        totalCumulDist = currCumulDist;
+        placesIndex = placesIndexCopy.clone();
+      }
+      if (currCumulDist < totalCumulDist) {
+        totalCumulDist = currCumulDist;
+        placesIndex = placesIndexCopy.clone();
+      }
+      rotateArray(placesIndexCopy, placesIndexOriginal, start, size);
+    }
+
+    return nearestOutput(places, size);
+  }
+
+  /**
+   * Rotates one array by start positions and stores it into another.
+   * @param placesIndexCopy the array to copy over to.
+   * @param placesIndexOriginal the array that is being copied from.
+   * @param start n indices to shift array.
+   * @param size is the number of elements in the array.
+   */
+  public void rotateArray(int[] placesIndexCopy, int[] placesIndexOriginal, int start, int size) {
+    for (int i = 0; i < size; i++) {
+      placesIndexCopy[i] = placesIndexOriginal[(i + start) % placesIndexOriginal.length];
+    }
+  }
+
+  /**
+   * Compute the desired output of the distances,
+   * in order from that found in constructing nearest neighbor.
+   * Places is rearanged and returns the corresponding distances for the trip.
+   * @param places is the place to be rearranged.
+   * @param size is the number of elements in the array.
+   * @return Returns an ArrayList of integers of ordered distances.
+   */
+  public ArrayList<Integer> nearestOutput(ArrayList<Place> places, int size) {
+    ArrayList<Integer> out = new ArrayList<>();
+    for (int index = 0; index < size; ++index) {
+      out.add(memo[placesIndex[index]][placesIndex[(index+1) % size]]);
+    }
+    ArrayList<Place> newPlaces = new ArrayList<>();
+    for (int index = 0; index < size; ++index) {
+      newPlaces.add(places.get(placesIndex[index]));
+    }
+    places.clear();
+    places.addAll(newPlaces);
+    return out;
+  }
+
   /**
    * Computes the grate circle distance between two coordinates.  The distance units
    * provided from the constructor determine the radius for the computation.
@@ -144,71 +267,4 @@ public class Distance {
 
   return dist;
   }
-  /**
-   * Method that is called from legDistances in Trip,
-   * this is the "1" level or nearest neighbor algorithm.
-   * @see Trip#legDistances(ArrayList) that calls this method
-   * @param coordDegrees the coordinates of the places in the trip
-   * @param placez the places of the trip, passed in to reorder for optimization
-   * @return Returns an array of leg distances in optimized order
-   */
-
-  public ArrayList<Integer> nearestNeighbor(ArrayList<Double> coordDegrees,ArrayList<Place> placez){
-    memoizeDistance(coordDegrees);
-    ArrayList<Integer> distances = new ArrayList<Integer>();
-    ArrayList<Place> placezCopy = new ArrayList<Place>(placez);
-    placez.clear();
-    boolean[] visited = new boolean[coordDegrees.size()/2]; // keeps track of visited places
-    int nearestNeighbor = 0;
-    int source = 0; // used to keep track of current place
-    int destination = 0; // used to keep track of nearest neighbor index
-    int placesToGo = visited.length; // used to know when trip is done
-
-    placez.add(placezCopy.get(0));
-    visited[0] = true;
-    placesToGo-=1;
-
-    while (placesToGo > 0) {
-      destination = findNearestNeigh(coordDegrees, source, visited);
-      nearestNeighbor = memo[source/2][destination/2];
-      placez.add(placezCopy.get(destination/2));
-      visited[destination/2] = true;
-      source = destination; // source becomes destination
-
-      distances.add(nearestNeighbor);
-      nearestNeighbor = Integer.MAX_VALUE;
-      placesToGo -= 1;
-    }
-
-    distances.add(greatCirDist(coordDegrees.get(source), coordDegrees.get(source+1),
-            coordDegrees.get(0), coordDegrees.get(1))); // return to last city
-    return distances;
-  }
-
-  /**
-   * Helper method used by the nearest neighbor algorithm, it iterates through
-   * all the places and finds the index of the nearest unvisited place.
-   * @see Distance#nearestNeighbor(ArrayList, ArrayList) that calls this method
-   * @param degrees the latitude/longitude of all places
-   * @param src the place used to calcultate distances to all other places to find nearest neighbor
-   * @param visited the boolean array that keeps track of visited places
-   * @return returns the index to coordDegrees of the nearest neighbor
-   */
-
-  public int findNearestNeigh(ArrayList<Double> degrees, int src, boolean[] visited){
-    int tmp = 0;
-    int dest = 0;
-    Integer nn = Integer.MAX_VALUE;
-    for (int j = 0; j < degrees.size(); j += 2) {
-      if ((src != j) && (!visited[j/2])) {
-      tmp = memo[src/2][j/2];
-      if (nn > tmp) {
-          nn = tmp;
-          dest = j;
-      }
-      }
-    }
-    return dest;
-  }
-
 }
