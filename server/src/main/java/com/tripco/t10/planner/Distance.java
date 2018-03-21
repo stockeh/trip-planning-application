@@ -115,7 +115,10 @@ public class Distance {
    * @return Returns a integer of the total cumulative distance.
    */
   public int constructNearestNeighbor(int[] placesIndexCopy, int size) {
-    int src, nearestSrc, temp, cumulativeDist = 0;
+    int src;
+    int nearestSrc;
+    int temp;
+    int cumulativeDist = 0;
     Integer minimum = Integer.MAX_VALUE;
     for (int index = 0; index < size; ++index) {
       for (int dest = index + 1; dest < size; ++dest) {
@@ -140,10 +143,10 @@ public class Distance {
    * Compute the nearest neighbor between all given places.
    * Iterates over every starting point, comparing the total trip distances with others.
    * @see #constructNearestNeighbor(int[], int) which compute the individual cumulative distance
-   * then also rearanges the int[] to represent the indicies of the places.
+   *     then also rearanges the int[] to represent the indicies of the places.
    * @see #rotateArray(int[], int[], int, int) rotates the origional array to test from each start.
    * @see #nearestOutput(ArrayList, int) formats the output to return an ArrayList of distances.
-   * Also rearanges the places ArrayList of Places.
+   *     Also rearanges the places ArrayList of Places.
    * @param degrees the converted decimal degrees of coordinates.
    * @param places is the arrayList of place objects to be rearranged.
    * @return the an arrayList containing the ordered distances.
@@ -153,9 +156,11 @@ public class Distance {
     int size = degrees.size()/2;
     this.memoizeDistance(degrees, size);
     placesIndex = IntStream.range(0, places.size()).toArray();
-    int[] placesIndexOriginal = placesIndex.clone(),
-          placesIndexCopy = placesIndex.clone();
-    int currCumulDist, totalCumulDist = 0, start = 0;
+    int[] placesIndexOriginal = placesIndex.clone();
+    int[] placesIndexCopy = placesIndex.clone();
+    int currCumulDist;
+    int totalCumulDist = 0;
+    int start = 0;
 
     while (start < size) {
       currCumulDist = this.constructNearestNeighbor(placesIndexCopy, size);
@@ -192,7 +197,7 @@ public class Distance {
    * Places is rearanged and returns the corresponding distances for the trip.
    * @param places is the place to be rearranged.
    * @param size is the number of elements in the array.
-   * @return Returns an ArrayList<Integer> of ordered distances.
+   * @return Returns an ArrayList of integers of ordered distances.
    */
   public ArrayList<Integer> nearestOutput(ArrayList<Place> places, int size) {
     ArrayList<Integer> out = new ArrayList<>();
