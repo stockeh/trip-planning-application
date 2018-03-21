@@ -97,8 +97,8 @@ public class Distance {
   /**
    * Swaps the values at the index defined by first and second.
    * @param arr is the array whose values are to be swapped.
-   * @param first index.
-   * @param second second index.
+   * @param first index to swap.
+   * @param second second index that was swapped.
    */
   public void swap(int[] arr, int first, int second){
     int temp = arr[first];
@@ -106,8 +106,16 @@ public class Distance {
     arr[second] = temp;
   }
 
+  /**
+   * Constructs the nearest neighbor from a given starting location.
+   * Returning the total cumulative distance between all of the destinations,
+   * including the one back "home" - completing a round trip.
+   * @param placesIndexCopy is the array to be re organized to represent the route.
+   * @param size is the number of elements in the array.
+   * @return Returns a integer of the total cumulative distance.
+   */
   public int constructNearestNeighbor(int[] placesIndexCopy, int size) {
-    int src, nearestSrc, temp, cummulativeDist = 0;
+    int src, nearestSrc, temp, cumulativeDist = 0;
     Integer minimum = Integer.MAX_VALUE;
     for (int index = 0; index < size; ++index) {
       for (int dest = index + 1; dest < size; ++dest) {
@@ -119,15 +127,23 @@ public class Distance {
           this.swap(placesIndexCopy, index + 1, dest);
         }
       }
-      if (index + 1 < size) cummulativeDist += minimum;
+      if (index + 1 < size) {
+        cumulativeDist += minimum;
+      }
       minimum = Integer.MAX_VALUE;
     }
-    cummulativeDist += memo[placesIndexCopy[size-1]][placesIndexCopy[0]];
-    return cummulativeDist;
+    cumulativeDist += memo[placesIndexCopy[size-1]][placesIndexCopy[0]];
+    return cumulativeDist;
   }
 
   /**
    * Compute the nearest neighbor between all given places.
+   * Iterates over every starting point, comparing the total trip distances with others.
+   * @see #constructNearestNeighbor(int[], int) which compute the individual cumulative distance
+   * then also rearanges the int[] to represent the indicies of the places.
+   * @see #rotateArray(int[], int[], int, int) rotates the origional array to test from each start.
+   * @see #nearestOutput(ArrayList, int) formats the output to return an ArrayList of distances.
+   * Also rearanges the places ArrayList of Places.
    * @param degrees the converted decimal degrees of coordinates.
    * @param places is the arrayList of place objects to be rearranged.
    * @return the an arrayList containing the ordered distances.
@@ -139,26 +155,45 @@ public class Distance {
     placesIndex = IntStream.range(0, places.size()).toArray();
     int[] placesIndexOriginal = placesIndex.clone(),
           placesIndexCopy = placesIndex.clone();
-    int currCummulDist, totalCummulDist = 0, start = 0;
+    int currCumulDist, totalCumulDist = 0, start = 0;
 
     while (start < size) {
-      currCummulDist = this.constructNearestNeighbor(placesIndexCopy, size);
+      currCumulDist = this.constructNearestNeighbor(placesIndexCopy, size);
       if (start++ == 0) {
-        totalCummulDist = currCummulDist;
+        totalCumulDist = currCumulDist;
         placesIndex = placesIndexCopy.clone();
       }
-      if (currCummulDist < totalCummulDist) {
-        totalCummulDist = currCummulDist;
+      if (currCumulDist < totalCumulDist) {
+        totalCumulDist = currCumulDist;
         placesIndex = placesIndexCopy.clone();
       }
-      for (int i = 0; i < size; i++) {
-        placesIndexCopy[i] = placesIndexOriginal[(i + start) % placesIndexOriginal.length];
-      }
+      rotateArray(placesIndexCopy, placesIndexOriginal, start, size);
     }
 
     return nearestOutput(places, size);
   }
 
+  /**
+   * Rotates one array by start positions and stores it into another.
+   * @param placesIndexCopy the array to copy over to.
+   * @param placesIndexOriginal the array that is being copied from.
+   * @param start n indices to shift array.
+   * @param size is the number of elements in the array.
+   */
+  public void rotateArray(int[] placesIndexCopy, int[] placesIndexOriginal, int start, int size) {
+    for (int i = 0; i < size; i++) {
+      placesIndexCopy[i] = placesIndexOriginal[(i + start) % placesIndexOriginal.length];
+    }
+  }
+
+  /**
+   * Compute the desired output of the distances,
+   * in order from that found in constructing nearest neighbor.
+   * Places is rearanged and returns the corresponding distances for the trip.
+   * @param places is the place to be rearranged.
+   * @param size is the number of elements in the array.
+   * @return Returns an ArrayList<Integer> of ordered distances.
+   */
   public ArrayList<Integer> nearestOutput(ArrayList<Place> places, int size) {
     ArrayList<Integer> out = new ArrayList<>();
     for (int index = 0; index < size; ++index) {
