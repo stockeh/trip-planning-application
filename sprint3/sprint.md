@@ -64,8 +64,8 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *22*   | *2* 
-Story Points |  *39*  | *1* 
+Tasks |  *22*   | *56* 
+Story Points |  *39*  | *70* 
 
 ## Daily Scrums
 
@@ -76,7 +76,7 @@ Date | Tasks done  | Tasks in progress | Impediments
 *03/08/2018* | *#171, #173, #152, #155, #176, #178, #151, #80, #156, #157, #179, #180, #181, #182, #150, #183, #190, #194, #193* | *#195, #184, #154, #149* | *ReactJS stuff*
 *03/16/2018* | *#195, #184, #154, #149, #160, #186, #158, #161, #91, #83, #189, #162, #163, #93, #205, #159, #148, #214, #145* | *#212, #216* | *Database Connection, version 2 complications*
 *03/19/2018* | *Added Nautical Miles, Reduced Code Smells and configured config rest API, updated TFFI* | *Updating Save File and Updating Radius for User Defined Units* | *HTTP GET vs HTTP POST, TFFI Format*
- *03/21/2018* | *Added User Defined Radius, Added User Defined Units, Nearest Neighbor Improvement Made, Updated Save File* | ** | *Exact Nearest Neighbor Specs*
+ *03/21/2018* | *Added User Defined Radius, Added User Defined Units, Nearest Neighbor Improvement Made, Updated Save File* | *none* | *Exact Nearest Neighbor Specs*
 
 ## Review
 
