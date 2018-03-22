@@ -76,31 +76,36 @@ Date | Tasks done  | Tasks in progress | Impediments
 *03/08/2018* | *#171, #173, #152, #155, #176, #178, #151, #80, #156, #157, #179, #180, #181, #182, #150, #183, #190, #194, #193* | *#195, #184, #154, #149* | *ReactJS stuff*
 *03/16/2018* | *#195, #184, #154, #149, #160, #186, #158, #161, #91, #83, #189, #162, #163, #93, #205, #159, #148, #214, #145* | *#212, #216* | *Database Connection, version 2 complications*
 *03/19/2018* | *Added Nautical Miles, Reduced Code Smells and configured config rest API, updated TFFI* | *Updating Save File and Updating Radius for User Defined Units* | *HTTP GET vs HTTP POST, TFFI Format*
- 
+ *03/21/2018* | *Added User Defined Radius, Added User Defined Units, Nearest Neighbor Improvement Made, Updated Save File* | ** | *Exact Nearest Neighbor Specs*
 
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* *Updating TFFI*
+* *Build a trip from existing information*
+* *Give the user the option to chose what information to display in the Itinerary*
+* *Plan the trip in the destination order the user provided*
+* *Let the user chose a new starting location*
+* *Give the user an option to view a shorter trip*
 
-#### Incomplete epics in Sprint Backlog 
-* *user story*: *explanation...*
-*
+
+#### Progressional epics in Sprint Backlog 
+* *Clean Code*
+* *Code Coverage*
 
 #### What went well
-* *something*
-*
+* *Client features are simple for the user*
+* *Server was built to support a variety of features for the user*
 
 #### Problems encountered and resolutions
-* *something*
-*
+* *uncertainty with nearest neighbor implementation and TFFI handling, discussions with other teams helped*
+* *Database connection issue with firewall, getting access into campus network solved this issue*
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
-What we will change next time |  |  | 
+What we will change this time | More communication to begin project | More brainstorming in intial phase of sprint | Start early on the databese technical stuff
+What we did well | Team maintained communication over break | Team kept up with all issues including backlog | Effectivey used Reactstrap
+What we need to work on | Begin communicating wiith each other early on the new stuff, MariaDB/SQL | Make sure we estimate all issues we make | Familiarize ourselves with SQL so everyone can work on possible future database issues
+What we will change next time | Team can begin large portions of sprint in pairs | Look over and reorganize issues/ourselves in dynamic fashioin  | Familiarize ourselves with styling, CSS
