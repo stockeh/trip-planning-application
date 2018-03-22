@@ -114,7 +114,7 @@ public class Trip {
     Distance distance = new Distance(this.options);
 
     // nearest neighbor optimization algorithm
-    if (Double.parseDouble(distance.options.optimization) == 1) {
+    if (!distance.options.optimization.equals("none") && Double.parseDouble(distance.options.optimization) == 1) {
       dist = distance.nearestNeighbor(coordDegrees, this.places);
     }
     else {
