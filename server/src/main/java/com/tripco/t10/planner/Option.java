@@ -13,6 +13,11 @@ public class Option {
   public String userRadius;
   public String optimization;
 
+  public Option(){
+    this.optimization = "0.0";
+    this.distance = "miles";
+  }
+
   /**
    * For testing with version 1
    * @param distance is an option
