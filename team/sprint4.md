@@ -12,6 +12,7 @@
 * Product Increment release `v4.0` created on GitHub with appropriate version number and name, a description based on the Release Notes template, and the arhived files.
 * Version in pom.xml should be `<version>4.0</version>`.
 * Javadoc and unit tests for public methods.
+* Tests for database and REST APIs.
 * Coverage at least 50% overall and for each class.
 
 ## Policies
@@ -71,14 +72,14 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks | *15* | *0* 
-Story Points | *26*| *0* 
+Tasks | *24* | *0* 
+Story Points | *46*| *0* 
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*03/24/2018* | *Not Started Yet* | *#260 #269 #256* | *database/filter implementation*
+*03/24/2018* | *Not Started Yet* | *#260 #269 #256 #274* | *database/filter implementation*
 
 ## Review
 
