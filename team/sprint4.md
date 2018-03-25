@@ -12,6 +12,7 @@
 * Product Increment release `v4.0` created on GitHub with appropriate version number and name, a description based on the Release Notes template, and the arhived files.
 * Version in pom.xml should be `<version>4.0</version>`.
 * Javadoc and unit tests for public methods.
+* Tests for database and REST APIs.
 * Coverage at least 50% overall and for each class.
 
 ## Policies
@@ -34,21 +35,51 @@
 
 Epics planned for this release.
 
- *Epic Desc...*
-   - Desc...
-
+ *Code Coverage*
+   - Improve our code coverage - minimum %50
+   
+ *Clean Code*
+   - Improve the quality of our code by lowering our technical debt ratio so our code is more maintainable.
+   - Adopt Google coding standards for both Java and JavaScript code.
+   
+ *Distance Units*
+   - Support distances in nautical miles
+   - Allow users to specify other distance measures
+   - Described in TFFI v2
+   
+ *Distance unit configuration*
+   - Client should obtain supported distance units from the server via the config TFFI.
+   
+ *Shorter Trips #2*
+   - Implement 2-opt
+   - Efficienty is important
+   
+ *Filtered Searches*
+   - Allow place searches to be filtered by an attribute, such as type (heliport, balloonport, smallairport, ...)
+   - Obtain search attributes via server config query
+   
+ *Zoom and Pan the map*
+   - Replace SVG maps with Google maps that can be zoomed and panned.
+   
+ *Plan Trips outside of Colorado*
+   - New database provider supports destinations worldwide and additional info about each destination (table joins).
+   - New SVG background available.
+   
+ *Improve the user experience*
+   - Quality of life improvements
+   
 ## Metrics
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks | *0* | *0* 
-Story Points | *0*| *0* 
+Tasks | *24* | *0* 
+Story Points | *46*| *0* 
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*03/24/2018* | *Not Started Yet* | *desc...* | *none*
+*03/24/2018* | *Not Started Yet* | *#260 #269 #256 #274* | *database/filter implementation*
 
 ## Review
 
