@@ -26,10 +26,11 @@ class Query extends Component {
   updateData(data, obj) {
     this.setState({[obj]: data});
   }
-  updateDestinations(index) {
+  updateDestinations(index, numElements) {
     let newPlaces = this.state.places;
-    let removedItem = newPlaces.splice(index, 1);
-    this.props.updatePlaces(removedItem[0]);
+    let removedItem = newPlaces.splice(index, numElements);
+    for (let i = 0; i < numElements; ++i)
+      this.props.updatePlaces(removedItem[i]);
     this.setState({places: newPlaces});
   }
 
@@ -38,7 +39,7 @@ class Query extends Component {
     destinationName.push(<a key={item.name} className="text-info font-weight-light"
                             style={{cursor:'pointer'}}
                             onClick={() => {
-                              this.updateDestinations(index);
+                              this.updateDestinations(index, 1);
                               }}><br/><small>Add to Trip!</small></a>);
     return destinationName;
   }
@@ -64,11 +65,24 @@ class Query extends Component {
   }
 
   modalFooter() {
+    let size = this.state.places.length;
+    let visible = true;
+
+    if (document.getElementById("button-grouping") !== null) {
+      if (size > 0)
+        visible = false;
+      let allChildNodes = document.getElementById("button-grouping").getElementsByTagName('*');
+      for (let i = 0; i < allChildNodes.length; ++i) {
+        allChildNodes[i].disabled = visible;
+      }
+    }
+
     return (
       <div className="modal-footer">
-        <div className="justify-content-between">
-          <button className="btn btn-default btn-sm">Add All</button>
-          <button className="btn btn-danger btn-sm">Clear</button>
+        <div className="justify-content-between" id="button-grouping">
+          <button id="add-all" className="btn btn-default btn-sm"
+                  onClick={()=>this.updateDestinations(0, size)}>Add All</button>
+          <button id="clear" className="btn btn-danger btn-sm" onClick={()=>this.updateData([], "places")}>Clear</button>
         </div>
         <Search query={this.state.query} updateData={this.updateData}/>
       </div>
