@@ -44,7 +44,7 @@ class Search extends Component {
   render(){
     return(
       <div id="search">
-          <button className="btn btn-primary" id="searchButton" onClick={this.search}
+          <button className="btn btn-primary btn-sm" id="searchButton" onClick={this.search}
                   type="button">Search</button>
       </div>
     )

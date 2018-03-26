@@ -20,6 +20,7 @@ class Query extends Component {
     this.createTable = this.createTable.bind(this);
 
     this.modalContent = this.modalContent.bind(this);
+    this.modalFooter = this.modalFooter.bind(this);
   }
 
   updateData(data, obj) {
@@ -62,7 +63,20 @@ class Query extends Component {
     );
   }
 
+  modalFooter() {
+    return (
+      <div className="modal-footer">
+        <div className="justify-content-between">
+          <button className="btn btn-default btn-sm">Add All</button>
+          <button className="btn btn-danger btn-sm">Clear</button>
+        </div>
+        <Search query={this.state.query} updateData={this.updateData}/>
+      </div>
+    )
+  }
+
   modalContent() {
+    let footer = this.modalFooter();
     return (
       <div className="modal-content">
         <div className="modal-header">
@@ -78,8 +92,7 @@ class Query extends Component {
                  onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
           <br/> {this.createTable()}
         </div>
-
-        <div className="modal-footer"><Search query={this.state.query} updateData={this.updateData}/></div>
+          {footer}
       </div>
     )
   }
