@@ -15,6 +15,7 @@ class Itinerary extends Component {
     this.showInformation = this.showInformation.bind(this);
     this.addInformation = this.addInformation.bind(this);
     this.renderCheckbox = this.renderCheckbox.bind(this);
+    this.clickableFeature = this.clickableFeature.bind(this);
   }
 
   /* Function to update the state that checkboxes are dependant on.
@@ -31,6 +32,10 @@ class Itinerary extends Component {
       return destinationName;
   }
 
+  clickableFeature(funct, label) {
+
+  }
+
   buildDestination(item, index) {
     let destinationName = [item.name];
 
@@ -41,11 +46,16 @@ class Itinerary extends Component {
     }
 
     if (index !== 0) {
-      destinationName.push(<a key={item.name} className="text-info font-weight-light"
-                              style={{cursor:'pointer'}}
-                              onClick={() => {
+      destinationName.push(<a key={ item.name } className={"text-info font-weight-light"}
+                              style={ {cursor : 'pointer'} }
+                              onClick={()=>{
                                 this.props.updateStartingLocation(index);
                               }}><br/><small> Make Start </small></a>);
+      destinationName.push(<a key={item.latitude} className="font-weight-light text-danger"
+                              style={{cursor:'pointer'}}
+                              onClick={ () => {
+                                console.log("Some Function")
+                              }}><small>Remove</small></a>);
     }
     return destinationName;
   }
@@ -127,7 +137,7 @@ class Itinerary extends Component {
                         <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
-                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }} type="button">Remove All Destinations</button>
+                        <button className="btn btn-danger" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }} type="button">Remove All Destinations</button>
                     </span>
                 </div>
             </div>
