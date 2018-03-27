@@ -114,8 +114,13 @@ public class MicroServer {
 
   private String config(Request request, Response response) {
     response.type("application/json");
+    final String type = "\"type\" : \"config\", ";
+    final String version = "\"version\" : 3, ";
+    final String optimization = "\"optimization\" : 1, ";
+    final String supportedDist = "\"supportedDistances\": "
+            + "[\"miles\", \"kilometers\", \"nautical miles\", \"user defined\"]";
 
-    return ("{ \"type\" : \"config\", \"version\" : 2, \"optimization\" : 1}");
+    return ("{ " + type + version + optimization + supportedDist + " }");
   }
 
   /** A REST API that returns the team information associated with the server.
