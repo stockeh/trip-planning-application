@@ -115,9 +115,10 @@ public class MicroServer {
   private String config(Request request, Response response) {
     response.type("application/json");
     final String type = "\"type\" : \"config\", ";
-    final String version = "\"version\" : 2, ";
+    final String version = "\"version\" : 3, ";
     final String optimization = "\"optimization\" : 1, ";
-    final String supportedDist = "\"supportedDistances\": [\"miles\", \"kilometers\", \"nautical miles\", \"user defined\"]";
+    final String supportedDist = "\"supportedDistances\": "
+            + "[\"miles\", \"kilometers\", \"nautical miles\", \"user defined\"]";
 
     return ("{ " + type + version + optimization + supportedDist + " }");
   }
