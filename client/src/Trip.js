@@ -37,7 +37,7 @@ class Trip extends Component {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
-      console.log("RESPONSE: " + JSON.stringify(tffi));
+      // console.log("RESPONSE: " + JSON.stringify(tffi));
       this.props.updateTrip(tffi);
     } catch(err) {
       console.error(err);
