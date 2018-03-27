@@ -15,7 +15,6 @@ class Itinerary extends Component {
     this.showInformation = this.showInformation.bind(this);
     this.addInformation = this.addInformation.bind(this);
     this.renderCheckbox = this.renderCheckbox.bind(this);
-    this.clickableFeature = this.clickableFeature.bind(this);
   }
 
   /* Function to update the state that checkboxes are dependant on.
@@ -32,10 +31,6 @@ class Itinerary extends Component {
       return destinationName;
   }
 
-  clickableFeature(funct, label) {
-
-  }
-
   buildDestination(item, index) {
     let destinationName = [item.name];
 
@@ -50,11 +45,11 @@ class Itinerary extends Component {
                               style={ {cursor : 'pointer'} }
                               onClick={()=>{
                                 this.props.updateStartingLocation(index);
-                              }}><br/><small> Make Start </small></a>);
-      destinationName.push(<a key={item.latitude} className="font-weight-light text-danger"
+                              }}><br/><small> Make Start </small> </a>);
+      destinationName.push(<a key={item} className="font-weight-light text-danger"
                               style={{cursor:'pointer'}}
                               onClick={ () => {
-                                console.log("Some Function")
+                                this.props.removedPlan(index);
                               }}><small>Remove</small></a>);
     }
     return destinationName;
