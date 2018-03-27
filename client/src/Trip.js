@@ -14,28 +14,41 @@ class Trip extends Component {
       this.plan = this.plan.bind(this);
       this.saveTFFI = this.saveTFFI.bind(this);
       this.updateT = this.updateT.bind(this);
+      this.removedPlan = this.removedPlan.bind(this);
+  }
+
+  removedPlan(index) {
+    let body = Object.assign({}, this.props.trip);
+    body.places.splice(index, 1);
+    if (body.distances.length !== 0) {
+      body.distances.splice(index,1);
+      this.plan(body);
+    }
+    else {
+      this.props.updateTrip(body);
+    }
   }
 
   /* Sends a request to the server with the destinations and options.
    * Receives a response containing the map and itinerary to update the
    * state for this object.
    */
-  fetchResponse(){
+  fetchResponse(body){
     // need to get the request body from the trip in state object.
-    let requestBody = this.props.trip;
+    let requestBody = body;
 
     console.log(process.env.SERVICE_URL);
     console.log(requestBody);
 
-      return fetch('http://' + location.host + '/plan', {
-      method:"POST",
-      body: JSON.stringify(requestBody)
+    return fetch('http://' + location.host + '/plan', {
+    method:"POST",
+    body: JSON.stringify(requestBody)
     });
   }
 
-  async plan(){
+  async plan(body){
     try {
-      let serverResponse = await this.fetchResponse();
+      let serverResponse = await this.fetchResponse(body);
       let tffi = await serverResponse.json();
       console.log("RESPONSE: " + JSON.stringify(tffi));
       this.props.updateTrip(tffi);
@@ -56,7 +69,7 @@ class Trip extends Component {
       let saveBody = this.props.trip;
 
       /* if version 1, remove new version data to save*/
-      if (this.props.trip.version == 1) {
+      if (this.props.trip.version === 1) {
           console.log("Deleting data for V1");
           delete saveBody.version;  // version 1 doesn't contain version attribute
           delete saveBody.options.userUnit;
@@ -64,7 +77,7 @@ class Trip extends Component {
       }
 
       var fileName = this.props.trip.title;
-      if (fileName == "")
+      if (fileName === "")
           fileName = "Trip.json";
       else
           fileName += ".json";
@@ -92,7 +105,7 @@ class Trip extends Component {
             <p>Give your trip a title before planning or saving.</p>
             <div className="input-group" role="group">
               <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
+              <button className="btn btn-primary " onClick={ () => this.plan(this.props.trip)} type="button">Plan</button>
               </span>
               <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
               <span className="input-group-btn">
@@ -100,7 +113,7 @@ class Trip extends Component {
             </span>
             </div>
             <Map trip={this.props.trip} />
-            <Itinerary trip={this.props.trip} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
+            <Itinerary trip={this.props.trip} removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
           </div>
         </div>
     )

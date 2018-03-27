@@ -41,11 +41,16 @@ class Itinerary extends Component {
     }
 
     if (index !== 0) {
-      destinationName.push(<a key={item.name} className="text-info font-weight-light"
-                              style={{cursor:'pointer'}}
-                              onClick={() => {
+      destinationName.push(<a key={ item.name } className={"text-info font-weight-light"}
+                              style={ {cursor : 'pointer'} }
+                              onClick={()=>{
                                 this.props.updateStartingLocation(index);
-                              }}><br/><small> Make Start </small></a>);
+                              }}><br/><small> Make Start </small> </a>);
+      destinationName.push(<a key={item} className="font-weight-light text-danger"
+                              style={{cursor:'pointer'}}
+                              onClick={ () => {
+                                this.props.removedPlan(index);
+                              }}><small>Remove</small></a>);
     }
     return destinationName;
   }
@@ -127,7 +132,7 @@ class Itinerary extends Component {
                         <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
-                        <button className="btn btn-danger " onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }} type="button">Remove All Destinations</button>
+                        <button className="btn btn-danger" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }} type="button">Remove All Destinations</button>
                     </span>
                 </div>
             </div>
