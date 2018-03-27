@@ -80,6 +80,7 @@ Story Points | *46*| *0*
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
 *03/24/2018* | *Not Started Yet* | *#260 #269 #256 #274* | *database/filter implementation*
+*03/27/2018* | *Added 'add all' button for searching database, Added 'remove all' button for database searching, Added individual 'remove' button to destinations in itinerary, handled distance unit config on client, added supported distance units to config rest API* | *#260 #256* | *filter implementation*
 
 ## Review
 
