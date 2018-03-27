@@ -12,7 +12,8 @@ class App extends Component {
       config: {
         type: "config",
         version : 2,
-        optimization: 1
+        optimization: 1,
+        supportedDistances: []
       }
     };
 
@@ -34,7 +35,7 @@ class App extends Component {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
-      console.log("TESTING: " + tffi.optimization);
+      console.log("TESTING: " + tffi.supportedDistances);
       this.setState({config : tffi});
     } catch(err) {
       console.error(err);
