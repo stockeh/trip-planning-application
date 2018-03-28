@@ -13,24 +13,28 @@ class Options extends Component{
     this.handleOnChange = this.handleOnChange.bind(this);
     this.distanceButtons = this.distanceButtons.bind(this);
     this.slider = this.slider.bind(this);
+    this.warning = this.warning.bind(this);
   }
 
   handleOnChange(arg) {
     this.props.updateOptions(arg.target.value);
   }
 
+  warning(val){
+    if(val > 0.0){
+      return (<div className="pt-4">
+        <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
+      </div>);
+    }else return null;
+  }
+
   slider(){
     let step = this.props.config.optimization;
     let val = parseFloat(this.props.trip.options.optimization);
-    let warning = null;
     if (isNaN(val)) {
       val = 0.0;
     }
-    if(val > 0.0){
-      warning = (<div className="pt-4">
-        <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
-      </div>);
-    }
+    let warning = this.warning(val);
     if (step !== undefined)
       return(
         <div className="slider_container">
