@@ -22,8 +22,14 @@ class Options extends Component{
   slider(){
     let step = this.props.config.optimization;
     let val = parseFloat(this.props.trip.options.optimization);
+    let warning = null;
     if (isNaN(val)) {
       val = 0.0;
+    }
+    if(val > 0.0){
+      warning = (<div className="pt-4">
+        <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
+      </div>);
     }
     if (step !== undefined)
       return(
@@ -37,9 +43,7 @@ class Options extends Component{
               </div>
             </div>
           </div>
-          <div className="pt-4">
-            <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
-          </div>
+          {warning}
         </div>
       );
     return (null);
