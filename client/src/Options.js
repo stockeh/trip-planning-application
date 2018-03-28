@@ -21,10 +21,14 @@ class Options extends Component{
 
   slider(){
     let step = this.props.config.optimization;
+    let val = parseFloat(this.props.trip.options.optimization);
+    if (isNaN(val)) {
+      val = 0.0;
+    }
     if (step !== undefined)
       return(
         <div className="slider_container">
-          <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={parseFloat(this.props.trip.options.optimization)} className="slider" onChange={this.handleOnChange} />
+          <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={val} className="slider" onChange={this.handleOnChange} />
           <div className="row pl-3">
             <div className="col-6">
               <div className="row">
@@ -56,7 +60,7 @@ class Options extends Component{
   render() {
     const buttons = this.distanceButtons();
     let slider = null;
-    if(this.props.trip.version > 1 && this.props.config.optimization > 0){
+    if (this.props.config.optimization > 0) {
       slider = this.slider();
     }
     return(
