@@ -45,7 +45,7 @@ public class Parser {
      */
     public boolean validLatitude(char direction, double degree){
         if(direction == '0' || direction == 'N' || direction == 'S'){
-            if(degree <= 90 && degree >= -90) return true;
+            if(degree <= 90 && degree >= -90){return true;}
         }
         return false;
     }
@@ -58,7 +58,7 @@ public class Parser {
      */
     public boolean validLongitude(char direction, double degree){
         if(direction == '0' || direction == 'W' || direction == 'E'){
-            if(degree <= 180 && degree >= -180) return true;
+            if(degree <= 180 && degree >= -180){return true;}
         }
         return false;
     }
