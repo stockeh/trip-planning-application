@@ -258,12 +258,14 @@ public class Distance {
   public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
 
     ArrayList<Integer> dist = new ArrayList<Integer>();
-      for (int i = 0; i < coordDegrees.size() - 2; i += 2) {
-        dist.add(greatCirDist(coordDegrees.get(i), coordDegrees.get(i + 1),
-                coordDegrees.get(i + 2), coordDegrees.get(i + 3)));
-      }
+    for (int i = 0; i < coordDegrees.size() - 2; i += 2) {
+      dist.add(greatCirDist(coordDegrees.get(i), coordDegrees.get(i + 1),
+              coordDegrees.get(i + 2), coordDegrees.get(i + 3)));
+    }
+    if (coordDegrees.size() > 1) {
       dist.add(greatCirDist(coordDegrees.get(coordDegrees.size() - 2),
               coordDegrees.get(coordDegrees.size() - 1), coordDegrees.get(0), coordDegrees.get(1)));
+    }
 
   return dist;
   }
