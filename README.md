@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/csu314sp18/t10.svg?token=zoJdyFUG91FGQn9VYzoV&branch=master)](https://travis-ci.com/csu314sp18/t10) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+[![Build Status](https://travis-ci.com/csu314sp18/t10.svg?token=zoJdyFUG91FGQn9VYzoV&branch=master)](https://travis-ci.com/csu314sp18/t10) [![Maintainability](https://api.codeclimate.com/v1/badges/a77dc72e78aa82aef67f/maintainability)](https://codeclimate.com/repos/5a903aabf8f91f784c0002e7/maintainability)
 
 # t10 - Andromeda
 * Brian Martin, firefox, FoxXix
