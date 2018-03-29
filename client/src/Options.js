@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ButtonGroup, Button} from 'reactstrap'
+import {ButtonGroup, Button, Container} from 'reactstrap'
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -8,12 +8,12 @@ import {ButtonGroup, Button} from 'reactstrap'
  */
 class Options extends Component{
 
-  constructor(props) {
-    super(props);
-    this.handleOnChange = this.handleOnChange.bind(this);
-    this.distanceButtons = this.distanceButtons.bind(this);
-    this.slider = this.slider.bind(this);
-    this.warning = this.warning.bind(this);
+  constructor( props ) {
+    super( props );
+    this.handleOnChange = this.handleOnChange.bind( this );
+    this.distanceButtons = this.distanceButtons.bind( this );
+    this.slider = this.slider.bind( this );
+    this.warning = this.warning.bind( this );
   }
 
   handleOnChange(arg) {
@@ -76,9 +76,11 @@ class Options extends Component{
           <div className="card-header bg-info text-white">Options</div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
-            <ButtonGroup>
+            <Container>
+              <ButtonGroup>
                 {buttons}
-            </ButtonGroup>
+              </ButtonGroup>
+            </Container>
             {slider}
           </div>
         </div>
