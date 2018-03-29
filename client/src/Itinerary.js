@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {table_scroll} from './css/styling.css';
 
 class Itinerary extends Component {
   constructor(props) {
@@ -112,7 +113,7 @@ class Itinerary extends Component {
             <div className="row">
                 <div className="col-xs-12 col-md-8 order-last order-md-first">
                     <h4>Round trip distance of {table.distance} <b>{table.units}</b>. </h4>
-                    <table className="table table-responsive table-hover">
+                    <table className="table_scroll table table-responsive table-hover">
                         <thead>
                         <tr>
                             <th className="table-info align-middle" scope="col">Destinations</th>

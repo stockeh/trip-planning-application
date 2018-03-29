@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ButtonGroup, Button} from 'reactstrap'
+import {ButtonGroup, Button, Container} from 'reactstrap'
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -25,8 +25,8 @@ class Options extends Component{
   updateUnit(arg) {
     this.props.updateOptionsUnits(arg.target.id, arg.target.value);
   }
-  
-  warning(val){
+
+  static warning(val){
     if(val > 0.0){
       return (<div className="pt-4">
         <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
@@ -40,7 +40,7 @@ class Options extends Component{
     if (isNaN(val)) {
       val = 0.0;
     }
-    let warning = this.warning(val);
+    let warning = Options.warning(val);
     if (step !== undefined)
       return(
         <div className="slider_container">
@@ -96,9 +96,11 @@ class Options extends Component{
           <div className="card-header bg-info text-white">Options</div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
-            <ButtonGroup>
+            <Container>
+              <ButtonGroup>
                 {buttons}
-            </ButtonGroup>
+              </ButtonGroup>
+            </Container>
             <div className="row">
                 <div className="col-sm-6">
                     {slider}
