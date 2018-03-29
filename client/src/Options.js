@@ -13,6 +13,7 @@ class Options extends Component{
     this.handleOnChange = this.handleOnChange.bind(this);
     this.distanceButtons = this.distanceButtons.bind(this);
     this.slider = this.slider.bind(this);
+    this.customUnitsOptions = this.customUnitsOptions.bind(this);
   }
 
   handleOnChange(arg) {
@@ -57,6 +58,20 @@ class Options extends Component{
     return buttons;
   }
 
+  customUnitsOptions() {
+    if (this.props.trip.options.distance === "user defined") {
+        return (
+            <div className="custom-units-container input-group-sm mb-3 p-2">
+                <input id="custom-unit-name" type="text" className="form-control custom-unit-name"
+                        value={this.props.trip.options.userUnit} placeholder="Unit Name..."/>
+                <input id="custom-unit-radius" type="text" className="form-control custom-unit-radius"
+                        value={this.props.trip.options.userRadius} placeholder="Unit radius of earth..."/>
+            </div>
+        );
+    }
+    return null;
+  }
+
   render() {
     const buttons = this.distanceButtons();
     let slider = null;
@@ -71,7 +86,14 @@ class Options extends Component{
             <ButtonGroup>
                 {buttons}
             </ButtonGroup>
-            {slider}
+            <div className="row">
+                <div className="col-sm-6">
+                    {slider}
+                </div>
+                <div className="col-sm-6">
+                    {this.customUnitsOptions()}
+                </div>
+            </div>
           </div>
         </div>
     )
