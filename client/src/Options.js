@@ -15,6 +15,7 @@ class Options extends Component{
     this.distanceButtons = this.distanceButtons.bind(this);
     this.slider = this.slider.bind(this);
     this.customUnitsOptions = this.customUnitsOptions.bind(this);
+    this.warning = this.warning.bind(this);
   }
 
   handleOnChange(arg) {
@@ -24,6 +25,14 @@ class Options extends Component{
   updateUnit(arg) {
     this.props.updateOptionsUnits(arg.target.id, arg.target.value);
   }
+  
+  warning(val){
+    if(val > 0.0){
+      return (<div className="pt-4">
+        <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
+      </div>);
+    }else return null;
+  }
 
   slider(){
     let step = this.props.config.optimization;
@@ -31,6 +40,7 @@ class Options extends Component{
     if (isNaN(val)) {
       val = 0.0;
     }
+    let warning = this.warning(val);
     if (step !== undefined)
       return(
         <div className="slider_container">
@@ -43,9 +53,7 @@ class Options extends Component{
               </div>
             </div>
           </div>
-          <div className="pt-4">
-            <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
-          </div>
+          {warning}
         </div>
       );
     return (null);
