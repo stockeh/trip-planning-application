@@ -1,0 +1,7 @@
+.table_scroll {
+    max-height: 512px;
+    min-height: 0;
+    overflow: auto;
+    display: block;
+    width: 58%;
+}
