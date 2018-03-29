@@ -27,8 +27,8 @@ class Application extends Component {
     this.updateInformation = this.updateInformation.bind(this);
     this.updatePlaces = this.updatePlaces.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
+    this.updateOptionsUnits = this.updateOptionsUnits.bind(this);
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
-
     this.reverseTrip = this.reverseTrip.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
 
@@ -66,6 +66,18 @@ class Application extends Component {
     // newDistance.options.distance = opt;
     this.setState({ trip: newDistance});
     console.log(this.state);
+  }
+
+  updateOptionsUnits(option, value) {
+    let newUnit = Object.assign({}, this.state.trip);
+    if (option === "userUnit") {
+        newUnit.options.userUnit = value;
+    } else if (option === "userRadius") {
+        newUnit.options.userRadius = value;
+    }
+
+    this.setState({ trip: newUnit });
+    console.log("UPDATED user units: " + JSON.stringify(this.state));
   }
 
   updateStartingLocation(startingIndex) {
@@ -109,7 +121,7 @@ class Application extends Component {
         <div id="application" className="container">
           <div className="row">
             <div className="col-xs-12 col-md-6">
-                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions}/>
+                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions} updateOptionsUnits={this.updateOptionsUnits}/>
             </div>
             <div className="col-xs-12 col-md-6">
                 <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
