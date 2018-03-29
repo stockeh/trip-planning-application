@@ -15,7 +15,6 @@ class Options extends Component{
     this.distanceButtons = this.distanceButtons.bind(this);
     this.slider = this.slider.bind(this);
     this.customUnitsOptions = this.customUnitsOptions.bind(this);
-    this.warning = this.warning.bind(this);
   }
 
   handleOnChange(arg) {
@@ -86,11 +85,8 @@ class Options extends Component{
   }
 
   render() {
-    const buttons = this.distanceButtons();
     let slider = null;
-    if (this.props.config.optimization > 0) {
-      slider = this.slider();
-    }
+    if (this.props.config.optimization > 0) slider = this.slider();
     return(
         <div id="options" className="card">
           <div className="card-header bg-info text-white">Options</div>
@@ -98,7 +94,7 @@ class Options extends Component{
             <p>Highlight the options you wish to use.</p>
             <Container>
               <ButtonGroup>
-                {buttons}
+                {this.distanceButtons()}
               </ButtonGroup>
             </Container>
             <div className="row">
