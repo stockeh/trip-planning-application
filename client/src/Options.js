@@ -28,7 +28,7 @@ class Options extends Component{
   static warning(val){
     if(val > 0.0){
       return (<div className="pt-4">
-        <p className="col-6 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
+        <p className="col-9 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
       </div>);
     }else return null;
   }
@@ -45,7 +45,7 @@ class Options extends Component{
         <div className="slider_container">
           <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={val} className="slider" onChange={this.handleOnChange} />
           <div className="row pl-3">
-            <div className="col-6">
+            <div className="col-12">
               <div className="row">
                 <h6 className="pr-4 m-0">Longer</h6>
                 <h6 className="m-0">Shorter</h6>
@@ -76,8 +76,8 @@ class Options extends Component{
             <div className="custom-units-container input-group-sm mb-3 p-2">
                 <input id="userUnit" type="text" className="form-control custom-unit-name"
                        onBlur={this.updateUnit}  placeholder="Unit Name..."/>
-                <input id="userRadius" type="text" className="form-control custom-unit-radius"
-                       onBlur={this.updateUnit}  placeholder="Unit radius of earth..."/>
+                <input id="userRadius" type="number" className="form-control custom-unit-radius"
+                       onBlur={this.updateUnit}  placeholder="Unit Earth radius..."/>
             </div>
         );
     }
@@ -92,7 +92,7 @@ class Options extends Component{
           <div className="card-header bg-info text-white">Options</div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
-            <Container>
+            <Container className="p-0">
               <ButtonGroup>
                 {this.distanceButtons()}
               </ButtonGroup>
