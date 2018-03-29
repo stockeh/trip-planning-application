@@ -111,7 +111,7 @@ class Itinerary extends Component {
     return(
         <div id="itinerary" className="container">
             <div className="row">
-                <div className="col-xs-12 col-md-8 order-last order-md-first">
+                <div className="col-xs-12 col-md-8 col-lg-6 col-xl-5 order-last order-md-first">
                     <h4>Round trip distance of {table.distance} <b>{table.units}</b>. </h4>
                     <table className="table_scroll table table-responsive table-hover">
                         <thead>
