@@ -1,4 +1,7 @@
-.tbody {
-    height: 200px !important;
-    overflow: scroll;
+.table_scroll {
+    max-height: 512px;
+    min-height: 0;
+    overflow: auto;
+    display: block;
+    width: 58%;
 }
