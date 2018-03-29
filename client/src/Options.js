@@ -92,16 +92,16 @@ class Options extends Component{
           <div className="card-header bg-info text-white">Options</div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
-            <Container className="p-0">
               <ButtonGroup>
-                {this.distanceButtons()}
+                <Container>
+                  {this.distanceButtons()}
+                </Container>
               </ButtonGroup>
-            </Container>
             <div className="row">
-                <div className="col-sm-6">
+                <div className="col-sm-6 order-last order-md-first">
                     {slider}
                 </div>
-                <div className="col-sm-6">
+                <div className="col-sm-6 order-first order-md-last">
                     {this.customUnitsOptions()}
                 </div>
             </div>
