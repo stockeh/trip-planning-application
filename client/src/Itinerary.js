@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import tbody from './css/styling.css';
 
 class Itinerary extends Component {
   constructor(props) {
@@ -120,7 +121,7 @@ class Itinerary extends Component {
                             <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
                         </tr>
                         </thead>
-                        <tbody>{table.rows}</tbody>
+                        <tbody className="tbody">{table.rows}</tbody>
                     </table>
                 </div>
                 <div className="col-xs-12 col-md-4 order-first order-md-last">
