@@ -11,6 +11,7 @@ class Options extends Component{
   constructor(props) {
     super(props);
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.updateUnit = this.updateUnit.bind(this);
     this.distanceButtons = this.distanceButtons.bind(this);
     this.slider = this.slider.bind(this);
     this.customUnitsOptions = this.customUnitsOptions.bind(this);
@@ -18,6 +19,10 @@ class Options extends Component{
 
   handleOnChange(arg) {
     this.props.updateOptions(arg.target.value);
+  }
+
+  updateUnit(arg) {
+    this.props.updateOptionsUnits(arg.target.id, arg.target.value);
   }
 
   slider(){
@@ -62,10 +67,10 @@ class Options extends Component{
     if (this.props.trip.options.distance === "user defined") {
         return (
             <div className="custom-units-container input-group-sm mb-3 p-2">
-                <input id="custom-unit-name" type="text" className="form-control custom-unit-name"
-                        value={this.props.trip.options.userUnit} placeholder="Unit Name..."/>
-                <input id="custom-unit-radius" type="text" className="form-control custom-unit-radius"
-                        value={this.props.trip.options.userRadius} placeholder="Unit radius of earth..."/>
+                <input id="userUnit" type="text" className="form-control custom-unit-name"
+                       onBlur={this.updateUnit}  placeholder="Unit Name..."/>
+                <input id="userRadius" type="text" className="form-control custom-unit-radius"
+                       onBlur={this.updateUnit}  placeholder="Unit radius of earth..."/>
             </div>
         );
     }
