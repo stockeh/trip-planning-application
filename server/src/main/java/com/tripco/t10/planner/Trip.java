@@ -31,6 +31,7 @@ public class Trip {
 
   public Trip(ArrayList<Place> places, String distance, double optimization){
     this.places = places;
+    System.out.println("Options op: " + optimization);
     this.options = new Option(distance, optimization);
   }
 
@@ -114,11 +115,18 @@ public class Trip {
     Distance distance = new Distance(this.options);
 
     // nearest neighbor optimization algorithm
+    System.out.println("optimization: " + Double.parseDouble(distance.options.optimization));
+    System.out.println("this.optimization: " + Double.parseDouble(this.options.optimization));
     if (!distance.options.optimization.equals("none") && Double.parseDouble(distance.options.optimization) == 1) {
       dist = distance.nearestNeighbor(coordDegrees, this.places);
+      System.out.println("IF");
     }
     else {
+      System.out.println("ELSE");
       dist = distance.inOrder(coordDegrees);
+    }
+    for (int i = 0; i < places.size(); ++i) {
+      System.out.println(dist.get(i));
     }
     distance.memo = null;
     return dist;

@@ -26,6 +26,7 @@ public class Option {
   public Option(String distance, double optimization){
     this.distance = distance;
     this.optimization = Double.toString(Math.round(optimization));
+    System.out.println("Options op: " + this.optimization);
   }
 
   /**
