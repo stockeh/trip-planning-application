@@ -117,10 +117,10 @@ public class MicroServer {
     final String type = "\"type\" : \"config\", ";
     final String version = "\"version\" : 3, ";
     final String optimization = "\"optimization\" : 1, ";
-    final String filters = "[]";
-    final String maps = "[\"svg\"]";
     final String supportedDist = "\"distances\": "
-            + "[\"miles\", \"kilometers\", \"nautical miles\", \"user defined\"]";
+            + "[\"miles\", \"kilometers\", \"nautical miles\", \"user defined\"],";
+    final String maps = "\"maps\" : [\"svg\"], ";
+    final String filters = "\"filters\" : []";
     return ("{ " + type + version + optimization + supportedDist + maps + filters +" }");
   }
 
