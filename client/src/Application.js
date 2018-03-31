@@ -10,7 +10,7 @@ class Application extends Component {
     super(props);
     this.state = {
       trip: { // default TFFI
-        version: 2,
+        version: 3,
         type: "trip",
         title: "",
         options: {
