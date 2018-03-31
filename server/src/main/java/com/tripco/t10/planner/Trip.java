@@ -86,17 +86,36 @@ public class Trip {
 
   /**
    * Returns an SVG containing the background and the legs of the trip.
-   *
+   * Version 1/2 trips will default to using the Colorado.svg.
+   * Version 3+ will default to using the World.svg map.
    * @see GatherSVG class to get SVG components, i.e., map, lines and points.
    * @return Returns the completed string containing an SVG.
    */
   private String svg(ArrayList<Double> decimalDegrees) {
     GatherSVG gsvg = new GatherSVG();
-    String ColoradoBG = gsvg.readInSVG("/Colorado.svg");
-    String SVGLines = gsvg.getSVGLines(decimalDegrees);
-    return "<svg width=\"1066.6073\" height=\"783.0824\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">" +
-            ColoradoBG + "<svg id=\"svg_0\" width=\"1066.6073\" height=\"783.0824\" y=\"35\" x=\"35\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">>" +
-            SVGLines + "</svg></svg>";
+    String background;
+    double width= 1066.6073;
+    double height= 783.0824;
+    double boarder = 35;
+
+    if (this.version == 3) {
+      width= 1024;
+      height= 512;
+      boarder = 0;
+      gsvg.setAxis(width, height);
+      gsvg.setBounds(-180,180,90,-90);
+      background = gsvg.readInSVG("/World.svg");
+    }
+    else {
+      background = gsvg.readInSVG("/Colorado.svg");
+    }
+    String svgLines = gsvg.getSVGLines(decimalDegrees);
+    return "<svg width=\"" + width + "\" height=\"" + height + "\" "
+           + "xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">"
+           + background
+           + "<svg width=\""+ width +"\" height=\""+ height
+           + "\" y=\"" + boarder + "\" x=\"" + boarder + "\">"
+           + svgLines + "</svg></svg>";
   }
 
   /**

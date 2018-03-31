@@ -14,9 +14,38 @@ import java.util.Scanner;
 public class GatherSVG {
 
   private boolean fileFound = true;
-  final private double xAxis = 993, yAxis = 710,
-                 mLongitude = -109, nLongitude = -102,
-                 mLatitude = 41, nLatitude = 37;
+  private double xxAxis = 993;
+  private double yyAxis = 710;
+  private int leftLongitude = -109;
+  private int rightLongitude = -102;
+  private int topLatitude = 41;
+  private int bottomLatitude = 37;
+
+  /**
+   * Setter for the regional axis for the svg map.
+   * @param xxAxis pixel width of svg.
+   * @param yyAxis pixel height of svg.
+   */
+  public void setAxis(double xxAxis, double yyAxis) {
+    this.xxAxis = xxAxis;
+    this.yyAxis = yyAxis;
+  }
+
+  /**
+   * Setter for the coordinate bounds of the svg map.
+   * @param leftLongitude furthers left coordinate.
+   * @param rightLongitude furthers right coordinate.
+   * @param topLatitude top coordinate.
+   * @param bottomLatitude bottom coordinate.
+   */
+  public void setBounds(int leftLongitude, int rightLongitude,
+                        int topLatitude, int bottomLatitude) {
+    System.out.println("SVG - update coordinate boundaries");
+    this.leftLongitude = leftLongitude;
+    this.rightLongitude = rightLongitude;
+    this.topLatitude = topLatitude;
+    this.bottomLatitude = bottomLatitude;
+  }
 
   /**
    * Returns in the SVG from the .jar file as a String.
@@ -51,10 +80,14 @@ public class GatherSVG {
    * @return the decimal value of the coordinate as a pixel component
    */
   public double computePoints(double input, boolean coordinate) {
-    if (coordinate) // xAxis value for coordinate
-      return ((input - this.mLongitude) * this.xAxis) / (this.nLongitude - this.mLongitude);
-    else // yAxis value for coordinate
-      return ((input - this.mLatitude) * this.yAxis) / (this.nLatitude - this.mLatitude);
+    if (coordinate) { // xxAxis value for coordinate
+      return ((input - this.leftLongitude) * this.xxAxis)
+              / (this.rightLongitude - this.leftLongitude);
+    }
+    else { // yyAxis value for coordinate
+      return ((input - this.topLatitude) * this.yyAxis)
+              / (this.bottomLatitude - this.topLatitude);
+    }
   }
 
   /**
