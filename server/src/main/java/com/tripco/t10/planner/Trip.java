@@ -92,11 +92,23 @@ public class Trip {
    */
   private String svg(ArrayList<Double> decimalDegrees) {
     GatherSVG gsvg = new GatherSVG();
-    String ColoradoBG = gsvg.readInSVG("/Colorado.svg");
-    String SVGLines = gsvg.getSVGLines(decimalDegrees);
-    return "<svg width=\"1066.6073\" height=\"783.0824\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">" +
-            ColoradoBG + "<svg id=\"svg_0\" width=\"1066.6073\" height=\"783.0824\" y=\"35\" x=\"35\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">>" +
-            SVGLines + "</svg></svg>";
+    String background;
+    double width= 1066.6073;
+    double height= 783.0824;
+
+    if (this.version == 3) {
+      background = gsvg.readInSVG("/World.svg");
+      width= 1024;
+      height= 512;
+    }
+    else {
+      background = gsvg.readInSVG("/Colorado.svg");
+    }
+    String svg_lines = gsvg.getSVGLines(decimalDegrees);
+    return "<svg width=\"" + width + "\" height=\"" + height + "\" "
+           + "xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">"
+           + background + "<svg width=\""+ width +"\" height=\""+ height +"\" y=\"35\" x=\"35\">"
+           + svg_lines + "</svg></svg>";
   }
 
   /**
