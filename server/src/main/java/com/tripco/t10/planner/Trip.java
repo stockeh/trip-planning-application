@@ -24,13 +24,25 @@ public class Trip {
     this.version=1;
   }
 
+  /**
+   * Used for testing v1 trips.
+   * @param places destinations of the trip
+   * @param distance units for the trip.
+   */
   public Trip(ArrayList<Place> places, String distance){
     this.places = places;
     this.options = new Option(distance, 0);
   }
 
+  /**
+   * Constructor used for testing v2 trips.
+   * @param places destinations for the trip
+   * @param distance units for the trip
+   * @param optimization level of optimization as a double. Between 0-1.
+   */
   public Trip(ArrayList<Place> places, String distance, double optimization){
     this.places = places;
+//    System.out.println("TRIP: " + optimization);
     this.options = new Option(distance, optimization);
   }
 
@@ -132,12 +144,20 @@ public class Trip {
     ArrayList<Integer> dist = new ArrayList<Integer>();
     Distance distance = new Distance(this.options);
 
-    // nearest neighbor optimization algorithm
-    if (!distance.options.optimization.equals("none") && Double.parseDouble(distance.options.optimization) == 1) {
+    if (!distance.options.optimization.equals("none")) {
+      double rounded = Math.round(Double.parseDouble(distance.options.optimization));
+      distance.options.optimization = Double.toString(rounded);
+    }
+    else {
+      distance.options.optimization = "0.0";
+    }
+    if (distance.options.optimization.equals("1.0")) {
       dist = distance.nearestNeighbor(coordDegrees, this.places);
+      System.out.println("Nearest Neighbor");
     }
     else {
       dist = distance.inOrder(coordDegrees);
+      System.out.println("In Order");
     }
     distance.memo = null;
     return dist;

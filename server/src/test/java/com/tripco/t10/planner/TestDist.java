@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(JUnit4.class)
 public class TestDist {
+  Trip trip;
   Distance distance;
   Distance distanceKM;
   Distance distanceUser;
@@ -91,10 +92,27 @@ public class TestDist {
    * Formulating distances from degrees global.
    */
   @Test
-  public void testNearestNeighbor() {
+  public void testNearestNeighborSmall() {
     ArrayList<Integer> results = new ArrayList<Integer>();
     results.add(41); results.add(24); results.add(63); results.add(112); results.add(97);
     assertEquals(results, distance.nearestNeighbor(degrees, places));
+  }
+
+  @Test
+  public void testNearestNeighborLarge() {
+    Place foco = new Place("foco", "Fort Collins","40° 35' 6.9288\" N", "105° 5' 3.9084\" W");
+    Place aspn = new Place("aspn", "Aspen","39.5149900", "-106.2705500");
+    Place dnvr = new Place("dnvr", "Denver","39.7392° N","104.9903° W");
+    Place cstlrck = new Place("cstlrck", "Castle Rock", "39.0149900", "-104.2705500");
+    Place bldr = new Place("bldr", "Boulder", "40.0149900", "-105.2705500");
+    Place four = new Place("4", "Archuleta County", "37.20°N", "107.05°W");
+    places = new ArrayList<Place>(Arrays.asList(foco, aspn, dnvr, cstlrck, bldr, four));
+
+    trip = new Trip(places, "miles",.5);
+    ArrayList<Double> deg = trip.getDecimalDegrees();
+    ArrayList<Integer> results = new ArrayList<Integer>();
+    results.add(63); results.add(24); results.add(41); results.add(97); results.add(165); results.add(196);
+    assertEquals(results, distance.nearestNeighbor(deg, trip.places));
   }
 
   @Test
