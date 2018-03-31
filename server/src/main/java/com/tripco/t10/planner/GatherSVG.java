@@ -14,33 +14,38 @@ import java.util.Scanner;
 public class GatherSVG {
 
   private boolean fileFound = true;
-  private double x_axis = 993, y_axis = 710;
-  private int m_longitude = -109, n_longitude = -102,
-              m_latitude = 41, n_latitude = 37;
+  private double xxAxis = 993;
+  private double yyAxis = 710;
+  private int leftLongitude = -109;
+  private int rightLongitude = -102;
+  private int topLatitude = 41;
+  private int bottomLatitude = 37;
 
   /**
    * Setter for the regional axis for the svg map.
-   * @param x_axis pixel width of svg.
-   * @param y_axis pixel height of svg.
+   * @param xxAxis pixel width of svg.
+   * @param yyAxis pixel height of svg.
    */
-  public void setAxis(double x_axis, double y_axis) {
-    this.x_axis = x_axis;
-    this.y_axis = y_axis;
+  public void setAxis(double xxAxis, double yyAxis) {
+    this.xxAxis = xxAxis;
+    this.yyAxis = yyAxis;
   }
 
   /**
    * Setter for the coordinate bounds of the svg map.
-   * @param m_longitude furthers left coordinate.
-   * @param n_longitude furthers right coordinate.
-   * @param m_latitude top coordinate.
-   * @param n_latitude bottom coordinate.
+   * @param leftLongitude furthers left coordinate.
+   * @param rightLongitude furthers right coordinate.
+   * @param topLatitude top coordinate.
+   * @param bottomLatitude bottom coordinate.
    */
-  public void setBounds(int m_longitude, int n_longitude, int m_latitude, int n_latitude) {
-    this.m_longitude = m_longitude;
-    this.n_longitude = n_longitude;
-    this.m_latitude = m_latitude;
-    this.n_latitude = n_latitude;
+  public void setBounds(int leftLongitude, int rightLongitude, int topLatitude, int bottomLatitude) {
+    System.out.println("SVG - update coordinate boundaries");
+    this.leftLongitude = leftLongitude;
+    this.rightLongitude = rightLongitude;
+    this.topLatitude = topLatitude;
+    this.bottomLatitude = bottomLatitude;
   }
+
   /**
    * Returns in the SVG from the .jar file as a String.
    * This is later injected to a string for the map.
@@ -74,10 +79,12 @@ public class GatherSVG {
    * @return the decimal value of the coordinate as a pixel component
    */
   public double computePoints(double input, boolean coordinate) {
-    if (coordinate) // x_axis value for coordinate
-      return ((input - this.m_longitude) * this.x_axis) / (this.n_longitude - this.m_longitude);
-    else // y_axis value for coordinate
-      return ((input - this.m_latitude) * this.y_axis) / (this.n_latitude - this.m_latitude);
+    if (coordinate) { // xxAxis value for coordinate
+      return ((input - this.leftLongitude) * this.xxAxis) / (this.rightLongitude - this.leftLongitude);
+    }
+    else { // yyAxis value for coordinate
+      return ((input - this.topLatitude) * this.yyAxis) / (this.bottomLatitude - this.topLatitude);
+    }
   }
 
   /**

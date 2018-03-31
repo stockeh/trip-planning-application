@@ -109,11 +109,12 @@ public class Trip {
     else {
       background = gsvg.readInSVG("/Colorado.svg");
     }
-    String svg_lines = gsvg.getSVGLines(decimalDegrees);
+    String svgLines = gsvg.getSVGLines(decimalDegrees);
     return "<svg width=\"" + width + "\" height=\"" + height + "\" "
            + "xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">"
-           + background + "<svg width=\""+ width +"\" height=\""+ height +"\" y=\"" + boarder + "\" x=\"" + boarder + "\">"
-           + svg_lines + "</svg></svg>";
+           + background
+           + "<svg width=\""+ width +"\" height=\""+ height +"\" y=\"" + boarder + "\" x=\"" + boarder + "\">"
+           + svgLines + "</svg></svg>";
   }
 
   /**
