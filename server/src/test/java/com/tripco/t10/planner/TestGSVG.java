@@ -24,7 +24,7 @@ public class TestGSVG {
   // Setup to be done before every test in TestPlan
   @Before
   public void initialize() {
-    gsvg = new GatherSVG(993,710,-109,-102,41,37);
+    gsvg = new GatherSVG();
   }
 
   @Test

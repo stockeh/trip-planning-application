@@ -86,12 +86,13 @@ public class Trip {
 
   /**
    * Returns an SVG containing the background and the legs of the trip.
-   *
+   * Version 1/2 trips will default to using the Colorado.svg.
+   * Version 3+ will default to using the World.svg map.
    * @see GatherSVG class to get SVG components, i.e., map, lines and points.
    * @return Returns the completed string containing an SVG.
    */
   private String svg(ArrayList<Double> decimalDegrees) {
-    GatherSVG gsvg;
+    GatherSVG gsvg = new GatherSVG();
     String background;
     double width= 1066.6073;
     double height= 783.0824;
@@ -101,11 +102,11 @@ public class Trip {
       width= 1024;
       height= 512;
       boarder = 0;
-      gsvg = new GatherSVG(width, height, -180,180,90,-90);
+      gsvg.setAxis(width, height);
+      gsvg.setBounds(-180,180,90,-90);
       background = gsvg.readInSVG("/World.svg");
     }
     else {
-      gsvg = new GatherSVG(993,710,-109,-102,41,37);
       background = gsvg.readInSVG("/Colorado.svg");
     }
     String svg_lines = gsvg.getSVGLines(decimalDegrees);
