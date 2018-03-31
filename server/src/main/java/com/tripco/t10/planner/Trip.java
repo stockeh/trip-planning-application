@@ -24,11 +24,22 @@ public class Trip {
     this.version=1;
   }
 
+  /**
+   * Used for testing v1 trips.
+   * @param places destinations of the trip
+   * @param distance units for the trip.
+   */
   public Trip(ArrayList<Place> places, String distance){
     this.places = places;
     this.options = new Option(distance, 0);
   }
 
+  /**
+   * Constructor used for testing v2 trips.
+   * @param places destinations for the trip
+   * @param distance units for the trip
+   * @param optimization level of optimization as a double. Between 0-1.
+   */
   public Trip(ArrayList<Place> places, String distance, double optimization){
     this.places = places;
 //    System.out.println("TRIP: " + optimization);
@@ -114,9 +125,9 @@ public class Trip {
     ArrayList<Integer> dist = new ArrayList<Integer>();
     Distance distance = new Distance(this.options);
 
-    // nearest neighbor optimization algorithm
     if (!distance.options.optimization.equals("none")) {
-      distance.options.optimization = Double.toString(Math.round(Double.parseDouble(distance.options.optimization)));
+      double rounded = Math.round(Double.parseDouble(distance.options.optimization));
+      distance.options.optimization = Double.toString(rounded);
     }
     else {
       distance.options.optimization = "0.0";
