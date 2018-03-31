@@ -14,10 +14,18 @@ import java.util.Scanner;
 public class GatherSVG {
 
   private boolean fileFound = true;
-  final private double xAxis = 993, yAxis = 710,
-                 mLongitude = -109, nLongitude = -102,
-                 mLatitude = 41, nLatitude = 37;
+  private double x_axis, y_axis;
+  private int m_longitude, n_longitude,
+              m_latitude, n_latitude;
 
+  public GatherSVG(double x_axis, double y_axis, int m_longitude, int n_longitude, int m_latitude, int n_latitude) {
+    this.x_axis = x_axis;
+    this.y_axis = y_axis;
+    this.m_longitude = m_longitude;
+    this.n_longitude = n_longitude;
+    this.m_latitude = m_latitude;
+    this.n_latitude = n_latitude;
+  }
   /**
    * Returns in the SVG from the .jar file as a String.
    * This is later injected to a string for the map.
@@ -51,10 +59,10 @@ public class GatherSVG {
    * @return the decimal value of the coordinate as a pixel component
    */
   public double computePoints(double input, boolean coordinate) {
-    if (coordinate) // xAxis value for coordinate
-      return ((input - this.mLongitude) * this.xAxis) / (this.nLongitude - this.mLongitude);
-    else // yAxis value for coordinate
-      return ((input - this.mLatitude) * this.yAxis) / (this.nLatitude - this.mLatitude);
+    if (coordinate) // x_axis value for coordinate
+      return ((input - this.m_longitude) * this.x_axis) / (this.n_longitude - this.m_longitude);
+    else // y_axis value for coordinate
+      return ((input - this.m_latitude) * this.y_axis) / (this.n_latitude - this.m_latitude);
   }
 
   /**

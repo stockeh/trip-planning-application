@@ -12,7 +12,9 @@
   "places"    : [
     {"id":"dnvr", "name":"Denver", "latitude":"39.7392° N", "longitude":"104.9903° W"},
     {"id":"bldr", "name":"Boulder", "latitude":"40.0149900", "longitude":"-105.2705500"},
-    {"id":"foco", "name":"Fort Collins", "latitude":"40° 35' 6.9288\" N", "longitude":"105° 5' 3.9084\" W"}
+    {"id":"foco", "name":"Fort Collins", "latitude":"40° 35' 6.9288\" N", "longitude":"105° 5' 3.9084\" W"},
+    {"id":"c1", "name":"Corner One", "latitude":"90 N", "longitude":"180 W"},
+    {"id":"c2", "name":"Corner Two", "latitude":"90 S", "longitude":"180 E"}
   ],
   "distances" : [],
   "map"       : "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"

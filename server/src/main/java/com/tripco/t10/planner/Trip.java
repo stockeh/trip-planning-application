@@ -91,23 +91,27 @@ public class Trip {
    * @return Returns the completed string containing an SVG.
    */
   private String svg(ArrayList<Double> decimalDegrees) {
-    GatherSVG gsvg = new GatherSVG();
+    GatherSVG gsvg;
     String background;
     double width= 1066.6073;
     double height= 783.0824;
+    double boarder = 35;
 
     if (this.version == 3) {
-      background = gsvg.readInSVG("/World.svg");
       width= 1024;
       height= 512;
+      boarder = 0;
+      gsvg = new GatherSVG(width, height, -180,180,90,-90);
+      background = gsvg.readInSVG("/World.svg");
     }
     else {
+      gsvg = new GatherSVG(993,710,-109,-102,41,37);
       background = gsvg.readInSVG("/Colorado.svg");
     }
     String svg_lines = gsvg.getSVGLines(decimalDegrees);
     return "<svg width=\"" + width + "\" height=\"" + height + "\" "
            + "xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">"
-           + background + "<svg width=\""+ width +"\" height=\""+ height +"\" y=\"35\" x=\"35\">"
+           + background + "<svg width=\""+ width +"\" height=\""+ height +"\" y=\"" + boarder + "\" x=\"" + boarder + "\">"
            + svg_lines + "</svg></svg>";
   }
 
