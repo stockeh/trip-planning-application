@@ -117,10 +117,11 @@ public class MicroServer {
     final String type = "\"type\" : \"config\", ";
     final String version = "\"version\" : 3, ";
     final String optimization = "\"optimization\" : 1, ";
-    final String supportedDist = "\"supportedDistances\": "
+    final String filters = "[]";
+    final String maps = "[\"svg\"]";
+    final String supportedDist = "\"distances\": "
             + "[\"miles\", \"kilometers\", \"nautical miles\", \"user defined\"]";
-
-    return ("{ " + type + version + optimization + supportedDist + " }");
+    return ("{ " + type + version + optimization + supportedDist + maps + filters +" }");
   }
 
   /** A REST API that returns the team information associated with the server.
