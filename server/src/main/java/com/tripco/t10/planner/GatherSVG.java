@@ -38,7 +38,8 @@ public class GatherSVG {
    * @param topLatitude top coordinate.
    * @param bottomLatitude bottom coordinate.
    */
-  public void setBounds(int leftLongitude, int rightLongitude, int topLatitude, int bottomLatitude) {
+  public void setBounds(int leftLongitude, int rightLongitude,
+                        int topLatitude, int bottomLatitude) {
     System.out.println("SVG - update coordinate boundaries");
     this.leftLongitude = leftLongitude;
     this.rightLongitude = rightLongitude;
@@ -80,10 +81,12 @@ public class GatherSVG {
    */
   public double computePoints(double input, boolean coordinate) {
     if (coordinate) { // xxAxis value for coordinate
-      return ((input - this.leftLongitude) * this.xxAxis) / (this.rightLongitude - this.leftLongitude);
+      return ((input - this.leftLongitude) * this.xxAxis)
+              / (this.rightLongitude - this.leftLongitude);
     }
     else { // yyAxis value for coordinate
-      return ((input - this.topLatitude) * this.yyAxis) / (this.bottomLatitude - this.topLatitude);
+      return ((input - this.topLatitude) * this.yyAxis)
+              / (this.bottomLatitude - this.topLatitude);
     }
   }
 
