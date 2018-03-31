@@ -31,7 +31,7 @@ public class Trip {
 
   public Trip(ArrayList<Place> places, String distance, double optimization){
     this.places = places;
-    System.out.println("Options op: " + optimization);
+//    System.out.println("TRIP: " + optimization);
     this.options = new Option(distance, optimization);
   }
 
@@ -115,18 +115,19 @@ public class Trip {
     Distance distance = new Distance(this.options);
 
     // nearest neighbor optimization algorithm
-    System.out.println("optimization: " + Double.parseDouble(distance.options.optimization));
-    System.out.println("this.optimization: " + Double.parseDouble(this.options.optimization));
-    if (!distance.options.optimization.equals("none") && Double.parseDouble(distance.options.optimization) == 1) {
-      dist = distance.nearestNeighbor(coordDegrees, this.places);
-      System.out.println("IF");
+    if (!distance.options.optimization.equals("none")) {
+      distance.options.optimization = Double.toString(Math.round(Double.parseDouble(distance.options.optimization)));
     }
     else {
-      System.out.println("ELSE");
-      dist = distance.inOrder(coordDegrees);
+      distance.options.optimization = "0.0";
     }
-    for (int i = 0; i < places.size(); ++i) {
-      System.out.println(dist.get(i));
+    if (distance.options.optimization.equals("1.0")) {
+      dist = distance.nearestNeighbor(coordDegrees, this.places);
+      System.out.println("Nearest Neighbor");
+    }
+    else {
+      dist = distance.inOrder(coordDegrees);
+      System.out.println("In Order");
     }
     distance.memo = null;
     return dist;

@@ -59,21 +59,22 @@ public class TestTrip {
     Place dnvr = new Place("dnvr", "Denver","39.7392° N","104.9903° W");
     Place cstlrck = new Place("cstlrck", "Castle Rock", "39.0149900", "-104.2705500");
     Place bldr = new Place("bldr", "Boulder", "40.0149900", "-105.2705500");
+
+    Place zero = new Place("0", "Custer County", "38.10°N", "105.37°W");
+    Place one = new Place("1", "San Juan County", "37.78°N", "107.67°W");
+    Place two = new Place("2", "San Miguel County", "38.01°N", "108.43°W");
+    Place three = new Place("3", "Crowley County", "38.32°N", "103.79°W");
     Place four = new Place("4", "Archuleta County", "37.20°N", "107.05°W");
-    ArrayList<Place> p = new ArrayList<Place>(Arrays.asList(foco, aspn, dnvr, cstlrck, bldr, four));
+    ArrayList<Place> p = new ArrayList<Place>(Arrays.asList(foco, aspn, dnvr, cstlrck, bldr, zero, one, two, three, four));
 
 
-    Trip t = new Trip(p, "miles",.5);
-    System.out.println("TestTrip op: " + t.options.optimization);
+    Trip t = new Trip(p, "miles",1);
     ArrayList<Double> degrees = t.getDecimalDegrees();
 
-    for (int i = 0; i < t.places.size(); ++i) {
-      System.out.println(t.places.get(i).name);
-    }
-
     ArrayList<Integer> results = new ArrayList<Integer>();
-    results.add(63); results.add(24); results.add(41); results.add(97); results.add(165); results.add(196);
-    assertEquals(results, trip.legDistances(degrees));
+    results.add(87); results.add(55); results.add(63); results.add(24); results.add(41); results.add(97);
+    results.add(142); results.add(44); results.add(94); results.add(111);
+    assertEquals(results, t.legDistances(degrees));
   }
 
 }

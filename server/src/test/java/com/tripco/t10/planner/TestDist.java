@@ -113,9 +113,6 @@ public class TestDist {
     ArrayList<Integer> results = new ArrayList<Integer>();
     results.add(63); results.add(24); results.add(41); results.add(97); results.add(165); results.add(196);
     assertEquals(results, distance.nearestNeighbor(deg, trip.places));
-    for (int i = 0; i < trip.places.size(); ++i) {
-      System.out.println(trip.places.get(i).name);
-    }
   }
 
   @Test
