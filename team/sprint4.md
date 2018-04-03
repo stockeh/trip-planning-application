@@ -82,6 +82,7 @@ Date | Tasks done  | Tasks in progress | Impediments
 *03/24/2018* | *Not Started Yet* | *#260 #269 #256 #274* | *database/filter implementation*
 *03/27/2018* | *Added 'add all' button for searching database, Added 'remove all' button for database searching, Added individual 'remove' button to destinations in itinerary, handled distance unit config on client, added supported distance units to config rest API* | *#260 #256* | *filter implementation*
 *03/29/2018* | *Updated itinerary table for various screen sizes and style, reactive button layout, added custom units to the front end with text boxes, updated warning message to show only when using and optimized plan* | *#260 #258* | *filter implementation*
+*04/3/2018* | *Include ID column in query searches, Placing coordinates on the map, Display world map in application, scaling lines on map* | *#260 #258 #281* | *filter implementation, Google Map implementation*
 
 ## Review
 
