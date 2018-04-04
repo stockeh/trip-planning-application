@@ -1,5 +1,7 @@
 package com.tripco.t10.server;
 
+import com.google.gson.Gson;
+import com.tripco.t10.planner.Config;
 import com.tripco.t10.planner.Plan;
 import com.tripco.t10.planner.Query;
 
@@ -114,14 +116,8 @@ public class MicroServer {
 
   private String config(Request request, Response response) {
     response.type("application/json");
-    final String type = "\"type\" : \"config\", ";
-    final String version = "\"version\" : 3, ";
-    final String optimization = "\"optimization\" : 1, ";
-    final String distances = "\"distances\": "
-            + "[\"miles\", \"kilometers\", \"nautical miles\", \"user defined\"],";
-    final String maps = "\"maps\" : [\"svg\"], ";
-    final String filters = "\"filters\" : []";
-    return ("{ " + type + version + optimization + distances + maps + filters +" }");
+    Gson gson = new Gson();
+    return (gson.toJson(new Config(request)));
   }
 
   /** A REST API that returns the team information associated with the server.
