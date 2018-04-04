@@ -29,17 +29,19 @@ public class Search {
     this.query = "";
   }
 
-  public String[] getFilterColumns(){
-    String typeFilter = "SELECT distinct type from airports;";
+  public ArrayList<String> getFilterColumn(String column){
+    String typeFilter = "SELECT distinct " + column + " from airports;";
+    System.out.println(typeFilter);
     ResultSet rState = accessDatabase(typeFilter);
-
+    ArrayList<String> filterColumns = new ArrayList<>();
     try {
       while (rState.next()) {
-
+        filterColumns.add(rState.getString(column));
       }
     } catch (Exception e){
       System.err.println("Exception: "+e.getMessage());
     }
+    return filterColumns;
   }
 
   /**
