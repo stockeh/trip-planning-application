@@ -77,7 +77,7 @@ class Options extends Component{
                 <input id="userUnit" type="text" className="form-control custom-unit-name"
                        onBlur={this.updateUnit} defaultValue={this.props.trip.options.userUnit} placeholder="Unit Name..."/>
                 <input id="userRadius" type="number" className="form-control custom-unit-radius"
-                       onBlur={this.g} defaultValue={this.props.trip.options.userRadius} placeholder="Unit Earth radius..."/>
+                       onBlur={this.updateUnit} defaultValue={this.props.trip.options.userRadius} placeholder="Unit Earth radius..."/>
             </div>
         );
     }
