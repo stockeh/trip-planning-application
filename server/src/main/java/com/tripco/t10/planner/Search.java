@@ -29,9 +29,23 @@ public class Search {
     this.query = "";
   }
 
+  public String[] getFilterColumns(){
+    String typeFilter = "SELECT distinct type from airports;";
+    ResultSet rState = accessDatabase(typeFilter);
+
+    try {
+      while (rState.next()) {
+
+      }
+    } catch (Exception e){
+      System.err.println("Exception: "+e.getMessage());
+    }
+  }
+
   /**
-   * searches database from constructed query and
-   * updates places variable of object accordingly.
+   * Constructs query
+   * Calls accessDatabase to perform query
+   * Constructs places array from query results
    */
   public void find(){
     baseSearch += "name LIKE '%" + query
@@ -42,21 +56,36 @@ public class Search {
       + "%' OR latitude LIKE '%" + query
       + "%' limit 15";
     System.out.println(baseSearch);
+    ResultSet rState = accessDatabase(baseSearch);
+    try {
+      while (rState.next()) {
+        this.places.add(new Place(rState.getString("id"), rState.getString("name"),
+          rState.getString("latitude"), rState.getString("longitude")));
+      }
+    } catch (Exception e){
+      System.err.println("Exception: "+e.getMessage());
+    }
+  }
+
+  /**
+   * accesses database and performs search on query
+   * @param query is query to be performed by method
+   * @return the result set from the query or null
+   */
+  public ResultSet accessDatabase(String query){
     try {
       Class.forName(myDriver);
       // connect to the database and query
       try (Connection conn = DriverManager.getConnection(myUrl, "evanjs", "830960621");
            Statement sState = conn.createStatement();
-           ResultSet rState = sState.executeQuery(baseSearch);
-      ) {
-        while(rState.next()){
-          this.places.add(new Place(rState.getString("id"),rState.getString("name"),
-            rState.getString("latitude"),rState.getString("longitude")));
-        }
+           ResultSet rState = sState.executeQuery(query)
+      ){
+        return rState;
       }
     } catch (Exception e) {
       System.err.println("Exception: "+e.getMessage());
     }
+    return null;
   }
 
 }

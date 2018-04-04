@@ -20,7 +20,9 @@ public class Config {
   }
 
   private void findFilters(){
-
+    Search filter = new Search();
+    filters = filter.getFilterColumns();
+    filters = new String[]{};
   }
 
 
