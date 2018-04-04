@@ -11,10 +11,15 @@ class Trip extends Component {
   constructor(props) {
       super(props);
 
+      this.state = {
+          distance : "miles"
+      };
+
       this.plan = this.plan.bind(this);
       this.saveTFFI = this.saveTFFI.bind(this);
       this.updateT = this.updateT.bind(this);
       this.removedPlan = this.removedPlan.bind(this);
+      this.checkDistance = this.checkDistance.bind(this);
   }
 
   removedPlan(index) {
@@ -92,10 +97,23 @@ class Trip extends Component {
       anchor.click();
   }
 
+  checkDistance() {
+      let body = Object.assign({}, this.props.trip);
+      let b_distance = JSON.stringify(body.options.distance);
+      let t_distance = JSON.stringify(this.state.distance);
+      if (b_distance !== t_distance) {
+          if (b_distance !== "" || b_distance !== "user defined") {
+              this.setState({distance: body.options.distance});
+              this.plan(body);
+          }
+      }
+  }
+
   /* Renders the buttons, map, and itinerary.
    * The title should be specified before the plan or save buttons are valid.
    */
   render(){
+    this.checkDistance();
     return(
         <div id="trip" className="card">
           <div className="card-header bg-info text-white">
