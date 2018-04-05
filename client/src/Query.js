@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Search from './Search';
+import Filter from './Filter';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -102,6 +103,7 @@ class Query extends Component {
 
         <div className="modal-body">
           <h6>Enter the name of a destination that you would like to visit!</h6>
+            <Filter query={this.state.query}/> <br/>
           <input id="destination" type="text" className="form-control"
                  onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
           <br/> {this.createTable()}
