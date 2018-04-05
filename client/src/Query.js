@@ -12,7 +12,9 @@ class Query extends Component {
     super(props);
     this.state = {
         query : "",
-        places: []
+        places: [],
+        filters : [{ attribute : "",
+                       values  : [] }]
     };
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);

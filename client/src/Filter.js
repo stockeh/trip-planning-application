@@ -19,6 +19,7 @@ class Filter extends Component {
     </div>;
   }
 
+  @todo "filters comes from ./App;, not here.";
   render() {
     let attributes = [];
     for (let index in this.state.filters) {

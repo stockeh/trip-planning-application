@@ -18,7 +18,9 @@ class Search extends Component {
         "version" : 2,
         "type"    : "query",
         "query"   : this.props.query,
+        "filters" : this.props.filters,
         "places"  : []
+
     };
 
     console.log(process.env.SERVICE_URL);
