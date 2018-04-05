@@ -2,10 +2,7 @@ package com.tripco.t10.planner;
 
 import com.mysql.jdbc.StringUtils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Search {
@@ -29,19 +26,25 @@ public class Search {
     this.query = "";
   }
 
-  public ArrayList<String> getFilterColumn(String column){
-    String typeFilter = "SELECT distinct " + column + " from airports;";
+  public String[] getFilterColumn(String column){
+    String typeFilter = "SELECT distinct " + column + " from airports";
     System.out.println(typeFilter);
     ResultSet rState = accessDatabase(typeFilter);
-    ArrayList<String> filterColumns = new ArrayList<>();
     try {
-      while (rState.next()) {
-        filterColumns.add(rState.getString(column));
-      }
+      Array temp = rState.getArray(column);
+      System.out.println(temp);
+      String[] test = (String[])temp.getArray();
+      System.out.println(test);
+//      return (String[])temp.getArray();
+//      while (rState.next()) {
+//        filterColumns.add(rState.getString(column));
+//      }
     } catch (Exception e){
       System.err.println("Exception: "+e.getMessage());
     }
-    return filterColumns;
+////    return filterColumns;
+//    return null;
+    return new String[]{"airports","heliports"};
   }
 
   /**
@@ -81,6 +84,7 @@ public class Search {
       try (Connection conn = DriverManager.getConnection(myUrl, "evanjs", "830960621");
            Statement sState = conn.createStatement();
            ResultSet rState = sState.executeQuery(query)
+
       ){
         return rState;
       }
