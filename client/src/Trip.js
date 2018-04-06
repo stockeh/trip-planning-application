@@ -11,10 +11,18 @@ class Trip extends Component {
   constructor(props) {
       super(props);
 
+      this.distance = "miles";
+
+      this.state = {
+          initialPlan : false
+      };
+
       this.plan = this.plan.bind(this);
       this.saveTFFI = this.saveTFFI.bind(this);
       this.updateT = this.updateT.bind(this);
       this.removedPlan = this.removedPlan.bind(this);
+      this.checkDistance = this.checkDistance.bind(this);
+      this.initialPlan = this.initialPlan.bind(this);
   }
 
   removedPlan(index) {
@@ -92,10 +100,24 @@ class Trip extends Component {
       anchor.click();
   }
 
+  checkDistance() {
+      let b_distance = this.props.trip.options.distance;
+      if (b_distance !== this.distance && (b_distance !== "" || b_distance !== "user defined")) {
+          this.distance = this.props.trip.options.distance;
+          if (this.state.initialPlan)
+            this.plan(this.props.trip);
+      }
+  }
+
+  initialPlan() {
+      this.setState({initialPlan: true});
+  }
+
   /* Renders the buttons, map, and itinerary.
    * The title should be specified before the plan or save buttons are valid.
    */
   render(){
+    this.checkDistance();
     return(
         <div id="trip" className="card">
           <div className="card-header bg-info text-white">
@@ -105,7 +127,7 @@ class Trip extends Component {
             <p>Give your trip a title before planning or saving.</p>
             <div className="input-group" role="group">
               <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={ () => this.plan(this.props.trip)} type="button">Plan</button>
+              <button className="btn btn-primary " onClick={ () => {this.plan(this.props.trip); this.initialPlan()}} type="button">Plan</button>
               </span>
               <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
               <span className="input-group-btn">

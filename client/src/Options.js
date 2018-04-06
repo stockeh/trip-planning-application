@@ -64,7 +64,7 @@ class Options extends Component{
       options[index] = options[index].charAt(0).toUpperCase() + options[index].substr(1);
     }
     const buttons = options.map((option) =>
-        <Button key={option} active={this.props.trip.options.distance === option.toLowerCase()} value={option.toLowerCase()}
+        <Button key={option} active={(this.props.trip.options.distance === "" ? "miles" : this.props.trip.options.distance) === option.toLowerCase()} value={option.toLowerCase()}
                 onClick={this.handleOnChange} className='btn-outline-dark'>{option}</Button>
     );
     return buttons;
@@ -75,9 +75,9 @@ class Options extends Component{
         return (
             <div className="custom-units-container input-group-sm mb-3 p-2">
                 <input id="userUnit" type="text" className="form-control custom-unit-name"
-                       onBlur={this.updateUnit}  placeholder="Unit Name..."/>
+                       onBlur={this.updateUnit} defaultValue={this.props.trip.options.userUnit} placeholder="Unit Name..."/>
                 <input id="userRadius" type="number" className="form-control custom-unit-radius"
-                       onBlur={this.updateUnit}  placeholder="Unit Earth radius..."/>
+                       onBlur={this.updateUnit} defaultValue={this.props.trip.options.userRadius} placeholder="Unit Earth radius..."/>
             </div>
         );
     }
