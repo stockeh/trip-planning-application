@@ -7,7 +7,7 @@ public class Filter {
   public ArrayList<String> values;
 
   /**
-   *
+   * Filter Constructor.
    * @param attribute is column name of filter
    * @param values is array of filter values associated with attribute
    */
@@ -17,7 +17,7 @@ public class Filter {
   }
 
   /**
-   * to String method for filter
+   * to String method for filter.
    * @return Filter to String
    */
   public String toString(){
