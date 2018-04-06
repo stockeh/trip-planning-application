@@ -1,8 +1,11 @@
 package com.tripco.t10.planner;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.lang.*;
+
 
 public class Config {
   public String type = "config";
@@ -18,7 +21,7 @@ public class Config {
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
   /**
-   * Config constructor finds the filters
+   * Config constructor finds the filters,
    */
   public Config(){
     // plan the trip.
@@ -28,7 +31,7 @@ public class Config {
   }
 
   /**
-   * adds all distinct filter values of the filter column to the filters array
+   * adds all distinct filter values of the filter column to the filters array.
    * @param column is the column to find distinct filters for
    */
   public void findFilters(String column){

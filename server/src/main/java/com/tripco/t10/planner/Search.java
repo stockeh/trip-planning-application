@@ -1,6 +1,9 @@
 package com.tripco.t10.planner;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Search {
@@ -11,8 +14,10 @@ public class Search {
   public ArrayList<Place> places;
   public ArrayList<Filter> filters;
 
-  private transient String join = "SELECT airports.id, airports.name, airports.municipality, region.name, "
-          + "country.name, continents.name, airports.type, airports.latitude, airports.longitude FROM continents "
+  private transient String join = "SELECT airports.id, airports.name, "
+          + " airports.municipality, region.name, "
+          + "country.name, continents.name, airports.type, airports.latitude, "
+          + "airports.longitude FROM continents "
           + "INNER JOIN country ON continents.id = country.continent "
           + "INNER JOIN region ON country.id = region.iso_country "
           + "INNER JOIN airports ON region.id = airports.iso_region WHERE ";
@@ -29,8 +34,7 @@ public class Search {
   }
 
   /**
-   * Constructs query
-   * Calls accessDatabase to perform query
+   * Constructs query and calls accessDatabase to perform query.
    * Constructs places array from query results
    */
   public void find() {
