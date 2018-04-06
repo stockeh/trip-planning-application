@@ -117,7 +117,8 @@ public class MicroServer {
   private String config(Request request, Response response) {
     response.type("application/json");
     Gson gson = new Gson();
-    return (gson.toJson(new Config(request)));
+    Config config = new Config();
+    return (gson.toJson(config));
   }
 
   /** A REST API that returns the team information associated with the server.
