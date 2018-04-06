@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Search from './Search';
+import Filter from './Filter';
+import { InputGroup, Input, Button } from 'reactstrap';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -11,7 +13,9 @@ class Query extends Component {
     super(props);
     this.state = {
         query : "",
-        places: []
+        places: [],
+        filters : [{ attribute : "",
+                       values  : [] }]
     };
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
@@ -52,16 +56,21 @@ class Query extends Component {
     for (let i = 0; i < dest.length; ++i) {
         table.push(<tr key={i}>{ dest[i] }</tr>);
     }
-    return (
-      <table className="table table-responsive table-hover">
-          <thead>
-            <tr><th className="table-info align-middle" scope="col">Destinations</th></tr>
-          </thead>
-          <tbody>
+    if (this.state.places.length > 0) {
+      return (
+          <table className="table table-responsive table-hover">
+            <thead>
+            <tr>
+              <th className="table-info align-middle" scope="col">Destinations
+              </th>
+            </tr>
+            </thead>
+            <tbody>
             {table}
-          </tbody>
-      </table>
-    );
+            </tbody>
+          </table>
+      );
+    }
   }
 
   modalFooter() {
@@ -80,11 +89,11 @@ class Query extends Component {
     return (
       <div className="modal-footer">
         <div className="justify-content-between" id="button-grouping">
-          <button id="add-all" className="btn btn-default btn-sm"
-                  onClick={()=>this.updateDestinations(0, size)}>Add All</button>
-          <button id="clear" className="btn btn-danger btn-sm" onClick={()=>this.updateData([], "places")}>Clear</button>
+            <Button id="add-all" size="sm" outline color="secondary"
+                    onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
+            <Button id="clear" size="sm" outline color="danger"
+                    onClick={()=>this.updateData([], "places")}>Clear</Button>
         </div>
-        <Search query={this.state.query} updateData={this.updateData}/>
       </div>
     )
   }
@@ -101,9 +110,13 @@ class Query extends Component {
         </div>
 
         <div className="modal-body">
-          <h6>Enter the name of a destination that you would like to visit!</h6>
-          <input id="destination" type="text" className="form-control"
-                 onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
+            <Filter query={this.state.query} filters={this.props.config.filters}/> <br/>
+
+          <InputGroup>
+            <Input onChange={(e)=>this.updateData(e.target.value, "query")}
+                   placeholder="Search Destinations..."/>
+            <Search query={this.state.query} updateData={this.updateData}/>
+          </InputGroup>
           <br/> {this.createTable()}
         </div>
           {footer}
@@ -112,7 +125,6 @@ class Query extends Component {
   }
 
   render() {
-
     return(
       <div id="query">
         <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>

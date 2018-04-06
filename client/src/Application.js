@@ -124,7 +124,7 @@ class Application extends Component {
                 <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions} updateOptionsUnits={this.updateOptionsUnits}/>
             </div>
             <div className="col-xs-12 col-md-6">
-                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
+                <Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
                               updateInformation={this.updateInformation}/>
             </div>
             <div className="col-12">
