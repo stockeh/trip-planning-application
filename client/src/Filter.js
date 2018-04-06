@@ -10,23 +10,25 @@ class Filter extends Component {
     this.state = {
       filters : [{ attribute : "type",
                      values  : [ "balloonport","heliport", "airport"] }] };
-    this.renderCheckbox = this.renderCheckbox.bind(this);
   }
 
-  renderCheckbox(value) {
+  static renderCheckbox(value) {
     return <div className="checkbox">
-      <label><input type="checkbox" id={value} value={value} onChange={console.log("Fix")}/> {value} </label>
+      <label>
+        <input type="checkbox" id={value} value={value} onChange={console.log("Fix")}/> {value}
+      </label>
     </div>;
   }
 
-  @todo "filters comes from ./App;, not here.";
   render() {
     let attributes = [];
     for (let index in this.state.filters) {
-      attributes.push(<h6 className="text-uppercase">{this.state.filters[index].attribute}</h6>);
-      for (let value of this.state.filters[index].values) {
-        attributes.push(this.renderCheckbox(value));
-        console.log("Value: " + value);
+      if (this.state.filters[index].values.length < 8) {
+        attributes.push(<h6 className="text-uppercase">
+          {this.state.filters[index].attribute}</h6>);
+        for (let value of this.state.filters[index].values) {
+          attributes.push(Filter.renderCheckbox(value));
+        }
       }
     }
     return(
