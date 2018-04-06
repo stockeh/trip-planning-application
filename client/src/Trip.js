@@ -102,12 +102,10 @@ class Trip extends Component {
 
   checkDistance() {
       let b_distance = this.props.trip.options.distance;
-      if (b_distance !== this.distance) {
-          if (b_distance !== "" || b_distance !== "user defined") {
-              this.distance = this.props.trip.options.distance;
-              if (this.state.initialPlan)
-                this.plan(this.props.trip);
-          }
+      if (b_distance !== this.distance && (b_distance !== "" || b_distance !== "user defined")) {
+          this.distance = this.props.trip.options.distance;
+          if (this.state.initialPlan)
+            this.plan(this.props.trip);
       }
   }
 
