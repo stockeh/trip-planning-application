@@ -12,10 +12,14 @@ public class Config {
   public String[] maps = {"svg"};
   public ArrayList<Filter> filters = new ArrayList<>();
 
+  //add to this filterColumns array to add more filter columns
   private static String[] filterColumns = new String[]{"type"};
   private static final String myDriver = "com.mysql.jdbc.Driver";
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
+  /**
+   * Config constructor finds the filters
+   */
   public Config(){
     // plan the trip.
     for(String column : filterColumns){
@@ -23,6 +27,10 @@ public class Config {
     }
   }
 
+  /**
+   * adds all distinct filter values of the filter column to the filters array
+   * @param column is the column to find distinct filters for
+   */
   public void findFilters(String column){
     String query = "SELECT distinct " + column + " from airports";
 
