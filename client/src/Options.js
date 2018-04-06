@@ -59,7 +59,7 @@ class Options extends Component{
   }
 
   distanceButtons() {
-    let options = this.props.config.distances;
+    let options = this.props.config.units;
     for (let index = 0; index < options.length; ++index) {
       options[index] = options[index].charAt(0).toUpperCase() + options[index].substr(1);
     }

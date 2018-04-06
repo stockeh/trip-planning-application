@@ -110,7 +110,7 @@ class Query extends Component {
         </div>
 
         <div className="modal-body">
-            <Filter query={this.state.query}/> <br/>
+            <Filter query={this.state.query} filters={this.props.config.filters}/> <br/>
 
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}

@@ -13,8 +13,8 @@ class App extends Component {
         type        : "config",
         version     : 2,
         optimization: 1,
-        distances   : [],
-        map         : [],
+        units       : [],
+        maps        : [],
         filters     : []
       }
     };

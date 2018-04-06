@@ -9,10 +9,6 @@ class Filter extends Component {
   constructor(props){
     super(props);
     this.state = {
-      filters : [{ attribute : "type",
-                     values  : [ "testplace 1", "testplace 2",
-                                 "testplace 3", "testplace 4",
-                                 "testplace 5"] }],
       buttonClick: false
     };
     this.buildCheckTable = this.buildCheckTable.bind(this);
@@ -37,11 +33,11 @@ class Filter extends Component {
                         style={{marginLeft: 12}}>
                     <u>{attribute}</u></h6>);
 
-    let boxes = this.state.filters[index].values.map((item, index) =>
+    let boxes = this.props.filters[index].values.map((item, index) =>
         <td>{Filter.renderCheckbox(item, index,
-            this.state.filters[index])}</td>);
+            this.props.filters[index])}</td>);
     let rows = [];
-    for (let i = 0; i < this.state.filters[index].values.length; ++i) {
+    for (let i = 0; i < this.props.filters[index].values.length; ++i) {
       rows.push(<tr key={i}>{boxes[i]}{boxes[++i]}{boxes[++i]}</tr>);
     }
     return {attributes, rows}
@@ -53,10 +49,10 @@ class Filter extends Component {
 
   renderFilter() {
     let table = null;
-    for (let index = 0; index < this.state.filters.length; ++index) {
-      for (let index in this.state.filters) {
-        let attribute = this.state.filters[index].attribute;
-        if (attribute === "type") {
+    for (let index = 0; index < this.props.filters.length; ++index) {
+      for (let index in this.props.filters) {
+        let attribute = this.props.filters[index].attribute;
+        if (attribute.toLocaleLowerCase() === "type") {
           table = this.buildCheckTable(attribute, index);
         }
       }
@@ -75,14 +71,20 @@ class Filter extends Component {
   }
 
   render() {
-    return(
-      <div id="filter">
-        <Button className="btn btn-light btn-md" onClick={() => this.openFilter()}>
-          <FaFilter/>
-        </Button>
-        {this.renderFilter()}
-      </div>
-    )
+    if (this.props.filters.length > 0) {
+      return (
+        <div id="filter">
+          <Button className="btn btn-light btn-md"
+                  onClick={() => this.openFilter()}>
+            <FaFilter/>
+          </Button>
+          {this.renderFilter()}
+        </div>
+      );
+    }
+    else {
+      return null;
+    }
   }
 }
 
