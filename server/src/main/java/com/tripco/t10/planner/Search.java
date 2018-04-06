@@ -45,7 +45,8 @@ public class Search {
             + "%' OR airports.type LIKE '%" + query
             + "%' OR airports.longitude LIKE '%" + query
             + "%' OR airports.latitude LIKE '%" + query
-            + "ORDER BY continents.name, country.name, region.name, airports.municipality, airports.name"
+            + "ORDER BY continents.name, country.name, "
+            + "region.name, airports.municipality, airports.name"
             + "%' limit 15";
     try {
       Class.forName(myDriver);

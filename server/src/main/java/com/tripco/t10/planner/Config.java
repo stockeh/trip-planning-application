@@ -21,7 +21,7 @@ public class Config {
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
   /**
-   * Config constructor finds the filters,
+   * Config constructor finds the filters.
    */
   public Config(){
     // plan the trip.
