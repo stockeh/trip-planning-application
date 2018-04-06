@@ -83,7 +83,7 @@ class Query extends Component {
 
     return (
       <div className="modal-footer">
-        <div className="justify-content-between">
+        <div className="justify-content-between" id="button-grouping">
             <Button id="add-all" size="sm" outline color="secondary"
                     onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
             <Button id="clear" size="sm" outline color="danger"

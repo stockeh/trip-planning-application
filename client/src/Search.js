@@ -48,7 +48,9 @@ class Search extends Component {
   render(){
     return(
       <div id="search">
-        <Button outline color="primary"><MdSearch size={24} id="searchButton" onClick={this.search}/></Button>
+        <Button outline color="primary">
+          <MdSearch size={24} id="searchButton" onClick={this.search}/>
+        </Button>
       </div>
     )
   }
