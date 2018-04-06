@@ -11,8 +11,9 @@ class Trip extends Component {
   constructor(props) {
       super(props);
 
+      this.distance = "miles";
+
       this.state = {
-          distance : "miles",
           initialPlan : false
       };
 
@@ -100,14 +101,12 @@ class Trip extends Component {
   }
 
   checkDistance() {
-      let body = Object.assign({}, this.props.trip);
-      let b_distance = JSON.stringify(body.options.distance);
-      let t_distance = JSON.stringify(this.state.distance);
-      if (b_distance !== t_distance) {
+      let b_distance = this.props.trip.options.distance;
+      if (b_distance !== this.distance) {
           if (b_distance !== "" || b_distance !== "user defined") {
-              this.setState({distance: body.options.distance});
+              this.distance = this.props.trip.options.distance;
               if (this.state.initialPlan)
-                this.plan(body);
+                this.plan(this.props.trip);
           }
       }
   }
