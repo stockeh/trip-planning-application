@@ -12,15 +12,17 @@ public class Search {
   public String type;
   public String query;
   public ArrayList<Place> places;
-  public ArrayList<Filter> filters;
+  public Filter[] filters;
 
-  private transient String join = "SELECT airports.id, airports.name, "
-          + " airports.municipality, region.name, "
-          + "country.name, continents.name, airports.type, airports.latitude, "
-          + "airports.longitude FROM continents "
+  private transient String join = "SELECT a.id, a.name, "
+          + "a.municipality, region.name, "
+          + "country.name, continents.name, a.type, a.latitude, "
+          + "a.longitude FROM continents "
           + "INNER JOIN country ON continents.id = country.continent "
           + "INNER JOIN region ON country.id = region.iso_country "
-          + "INNER JOIN airports ON region.id = airports.iso_region WHERE ";
+          + "INNER JOIN airports as a ON region.id = a.iso_region WHERE ";
+  private transient String orderBy = "ORDER BY continents.name, country.name, "
+          + "region.name, a.municipality, a.name limit 15";
   private static final String myDriver = "com.mysql.jdbc.Driver";
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
@@ -28,9 +30,28 @@ public class Search {
    * Some defaults for the Search object.
    */
   public Search() {
-    this.version = 2;
+    this.version = 3;
     this.type = "query";
     this.query = "";
+  }
+
+
+  public void constructQueryFromFilters(){
+    String queryFilter = "";
+    if(filters != null && filters.length > 0){
+      for(Filter f : filters){
+        if(!f.isEmpty()) {
+          queryFilter += "AND ("; //open combination statement
+          for(int i = 0; i < f.size(); i++){
+            if(i > 1)queryFilter += " OR ";
+            queryFilter += f.getAttribute() + "='" + f.get(i) + "'";
+          }
+          queryFilter += ") "; //close combination statement
+        }
+      }
+    }
+    System.out.println("QUERY FILTER: " + queryFilter);
+    join += queryFilter;
   }
 
   /**
@@ -38,16 +59,19 @@ public class Search {
    * Constructs places array from query results
    */
   public void find() {
-    join += "airports.name LIKE '%" + query + "%' OR country.name LIKE '%" + query
+    if(filters == null){
+      System.out.println("FILTER IS NULL");
+    }
+    join += "a.name LIKE '%" + query + "%' OR country.name LIKE '%" + query
             + "%' OR region.name LIKE '%" + query + "%' OR continents.name LIKE '%" + query
-            + "%' OR airports.id LIKE '%" + query
-            + "%' OR airports.municipality LIKE '%" + query
-            + "%' OR airports.type LIKE '%" + query
-            + "%' OR airports.longitude LIKE '%" + query
-            + "%' OR airports.latitude LIKE '%" + query
-            + "ORDER BY continents.name, country.name, "
-            + "region.name, airports.municipality, airports.name"
-            + "%' limit 15";
+            + "%' OR a.id LIKE '%" + query
+            + "%' OR a.municipality LIKE '%" + query
+            + "%' OR a.type LIKE '%" + query
+            + "%' OR a.longitude LIKE '%" + query
+            + "%' OR a.latitude LIKE '%" + query + "%' ";
+    constructQueryFromFilters();
+    join += orderBy;
+    System.out.println(join);
     try {
       Class.forName(myDriver);
       // connect to the database and query
