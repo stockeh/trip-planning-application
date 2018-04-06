@@ -10,8 +10,14 @@ class Filter extends Component {
     super(props);
     this.state = {
       filters : [{ attribute : "type",
-                     values  : [ "balloonport","heliport", "airport", "closed"] }] };
+                     values  : [ "testplace 1", "testplace 2",
+                                 "testplace 3", "testplace 4",
+                                 "testplace 5"] }],
+      buttonClick: false
+    };
     this.buildCheckTable = this.buildCheckTable.bind(this);
+    this.renderFilter = this.renderFilter.bind(this);
+    this.openFilter = this.openFilter.bind(this);
   }
 
   static renderCheckbox(item, attribute) {
@@ -24,42 +30,57 @@ class Filter extends Component {
         </label></pre>
     );
   }
-  buildCheckTable(attribute) {
-    let attributes = [];
-    attributes.push(<h5 key={attribute} className="text-uppercase"
-                        style={{marginLeft: 12}}>
-      <u>{attribute}</u></h5>);
 
-    let boxes = this.state.filters[0].values.map((item, index) =>
+  buildCheckTable(attribute, index) {
+    let attributes = [];
+    attributes.push(<h6 key={attribute} className="text-uppercase"
+                        style={{marginLeft: 12}}>
+                    <u>{attribute}</u></h6>);
+
+    let boxes = this.state.filters[index].values.map((item, index) =>
         <td>{Filter.renderCheckbox(item, index,
-            this.state.filters[0])}</td>);
+            this.state.filters[index])}</td>);
     let rows = [];
-    for (let i = 0; i < this.state.filters[0].values.length; ++i) {
+    for (let i = 0; i < this.state.filters[index].values.length; ++i) {
       rows.push(<tr key={i}>{boxes[i]}{boxes[++i]}{boxes[++i]}</tr>);
     }
     return {attributes, rows}
   }
 
-  render() {
+  openFilter() {
+    this.setState({buttonClick : !this.state.buttonClick});
+  }
+
+  renderFilter() {
     let table = null;
     for (let index = 0; index < this.state.filters.length; ++index) {
       for (let index in this.state.filters) {
         let attribute = this.state.filters[index].attribute;
         if (attribute === "type") {
-          table = this.buildCheckTable(attribute);
+          table = this.buildCheckTable(attribute, index);
         }
       }
     }
+    if (this.state.buttonClick === true) {
+      return (
+          <div>
+            <br/><h5>Filterable Options</h5>
+            {table.attributes}
+            <table className="table-responsive">
+              <tbody>{table.rows}</tbody>
+            </table>
+          </div>
+      );
+    }
+  }
+
+  render() {
     return(
       <div id="filter">
-        <Button className="btn btn-light btn-md">
+        <Button className="btn btn-light btn-md" onClick={() => this.openFilter()}>
           <FaFilter/>
         </Button>
-        <br/><br/>
-        {table.attributes}
-        <table className="table-responsive">
-          <tbody>{table.rows}</tbody>
-        </table>
+        {this.renderFilter()}
       </div>
     )
   }

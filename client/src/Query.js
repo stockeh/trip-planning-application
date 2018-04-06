@@ -56,16 +56,21 @@ class Query extends Component {
     for (let i = 0; i < dest.length; ++i) {
         table.push(<tr key={i}>{ dest[i] }</tr>);
     }
-    return (
-      <table className="table table-responsive table-hover">
-          <thead>
-            <tr><th className="table-info align-middle" scope="col">Destinations</th></tr>
-          </thead>
-          <tbody>
+    if (this.state.places.length > 0) {
+      return (
+          <table className="table table-responsive table-hover">
+            <thead>
+            <tr>
+              <th className="table-info align-middle" scope="col">Destinations
+              </th>
+            </tr>
+            </thead>
+            <tbody>
             {table}
-          </tbody>
-      </table>
-    );
+            </tbody>
+          </table>
+      );
+    }
   }
 
   modalFooter() {
@@ -108,7 +113,8 @@ class Query extends Component {
             <Filter query={this.state.query}/> <br/>
 
           <InputGroup>
-            <Input onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
+            <Input onChange={(e)=>this.updateData(e.target.value, "query")}
+                   placeholder="Search Destinations..."/>
             <Search query={this.state.query} updateData={this.updateData}/>
           </InputGroup>
           <br/> {this.createTable()}
@@ -119,7 +125,6 @@ class Query extends Component {
   }
 
   render() {
-
     return(
       <div id="query">
         <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
