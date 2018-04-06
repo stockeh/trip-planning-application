@@ -16,7 +16,8 @@ class Map extends Component {
         let path = places.map(
             x => ({lat: x.latitude, lng: x.longitude})
         );
-        path.push({lat: parseFloat(places[0].latitude, lng: places[0].longitude});
+        //path.push({lat: places[0].latitude, lng: places[0].longitude});
+        path.push({lat: 37.0, lng: 107.0});
         return path;
     }
 
@@ -28,33 +29,32 @@ class Map extends Component {
         return markers;
     }
 
-  /*render() {
-   {
-      let svgHeader='data:image/svg+xml;charset=UTF-8,';
-      let svgData = this.props.trip.map;
-
-      return (
-          <figure className="figure" id="map">
-            <img className="figure-img img-fluid" alt="Map"
-                 src={svgHeader.concat(svgData)}/>
-          </figure>
-      )
-    }
-  }*/
-
     render() {
-        const places = this.props.trip.places;
-        return (
-            <GoogleMap
-                defaultCenter={{lat: 0, lng: 0}}
-                defaultZoom={1}
-            >
-                <Polyline path={this.makePath(places)}
-                          options={{strokeColor: 'DeepSkyBlue'}}
-                />
-                {this.makeMarkers(places)}
-            </GoogleMap>
-        );
+        if (1 === 2) {
+            let svgHeader = 'data:image/svg+xml;charset=UTF-8,';
+            let svgData = this.props.trip.map;
+
+            return (
+                <figure className="figure" id="map">
+                    <img className="figure-img img-fluid" alt="Map"
+                         src={svgHeader.concat(svgData)}/>
+                </figure>
+            )
+        } else {
+
+            const places = this.props.trip.places;
+            return (
+                <GoogleMap
+                    defaultCenter={{lat: 0, lng: 0}}
+                    defaultZoom={2}
+                >
+                    <Polyline path={this.makePath(places)}
+                              options={{strokeColor: 'DeepSkyBlue'}}
+                    />
+                    {this.makeMarkers(places)}
+                </GoogleMap>
+            );
+        }
     }
 }
 
