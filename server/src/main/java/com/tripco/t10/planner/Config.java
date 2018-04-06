@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class Config {
   public String type = "config";
-  public String version = "3";
-  public String optimization = "1";
-  public String[] distances = {"miles","kilometers","nautical miles","user defined"};
-  public String[] maps = {"svg"};
+  public int version = 3;
   public ArrayList<Filter> filters = new ArrayList<>();
+  public String[] maps = {"svg"};
+  public int optimization = 1;
+  public String[] units = {"miles","kilometers","nautical miles","user defined"};
 
   //add to this filterColumns array to add more filter columns
   private static String[] filterColumns = new String[]{"type"};
