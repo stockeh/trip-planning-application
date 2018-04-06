@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import Search from './Search';
 import Filter from './Filter';
-import { InputGroup, Input, Button} from 'reactstrap';
-import MdSearch from 'react-icons/lib/md/search';
-import {gly_pad, input_pad} from './css/styling.css';
+import { InputGroup, Input, Button } from 'reactstrap';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -85,12 +83,12 @@ class Query extends Component {
 
     return (
       <div className="modal-footer">
-        <div className="justify-content-between" id="button-grouping">
-          <button id="add-all" className="btn btn-default btn-sm"
-                  onClick={()=>this.updateDestinations(0, size)}>Add All</button>
-          <button id="clear" className="btn btn-danger btn-sm" onClick={()=>this.updateData([], "places")}>Clear</button>
+        <div className="justify-content-between">
+            <Button id="add-all" size="sm" outline color="secondary"
+                    onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
+            <Button id="clear" size="sm" outline color="danger"
+                    onClick={()=>this.updateData([], "places")}>Clear</Button>
         </div>
-        <Search query={this.state.query} updateData={this.updateData}/>
       </div>
     )
   }
@@ -107,16 +105,12 @@ class Query extends Component {
         </div>
 
         <div className="modal-body">
-          <h6>Enter the name of a destination that you would like to visit!</h6>
             <Filter query={this.state.query}/> <br/>
 
           <InputGroup>
-            <p><MdSearch size={24} className="gly_pad"/></p>
-            <Input className="input_pad" onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
+            <Input onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
+            <Search query={this.state.query} updateData={this.updateData}/>
           </InputGroup>
-
-          <input id="destination" type="text" className="form-control"
-                 onChange={(e)=>this.updateData(e.target.value, "query")} placeholder="Destination name..."/>
           <br/> {this.createTable()}
         </div>
           {footer}

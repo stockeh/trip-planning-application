@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import MdSearch from 'react-icons/lib/md/search';
+import {Button} from 'reactstrap';
 
 class Search extends Component {
   constructor(props) {
@@ -46,8 +48,7 @@ class Search extends Component {
   render(){
     return(
       <div id="search">
-          <button className="btn btn-primary btn-sm" id="searchButton" onClick={this.search}
-                  type="button">Search</button>
+        <Button outline color="primary"><MdSearch size={24} id="searchButton" onClick={this.search}/></Button>
       </div>
     )
   }
