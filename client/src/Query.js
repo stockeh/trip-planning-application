@@ -21,8 +21,11 @@ class Query extends Component {
 
     this.createDestination = this.createDestination.bind(this);
     this.createTable = this.createTable.bind(this);
+
     this.searchFilter = this.searchFilter.bind(this);
     this.newFilter = this.newFilter.bind(this);
+    this.mutateValue = this.mutateValue.bind(this);
+    this.mutateFilter = this.mutateFilter.bind(this);
 
     this.modalContent = this.modalContent.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
@@ -34,30 +37,38 @@ class Query extends Component {
     this.setState( {filters : newArray} );
   }
 
+  mutateValue(checked, val, index) {
+    let newFilter = Object.assign([], this.state.filters);
+    if (checked) {
+      newFilter[index].values.push(val);
+    }
+    else {
+      newFilter[index].values =
+          newFilter[index].values.filter(function(e) { return e !== val });
+      if (newFilter[index].values.length === 0) {
+        newFilter.splice(index, 1);
+      }
+    }
+    this.setState({filters : newFilter});
+  }
+
+  mutateFilter(checked, val, attr) {
+    let notAdded = true;
+    for (let index in this.state.filters) {
+      if (this.state.filters[index].attribute === attr) {
+        notAdded = false;
+        this.mutateValue(checked, val, index);
+        break;
+      }
+    }
+    if (notAdded) {
+      this.newFilter(val, attr);
+    }
+  }
+
   searchFilter(checked, val, attr) {
     if (this.state.filters.length > 0) {
-      let notAdded = true;
-      for (let index in this.state.filters) {
-        if (this.state.filters[index].attribute === attr) {
-          let newFilter = Object.assign([], this.state.filters);
-          notAdded = false;
-          if (checked) {
-            newFilter[index].values.push(val);
-          }
-          else {
-            newFilter[index].values =
-                newFilter[index].values.filter(function(e) { return e !== val });
-            if (newFilter[index].values.length === 0) {
-              newFilter.splice(index, 1);
-            }
-          }
-          this.setState({filters : newFilter});
-          break;
-        }
-      }
-      if (notAdded) {
-        this.newFilter(val, attr);
-      }
+      this.mutateFilter(checked, val, attr);
     }
     else if (checked) {
       this.newFilter(val, attr);
@@ -159,16 +170,6 @@ class Query extends Component {
       </div>
     )
   }
-
-  /*
-  componentWillMount() {
-    let filterArray = Object.assign({}, this.props.config.filters);
-    for (let index in filterArray) {
-      filterArray[index].values.length = 0;
-    }
-    this.setState({filters : filterArray});
-  }
-  */
 
   render() {
     console.log("Query Filters\n|-- line 177 --|: " + JSON.stringify(this.state.filters, null, 4));

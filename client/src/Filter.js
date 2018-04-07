@@ -54,11 +54,9 @@ class Filter extends Component {
   renderFilter() {
     let table = null;
     for (let index = 0; index < this.props.filters.length; ++index) {
-      for (let index in this.props.filters) {
-        let attribute = this.props.filters[index].attribute;
-        if (attribute.toLocaleLowerCase() === "type") {
-          table = this.buildCheckTable(attribute, index);
-        }
+      let attribute = this.props.filters[index].attribute;
+      if (attribute.toLocaleLowerCase() === "type") {
+        table = this.buildCheckTable(attribute, index);
       }
     }
     if (this.state.buttonClick === true) {
