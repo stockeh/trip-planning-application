@@ -14,7 +14,7 @@ class Query extends Component {
     this.state = {
         query : "",
         places: [],
-        filters : [{ attribute : "",
+        filters : [{ attribute : "type",
                        values  : [] }]
     };
     this.updateData = this.updateData.bind(this);
@@ -22,14 +22,46 @@ class Query extends Component {
 
     this.createDestination = this.createDestination.bind(this);
     this.createTable = this.createTable.bind(this);
+    this.searchFilter = this.searchFilter.bind(this);
+    this.newFilter = this.newFilter.bind(this);
 
     this.modalContent = this.modalContent.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
+  }
+  newFilter(val, attr){
+    let filterArray = Object.assign({}, this.state.filters);
+    let obj = {attribute : attr, value : val};
+    filterArray.push(obj);
+  }
+
+  searchFilter(checked, val, attr) {
+    console.log(checked);
+    if (this.state.filters.length > 0) {
+      for (let index in this.state.filters) {
+        if (this.state.filters[index].attribute === attr) {
+          console.log("filters: " + this.state.filters[0].values.length);
+          let newFilter = Object.assign({}, this.state.filters);
+          if (checked) {
+            newFilter[index].values.push(val);
+          }
+          else {
+            newFilter[index].values =
+                newFilter[index].values.filter(function(e) { return e !== val })
+          }
+          this.setState({filters : newFilter});
+          break;
+        }
+      }
+    }
+    else {
+      this.newFilter(attr, val);
+    }
   }
 
   updateData(data, obj) {
     this.setState({[obj]: data});
   }
+
   updateDestinations(index, numElements) {
     let newPlaces = this.state.places;
     let removedItem = newPlaces.splice(index, numElements);
@@ -110,7 +142,8 @@ class Query extends Component {
         </div>
 
         <div className="modal-body">
-            <Filter query={this.state.query} filters={this.props.config.filters}/> <br/>
+            <Filter query={this.state.query} filters={this.props.config.filters}
+                    searchFilter={this.searchFilter}/> <br/>
 
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
@@ -123,6 +156,16 @@ class Query extends Component {
       </div>
     )
   }
+
+  /*
+  componentWillMount() {
+    let filterArray = Object.assign({}, this.props.config.filters);
+    for (let index in filterArray) {
+      filterArray[index].values.length = 0;
+    }
+    this.setState({filters : filterArray});
+  }
+  */
 
   render() {
     return(
