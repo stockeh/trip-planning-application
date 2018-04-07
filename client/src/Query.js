@@ -154,15 +154,14 @@ class Query extends Component {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
         <div className="modal-body">
             <Filter query={this.state.query} filters={this.props.config.filters}
                     searchFilter={this.searchFilter}/> <br/>
-
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
                    placeholder="Search Destinations..."/>
-            <Search query={this.state.query} updateData={this.updateData}/>
+            <Search query={this.state.query} filters={this.state.filters}
+                    updateData={this.updateData}/>
           </InputGroup>
           <br/> {this.createTable()}
         </div>
@@ -172,7 +171,8 @@ class Query extends Component {
   }
 
   render() {
-    console.log("Query Filters\n|-- line 177 --|: " + JSON.stringify(this.state.filters, null, 4));
+    console.log("Query Filters\n|-- line 177 --|\nFilter:\n"
+        + JSON.stringify(this.state.filters, null, 2));
     return(
       <div id="query">
         <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
