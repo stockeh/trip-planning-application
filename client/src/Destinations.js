@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Query from './Query';
+import { bg_csu_green } from './css/styling.css';
 
 /* Destinations reside in the parent object so they may be shared
  * with the Trip object.
@@ -44,7 +45,7 @@ class Destinations extends Component {
     const count = this.props.trip.places.length; // need to count the number in the trip
     return (
         <div id="destinations" className="card">
-          <div className="card-header bg-info text-white">
+          <div className="card-header bg_csu_green text-white">
             Destinations
           </div>
           <div className="card-body">

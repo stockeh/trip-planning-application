@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ButtonGroup, Button, Container} from 'reactstrap'
-import { green_btn, green_hvr } from './css/styling.css';
+import { green_btn, green_hvr, bg_csu_green } from './css/styling.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -90,7 +90,7 @@ class Options extends Component{
     if (this.props.config.optimization > 0) slider = this.slider();
     return(
         <div id="options" className="card">
-          <div className="card-header bg-info text-white">Options</div>
+          <div className="card-header bg_csu_green text-white">Options</div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
               <ButtonGroup>

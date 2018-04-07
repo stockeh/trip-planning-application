@@ -62,6 +62,13 @@
     color: white;
 }
 
+.gold_btn:disabled,
+.gold_btn[disabled]{
+    border: 1px solid rgba(200, 195, 114, 0.51);
+    background-color: white;
+    color: rgba(200, 195, 114, 0.51);
+}
+
 /* Canyon */
 
 .canyon_btn {
@@ -90,6 +97,13 @@
     color: white;
 }
 
+.canyon_btn:disabled,
+.canyon_btn[disabled]{
+    border: 1px solid rgba(204, 84, 48, 0.51);
+    background-color: white;
+    color: rgba(204, 84, 48, 0.51);
+}
+
 /* -----------Logo----------- */
 
 .green_logo {
@@ -111,4 +125,10 @@
 .green_hvr_logo:hover {
     background-color: #1E4D2B;
     color: white;
+}
+
+/* -----------Card----------- */
+
+.bg_csu_green  {
+    background-color: #1E4D2B
 }

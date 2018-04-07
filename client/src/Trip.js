@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Map from './Map';
 import Itinerary from './Itinerary';
 import { Button } from 'reactstrap';
-import { green_btn, green_hvr, green_logo, green_hvr_logo } from './css/styling.css';
+import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
@@ -123,7 +123,7 @@ class Trip extends Component {
     this.checkDistance();
     return(
         <div id="trip" className="card">
-          <div className="card-header bg-info text-white">
+          <div className="card-header bg_csu_green text-white">
             Trip
           </div>
           <div className="card-body">
