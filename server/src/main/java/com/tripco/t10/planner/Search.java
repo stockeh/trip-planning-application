@@ -95,8 +95,8 @@ public class Search {
            ResultSet rState = sState.executeQuery(join);
       ) {
         while (rState.next()) {
-          String[] place = {rState.getString(("name")),rState.getString("name"),
-                  rState.getString("name"),rState.getString("municipality"),
+          String[] place = {rState.getString(("continents.name")),rState.getString("region.name"),
+                  rState.getString("country.name"),rState.getString("municipality"),
                   rState.getString("latitude"), rState.getString("longitude"),
                   rState.getString("name"), rState.getString("id")};
           this.places.add(new Place(place));
