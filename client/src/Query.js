@@ -3,6 +3,7 @@ import Search from './Search';
 import Filter from './Filter';
 import { InputGroup, Input, Button } from 'reactstrap';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
+import { gold_btn, gold_hvr, canyon_btn, canyon_hvr } from './css/styling.css';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -125,7 +126,7 @@ class Query extends Component {
       return (
         <table className="table table-responsive table-hover">
           <thead>
-            <tr><th className="table-info align-middle" scope="col">Destinations</th></tr>
+            <tr><th className="bg_csu_gold align-middle" scope="col">Destinations</th></tr>
           </thead>
           <tbody>
             {table}
@@ -151,9 +152,9 @@ class Query extends Component {
     return (
       <div className="modal-footer">
         <div className="justify-content-between" id="button-grouping">
-            <Button id="add-all" size="sm" outline color="secondary"
+            <Button id="add-all" size="sm" className="gold_btn gold_hvr"
                     onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
-            <Button id="clear" size="sm" outline color="danger"
+            <Button id="clear" size="sm" className="canyon_btn canyon_hvr"
                     onClick={()=>this.updateData([], "places")}>Clear</Button>
         </div>
       </div>
@@ -191,7 +192,7 @@ class Query extends Component {
         + JSON.stringify(this.state.filters, null, 2));
     return(
       <div id="query">
-        <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
+        <Button id="lookUp" className="green_btn green_hvr" data-toggle="modal" data-target="#customSearchModal">Look Up</Button>
 
         <div className="modal fade" id="customSearchModal" tabIndex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
