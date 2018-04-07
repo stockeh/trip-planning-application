@@ -3,7 +3,7 @@ import Search from './Search';
 import Filter from './Filter';
 import { InputGroup, Input, Button } from 'reactstrap';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
-import { gold_btn, gold_hvr, canyon_btn, canyon_hvr } from './css/styling.css';
+import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country} from './css/styling.css';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -23,6 +23,7 @@ class Query extends Component {
 
     this.createDestination = this.createDestination.bind(this);
     this.createTable = this.createTable.bind(this);
+    this.placeInformation = this.placeInformation.bind(this);
 
     this.searchFilter = this.searchFilter.bind(this);
     this.newFilter = this.newFilter.bind(this);
@@ -89,29 +90,37 @@ class Query extends Component {
     this.setState({places: newPlaces});
   }
 
+  placeInformation(item) {
+    let countryName = null;
+    let regionName = null;
+    if("country" in item){
+        if(item.country !== undefined && item.country !== "NULL"
+            && item.country !== "" && item.country !== "(unassigned)"){countryName = item.country}
+    }
+    if("region" in item){
+        if(item.region !== undefined && item.region !== "NULL"
+            && item.region !== "" && item.region !== "(unassigned)"){
+            regionName = item.region;
+            if(countryName !== null){regionName += ", ";}
+        }
+    }
+    return {regionName, countryName}
+  }
+
   createDestination(item, index) {
+    let information = this.placeInformation(item);
     return(
         <div>
-          <a key={item.name} className="text-info font-weight-light"
-              style={{cursor:'pointer'}}
+          <a key={item.name} style={{cursor:'pointer'}}
               onClick={() => {
                   this.updateDestinations(index, 1);
-              }}>{' '}<small><MdAddCircleOutline size={16}/></small></a>
+              }}>{' '}<small><MdAddCircleOutline className = "add_logo" size={25}/></small></a>
           {item.name}
-          <div>{' '}<small>{item.country}</small></div>
+          <div><small className="font-weight-light query_country">
+              {information.regionName}{information.countryName}
+          </small></div>
       </div>
     );
-      // let destinationName = [<row>];
-      // destinationName.push(<col className="col-10">{item.name}</col>);
-      // console.log("check for country attribute: " + item.country);
-      // destinationName.push(<col className="col-2"><a key={item.name} className="text-info font-weight-light"
-      //                                                style={{cursor:'pointer'}}
-      //                                                onClick={() => {
-      //                                                    this.updateDestinations(index, 1);
-      //                                                }}>{' '}<small><MdAddCircleOutline size={16}/></small></a></col>);
-      // destinationName.push(<small>{item.country}</small>);
-      // destinationName.push(</row>);
-      // return destinationName;
   }
 
   createTable() {

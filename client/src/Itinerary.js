@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {table_scroll, canyon_btn, canyon_hvr, bg_csu_gold} from './css/styling.css';
+import MdRemoveCircleOutline from 'react-icons/lib/md/remove-circle-outline';
+import IoIosNavigateOutline from 'react-icons/lib/io/ios-navigate-outline';
 import { Button}  from 'reactstrap';
+import { remove_logo, add_logo} from './css/styling.css';
+
 
 class Itinerary extends Component {
   constructor(props) {
@@ -43,17 +47,19 @@ class Itinerary extends Component {
     }
 
     if (index !== 0) {
-      destinationName.push(<a key={ item.name } className={"text-info font-weight-light"}
-                              style={ {cursor : 'pointer'} }
-                              onClick={()=>{
-                                this.props.updateStartingLocation(index);
-                              }}><br/><small> Make Start </small> </a>);
-      destinationName.push(<a key={item} className="font-weight-light text-danger"
-                              style={{cursor:'pointer'}}
-                              onClick={ () => {
-                                this.props.removedPlan(index);
-                              }}><small>Remove</small></a>);
+        destinationName.push(<a key={item.name} className={"text-info font-weight-light"}
+                                style={{cursor: 'pointer'}}
+                                onClick={() => {
+                                    this.props.updateStartingLocation(index);
+                                }}><br/>
+            <small><IoIosNavigateOutline className="add_logo" size={25}/></small>
+            </a>);
     }
+    destinationName.push(<a key={item} className="font-weight-light text-danger"
+                            style={{cursor:'pointer'}}
+                            onClick={ () => {
+                                this.props.removedPlan(index);
+                            }}><small><MdRemoveCircleOutline className = "remove_logo" size={25}/></small></a>);
     return destinationName;
   }
 
