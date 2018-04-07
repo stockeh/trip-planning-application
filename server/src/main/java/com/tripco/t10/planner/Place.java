@@ -29,7 +29,7 @@ public class Place {
   }
 
   /**
-   * Place constructor used by Search to give place more information
+   * Place constructor used by Search to give place more information.
    * @param place is an array of all place variables
    */
   public Place(String[] place){
