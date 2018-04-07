@@ -14,8 +14,7 @@ class Query extends Component {
     this.state = {
         query : "",
         places: [],
-        filters : [{ attribute : "",
-                       values  : [] }]
+        filters : []
     };
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
@@ -23,13 +22,63 @@ class Query extends Component {
     this.createDestination = this.createDestination.bind(this);
     this.createTable = this.createTable.bind(this);
 
+    this.searchFilter = this.searchFilter.bind(this);
+    this.newFilter = this.newFilter.bind(this);
+    this.mutateValue = this.mutateValue.bind(this);
+    this.mutateFilter = this.mutateFilter.bind(this);
+
     this.modalContent = this.modalContent.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
+  }
+
+  newFilter(val, attr){
+    let newArray = this.state.filters.slice();
+    newArray.push({attribute: attr, values: [val]});
+    this.setState( {filters : newArray} );
+  }
+
+  mutateValue(checked, val, index) {
+    let newFilter = Object.assign([], this.state.filters);
+    if (checked) {
+      newFilter[index].values.push(val);
+    }
+    else {
+      newFilter[index].values =
+          newFilter[index].values.filter(function(e) { return e !== val });
+      if (newFilter[index].values.length === 0) {
+        newFilter.splice(index, 1);
+      }
+    }
+    this.setState({filters : newFilter});
+  }
+
+  mutateFilter(checked, val, attr) {
+    let notAdded = true;
+    for (let index in this.state.filters) {
+      if (this.state.filters[index].attribute === attr) {
+        notAdded = false;
+        this.mutateValue(checked, val, index);
+        break;
+      }
+    }
+    if (notAdded) {
+      this.newFilter(val, attr);
+    }
+  }
+
+  searchFilter(checked, val, attr) {
+    if (this.state.filters.length > 0) {
+      this.mutateFilter(checked, val, attr);
+    }
+    else if (checked) {
+      this.newFilter(val, attr);
+    }
   }
 
   updateData(data, obj) {
     this.setState({[obj]: data});
   }
+
   updateDestinations(index, numElements) {
     let newPlaces = this.state.places;
     let removedItem = newPlaces.splice(index, numElements);
@@ -58,17 +107,14 @@ class Query extends Component {
     }
     if (this.state.places.length > 0) {
       return (
-          <table className="table table-responsive table-hover">
-            <thead>
-            <tr>
-              <th className="table-info align-middle" scope="col">Destinations
-              </th>
-            </tr>
-            </thead>
-            <tbody>
+        <table className="table table-responsive table-hover">
+          <thead>
+            <tr><th className="table-info align-middle" scope="col">Destinations</th></tr>
+          </thead>
+          <tbody>
             {table}
-            </tbody>
-          </table>
+          </tbody>
+        </table>
       );
     }
   }
@@ -108,14 +154,14 @@ class Query extends Component {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
         <div className="modal-body">
-            <Filter query={this.state.query} filters={this.props.config.filters}/> <br/>
-
+            <Filter query={this.state.query} filters={this.props.config.filters}
+                    searchFilter={this.searchFilter}/> <br/>
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
                    placeholder="Search Destinations..."/>
-            <Search query={this.state.query} updateData={this.updateData}/>
+            <Search query={this.state.query} filters={this.state.filters}
+                    updateData={this.updateData}/>
           </InputGroup>
           <br/> {this.createTable()}
         </div>
@@ -125,6 +171,8 @@ class Query extends Component {
   }
 
   render() {
+    console.log("Query Filters\n|-- line 177 --|\nFilter:\n"
+        + JSON.stringify(this.state.filters, null, 2));
     return(
       <div id="query">
         <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
