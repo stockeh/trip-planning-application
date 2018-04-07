@@ -42,7 +42,7 @@ public class Filter {
 
   /**
    * Get method of Filter object.
-   * @param i is index of object to fetch
+   * @param index is index of object to fetch
    * @return String of of values at index i
    */
   public String get(int index){

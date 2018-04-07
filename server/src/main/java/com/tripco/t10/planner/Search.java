@@ -35,30 +35,34 @@ public class Search {
     this.query = "";
   }
 
+  /**
+   * Adds AND statements to query based on the filter array it receives.
+   * @param filter is the filter to iterate over.
+   */
+  public void iterateFilter(Filter filter){
+    join += "AND ("; //open combination statement
+    for(int index = 0; index < filter.size(); index++){
+      if(index > 1){
+        join += " OR ";
+      }
+      join += filter.getAttribute() + "='" + filter.get(index) + "'";
+    }
+    join += ") "; //close combination statement
+  }
 
   /**
    * Adds filtering to the query.
-   * Adds AND statements to query based on the filter array it receives.
+   * Calls iterateFilter method for actual construction of statement.
    *
    */
   public void constructQueryFromFilters(){
-    String queryFilter = "";
     if(filters != null && filters.length > 0){
       for(Filter f : filters){
         if(f.getAttribute()!="" && !f.isEmpty()) {
-          queryFilter += "AND ("; //open combination statement
-          for(int index = 0; index < f.size(); index++){
-            if(index > 1){
-              queryFilter += " OR ";
-            }
-            queryFilter += f.getAttribute() + "='" + f.get(index) + "'";
-          }
-          queryFilter += ") "; //close combination statement
+          iterateFilter(f);
         }
       }
     }
-    System.out.println("QUERY FILTER: " + queryFilter);
-    join += queryFilter;
   }
 
   /**
