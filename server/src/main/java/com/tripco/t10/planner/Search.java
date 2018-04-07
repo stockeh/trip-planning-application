@@ -22,7 +22,7 @@ public class Search {
           + "INNER JOIN region ON country.id = region.iso_country "
           + "INNER JOIN airports as a ON region.id = a.iso_region WHERE ";
   private transient String orderBy = "ORDER BY continents.name, country.name, "
-          + "region.name, a.municipality, a.name limit 15";
+          + "region.name, a.municipality, a.name limit 10";
   private static final String myDriver = "com.mysql.jdbc.Driver";
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 

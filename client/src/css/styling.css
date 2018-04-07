@@ -143,9 +143,29 @@
     color: white;
 }
 
+
 .green_logo:disabled,
-.green_logo[disabled]{
+.green_logo[disabled] {
     border: 1px solid white;
     background-color: white;
     color: rgba(30, 77, 43, 0.51);
+
+}
+
+/* Add/Remove Buttons*/
+
+.remove_logo {
+    padding-bottom: .3em;
+    padding-right: 1px;
+    color: #CC5430;
+}
+
+.add_logo {
+    padding-bottom: .3em;
+    padding-right: 1px;
+    color: #1E4D2B;
+}
+
+.query_country {
+    padding-left: 2em;
 }
