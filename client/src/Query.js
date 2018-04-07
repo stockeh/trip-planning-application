@@ -110,7 +110,7 @@ class Query extends Component {
       return (
         <table className="table table-responsive table-hover">
           <thead>
-            <tr><th className="table-info align-middle" scope="col">Destinations</th></tr>
+            <tr><th className="bg_csu_gold align-middle" scope="col">Destinations</th></tr>
           </thead>
           <tbody>
             {table}

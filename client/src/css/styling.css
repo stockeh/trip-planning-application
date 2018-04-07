@@ -1,7 +1,23 @@
+/* -----------Card----------- */
+
+.bg_csu_green  {
+    background-color: #1E4D2B
+}
+
+.bg_csu_gold  {
+    background-color: #C8C372
+}
+
 .table_scroll {
     max-height: 512px;
     min-height: 0;
     overflow: auto;
+}
+
+/* -----------Font----------- */
+
+.text_canyon {
+    color: #CC5430;
 }
 
 /* -----------Buttons----------- */
@@ -125,10 +141,4 @@
 .green_hvr_logo:hover {
     background-color: #1E4D2B;
     color: white;
-}
-
-/* -----------Card----------- */
-
-.bg_csu_green  {
-    background-color: #1E4D2B
 }

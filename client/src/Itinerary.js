@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {table_scroll, canyon_btn, canyon_hvr} from './css/styling.css';
+import {table_scroll, canyon_btn, canyon_hvr, bg_csu_gold} from './css/styling.css';
 import { Button}  from 'reactstrap';
 
 class Itinerary extends Component {
@@ -117,9 +117,9 @@ class Itinerary extends Component {
                     <table className="table_scroll table table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th className="table-info align-middle" scope="col">Destinations</th>
-                            <th className="table-info align-middle" scope="col">Leg Distance</th>
-                            <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
+                            <th className="bg_csu_gold align-middle" scope="col">Destinations</th>
+                            <th className="bg_csu_gold align-middle" scope="col">Leg Distance</th>
+                            <th className="bg_csu_gold align-middle" scope="col">Cumulative<br/>Distance</th>
                         </tr>
                         </thead>
                         <tbody>{table.rows}</tbody>

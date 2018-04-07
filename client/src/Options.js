@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ButtonGroup, Button, Container} from 'reactstrap'
-import { green_btn, green_hvr, bg_csu_green } from './css/styling.css';
+import { green_btn, green_hvr, bg_csu_green, text_canyon } from './css/styling.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -29,7 +29,7 @@ class Options extends Component{
   static warning(val){
     if(val > 0.0){
       return (<div className="pt-4">
-        <p className="col-9 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
+        <p className="col-9 m-0 p-0 text_canyon">Warning: Shorter trips will take longer to compute.</p>
       </div>);
     }else return null;
   }
