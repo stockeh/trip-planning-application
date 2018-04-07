@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Search from './Search';
 import Filter from './Filter';
 import { InputGroup, Input, Button } from 'reactstrap';
+import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -88,13 +89,28 @@ class Query extends Component {
   }
 
   createDestination(item, index) {
-    let destinationName = [item.name];
-    destinationName.push(<a key={item.name} className="text-info font-weight-light"
-                            style={{cursor:'pointer'}}
-                            onClick={() => {
-                              this.updateDestinations(index, 1);
-                              }}><br/><small>Add to Trip!</small></a>);
-    return destinationName;
+    return(
+        <div>
+          <a key={item.name} className="text-info font-weight-light"
+              style={{cursor:'pointer'}}
+              onClick={() => {
+                  this.updateDestinations(index, 1);
+              }}>{' '}<small><MdAddCircleOutline size={16}/></small></a>
+          {item.name}
+          <div>{' '}<small>{item.country}</small></div>
+      </div>
+    );
+      // let destinationName = [<row>];
+      // destinationName.push(<col className="col-10">{item.name}</col>);
+      // console.log("check for country attribute: " + item.country);
+      // destinationName.push(<col className="col-2"><a key={item.name} className="text-info font-weight-light"
+      //                                                style={{cursor:'pointer'}}
+      //                                                onClick={() => {
+      //                                                    this.updateDestinations(index, 1);
+      //                                                }}>{' '}<small><MdAddCircleOutline size={16}/></small></a></col>);
+      // destinationName.push(<small>{item.country}</small>);
+      // destinationName.push(</row>);
+      // return destinationName;
   }
 
   createTable() {
