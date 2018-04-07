@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {table_scroll} from './css/styling.css';
+import {table_scroll, canyon_btn, canyon_hvr, bg_csu_gold} from './css/styling.css';
+import { Button}  from 'reactstrap';
 
 class Itinerary extends Component {
   constructor(props) {
@@ -116,9 +117,9 @@ class Itinerary extends Component {
                     <table className="table_scroll table table-responsive table-hover">
                         <thead>
                         <tr>
-                            <th className="table-info align-middle" scope="col">Destinations</th>
-                            <th className="table-info align-middle" scope="col">Leg Distance</th>
-                            <th className="table-info align-middle" scope="col">Cumulative<br/>Distance</th>
+                            <th className="bg_csu_gold align-middle" scope="col">Destinations</th>
+                            <th className="bg_csu_gold align-middle" scope="col">Leg Distance</th>
+                            <th className="bg_csu_gold align-middle" scope="col">Cumulative<br/>Distance</th>
                         </tr>
                         </thead>
                         <tbody>{table.rows}</tbody>
@@ -133,7 +134,7 @@ class Itinerary extends Component {
                         <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
-                        <button className="btn btn-danger" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }} type="button">Remove All Destinations</button>
+                        <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}>Remove All Destinations</Button>
                     </span>
                 </div>
             </div>
