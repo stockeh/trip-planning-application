@@ -40,7 +40,7 @@ public class Search {
     String queryFilter = "";
     if(filters != null && filters.length > 0){
       for(Filter f : filters){
-        if(!f.isEmpty()) {
+        if(f.getAttribute()!="" && !f.isEmpty()) {
           queryFilter += "AND ("; //open combination statement
           for(int i = 0; i < f.size(); i++){
             if(i > 1)queryFilter += " OR ";
@@ -62,13 +62,13 @@ public class Search {
     if(filters == null){
       System.out.println("FILTER IS NULL");
     }
-    join += "a.name LIKE '%" + query + "%' OR country.name LIKE '%" + query
+    join += "(a.name LIKE '%" + query + "%' OR country.name LIKE '%" + query
             + "%' OR region.name LIKE '%" + query + "%' OR continents.name LIKE '%" + query
             + "%' OR a.id LIKE '%" + query
             + "%' OR a.municipality LIKE '%" + query
             + "%' OR a.type LIKE '%" + query
             + "%' OR a.longitude LIKE '%" + query
-            + "%' OR a.latitude LIKE '%" + query + "%' ";
+            + "%' OR a.latitude LIKE '%" + query + "%') ";
     constructQueryFromFilters();
     join += orderBy;
     System.out.println(join);

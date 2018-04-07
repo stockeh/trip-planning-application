@@ -21,7 +21,7 @@ public class Filter {
    * @return filters attribute
    */
   public String getAttribute(){
-    return this.getAttribute();
+    return this.attribute;
   }
 
   /**
