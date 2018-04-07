@@ -3,3 +3,112 @@
     min-height: 0;
     overflow: auto;
 }
+
+/* -----------Buttons----------- */
+
+/* Green */
+
+.green_btn {
+    background-color: #1E4D2B; /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.green_hvr {
+    background-color: white;
+    color: #1E4D2B;
+    border: 2px solid #1E4D2B;
+}
+
+.green_hvr:hover {
+    background-color: #1E4D2B;
+    border: 2px solid #1E4D2B;
+    color: white;
+}
+
+/* Gold */
+
+.gold_btn {
+    background-color: #C8C372; /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.gold_hvr {
+    background-color: white;
+    color: #C8C372;
+    border: 2px solid #C8C372;
+}
+
+.gold_hvr:hover {
+    background-color: #C8C372;
+    border: 2px solid #C8C372;
+    color: white;
+}
+
+/* Canyon */
+
+.canyon_btn {
+    background-color: #CC5430; /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.canyon_hvr {
+    background-color: white;
+    color: #CC5430;
+    border: 2px solid #CC5430;
+}
+
+.canyon_hvr:hover {
+    background-color: #CC5430;
+    border: 2px solid #CC5430;
+    color: white;
+}
+
+/* -----------Logo----------- */
+
+.green_logo {
+    background-color: #1E4D2B; /* Green */
+    border: none;
+    color: white;
+    padding: 0 3px;
+    display: inline-block;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.green_hvr_logo {
+    background-color: white;
+    color: #1E4D2B;
+}
+
+.green_hvr_logo:hover {
+    background-color: #1E4D2B;
+    color: white;
+}

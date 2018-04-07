@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ButtonGroup, Button, Container} from 'reactstrap'
+import { green_btn, green_hvr } from './css/styling.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -65,7 +66,7 @@ class Options extends Component{
     }
     const buttons = options.map((option) =>
         <Button key={option} active={(this.props.trip.options.distance === "" ? "miles" : this.props.trip.options.distance) === option.toLowerCase()} value={option.toLowerCase()}
-                onClick={this.handleOnChange} className='btn-outline-dark'>{option}</Button>
+                onClick={this.handleOnChange} className="green_btn green_hvr">{option}</Button>
     );
     return buttons;
   }
@@ -73,7 +74,7 @@ class Options extends Component{
   customUnitsOptions() {
     if (this.props.trip.options.distance === "user defined") {
         return (
-            <div className="custom-units-container input-group-sm mb-3 p-2">
+            <div className="custom-units-container input-group-sm mb-3 p-2 green_unit">
                 <input id="userUnit" type="text" className="form-control custom-unit-name"
                        onBlur={this.updateUnit} defaultValue={this.props.trip.options.userUnit} placeholder="Unit Name..."/>
                 <input id="userRadius" type="number" className="form-control custom-unit-radius"
