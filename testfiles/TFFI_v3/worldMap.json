@@ -1,5 +1,4 @@
-{
-  "type":"trip",
+{"type":"trip",
   "version":3,
   "title":"CS 314 World Tour",
   "options": { "distance":"kilometers" },
