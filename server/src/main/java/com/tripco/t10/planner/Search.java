@@ -42,9 +42,11 @@ public class Search {
       for(Filter f : filters){
         if(f.getAttribute()!="" && !f.isEmpty()) {
           queryFilter += "AND ("; //open combination statement
-          for(int i = 0; i < f.size(); i++){
-            if(i > 1)queryFilter += " OR ";
-            queryFilter += f.getAttribute() + "='" + f.get(i) + "'";
+          for(int index = 0; index < f.size(); index++){
+            if(index > 1){
+              queryFilter += " OR ";
+            }
+            queryFilter += f.getAttribute() + "='" + f.get(index) + "'";
           }
           queryFilter += ") "; //close combination statement
         }
@@ -59,9 +61,6 @@ public class Search {
    * Constructs places array from query results
    */
   public void find() {
-    if(filters == null){
-      System.out.println("FILTER IS NULL");
-    }
     join += "(a.name LIKE '%" + query + "%' OR country.name LIKE '%" + query
             + "%' OR region.name LIKE '%" + query + "%' OR continents.name LIKE '%" + query
             + "%' OR a.id LIKE '%" + query
