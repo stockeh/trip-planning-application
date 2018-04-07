@@ -142,3 +142,19 @@
     background-color: #1E4D2B;
     color: white;
 }
+
+.remove_logo {
+    padding-bottom: .3em;
+    padding-right: 1px;
+    color: #CC5430;
+}
+
+.add_logo {
+    padding-bottom: .3em;
+    padding-right: 1px;
+    color: #1E4D2B;
+}
+
+.query_country {
+    padding-left: 2em;
+}
