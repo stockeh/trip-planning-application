@@ -45,8 +45,8 @@ public class Filter {
    * @param i is index of object to fetch
    * @return String of of values at index i
    */
-  public String get(int i){
-    return this.values.get(i);
+  public String get(int index){
+    return this.values.get(index);
   }
 
   /**

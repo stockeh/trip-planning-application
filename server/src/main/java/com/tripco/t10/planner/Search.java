@@ -36,6 +36,11 @@ public class Search {
   }
 
 
+  /**
+   * Adds filtering to the query.
+   * Adds AND statements to query based on the filter array it receives.
+   *
+   */
   public void constructQueryFromFilters(){
     String queryFilter = "";
     if(filters != null && filters.length > 0){
