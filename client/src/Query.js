@@ -14,8 +14,7 @@ class Query extends Component {
     this.state = {
         query : "",
         places: [],
-        filters : [{ attribute : "type",
-                       values  : [] }]
+        filters : []
     };
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
@@ -28,33 +27,40 @@ class Query extends Component {
     this.modalContent = this.modalContent.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
   }
+
   newFilter(val, attr){
-    let filterArray = Object.assign({}, this.state.filters);
-    let obj = {attribute : attr, value : val};
-    filterArray.push(obj);
+    let newArray = this.state.filters.slice();
+    newArray.push({attribute: attr, values: [val]});
+    this.setState( {filters : newArray} );
   }
 
   searchFilter(checked, val, attr) {
-    console.log(checked);
     if (this.state.filters.length > 0) {
+      let notAdded = true;
       for (let index in this.state.filters) {
         if (this.state.filters[index].attribute === attr) {
-          console.log("filters: " + this.state.filters[0].values.length);
-          let newFilter = Object.assign({}, this.state.filters);
+          let newFilter = Object.assign([], this.state.filters);
+          notAdded = false;
           if (checked) {
             newFilter[index].values.push(val);
           }
           else {
             newFilter[index].values =
-                newFilter[index].values.filter(function(e) { return e !== val })
+                newFilter[index].values.filter(function(e) { return e !== val });
+            if (newFilter[index].values.length === 0) {
+              newFilter.splice(index, 1);
+            }
           }
           this.setState({filters : newFilter});
           break;
         }
       }
+      if (notAdded) {
+        this.newFilter(val, attr);
+      }
     }
-    else {
-      this.newFilter(attr, val);
+    else if (checked) {
+      this.newFilter(val, attr);
     }
   }
 
@@ -90,17 +96,14 @@ class Query extends Component {
     }
     if (this.state.places.length > 0) {
       return (
-          <table className="table table-responsive table-hover">
-            <thead>
-            <tr>
-              <th className="table-info align-middle" scope="col">Destinations
-              </th>
-            </tr>
-            </thead>
-            <tbody>
+        <table className="table table-responsive table-hover">
+          <thead>
+            <tr><th className="table-info align-middle" scope="col">Destinations</th></tr>
+          </thead>
+          <tbody>
             {table}
-            </tbody>
-          </table>
+          </tbody>
+        </table>
       );
     }
   }
@@ -168,6 +171,7 @@ class Query extends Component {
   */
 
   render() {
+    console.log("Query Filters\n|-- line 177 --|: " + JSON.stringify(this.state.filters, null, 4));
     return(
       <div id="query">
         <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>

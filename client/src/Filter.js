@@ -9,14 +9,7 @@ class Filter extends Component {
   constructor(props){
     super(props);
     this.state = {
-      buttonClick: false,
-
-      filters : [
-        { attribute : "type",
-          values    : [ "heliport","small_airport","seaplane_base",
-                        "closed","balloonport","medium_airport",
-                        "large_airport" ] }
-      ]
+      buttonClick: false
     };
     this.buildCheckTable = this.buildCheckTable.bind(this);
     this.renderFilter = this.renderFilter.bind(this);
@@ -45,10 +38,10 @@ class Filter extends Component {
                         style={{marginLeft: 12}}>
                     <u>{attribute}</u></h6>);
 
-    let boxes = this.state.filters[index].values.map((item, index) =>
+    let boxes = this.props.filters[index].values.map((item, index) =>
         <td>{this.renderCheckbox(item, attribute)}</td>);
     let rows = [];
-    for (let i = 0; i < this.state.filters[index].values.length; ++i) {
+    for (let i = 0; i < this.props.filters[index].values.length; ++i) {
       rows.push(<tr key={i}>{boxes[i]}{boxes[++i]}{boxes[++i]}</tr>);
     }
     return {attributes, rows}
@@ -60,9 +53,9 @@ class Filter extends Component {
 
   renderFilter() {
     let table = null;
-    for (let index = 0; index < this.state.filters.length; ++index) {
-      for (let index in this.state.filters) {
-        let attribute = this.state.filters[index].attribute;
+    for (let index = 0; index < this.props.filters.length; ++index) {
+      for (let index in this.props.filters) {
+        let attribute = this.props.filters[index].attribute;
         if (attribute.toLocaleLowerCase() === "type") {
           table = this.buildCheckTable(attribute, index);
         }
@@ -82,7 +75,7 @@ class Filter extends Component {
   }
 
   render() {
-    if (this.state.filters.length > 0) {
+    if (this.props.filters.length > 0) {
       return (
         <div id="filter">
           <Button className="btn btn-light btn-md"
