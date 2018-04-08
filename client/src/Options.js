@@ -37,6 +37,7 @@ class Options extends Component{
   slider(){
     let step = this.props.config.optimization;
     let val = parseFloat(this.props.trip.options.optimization);
+    console.log("VALUE: " + val);
     if (isNaN(val)) {
       val = 0.0;
     }
@@ -44,7 +45,7 @@ class Options extends Component{
     if (step !== undefined)
       return(
         <div className="slider_container">
-          <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={val} className="slider" onChange={this.handleOnChange} />
+          <br/><input type="range" id="optimizer" min="0" max="1.00" step={1.00/step} value={val} className="slider" onInput={this.handleOnChange} />
           <div className="row pl-3">
             <div className="col-12">
               <div className="row">
