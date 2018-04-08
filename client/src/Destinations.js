@@ -31,7 +31,7 @@ class Destinations extends Component {
       var title;
       try {
           var json = JSON.parse(event.target.result);
-          json["distances"] = [];
+          if(!json.hasOwnProperty("distances")){json["distances"] = [];}
           this.props.updateTrip(json);
           title = this.props.trip.title;
       } catch (error) {
