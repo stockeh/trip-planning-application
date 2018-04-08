@@ -42,7 +42,7 @@ public class Search {
   private void iterateFilter(Filter filter){
     join += "AND ("; //open combination statement
     for(int index = 0; index < filter.size(); index++){
-      if(index > 1){
+      if(index > 0){
         join += " OR ";
       }
       join += filter.getAttribute() + "='" + filter.get(index) + "'";
