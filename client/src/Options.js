@@ -37,7 +37,6 @@ class Options extends Component{
   slider(){
     let step = this.props.config.optimization;
     let val = parseFloat(this.props.trip.options.optimization);
-    console.log("VALUE: " + val);
     if (isNaN(val)) {
       val = 0.0;
     }
