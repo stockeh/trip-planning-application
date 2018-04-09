@@ -377,7 +377,7 @@ public class Distance {
    * @param dest index of the second location
    */
   public int getDist(int[] places, int start, int dest){
-    return memo[places[i]][places[j]];
+    return memo[places[start]][places[dest]];
   }
 
   /**
