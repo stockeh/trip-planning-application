@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Map from './Map';
 import Itinerary from './Itinerary';
+import GMap from './GMap';
 import { Button } from 'reactstrap';
 import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
@@ -26,6 +27,7 @@ class Trip extends Component {
       this.removedPlan = this.removedPlan.bind(this);
       this.checkDistance = this.checkDistance.bind(this);
       this.initialPlan = this.initialPlan.bind(this);
+      this.getMap = this.getMap.bind(this);
   }
 
   removedPlan(index) {
@@ -116,11 +118,22 @@ class Trip extends Component {
       this.setState({initialPlan: true});
   }
 
+  getMap() {
+      let map;
+      if (this.props.config.version < 9) { // set to 9 for testing purposes
+          map = <Map trip={this.props.trip} config={this.props.config}/>;
+      } else {
+          map = <GMap trip={this.props.trip} config={this.props.config}/>;
+      }
+      return map;
+  }
+
   /* Renders the buttons, map, and itinerary.
    * The title should be specified before the plan or save buttons are valid.
    */
   render(){
     this.checkDistance();
+    let map = this.getMap();
     return(
         <div id="trip" className="card">
           <div className="card-header bg_csu_green text-white">
@@ -139,7 +152,7 @@ class Trip extends Component {
               </Button>
             </span>
             </div>
-            <Map trip={this.props.trip} />
+            {map}
             <Itinerary trip={this.props.trip} removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
           </div>
         </div>
