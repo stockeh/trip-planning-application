@@ -282,7 +282,7 @@ public class Distance {
    * @param places the original order to the places in the Trip
    * @return Returns an array of leg distances in 2opt optimized order
    */
-  public ArrayList<Integer> TwoOpt(ArrayList<Double> coordDegrees, ArrayList<Place> places){
+  public ArrayList<Integer> twoOpt(ArrayList<Double> coordDegrees, ArrayList<Place> places){
     ArrayList<Integer> dist = new ArrayList<Integer>();
     return dist;
   }
@@ -295,7 +295,7 @@ public class Distance {
    * @param size the number of places in the trip
    * @return Returns the distance of the best trip 2opt could find or bestDist
    */
-  public int TwoOptHelper(int[] places, int bestDist, int size){
+  public int twoOptHelper(int[] places, int bestDist, int size){
     boolean improvement = true;
     int thisDistance;
 
@@ -307,7 +307,7 @@ public class Distance {
           int delta = -getDist(places, i,(i+1))-getDist(places, k,((k+1)%size))
                   +getDist(places, i , k) + getDist(places, (i+1), ((k+1)%size));
           if (delta < 0) {
-            TwoOptReverse(places, (i+1), k);
+            twoOptReverse(places, (i+1), k);
             improvement = true;
           }
         }
@@ -327,10 +327,10 @@ public class Distance {
    * Method interpreted from the lecture slides for 2opt, it will be used by the
    * 2opt algorithm to reverse the path between 2 locations.
    * @param places keeps track of the order of indices to all places
-   * @param i the index of one of the locations
-   * @param k the index of the other locations
+   * @param start the index of one of the locations
+   * @param end the index of the other locations
    */
-  public void TwoOptReverse(int[] places, int start, int end){
+  public void twoOptReverse(int[] places, int start, int end){
     int tmp;
     while (start < end) {
       tmp = places[start];
@@ -344,8 +344,8 @@ public class Distance {
   /**
    * Method to copy over a trip in a specific order determined from places.
    * @param places keeps track of the ordered indices of places with respect to placesOrig
-   * @param betterTrip the ArrayList to copy over to
-   * @param placesOrig the ArrayList indexed by places
+   * @param better the ArrayList to copy over to
+   * @param orig the ArrayList indexed by places
    * @param size the number of places in the trip
    */
   public void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
@@ -370,11 +370,11 @@ public class Distance {
   }
 
   /**
-   * Method to return the distance from location i to location j,
+   * Method to return the distance from location start to location dest,
    * in a given trip represented by places.
    * @param places keeps track of the ordered indices of the trip
-   * @param i index of the first location
-   * @param j index of the second location
+   * @param start index of the first location
+   * @param dest index of the second location
    */
   public int getDist(int[] places, int start, int dest){
     return memo[places[i]][places[j]];
