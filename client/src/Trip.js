@@ -24,6 +24,7 @@ class Trip extends Component {
       this.removedPlan = this.removedPlan.bind(this);
       this.checkDistance = this.checkDistance.bind(this);
       this.initialPlan = this.initialPlan.bind(this);
+      this.getMap = this.getMap.bind(this);
   }
 
   removedPlan(index) {
@@ -114,19 +115,22 @@ class Trip extends Component {
       this.setState({initialPlan: true});
   }
 
+  getMap() {
+      let map;
+      if (this.props.config.version < 9) { // set to 9 for testing purposes
+          map = <Map trip={this.props.trip} config={this.props.config}/>;
+      } else {
+          map = <GMap trip={this.props.trip} config={this.props.config}/>;
+      }
+      return map;
+  }
+
   /* Renders the buttons, map, and itinerary.
    * The title should be specified before the plan or save buttons are valid.
    */
   render(){
     this.checkDistance();
-    const version = this.props.config.version;
-    let map;
-    if (version < 9) { // set to 9 for testing purposes
-        map = <Map trip={this.props.trip} config={this.props.config}/>;
-    } else {
-        map = <GMap trip={this.props.trip} config={this.props.config}/>;
-    }
-
+    let map = this.getMap();
     return(
         <div id="trip" className="card">
           <div className="card-header bg-info text-white">
