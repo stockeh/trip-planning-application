@@ -284,8 +284,34 @@ public class Distance {
    */
   public ArrayList<Integer> twoOpt(ArrayList<Double> coordDegrees, ArrayList<Place> places){
     ArrayList<Integer> dist = new ArrayList<Integer>();
+    ArrayList<Place> newTrip = new ArrayList<Place>();
+    int size = coordDegrees.size()/2;
+    this.memoizeDistance(coordDegrees, size);
+    this.placesIndex = IntStream.range(0, places.size()).toArray();
+    int[] placesNN = placesIndex.clone();
+    int best_distance = getTourDist(placesIndex,size);
+    int new_distance;
+    setNewTrip(placesIndex, newTrip, places, size);
+    dist = setLegs(placesIndex,size);
+
+    for (int x = 1; x <= placesIndex.length; x++){
+      this.constructNearestNeighbor(placesNN, size);
+      new_distance = twoOptHelper(placesNN, best_distance ,size);
+      if (new_distance < best_distance){
+        System.out.println(new_distance);
+        setNewTrip(placesNN, newTrip, places, size);
+        dist = setLegs(placesNN, size);
+        best_distance = new_distance;
+      }
+      rotateArray(placesNN, placesIndex, x, size);
+    }
+
+    places.clear();
+    places.addAll(newTrip);
+
     return dist;
   }
+
 
   /**
    * Method interpreted from the lecture slides for 2opt, it will be used by the
@@ -349,6 +375,7 @@ public class Distance {
    * @param size the number of places in the trip
    */
   public void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
+    better.clear();
     for (int y = 0; y < size; y++) {
       better.add(orig.get(places[y]));
     }
