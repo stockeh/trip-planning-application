@@ -44,7 +44,7 @@ public class TestTrip {
     ArrayList<Integer> distancesM2 = new ArrayList<Integer>(Arrays.asList(59, 24, 41));
     assertEquals(distancesM ,trip.legDistances(degrees));  //test miles
     assertEquals(distancesM2 ,trip2.legDistances(degrees2));  //test miles
-    trip2.setOptions("kilometers", 1); // nearest neighbor optimization
+    trip2.setOptions("kilometers", 0.5); // nearest neighbor optimization
     trip.setOptions("kilometers", 0);
     ArrayList<Integer> distancesKM = new ArrayList<Integer>(Arrays.asList(39, 65, 94));
     ArrayList<Integer> distancesKM2 = new ArrayList<Integer>(Arrays.asList(65, 39, 94));
@@ -68,7 +68,7 @@ public class TestTrip {
     ArrayList<Place> p = new ArrayList<Place>(Arrays.asList(foco, aspn, dnvr, cstlrck, bldr, zero, one, two, three, four));
 
 
-    Trip t = new Trip(p, "miles",1);
+    Trip t = new Trip(p, "miles",0.5);
     ArrayList<Double> degrees = t.getDecimalDegrees();
 
     ArrayList<Integer> results = new ArrayList<Integer>();

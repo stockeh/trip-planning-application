@@ -109,7 +109,7 @@ public class TestDist {
     Place four = new Place("4", "Archuleta County", "37.20°N", "107.05°W");
     places = new ArrayList<Place>(Arrays.asList(foco, aspn, dnvr, cstlrck, bldr, four));
 
-    trip = new Trip(places, "miles",1);
+    trip = new Trip(places, "miles",0.5);
     ArrayList<Double> deg = trip.getDecimalDegrees();
     ArrayList<Integer> results = new ArrayList<Integer>();
     results.add(63); results.add(24); results.add(41); results.add(97); results.add(165); results.add(196);

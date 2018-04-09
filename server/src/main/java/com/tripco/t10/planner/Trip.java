@@ -145,13 +145,17 @@ public class Trip {
     Distance distance = new Distance(this.options);
 
     if (!distance.options.optimization.equals("none")) {
-      double rounded = Math.round(Double.parseDouble(distance.options.optimization));
+      double rounded = Double.parseDouble(distance.options.optimization);
       distance.options.optimization = Double.toString(rounded);
     }
     else {
       distance.options.optimization = "0.0";
     }
     if (distance.options.optimization.equals("1.0")) {
+      dist = distance.twoOpt(coordDegrees, this.places);
+      System.out.println("Two Opt");
+    }
+    else if (distance.options.optimization.equals("0.5")) {
       dist = distance.nearestNeighbor(coordDegrees, this.places);
       System.out.println("Nearest Neighbor");
     }

@@ -12,7 +12,7 @@ public class Config {
   public int version = 3;
   public ArrayList<Filter> filters = new ArrayList<>();
   public String[] maps = {"svg"};
-  public int optimization = 1;
+  public int optimization = 2;
   public String[] units = {"miles","kilometers","nautical miles","user defined"};
 
   //add to this filterColumns array to add more filter columns
