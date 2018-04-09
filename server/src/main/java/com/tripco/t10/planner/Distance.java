@@ -330,14 +330,14 @@ public class Distance {
    * @param i the index of one of the locations
    * @param k the index of the other locations
    */
-  public void TwoOptReverse(int[] places, int i, int k){
+  public void TwoOptReverse(int[] places, int start, int end){
     int tmp;
-    while (i < k) {
-      tmp = places[i];
-      places[i] = places[k];
-      places[k] = tmp;
-      i++;
-      k--;
+    while (start < end) {
+      tmp = places[start];
+      places[start] = places[end];
+      places[end] = tmp;
+      start++;
+      end--;
     }
   }
 
@@ -348,9 +348,9 @@ public class Distance {
    * @param placesOrig the ArrayList indexed by places
    * @param size the number of places in the trip
    */
-  public void setNewTrip(int[] places, ArrayList<Place> betterTrip, ArrayList<Place> placesOrig, int size){
+  public void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
     for (int y = 0; y < size; y++) {
-      betterTrip.add(placesOrig.get(places[y]));
+      better.add(orig.get(places[y]));
     }
   }
 
@@ -376,7 +376,7 @@ public class Distance {
    * @param i index of the first location
    * @param j index of the second location
    */
-  public int getDist(int[] places, int i, int j){
+  public int getDist(int[] places, int start, int dest){
     return memo[places[i]][places[j]];
   }
 
