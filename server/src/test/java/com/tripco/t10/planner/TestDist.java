@@ -26,6 +26,7 @@ public class TestDist {
   Option options3 = new Option("user defined", "inches", "123456", 0);  //RADIUS NOT ACTUAL SIZE!!!!!!!!!!!!!!!!!!
 
   private ArrayList<Place> places;
+  private ArrayList<Place> placesNew;
   private ArrayList<Double> degrees;
 
   // Setup to be done before every test in TestDist
@@ -108,7 +109,7 @@ public class TestDist {
     Place four = new Place("4", "Archuleta County", "37.20°N", "107.05°W");
     places = new ArrayList<Place>(Arrays.asList(foco, aspn, dnvr, cstlrck, bldr, four));
 
-    trip = new Trip(places, "miles",.5);
+    trip = new Trip(places, "miles",1);
     ArrayList<Double> deg = trip.getDecimalDegrees();
     ArrayList<Integer> results = new ArrayList<Integer>();
     results.add(63); results.add(24); results.add(41); results.add(97); results.add(165); results.add(196);
@@ -160,6 +161,35 @@ public class TestDist {
 
     int[] in5 = new int[]{4,0,1,2,3};
     assertEquals(379, distance.constructNearestNeighbor(in5, size));
+  }
+
+  @Test
+  public void testSetNewTrip(){
+    int[] newOrder = {0,1,2,3,4};
+    placesNew = new ArrayList<Place>();
+    distance.setNewTrip(newOrder, placesNew, places, 5);
+    assertEquals(places, placesNew);
+  }
+
+  @Test
+  public void testSetLegs(){
+    distance.memoizeDistance(degrees, 5);
+    ArrayList<Integer> legs = new ArrayList<Integer>(Arrays.asList(97,70,63,87,41));
+    int[] newOrder = {0,1,2,3,4};
+    assertEquals(legs, distance.setLegs(newOrder, 5));
+  }
+
+  @Test
+  public void testGetDistances(){
+    // tests getTourDist and getDist
+    int[] newOrder = {0,1,2,3,4};
+    distance.memoizeDistance(degrees, 5);
+    assertEquals(358, distance.getTourDist(newOrder, 5));
+    assertEquals(97, distance.getDist(newOrder,0,1));
+    assertEquals(70, distance.getDist(newOrder,1,2));
+    assertEquals(63, distance.getDist(newOrder,2,3));
+    assertEquals(87, distance.getDist(newOrder,3,4));
+    assertEquals(41, distance.getDist(newOrder,4,0));
   }
 
 }

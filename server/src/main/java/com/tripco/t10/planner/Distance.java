@@ -269,4 +269,129 @@ public class Distance {
 
   return dist;
   }
+
+  /**
+   * Method that is called from legDistances in Trip,this is the "1.0"
+   * level or 2opt optimization algorithm. This method will construct the
+   * nearest neighbor trip and then use TwoOptHelper and TwoOptReverse to perform
+   * the 2opt algorithm for all places, using each one as the starting location.
+   * Only the shortest trip is saved in the variable newTrip.
+   * If a shorter trip is found, ArrayList places is assigned that order held by newTrip
+   * @see Trip#legDistances(ArrayList, ArrayList) that calls this method
+   * @param coordDegrees the coordinates of the places in the trip
+   * @param places the original order to the places in the Trip
+   * @return Returns an array of leg distances in 2opt optimized order
+   */
+  public ArrayList<Integer> TwoOpt(ArrayList<Double> coordDegrees, ArrayList<Place> places){
+    ArrayList<Integer> dist = new ArrayList<Integer>();
+    return dist;
+  }
+
+  /**
+   * Method interpreted from the lecture slides for 2opt, it will be used by the
+   * method TwoOpt to check a given trip for any 2opt improvements.
+   * @param places is the given Trip, keeps track of the order of indices to all places
+   * @param bestDist distance of best trip, used to compare against 2opt changes
+   * @param size the number of places in the trip
+   * @return Returns the distance of the best trip 2opt could find or bestDist
+   */
+  public int TwoOptHelper(int[] places, int bestDist, int size){
+    boolean improvement = true;
+    int thisDistance;
+
+    while (improvement) {
+      improvement = false;
+
+      for(int i = 0; i <= size-3; i++) {
+        for (int k = i+2; k <= size-1; k++) {
+          int delta = -getDist(places, i,(i+1))-getDist(places, k,((k+1)%size))
+                  +getDist(places, i , k) + getDist(places, (i+1), ((k+1)%size));
+          if (delta < 0) {
+            TwoOptReverse(places, (i+1), k);
+            improvement = true;
+          }
+        }
+      }
+    }
+    thisDistance = getTourDist(places, size);
+
+    if (thisDistance < bestDist) {
+      return thisDistance;
+    }
+    else {
+      return bestDist;
+    }
+  }
+
+  /**
+   * Method interpreted from the lecture slides for 2opt, it will be used by the
+   * 2opt algorithm to reverse the path between 2 locations.
+   * @param places keeps track of the order of indices to all places
+   * @param i the index of one of the locations
+   * @param k the index of the other locations
+   */
+  public void TwoOptReverse(int[] places, int i, int k){
+    int tmp;
+    while (i < k) {
+      tmp = places[i];
+      places[i] = places[k];
+      places[k] = tmp;
+      i++;
+      k--;
+    }
+  }
+
+  /**
+   * Method to copy over a trip in a specific order determined from places.
+   * @param places keeps track of the ordered indices of places with respect to placesOrig
+   * @param betterTrip the ArrayList to copy over to
+   * @param placesOrig the ArrayList indexed by places
+   * @param size the number of places in the trip
+   */
+  public void setNewTrip(int[] places, ArrayList<Place> betterTrip, ArrayList<Place> placesOrig, int size){
+    for (int y = 0; y < size; y++) {
+      betterTrip.add(placesOrig.get(places[y]));
+    }
+  }
+
+  /**
+   * Method to return the leg distances in the same order as maintained by places.
+   * Places is used to lookup distances between consecutive trip locations in memo.
+   * @param places keeps track of the ordered indices of the trip
+   * @param size the number of places in the trip
+   * @return Returns the leg distances of the trip represented by places
+   */
+  public ArrayList<Integer> setLegs(int[] places, int size){
+    ArrayList<Integer> dist = new ArrayList<Integer>();
+    for (int y = 0; y < size; y++) {
+      dist.add(memo[places[y]][places[(y+1) % size]]);
+    }
+    return dist;
+  }
+
+  /**
+   * Method to return the distance from location i to location j,
+   * in a given trip represented by places.
+   * @param places keeps track of the ordered indices of the trip
+   * @param i index of the first location
+   * @param j index of the second location
+   */
+  public int getDist(int[] places, int i, int j){
+    return memo[places[i]][places[j]];
+  }
+
+  /**
+   * Method to return the cummulative distance of a trip given by interpretting places.
+   * Places contains indices used to lookup up distances in memo.
+   * @param places keeps track of the ordered indices of the trip
+   * @param size the number of locations in the trip
+   * @return Returns the cummulative distance of a trip represented by places
+   */
+  public int getTourDist(int[] places, int size){
+    int totalDistance = 0;
+    for (int i = 0; i < size; ++i) {
+      totalDistance += memo[places[i]][places[(i+1) % size]];
+    }
+    return totalDistance;
+  }
 }
