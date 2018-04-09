@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Map from './Map';
 import Itinerary from './Itinerary';
+import GMap from './GMap';
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -118,6 +119,14 @@ class Trip extends Component {
    */
   render(){
     this.checkDistance();
+    const version = this.props.config.version;
+    let map;
+    if (version < 9) { // set to 9 for testing purposes
+        map = <Map trip={this.props.trip} config={this.props.config}/>;
+    } else {
+        map = <GMap trip={this.props.trip} config={this.props.config}/>;
+    }
+
     return(
         <div id="trip" className="card">
           <div className="card-header bg-info text-white">
@@ -134,7 +143,7 @@ class Trip extends Component {
               <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
             </span>
             </div>
-            <Map trip={this.props.trip} />
+            {map}
             <Itinerary trip={this.props.trip} removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
           </div>
         </div>
