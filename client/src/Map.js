@@ -30,7 +30,7 @@ class Map extends Component {
     }
 
     render() {
-        if (1 === 2) {
+        if (1 === 1) { //please change this... it's only for testing. lol
             let svgHeader = 'data:image/svg+xml;charset=UTF-8,';
             let svgData = this.props.trip.map;
 
@@ -79,4 +79,4 @@ const TripMap = compose(
     withGoogleMap,
 )(Map);  // (2)
 
-export default TripMap;
+export default Map;
