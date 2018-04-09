@@ -45,11 +45,20 @@ class Search extends Component {
     }
   }
 
-  render(){
+  render() {
+    let isVisible = true;
+    if (this.props.query.length > 0) {
+      isVisible = false;
+    }
+    let id = document.getElementById("search-button");
+    if (id !== null) {
+      document.getElementById("search-button").disabled = isVisible;
+    }
+
     return(
       <div id="search">
-        <Button outline color="primary">
-          <MdSearch size={24} id="searchButton" onClick={this.search}/>
+        <Button id="search-button" className="green_logo green_hvr_logo">
+          <MdSearch size={37} onClick={this.search}/>
         </Button>
       </div>
     )

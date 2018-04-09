@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ButtonGroup, Button, Container} from 'reactstrap'
+import { green_btn, green_hvr, bg_csu_green, text_canyon } from './css/styling.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -28,7 +29,7 @@ class Options extends Component{
   static warning(val){
     if(val > 0.0){
       return (<div className="pt-4">
-        <p className="col-9 m-0 p-0 text-warning">Warning: Shorter trips will take longer to compute.</p>
+        <p className="col-9 m-0 p-0 text_canyon">Warning: Shorter trips will take longer to compute.</p>
       </div>);
     }else return null;
   }
@@ -43,7 +44,7 @@ class Options extends Component{
     if (step !== undefined)
       return(
         <div className="slider_container">
-          <br/><input type="range" id="optimizer" min="0" max="1" step={1.00/step} value={val} className="slider" onChange={this.handleOnChange} />
+          <br/><input type="range" id="optimizer" min="0" max="1.00" step={1.00/step} value={val} className="slider" onInput={this.handleOnChange} />
           <div className="row pl-3">
             <div className="col-12">
               <div className="row">
@@ -65,7 +66,7 @@ class Options extends Component{
     }
     const buttons = options.map((option) =>
         <Button key={option} active={(this.props.trip.options.distance === "" ? "miles" : this.props.trip.options.distance) === option.toLowerCase()} value={option.toLowerCase()}
-                onClick={this.handleOnChange} className='btn-outline-dark'>{option}</Button>
+                onClick={this.handleOnChange} className="green_btn green_hvr">{option}</Button>
     );
     return buttons;
   }
@@ -73,7 +74,7 @@ class Options extends Component{
   customUnitsOptions() {
     if (this.props.trip.options.distance === "user defined") {
         return (
-            <div className="custom-units-container input-group-sm mb-3 p-2">
+            <div className="custom-units-container input-group-sm mb-3 p-2 green_unit">
                 <input id="userUnit" type="text" className="form-control custom-unit-name"
                        onBlur={this.updateUnit} defaultValue={this.props.trip.options.userUnit} placeholder="Unit Name..."/>
                 <input id="userRadius" type="number" className="form-control custom-unit-radius"
@@ -89,7 +90,7 @@ class Options extends Component{
     if (this.props.config.optimization > 0) slider = this.slider();
     return(
         <div id="options" className="card">
-          <div className="card-header bg-info text-white">Options</div>
+          <div className="card-header bg_csu_green text-white">Options</div>
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
               <ButtonGroup>

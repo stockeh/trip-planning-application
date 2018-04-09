@@ -37,7 +37,6 @@ class App extends Component {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
-      console.log("APP - Config Units: " + tffi.distances);
       this.setState({config : tffi});
     } catch(err) {
       console.error(err);

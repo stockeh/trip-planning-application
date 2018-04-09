@@ -12,15 +12,17 @@ public class Search {
   public String type;
   public String query;
   public ArrayList<Place> places;
-  public ArrayList<Filter> filters;
+  public Filter[] filters;
 
-  private transient String join = "SELECT airports.id, airports.name, "
-          + " airports.municipality, region.name, "
-          + "country.name, continents.name, airports.type, airports.latitude, "
-          + "airports.longitude FROM continents "
+  private transient String join = "SELECT a.id, a.name, "
+          + "a.municipality, region.name, "
+          + "country.name, continents.name, a.type, a.latitude, "
+          + "a.longitude FROM continents "
           + "INNER JOIN country ON continents.id = country.continent "
           + "INNER JOIN region ON country.id = region.iso_country "
-          + "INNER JOIN airports ON region.id = airports.iso_region WHERE ";
+          + "INNER JOIN airports as a ON region.id = a.iso_region WHERE ";
+  private transient String orderBy = "ORDER BY continents.name, country.name, "
+          + "region.name, a.municipality, a.name limit 10";
   private static final String myDriver = "com.mysql.jdbc.Driver";
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
@@ -28,26 +30,63 @@ public class Search {
    * Some defaults for the Search object.
    */
   public Search() {
-    this.version = 2;
+    this.version = 3;
     this.type = "query";
     this.query = "";
   }
 
   /**
-   * Constructs query and calls accessDatabase to perform query.
-   * Constructs places array from query results
+   * Adds AND statements to query based on the filter array it receives.
+   * @param filter is the filter to iterate over.
+   */
+  private void iterateFilter(Filter filter){
+    join += "AND ("; //open combination statement
+    for(int index = 0; index < filter.size(); index++){
+      if(index > 0){
+        join += " OR ";
+      }
+      join += filter.getAttribute() + "='" + filter.get(index) + "'";
+    }
+    join += ") "; //close combination statement
+  }
+
+  /**
+   * Adds filtering to the query.
+   * Calls iterateFilter method for actual construction of statement.
+   *
+   */
+  private void constructQueryFromFilters(){
+    if(filters != null && filters.length > 0){
+      for(Filter f : filters){
+        if(f.getAttribute()!="" && !f.isEmpty()) {
+          iterateFilter(f);
+        }
+      }
+    }
+  }
+
+  /**
+   * Constructs query for database search.
+   */
+  private void createQueryStatement(){
+    join += "(a.name LIKE '%" + query + "%' OR country.name LIKE '%" + query
+            + "%' OR region.name LIKE '%" + query + "%' OR continents.name LIKE '%" + query
+            + "%' OR a.id LIKE '%" + query
+            + "%' OR a.municipality LIKE '%" + query
+            + "%' OR a.type LIKE '%" + query
+            + "%' OR a.longitude LIKE '%" + query
+            + "%' OR a.latitude LIKE '%" + query + "%') ";
+    constructQueryFromFilters();
+    join += orderBy;
+    System.out.println(join);
+  }
+
+  /**
+   * Performs query on database.
+   * Constructs places array from query results.
    */
   public void find() {
-    join += "airports.name LIKE '%" + query + "%' OR country.name LIKE '%" + query
-            + "%' OR region.name LIKE '%" + query + "%' OR continents.name LIKE '%" + query
-            + "%' OR airports.id LIKE '%" + query
-            + "%' OR airports.municipality LIKE '%" + query
-            + "%' OR airports.type LIKE '%" + query
-            + "%' OR airports.longitude LIKE '%" + query
-            + "%' OR airports.latitude LIKE '%" + query
-            + "ORDER BY continents.name, country.name, "
-            + "region.name, airports.municipality, airports.name"
-            + "%' limit 15";
+    createQueryStatement();
     try {
       Class.forName(myDriver);
       // connect to the database and query
@@ -56,9 +95,11 @@ public class Search {
            ResultSet rState = sState.executeQuery(join);
       ) {
         while (rState.next()) {
-          this.places.add(new Place(rState.getString("id"), rState.getString("name"),
-                  rState.getString("latitude"), rState.getString("longitude")));
-
+          String[] place = {rState.getString(("continents.name")),rState.getString("region.name"),
+                  rState.getString("country.name"),rState.getString("municipality"),
+                  rState.getString("latitude"), rState.getString("longitude"),
+                  rState.getString("name"), rState.getString("id")};
+          this.places.add(new Place(place));
         }
       }
     } catch (Exception e) {
