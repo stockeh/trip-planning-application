@@ -130,7 +130,7 @@ class Application extends Component {
             <div className="col-12">
                 <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
                       reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
-                      resetDestinations={this.resetDestinations}/>
+                      resetDestinations={this.resetDestinations} config={this.props.config}/>
             </div>
           </div>
         </div>
