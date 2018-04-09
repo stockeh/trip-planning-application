@@ -1,5 +1,171 @@
+/* -----------Card----------- */
+
+.bg_csu_green  {
+    background-color: #1E4D2B
+}
+
+.bg_csu_gold  {
+    background-color: #C8C372
+}
+
 .table_scroll {
     max-height: 512px;
     min-height: 0;
     overflow: auto;
+}
+
+/* -----------Font----------- */
+
+.text_canyon {
+    color: #CC5430;
+}
+
+/* -----------Buttons----------- */
+
+/* Green */
+
+.green_btn {
+    background-color: #1E4D2B; /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.green_hvr {
+    background-color: white;
+    color: #1E4D2B;
+    border: 2px solid #1E4D2B;
+}
+
+.green_hvr:hover {
+    background-color: #1E4D2B;
+    border: 2px solid #1E4D2B;
+    color: white;
+}
+
+/* Gold */
+
+.gold_btn {
+    background-color: #C8C372; /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.gold_hvr {
+    background-color: white;
+    color: #C8C372;
+    border: 2px solid #C8C372;
+}
+
+.gold_hvr:hover {
+    background-color: #C8C372;
+    border: 2px solid #C8C372;
+    color: white;
+}
+
+.gold_btn:disabled,
+.gold_btn[disabled]{
+    border: 1px solid rgba(200, 195, 114, 0.51);
+    background-color: white;
+    color: rgba(200, 195, 114, 0.51);
+}
+
+/* Canyon */
+
+.canyon_btn {
+    background-color: #CC5430; /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.canyon_hvr {
+    background-color: white;
+    color: #CC5430;
+    border: 2px solid #CC5430;
+}
+
+.canyon_hvr:hover {
+    background-color: #CC5430;
+    border: 2px solid #CC5430;
+    color: white;
+}
+
+.canyon_btn:disabled,
+.canyon_btn[disabled]{
+    border: 1px solid rgba(204, 84, 48, 0.51);
+    background-color: white;
+    color: rgba(204, 84, 48, 0.51);
+}
+
+/* -----------Logo----------- */
+
+.green_logo {
+    background-color: #1E4D2B; /* Green */
+    border: none;
+    color: white;
+    padding: 0 3px;
+    display: inline-block;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.green_hvr_logo {
+    background-color: white;
+    color: #1E4D2B;
+}
+
+.green_hvr_logo:hover {
+    background-color: #1E4D2B;
+    color: white;
+}
+
+
+.green_logo:disabled,
+.green_logo[disabled] {
+    border: 1px solid white;
+    background-color: white;
+    color: rgba(30, 77, 43, 0.51);
+
+}
+
+/* Add/Remove Buttons*/
+
+.remove_logo {
+    padding-bottom: .3em;
+    padding-right: 1px;
+    color: #CC5430;
+}
+
+.add_logo {
+    padding-bottom: .3em;
+    padding-right: 1px;
+    color: #1E4D2B;
+}
+
+.query_country {
+    padding-left: 2em;
 }

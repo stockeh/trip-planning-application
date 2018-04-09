@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Search from './Search';
 import Filter from './Filter';
 import { InputGroup, Input, Button } from 'reactstrap';
+import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
+import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country} from './css/styling.css';
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -14,22 +16,72 @@ class Query extends Component {
     this.state = {
         query : "",
         places: [],
-        filters : [{ attribute : "",
-                       values  : [] }]
+        filters : []
     };
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
 
     this.createDestination = this.createDestination.bind(this);
     this.createTable = this.createTable.bind(this);
+    this.placeInformation = this.placeInformation.bind(this);
+
+    this.searchFilter = this.searchFilter.bind(this);
+    this.newFilter = this.newFilter.bind(this);
+    this.mutateValue = this.mutateValue.bind(this);
+    this.mutateFilter = this.mutateFilter.bind(this);
 
     this.modalContent = this.modalContent.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
   }
 
+  newFilter(val, attr){
+    let newArray = this.state.filters.slice();
+    newArray.push({attribute: attr, values: [val]});
+    this.setState( {filters : newArray} );
+  }
+
+  mutateValue(checked, val, index) {
+    let newFilter = Object.assign([], this.state.filters);
+    if (checked) {
+      newFilter[index].values.push(val);
+    }
+    else {
+      newFilter[index].values =
+          newFilter[index].values.filter(function(e) { return e !== val });
+      if (newFilter[index].values.length === 0) {
+        newFilter.splice(index, 1);
+      }
+    }
+    this.setState({filters : newFilter});
+  }
+
+  mutateFilter(checked, val, attr) {
+    let notAdded = true;
+    for (let index in this.state.filters) {
+      if (this.state.filters[index].attribute === attr) {
+        notAdded = false;
+        this.mutateValue(checked, val, index);
+        break;
+      }
+    }
+    if (notAdded) {
+      this.newFilter(val, attr);
+    }
+  }
+
+  searchFilter(checked, val, attr) {
+    if (this.state.filters.length > 0) {
+      this.mutateFilter(checked, val, attr);
+    }
+    else if (checked) {
+      this.newFilter(val, attr);
+    }
+  }
+
   updateData(data, obj) {
     this.setState({[obj]: data});
   }
+
   updateDestinations(index, numElements) {
     let newPlaces = this.state.places;
     let removedItem = newPlaces.splice(index, numElements);
@@ -38,14 +90,37 @@ class Query extends Component {
     this.setState({places: newPlaces});
   }
 
+  placeInformation(item) {
+    let countryName = null;
+    let regionName = null;
+    if("country" in item){
+        if(item.country !== undefined && item.country !== "NULL"
+            && item.country !== "" && item.country !== "(unassigned)"){countryName = item.country}
+    }
+    if("region" in item){
+        if(item.region !== undefined && item.region !== "NULL"
+            && item.region !== "" && item.region !== "(unassigned)"){
+            regionName = item.region;
+            if(countryName !== null){regionName += ", ";}
+        }
+    }
+    return {regionName, countryName}
+  }
+
   createDestination(item, index) {
-    let destinationName = [item.name];
-    destinationName.push(<a key={item.name} className="text-info font-weight-light"
-                            style={{cursor:'pointer'}}
-                            onClick={() => {
-                              this.updateDestinations(index, 1);
-                              }}><br/><small>Add to Trip!</small></a>);
-    return destinationName;
+    let information = this.placeInformation(item);
+    return(
+        <div>
+          <a key={item.name} style={{cursor:'pointer'}}
+              onClick={() => {
+                  this.updateDestinations(index, 1);
+              }}>{' '}<small><MdAddCircleOutline className = "add_logo" size={25}/></small></a>
+          {item.name}
+          <div><small className="font-weight-light query_country">
+              {information.regionName}{information.countryName}
+          </small></div>
+      </div>
+    );
   }
 
   createTable() {
@@ -58,17 +133,14 @@ class Query extends Component {
     }
     if (this.state.places.length > 0) {
       return (
-          <table className="table table-responsive table-hover">
-            <thead>
-            <tr>
-              <th className="table-info align-middle" scope="col">Destinations
-              </th>
-            </tr>
-            </thead>
-            <tbody>
+        <table className="table table-responsive table-hover">
+          <thead>
+            <tr><th className="bg_csu_gold align-middle" scope="col">Destinations</th></tr>
+          </thead>
+          <tbody>
             {table}
-            </tbody>
-          </table>
+          </tbody>
+        </table>
       );
     }
   }
@@ -89,9 +161,9 @@ class Query extends Component {
     return (
       <div className="modal-footer">
         <div className="justify-content-between" id="button-grouping">
-            <Button id="add-all" size="sm" outline color="secondary"
+            <Button id="add-all" size="sm" className="gold_btn gold_hvr"
                     onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
-            <Button id="clear" size="sm" outline color="danger"
+            <Button id="clear" size="sm" className="canyon_btn canyon_hvr"
                     onClick={()=>this.updateData([], "places")}>Clear</Button>
         </div>
       </div>
@@ -108,14 +180,14 @@ class Query extends Component {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
         <div className="modal-body">
-            <Filter query={this.state.query} filters={this.props.config.filters}/> <br/>
-
+            <Filter query={this.state.query} filters={this.props.config.filters}
+                    searchFilter={this.searchFilter}/> <br/>
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
                    placeholder="Search Destinations..."/>
-            <Search query={this.state.query} updateData={this.updateData}/>
+            <Search query={this.state.query} filters={this.state.filters}
+                    updateData={this.updateData}/>
           </InputGroup>
           <br/> {this.createTable()}
         </div>
@@ -125,9 +197,11 @@ class Query extends Component {
   }
 
   render() {
+    console.log("Query Filters\n|-- line 177 --|\nFilter:\n"
+        + JSON.stringify(this.state.filters, null, 2));
     return(
       <div id="query">
-        <button type="button" id="lookUp" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#customSearchModal">Look Up</button>
+        <Button id="lookUp" className="green_btn green_hvr" data-toggle="modal" data-target="#customSearchModal">Look Up</Button>
 
         <div className="modal fade" id="customSearchModal" tabIndex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">

@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import Map from './Map';
 import Itinerary from './Itinerary';
 import GMap from './GMap';
+import { Button } from 'reactstrap';
+import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
+import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -129,18 +132,20 @@ class Trip extends Component {
 
     return(
         <div id="trip" className="card">
-          <div className="card-header bg-info text-white">
+          <div className="card-header bg_csu_green text-white">
             Trip
           </div>
           <div className="card-body">
             <p>Give your trip a title before planning or saving.</p>
             <div className="input-group" role="group">
               <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={ () => {this.plan(this.props.trip); this.initialPlan()}} type="button">Plan</button>
+              <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>
               </span>
               <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
               <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
+              <Button className="green_logo green_hvr_logo">
+                <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
+              </Button>
             </span>
             </div>
             {map}

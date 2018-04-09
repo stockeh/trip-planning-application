@@ -17,7 +17,8 @@ class Application extends Component {
           distance: "miles",
           userUnit: "",
           userRadius: "",
-          optimization: "0.0"},
+          optimization: "0.0",
+          map: "svg" },
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
