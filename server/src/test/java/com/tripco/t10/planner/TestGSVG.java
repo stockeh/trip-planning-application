@@ -20,11 +20,20 @@ public class TestGSVG {
           "<polyline points= \"";
   String svgSecondHalf = "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_2\"/></g>";
   String polyPoints;
-
+  ArrayList<Double> arr = new ArrayList<Double>(4);
   // Setup to be done before every test in TestPlan
   @Before
   public void initialize() {
+    arr.add(41.0);
+    arr.add(-109.0);
+    arr.add(37.0);
+    arr.add(-102.0);
     gsvg = new GatherSVG();
+  }
+
+  @Test
+  public void testCheckWrapping() {
+    assertEquals(true, gsvg.checkWrapping(arr, 0));
   }
 
   @Test

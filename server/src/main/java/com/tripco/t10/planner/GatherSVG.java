@@ -90,6 +90,10 @@ public class GatherSVG {
     }
   }
 
+  public boolean checkWrapping(ArrayList<Double> arr, int index) {
+    return true;
+  }
+
   /**
    * Returns a SVG group for the polypoints/polylines to be rendered on top
    * of the desired map.
@@ -102,6 +106,7 @@ public class GatherSVG {
     String first, second;
     String polyPoints = "", startingLocation = "";
     for (int index = 0; index < arr.size()-1; index += 2) {
+        boolean wrap = this.checkWrapping(arr, index);
         second = Double.toString(computePoints(arr.get(index), false));
         first = Double.toString(computePoints(arr.get(index+1), true));
         if (index == 0)
