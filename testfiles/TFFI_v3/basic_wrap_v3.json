@@ -1,0 +1,21 @@
+{
+  "version"   : 3,
+  "type"      : "trip",
+  "title"     : "Wrapped",
+  "options" : {
+    "distance"     : "miles",
+    "userUnit"     : "",
+    "userRadius"   : "",
+    "optimization" : "0",
+    "map"	   : "svg"
+  },
+  "places"    : [
+    { "id":"NZDN", "name":"Dunedin Airport", "municipality":"Dunedin", "region":"Otago", "country":"New Zealand", "continent":"Oceania", "latitude":"-80.9281005859375", "longitude":"140.197998046875", "eid":"jpode" },
+    { "id":"NFTE", "name":"Kaufana Airport", "municipality":"Eua Island", "region":"Eua", "country":"Tonga", "continent":"Oceania", "latitude":"85.378299713100002", "longitude":"-145.957992554", "eid":"connorbc" },
+    { "id":"NGFU", "name":"Funafuti International Airport", "municipality":"Funafuti", "region":"Funafuti", "country":"Tuvalu", "continent":"Oceania", "latitude":"80.525", "longitude":"150.195999", "eid":"rrob1487" },
+    { "id":"NVSA", "name":"Mota Lava Airport", "municipality":"Ablow", "region":"Torba", "country":"Vanuatu", "continent":"Oceania", "latitude":"77.6660003662", "longitude":"145.712005615", "eid":"amroot" }
+
+  ],
+  "distances" : [],
+  "map"       : "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
+}

@@ -257,7 +257,7 @@ public class Distance {
     */
   public ArrayList<Integer> inOrder(ArrayList<Double> coordDegrees){
 
-    ArrayList<Integer> dist = new ArrayList<Integer>();
+    ArrayList<Integer> dist = new ArrayList<>();
     for (int i = 0; i < coordDegrees.size() - 2; i += 2) {
       dist.add(greatCirDist(coordDegrees.get(i), coordDegrees.get(i + 1),
               coordDegrees.get(i + 2), coordDegrees.get(i + 3)));
@@ -283,8 +283,8 @@ public class Distance {
    * @return Returns an array of leg distances in 2opt optimized order
    */
   public ArrayList<Integer> twoOpt(ArrayList<Double> coordDegrees, ArrayList<Place> places){
-    ArrayList<Integer> dist = new ArrayList<Integer>();
-    ArrayList<Place> newTrip = new ArrayList<Place>();
+    ArrayList<Integer> dist;
+    ArrayList<Place> newTrip = new ArrayList<>();
     int size = coordDegrees.size()/2;
     this.memoizeDistance(coordDegrees, size);
     this.placesIndex = IntStream.range(0, places.size()).toArray();
@@ -298,7 +298,6 @@ public class Distance {
       this.constructNearestNeighbor(placesNN, size);
       new_distance = twoOptHelper(placesNN, best_distance ,size);
       if (new_distance < best_distance){
-        System.out.println(new_distance);
         setNewTrip(placesNN, newTrip, places, size);
         dist = setLegs(placesNN, size);
         best_distance = new_distance;
@@ -389,7 +388,7 @@ public class Distance {
    * @return Returns the leg distances of the trip represented by places
    */
   public ArrayList<Integer> setLegs(int[] places, int size){
-    ArrayList<Integer> dist = new ArrayList<Integer>();
+    ArrayList<Integer> dist = new ArrayList<>();
     for (int y = 0; y < size; y++) {
       dist.add(memo[places[y]][places[(y+1) % size]]);
     }
