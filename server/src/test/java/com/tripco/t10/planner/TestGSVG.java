@@ -15,37 +15,58 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(JUnit4.class)
 public class TestGSVG {
-  GatherSVG gsvg;
+  GatherSVG coloradoSvg;
+  GatherSVG wolrdSvg;
   String svgFirstHalf = "<g id=\"svg_1\"><title>Boarder and Points</title>" +
           "<polyline points= \"";
   String svgSecondHalf = "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\" id=\"svg_2\"/></g>";
   String polyPoints;
-
+  ArrayList<Double> arr = new ArrayList<Double>(6);
   // Setup to be done before every test in TestPlan
   @Before
   public void initialize() {
-    gsvg = new GatherSVG();
+    arr.add(45.0);
+    arr.add(-45.0);
+
+    arr.add(0.0);
+    arr.add(-135.0);
+
+    arr.add(0.0);
+    arr.add(135.0);
+
+    coloradoSvg = new GatherSVG();
+    wolrdSvg = new GatherSVG();
+  }
+
+  @Test
+  public void testCheckWrapping() {
+    ArrayList<Double> wrapper = new ArrayList<>(arr);
+    assertEquals(false, wolrdSvg.checkWrapping(wrapper, 0));
+    assertEquals(true, wolrdSvg.checkWrapping(wrapper, 2));
+    assertEquals(false, wolrdSvg.checkWrapping(wrapper, 4));
+    // Out of Bounds
+    assertEquals(false, wolrdSvg.checkWrapping(wrapper, 6));
+    assertEquals(false, wolrdSvg.checkWrapping(wrapper, 7));
   }
 
   @Test
   public void testGetSVGLines() {
-    ArrayList<Double> arr = new ArrayList<Double>(4);
-    arr.add(41.0);
-    arr.add(-109.0);
-    arr.add(37.0);
-    arr.add(-102.0);
+    this.polyPoints = " 384.0,128.0 128.0,256.0 -128.0,256.0\" fill=\"none\" stroke-width=\"2\" "
+        + "stroke=\"blue\"/><polyline points= \" 1152.0,256.0 896.0,256.0 384.0,128.0";
 
-    this.polyPoints = " 0.0,-0.0 993.0,710.0 0.0,-0.0";
-    assertEquals( svgFirstHalf + polyPoints + svgSecondHalf , gsvg.getSVGLines(arr));
+    wolrdSvg.setAxis(1024, 512);
+    wolrdSvg.setBounds(-180,180,90,-90);
+    wolrdSvg.getsvgLines(arr);
+    assertEquals( svgFirstHalf + polyPoints + svgSecondHalf , wolrdSvg.getsvgLines(arr));
   }
 
   @Test
   public void testComputePoints() {
-    assertEquals(63.651583714285, gsvg.computePoints(-108.551298,true), .00001);
-    assertEquals(344.4298, gsvg.computePoints(39.05955,false), .0001);
+    assertEquals(63.651583714285, coloradoSvg.computePoints(-108.551298,true), .00001);
+    assertEquals(344.4298, coloradoSvg.computePoints(39.05955,false), .0001);
 
-    assertEquals(15462.428571429, gsvg.computePoints(0, true), .0001);
-    assertEquals(0, gsvg.computePoints(-109, true), .0001);
-    assertEquals(0, gsvg.computePoints(41, false), .0001);
+    assertEquals(15462.428571429, coloradoSvg.computePoints(0, true), .0001);
+    assertEquals(0, coloradoSvg.computePoints(-109, true), .0001);
+    assertEquals(0, coloradoSvg.computePoints(41, false), .0001);
   }
 }
