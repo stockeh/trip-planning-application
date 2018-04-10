@@ -13,16 +13,26 @@ class GMap extends Component {
 
     // Create our path from the places array
     makePath(places) {
+        if (places.length <= 0)
+            return [];
+
         let path = places.map(
             x => ({lat: x.latitude, lng: x.longitude})
         );
-        path.push({lat: places[0].latitude, lng: places[0].longitude});
-        //path.push({lat: 37.0, lng: 107.0});
+        console.log("PLACES: " + places);
+        path.push({
+            lat: parseFloat(places[0].latitude.toString()),
+            lng: parseFloat(places[0].longitude.toString())
+        });
+        console.log("STUFFF " + path);
         return path;
     }
 
     // Create our markers
     makeMarkers(places) {
+        if (places.length <= 0)
+            return null;
+
         let markers = places.map(
             x => <Marker position={{lat: x.latitude, lng: x.longitude}}/>
         );
