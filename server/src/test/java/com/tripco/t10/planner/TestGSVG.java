@@ -56,8 +56,8 @@ public class TestGSVG {
 
     wolrdSvg.setAxis(1024, 512);
     wolrdSvg.setBounds(-180,180,90,-90);
-    wolrdSvg.getSVGLines(arr);
-    assertEquals( svgFirstHalf + polyPoints + svgSecondHalf , wolrdSvg.getSVGLines(arr));
+    wolrdSvg.getsvgLines(arr);
+    assertEquals( svgFirstHalf + polyPoints + svgSecondHalf , wolrdSvg.getsvgLines(arr));
   }
 
   @Test

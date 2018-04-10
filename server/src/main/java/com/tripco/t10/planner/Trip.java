@@ -120,7 +120,7 @@ public class Trip {
     else {
       background = gsvg.readInSVG("/Colorado.svg");
     }
-    String svgLines = gsvg.getSVGLines(decimalDegrees);
+    String svgLines = gsvg.getsvgLines(decimalDegrees);
     return "<svg width=\"" + width + "\" height=\"" + height + "\" "
            + "xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\">"
            + background

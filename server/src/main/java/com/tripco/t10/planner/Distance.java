@@ -283,7 +283,6 @@ public class Distance {
    * @return Returns an array of leg distances in 2opt optimized order
    */
   public ArrayList<Integer> twoOpt(ArrayList<Double> coordDegrees, ArrayList<Place> places){
-    ArrayList<Integer> dist;
     ArrayList<Place> newTrip = new ArrayList<>();
     int size = coordDegrees.size()/2;
     this.memoizeDistance(coordDegrees, size);
@@ -292,7 +291,7 @@ public class Distance {
     int best_distance = getTourDist(placesIndex,size);
     int new_distance;
     setNewTrip(placesIndex, newTrip, places, size);
-    dist = setLegs(placesIndex,size);
+    ArrayList<Integer> dist = setLegs(placesIndex,size);
 
     for (int x = 1; x <= placesIndex.length; x++){
       this.constructNearestNeighbor(placesNN, size);

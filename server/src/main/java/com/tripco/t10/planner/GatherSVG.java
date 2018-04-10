@@ -45,6 +45,7 @@ public class GatherSVG {
     this.rightLongitude = rightLongitude;
     this.topLatitude = topLatitude;
     this.bottomLatitude = bottomLatitude;
+    System.out.print("");
   }
 
   /**
@@ -73,7 +74,7 @@ public class GatherSVG {
   /**
    * Returns a scaled value of the decimal coordinate to SVG.
    * This algorithm uses the interpolation equation to compute.
-   * @see GatherSVG#getSVGLines(ArrayList) takes this value to
+   * @see GatherSVG#getsvgLines(ArrayList) takes this value to
    * insert to a pair of points
    * @param input is the decimal coordinate to be interpolated
    * @param coordinate determines if the value is latitude or longitude
@@ -122,17 +123,18 @@ public class GatherSVG {
   public void wrapPolypoints(ArrayList<Double> coordinates, String[] points, int index) {
     double startLatitude = coordinates.get(index);
     double startLongitude = coordinates.get(index + 1);
-    double endLatitude = coordinates.get(index + 2);
+    points[0] = " " + Double.toString(computePoints(startLongitude, true));
+    points[1] = "," + Double.toString(computePoints(startLatitude, false));
+
     double endLongitude = coordinates.get(index + 3);
     double borderDistance = 180.0 - Math.abs(startLongitude) + 180.0 - Math.abs(endLongitude);
     double interiumOne = borderDistance + startLongitude;
     double interiumTwo = endLongitude - borderDistance;
+    double endLatitude = coordinates.get(index + 2);
     if (startLongitude < 0) {
       interiumOne = startLongitude - borderDistance;
       interiumTwo = endLongitude + borderDistance;
     }
-    points[0] = " " + Double.toString(computePoints(startLongitude, true));
-    points[1] = "," + Double.toString(computePoints(startLatitude, false));
     points[2] = " " + Double.toString(computePoints(interiumOne, true));
     points[3] = "," + Double.toString(computePoints(endLatitude, false));
     points[4] = "\" fill=\"none\" stroke-width=\"2\" stroke=\"blue\"/><polyline points= \"";
@@ -146,7 +148,7 @@ public class GatherSVG {
    * @param coordinates is an array list of decimal latitude and longitude values.
    * @return the SVG snippet for the lines between each point.
    */
-  public String getSVGLines(ArrayList<Double> coordinates) {
+  public String getsvgLines(ArrayList<Double> coordinates) {
     if (!fileFound) return "";
 
     String polyPoints = "", startingLocation = "";
