@@ -53,6 +53,23 @@ public class TestTrip {
   }
 
   @Test
+  public void isNumeric() {
+    String one = "001.0";
+    String half = "0.500";
+    String zero = "0000";
+    assertEquals(true, trip.isNumeric(one));
+    assertEquals(true, trip.isNumeric(half));
+    assertEquals(true, trip.isNumeric(zero));
+
+    String badOne = "a1.0";
+    String none = "none";
+    String str = "string";
+    assertEquals(false, trip.isNumeric(badOne));
+    assertEquals(false, trip.isNumeric(none));
+    assertEquals(false, trip.isNumeric(str));
+  }
+
+  @Test
   public void testLegDistancesLarge() {
     Place foco = new Place("foco", "Fort Collins","40° 35' 6.9288\" N", "105° 5' 3.9084\" W");
     Place aspn = new Place("aspn", "Aspen","39.5149900", "-106.2705500");

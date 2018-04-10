@@ -42,7 +42,6 @@ public class Trip {
    */
   public Trip(ArrayList<Place> places, String distance, double optimization){
     this.places = places;
-//    System.out.println("TRIP: " + optimization);
     this.options = new Option(distance, optimization);
   }
 
@@ -131,6 +130,21 @@ public class Trip {
   }
 
   /**
+   * Used to sterilize the optimizations.  If string is not numeric it returns false.
+   * @param str string of the optimization.
+   * @return true if valid double, false otherwise.
+   */
+  public boolean isNumeric(String str) {
+    try {
+      double test = Double.parseDouble(str);
+    }
+    catch(NumberFormatException nfe) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Returns the distances between consecutive places,
    * including the return to the starting point to make a round trip.
    * @param coordDegrees Contains the decimal degrees for each place.
@@ -141,27 +155,25 @@ public class Trip {
    * valid locations.
    */
   public ArrayList<Integer> legDistances(ArrayList<Double> coordDegrees){
-    ArrayList<Integer> dist = new ArrayList<Integer>();
+    ArrayList<Integer> dist;
     Distance distance = new Distance(this.options);
 
-    if (!distance.options.optimization.equals("none")) {
-      double rounded = Double.parseDouble(distance.options.optimization);
-      distance.options.optimization = Double.toString(rounded);
-    }
-    else {
+    if (!this.isNumeric(distance.options.optimization)) {
       distance.options.optimization = "0.0";
     }
-    if (distance.options.optimization.equals("1.0")) {
-      dist = distance.twoOpt(coordDegrees, this.places);
-      System.out.println("Two Opt");
+    double optimization = Double.parseDouble(distance.options.optimization);
+
+    if (optimization <= (1.0 / 3.0)) {
+      distance.options.optimization = "0.0";
+      dist = distance.inOrder(coordDegrees);
     }
-    else if (distance.options.optimization.equals("0.5")) {
+    else if (optimization > (1.0 / 3.0) && optimization <= (2.0 / 3.0)) {
+      distance.options.optimization = "0.5";
       dist = distance.nearestNeighbor(coordDegrees, this.places);
-      System.out.println("Nearest Neighbor");
     }
     else {
-      dist = distance.inOrder(coordDegrees);
-      System.out.println("In Order");
+      distance.options.optimization = "1.0";
+      dist = distance.twoOpt(coordDegrees, this.places);
     }
     distance.memo = null;
     return dist;
