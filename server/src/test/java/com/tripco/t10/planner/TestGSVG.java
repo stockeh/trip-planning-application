@@ -28,23 +28,31 @@ public class TestGSVG {
     arr.add(-109.0);
     arr.add(37.0);
     arr.add(-102.0);
+    arr.add(-21.4);
+    arr.add(-175.0);
+    arr.add(-8.6);
+    arr.add(179.0);
     gsvg = new GatherSVG();
   }
 
   @Test
   public void testCheckWrapping() {
-    assertEquals(true, gsvg.checkWrapping(arr, 0));
+    ArrayList<Double> wrapper = new ArrayList<>(arr);
+
+    assertEquals(false, gsvg.checkWrapping(wrapper, 0));
+    assertEquals(false, gsvg.checkWrapping(wrapper, 2));
+    assertEquals(true, gsvg.checkWrapping(wrapper, 4));
+
+    // Out of Bounds
+    assertEquals(false, gsvg.checkWrapping(wrapper, 5));
+    assertEquals(false, gsvg.checkWrapping(wrapper, 6));
+    assertEquals(false, gsvg.checkWrapping(wrapper, 8));
   }
 
   @Test
   public void testGetSVGLines() {
-    ArrayList<Double> arr = new ArrayList<Double>(4);
-    arr.add(41.0);
-    arr.add(-109.0);
-    arr.add(37.0);
-    arr.add(-102.0);
-
-    this.polyPoints = " 0.0,-0.0 993.0,710.0 0.0,-0.0";
+    this.polyPoints = " 0.0,-0.0 993.0,710.0 -9362.57142857143,11076.0 40854.857142857145,8804.0 0.0,-0.0";
+    gsvg.getSVGLines(arr);
     assertEquals( svgFirstHalf + polyPoints + svgSecondHalf , gsvg.getSVGLines(arr));
   }
 

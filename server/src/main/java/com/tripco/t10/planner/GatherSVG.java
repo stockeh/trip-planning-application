@@ -90,32 +90,60 @@ public class GatherSVG {
     }
   }
 
-  public boolean checkWrapping(ArrayList<Double> arr, int index) {
-    return true;
+  /**
+   * Check if the
+   * @param coordinates
+   * @param index
+   * @return
+   */
+  public boolean checkWrapping(ArrayList<Double> coordinates, int index) {
+    if (index > coordinates.size() - 4) {
+      return false;
+    }
+    double startLongitude = coordinates.get(index + 1);
+    double endLongitude = coordinates.get(index + 3);
+
+    System.out.println("Index: " + index + " ::  " + startLongitude + " - " + endLongitude + " = "
+        + (endLongitude - startLongitude) + " ::  " + (endLongitude - startLongitude >= 180));
+    return (endLongitude - startLongitude >= 180);
+  }
+
+  public double[] wrapPolypoints(ArrayList<Double> coordinates) {
+    double[] array = {4.5, 3.6};
+
+    return array;
   }
 
   /**
    * Returns a SVG group for the polypoints/polylines to be rendered on top
    * of the desired map.
-   * @param arr is an array of decimal latitude and longitude values.
+   * @param coordinates is an array list of decimal latitude and longitude values.
    * @return the SVG snippet for the lines between each point.
    */
-  public String getSVGLines(ArrayList<Double> arr) {
+  public String getSVGLines(ArrayList<Double> coordinates) {
     if (!fileFound) return "";
 
-    String first, second;
     String polyPoints = "", startingLocation = "";
-    for (int index = 0; index < arr.size()-1; index += 2) {
-        boolean wrap = this.checkWrapping(arr, index);
-        second = Double.toString(computePoints(arr.get(index), false));
-        first = Double.toString(computePoints(arr.get(index+1), true));
-        if (index == 0)
-          startingLocation = " " + first + "," + second;
-        polyPoints += " " + first + "," + second;
+    String[] points = new String[4];
+    for (int index = 0; index < coordinates.size()-1; index += 2) {
+      if (this.checkWrapping(coordinates, index)) {
+        this.wrapPolypoints(coordinates);
+        points[0] = " " + Double.toString(computePoints(coordinates.get(index + 1), true)); //first
+        points[1] = "," + Double.toString(computePoints(coordinates.get(index), false)); //second
+      }
+      else {
+        points[0] = " " + Double.toString(computePoints(coordinates.get(index + 1), true)); //first
+        points[1] = "," + Double.toString(computePoints(coordinates.get(index), false)); //second
+        points[2] = "";
+        points[3] = "";
+      }
+      if (index == 0)
+        startingLocation = String.join("", points);
+      polyPoints += String.join("", points);
     }
 
     polyPoints += startingLocation;
-    // System.out.println(polyPoints); // Check coordinate to pixel points next to each other.
+    System.out.println(polyPoints); // Check coordinate to pixel points next to each other.
 
     return "<g id=\"svg_1\"><title>Boarder and Points</title><polyline points= \""
             + polyPoints
