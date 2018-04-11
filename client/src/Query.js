@@ -4,6 +4,7 @@ import Filter from './Filter';
 import { InputGroup, Input, Button } from 'reactstrap';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
 import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country} from './css/styling.css';
+import ReactTooltip from 'react-tooltip'
 
 /* Adds the component to build a custom trip
  * Renders a modal to get input and print
@@ -114,7 +115,7 @@ class Query extends Component {
           <a key={item.name} style={{cursor:'pointer'}}
               onClick={() => {
                   this.updateDestinations(index, 1);
-              }}>{' '}<small><MdAddCircleOutline className = "add_logo" size={25}/></small></a>
+              }}>{' '}<small><MdAddCircleOutline className = "add_logo" size={25} data-tip="Add to trip" data-for="add"/></small><ReactTooltip id="add" place="top" effect="solid"/></a>
           {item.name}
           <div><small className="font-weight-light query_country">
               {information.regionName}{information.countryName}
