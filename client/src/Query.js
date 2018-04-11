@@ -185,7 +185,7 @@ class Query extends Component {
                     searchFilter={this.searchFilter}/> <br/>
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
-                   placeholder="Search Destinations..."/>
+                   placeholder="Search For Destinations..."/>
             <Search query={this.state.query} filters={this.state.filters}
                     updateData={this.updateData}/>
           </InputGroup>
@@ -201,7 +201,7 @@ class Query extends Component {
         + JSON.stringify(this.state.filters, null, 2));
     return(
       <div id="query">
-        <Button id="lookUp" className="green_btn green_hvr" data-toggle="modal" data-target="#customSearchModal">Look Up</Button>
+        <Button id="lookUp" className="green_btn green_hvr" data-toggle="modal" data-target="#customSearchModal">Search</Button>
 
         <div className="modal fade" id="customSearchModal" tabIndex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">

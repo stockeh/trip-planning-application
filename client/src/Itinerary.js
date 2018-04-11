@@ -54,7 +54,7 @@ class Itinerary extends Component {
                                 }}><br/>
             <small><IoIosNavigateOutline className="add_logo" size={25}/></small>
             </a>);
-    }
+    }else if(index == 0){destinationName.push(<br/>);}
     destinationName.push(<a key={item} className="font-weight-light text-danger"
                             style={{cursor:'pointer'}}
                             onClick={ () => {
@@ -119,20 +119,20 @@ class Itinerary extends Component {
         <div id="itinerary" className="container">
             <div className="row">
                 <div className="col-xs-12 col-md-8 col-lg-6 col-xl-5 order-last order-md-first">
-                    <h4>Round trip distance of {table.distance} <b>{table.units}</b>. </h4>
+                    <h4>Round trip distance: {table.distance} <b>{table.units}</b>. </h4>
                     <table className="table_scroll table table-responsive table-hover">
                         <thead>
                         <tr>
                             <th className="bg_csu_gold align-middle" scope="col">Destinations</th>
                             <th className="bg_csu_gold align-middle" scope="col">Leg Distance</th>
-                            <th className="bg_csu_gold align-middle" scope="col">Cumulative<br/>Distance</th>
+                            <th className="bg_csu_gold align-middle" scope="col">Total<br/>Distance</th>
                         </tr>
                         </thead>
                         <tbody>{table.rows}</tbody>
                     </table>
                 </div>
                 <div className="col-xs-12 col-md-4 order-first order-md-last">
-                    <h5>Choose to change in the itinerary!</h5>
+                    <h5>Display Options</h5>
                     {this.renderCheckbox("ID")}
                     {this.renderCheckbox("Latitude")}
                     {this.renderCheckbox("Longitude")}
