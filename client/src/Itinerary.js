@@ -22,7 +22,6 @@ class Itinerary extends Component {
     this.showInformation = this.showInformation.bind(this);
     this.addInformation = this.addInformation.bind(this);
     this.renderCheckbox = this.renderCheckbox.bind(this);
-    this.placeInformation = this.placeInformation.bind(this);
   }
 
   /* Function to update the state that checkboxes are dependant on.
@@ -39,26 +38,9 @@ class Itinerary extends Component {
       return destinationName;
   }
 
-  placeInformation(item) {
-    let countryName = null;
-    let regionName = null;
-    if("country" in item){
-      if(item.country !== undefined && item.country !== "NULL"
-        && item.country !== "" && item.country !== "(unassigned)"){countryName = item.country}
-    }
-    if("region" in item){
-      if(item.region !== undefined && item.region !== "NULL"
-        && item.region !== "" && item.region !== "(unassigned)"){
-        regionName = item.region;
-        if(countryName !== null){regionName += ", ";}
-      }
-    }
-    return {regionName, countryName}
-  }
-
   buildDestination(item, index) {
     let destinationName = [item.name];
-    let information = this.placeInformation(item);
+    let information = this.props.placeInformation(item);
     destinationName.push(<small key={index}><br/>{information.regionName}{information.countryName}</small>);
     const keys = ['ID', 'Latitude', 'Longitude'];
     for (let k of keys) {

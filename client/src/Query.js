@@ -23,7 +23,6 @@ class Query extends Component {
 
     this.createDestination = this.createDestination.bind(this);
     this.createTable = this.createTable.bind(this);
-    this.placeInformation = this.placeInformation.bind(this);
 
     this.searchFilter = this.searchFilter.bind(this);
     this.newFilter = this.newFilter.bind(this);
@@ -90,25 +89,8 @@ class Query extends Component {
     this.setState({places: newPlaces});
   }
 
-  placeInformation(item) {
-    let countryName = null;
-    let regionName = null;
-    if("country" in item){
-        if(item.country !== undefined && item.country !== "NULL"
-            && item.country !== "" && item.country !== "(unassigned)"){countryName = item.country}
-    }
-    if("region" in item){
-        if(item.region !== undefined && item.region !== "NULL"
-            && item.region !== "" && item.region !== "(unassigned)"){
-            regionName = item.region;
-            if(countryName !== null){regionName += ", ";}
-        }
-    }
-    return {regionName, countryName}
-  }
-
   createDestination(item, index) {
-    let information = this.placeInformation(item);
+    let information = this.props.placeInformation(item);
     return(
         <div>
           <a key={item.name} style={{cursor:'pointer'}}
