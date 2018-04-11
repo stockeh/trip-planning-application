@@ -169,3 +169,25 @@
 .query_country {
     padding-left: 2em;
 }
+
+/* -----------Slider----------- */
+
+input[type=range]{
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 5px;
+    background: #C8C372;
+    border: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #1E4D2B;
+    margin-top: -5px;
+}
