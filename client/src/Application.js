@@ -33,7 +33,6 @@ class Application extends Component {
     this.reverseTrip = this.reverseTrip.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
     this.placeInformation = this.placeInformation.bind(this);
-
   }
 
   updateTrip(tffi){
