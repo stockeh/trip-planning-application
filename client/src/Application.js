@@ -32,6 +32,7 @@ class Application extends Component {
     this.updateStartingLocation = this.updateStartingLocation.bind(this);
     this.reverseTrip = this.reverseTrip.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
+    this.placeInformation = this.placeInformation.bind(this);
 
   }
 
@@ -96,6 +97,24 @@ class Application extends Component {
     this.setState({trip: newTrip});
   }
 
+
+  placeInformation(item) {
+    let countryName = null;
+    let regionName = null;
+    if("country" in item){
+      if(item.country !== undefined && item.country !== "NULL"
+        && item.country !== "" && item.country !== "(unassigned)"){countryName = item.country}
+    }
+    if("region" in item){
+      if(item.region !== undefined && item.region !== "NULL"
+        && item.region !== "" && item.region !== "(unassigned)"){
+        regionName = item.region;
+        if(countryName !== null){regionName += ", ";}
+      }
+    }
+    return {regionName, countryName}
+  }
+
   reverseTrip(){
     if (this.state.trip.places.length) {
       let newTrip = Object.assign({}, this.state.trip),
@@ -117,21 +136,23 @@ class Application extends Component {
   }
 
   render() {
-
     return(
         <div id="application" className="container">
           <div className="row">
             <div className="col-xs-12 col-md-6">
-                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions} updateOptionsUnits={this.updateOptionsUnits}/>
+                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions}
+                         updateOptionsUnits={this.updateOptionsUnits}/>
             </div>
             <div className="col-xs-12 col-md-6">
-                <Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
-                              updateInformation={this.updateInformation}/>
+                <Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip}
+                              updatePlaces={this.updatePlaces}
+                              updateInformation={this.updateInformation} placeInformation={this.placeInformation}/>
             </div>
             <div className="col-12">
                 <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
                       reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
-                      resetDestinations={this.resetDestinations} config={this.props.config}/>
+                      resetDestinations={this.resetDestinations} placeInformation={this.placeInformation}
+                      config={this.props.config}/>
             </div>
           </div>
         </div>

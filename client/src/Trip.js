@@ -29,6 +29,7 @@ class Trip extends Component {
       this.checkDistance = this.checkDistance.bind(this);
       this.initialPlan = this.initialPlan.bind(this);
       this.getMap = this.getMap.bind(this);
+      this.planAndSave = this.planAndSave.bind(this);
   }
 
   removedPlan(index) {
@@ -129,6 +130,24 @@ class Trip extends Component {
       return map;
   }
 
+  planAndSave() {
+    return(
+      <div className="input-group" role="group">
+              <span className="input-group-btn">
+              <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip);
+                  this.initialPlan()}}>Plan</Button>
+              </span>
+        <input id="trip-title" type="text" className="form-control trip-title"
+               onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
+        <span className="input-group-btn">
+              <Button className="green_logo green_hvr_logo">
+                <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
+              </Button>
+            </span>
+      </div>
+    );
+  }
+
   /* Renders the buttons, map, and itinerary.
    * The title should be specified before the plan or save buttons are valid.
    */
@@ -141,19 +160,12 @@ class Trip extends Component {
           </div>
           <div className="card-body">
             <p>Give your trip a title before planning or saving.</p>
-            <div className="input-group" role="group">
-              <span className="input-group-btn">
-              <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>
-              </span>
-              <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
-              <span className="input-group-btn">
-              <Button className="green_logo green_hvr_logo" data-tip="Download this trip!">
-                <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
-              </Button> <ReactTooltip place="top" effect="solid"/>
-            </span>
-            </div>
+            {this.planAndSave()}
             {this.getMap()}
-            <Itinerary trip={this.props.trip} removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
+            <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
+                       removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
+                       updateStartingLocation={this.props.updateStartingLocation}
+                       resetDestinations={this.props.resetDestinations}/>
           </div>
         </div>
     )

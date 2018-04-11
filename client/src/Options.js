@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ButtonGroup, Button, Container} from 'reactstrap'
-import { green_btn, green_hvr, bg_csu_green, text_canyon } from './css/styling.css';
+import { green_btn, green_hvr, bg_csu_green, text_canyon, slider_container} from './css/styling.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -46,7 +46,7 @@ class Options extends Component{
       return(
         <div className="slider_container">
           <br/><input type="range" id="optimizer" min="0" max="1.00" step={1.00/step} value={val} className="slider" onInput={this.handleOnChange} />
-          <div className="row pl-3">
+          <div className="row pt-2 pl-3">
             <div className="col-12">
               <div className="row">
                 <h6 className="pr-4 m-0">Longer</h6>
