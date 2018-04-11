@@ -72,8 +72,8 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks | *24* | *0* 
-Story Points | *46*| *0* 
+Tasks | *24* | *50* 
+Story Points | *46*| *69* 
 
 ## Daily Scrums
 
@@ -83,27 +83,37 @@ Date | Tasks done  | Tasks in progress | Impediments
 *03/27/2018* | *Added 'add all' button for searching database, Added 'remove all' button for database searching, Added individual 'remove' button to destinations in itinerary, handled distance unit config on client, added supported distance units to config rest API* | *#260 #256* | *filter implementation*
 *03/29/2018* | *Updated itinerary table for various screen sizes and style, reactive button layout, added custom units to the front end with text boxes, updated warning message to show only when using and optimized plan* | *#260 #258* | *filter implementation*
 *04/3/2018* | *Include ID column in query searches, Placing coordinates on the map, Display world map in application, scaling lines on map* | *#260 #258 #281* | *filter implementation, Google Map implementation*
+*04/11/2018* | *Save filter state, updated grammar, added tooltips to icons, added trash icon to remove all button, added country and region to trip itinerary* | *none* | *Google Map implementation for next sprint*
 
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* 
-
+* Shorter trips #2
+* Filtered Searches
+* Plan trips outside of Colorado
+* Distance Unit Configuration
+* Improve the user experience
 
 #### Incomplete epics in Sprint Backlog 
-* 
+* System Testing
+* Branding
+* Zoom and Pan the map
 
 #### What went well
-* 
+* Developed a great UI for the user
+* Added features that make it easier for the user to use the application
+* We were able to have continious integration
 
 #### Problems encountered and resolutions
-* 
+* Issues and uncertainties on implementing the Google Map, asking questions definitely helped but we didn't have enough time to complete the task
+* SVG wrapping, did not think of a great solution to the problem
+* Interpreted the optimization value of .6 as something that was not expected
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  | 
-What we will change next time |  |  |
+What we will change this time | Even more questions at the early stages of our tasks and pair programming | More continous integration | Take code climate more seriously
+What we did well | Pair programming and communication | We did a good job at planning and creating tasks for what we needed to do | Used github effectively, took care of code climate issues
+What we need to work on | Need to find out more information on big issues earlier | Testing javascript | Jacoco and Emma
+What we will change next time | Walk through our code with each other for better understanding for complex tasks | Allow more time for testing, possibly earlier commits | Get more familiar with KML and Jest. Make the UI better
