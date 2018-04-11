@@ -33,6 +33,7 @@ class Application extends Component {
     this.reverseTrip = this.reverseTrip.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
     this.placeInformation = this.placeInformation.bind(this);
+
   }
 
   updateTrip(tffi){
@@ -135,15 +136,16 @@ class Application extends Component {
   }
 
   render() {
-
     return(
         <div id="application" className="container">
           <div className="row">
             <div className="col-xs-12 col-md-6">
-                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions} updateOptionsUnits={this.updateOptionsUnits}/>
+                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions}
+                         updateOptionsUnits={this.updateOptionsUnits}/>
             </div>
             <div className="col-xs-12 col-md-6">
-                <Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip} updatePlaces={this.updatePlaces}
+                <Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip}
+                              updatePlaces={this.updatePlaces}
                               updateInformation={this.updateInformation} placeInformation={this.placeInformation}/>
             </div>
             <div className="col-12">

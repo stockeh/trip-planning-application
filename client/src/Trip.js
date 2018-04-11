@@ -161,24 +161,11 @@ class Trip extends Component {
           <div className="card-body">
             <p>Give your trip a title before planning or saving.</p>
             {this.planAndSave()}
-            {map}
+            {this.getMap()}
             <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
                        removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
                        updateStartingLocation={this.props.updateStartingLocation}
                        resetDestinations={this.props.resetDestinations}/>
-            <div className="input-group" role="group">
-              <span className="input-group-btn">
-              <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>
-              </span>
-              <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
-              <span className="input-group-btn">
-              <Button className="green_logo green_hvr_logo" data-tip="Download this trip!">
-                <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
-              </Button> <ReactTooltip place="top" effect="solid"/>
-            </span>
-            </div>
-            {this.getMap()}
-            <Itinerary trip={this.props.trip} removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
           </div>
         </div>
     )
