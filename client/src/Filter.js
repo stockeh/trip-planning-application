@@ -9,11 +9,10 @@ class Filter extends Component {
   constructor(props){
     super(props);
     this.state = {
-      buttonClick: false
+      displayFilter: false
     };
     this.buildCheckTable = this.buildCheckTable.bind(this);
     this.renderFilter = this.renderFilter.bind(this);
-    this.openFilter = this.openFilter.bind(this);
 
     this.handelFilter = this.handelFilter.bind(this);
     this.renderCheckbox = this.renderCheckbox.bind(this);
@@ -47,10 +46,6 @@ class Filter extends Component {
     return {attributes, rows}
   }
 
-  openFilter() {
-    this.setState({buttonClick : !this.state.buttonClick});
-  }
-
   renderFilter() {
     let table = null;
     for (let index = 0; index < this.props.filters.length; ++index) {
@@ -59,33 +54,39 @@ class Filter extends Component {
         table = this.buildCheckTable(attribute, index);
       }
     }
-    if (this.state.buttonClick === true) {
-      return (
-          <div>
-            <br/><h5>Filterable Options</h5>
-            {table.attributes}
-            <table className="table-responsive">
-              <tbody>{table.rows}</tbody>
-            </table>
-          </div>
-      );
-    }
+    return (
+      <div>
+        <br/><h5>Filterable Options</h5>
+        {table.attributes}
+        <table className="table-responsive">
+          <tbody>{table.rows}</tbody>
+        </table>
+      </div>
+    );
   }
 
   render() {
-    if (this.props.filters.length > 0) {
+    if (this.props.filters.length <= 0) {
+      return null;
+    }
+    else {
+      const showHide = {
+        'display': this.state.displayFilter ? 'block' : 'none'
+      };
+      const showReplyForm = () => {
+        this.setState({displayFilter: !this.state.displayFilter});
+      };
       return (
         <div id="filter">
           <Button className="btn btn-light btn-md"
-                  onClick={() => this.openFilter()}>
+                  onClick={showReplyForm}>
             <FaFilter/>
           </Button>
-          {this.renderFilter()}
+          <div id="filter-content" style={showHide}>
+            {this.renderFilter()}
+          </div>
         </div>
       );
-    }
-    else {
-      return null;
     }
   }
 }
