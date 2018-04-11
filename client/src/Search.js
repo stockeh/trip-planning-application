@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import MdSearch from 'react-icons/lib/md/search';
 import {Button} from 'reactstrap';
-import ReactTooltip from 'react-tooltip'
 
 class Search extends Component {
   constructor(props) {
@@ -59,7 +58,7 @@ class Search extends Component {
     return(
       <div id="search">
         <Button id="search-button" className="green_logo green_hvr_logo">
-          <MdSearch size={37} onClick={this.search} data-tip="Search!" data-for="search"/> <ReactTooltip id="search" place="top" effect="solid"/>
+          <MdSearch size={37} onClick={this.search}/>
         </Button>
       </div>
     )
