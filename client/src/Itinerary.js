@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {table_scroll, canyon_btn, canyon_hvr, bg_csu_gold} from './css/styling.css';
+import GoTrashcan from 'react-icons/lib/go/trashcan';
 import MdRemoveCircleOutline from 'react-icons/lib/md/remove-circle-outline';
 import IoIosNavigateOutline from 'react-icons/lib/io/ios-navigate-outline';
 import { Button}  from 'reactstrap';
@@ -159,7 +160,7 @@ class Itinerary extends Component {
                         <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
                     </div>
                     <span className="input-group-btn">
-                        <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}>Remove All Destinations</Button>
+                        <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}><GoTrashcan size={20}/>  Remove All Destinations</Button>
                     </span>
                 </div>
             </div>
