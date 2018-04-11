@@ -12,7 +12,7 @@ class App extends Component {
       config: {
         type        : "config",
         version     : 2,
-        optimization: 1,
+        optimization: 2,
         units       : [],
         maps        : [],
         filters     : []

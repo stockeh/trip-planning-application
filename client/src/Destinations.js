@@ -50,7 +50,7 @@ class Destinations extends Component {
             Destinations
           </div>
           <div className="card-body">
-            <p>Load destinations from a file.</p>
+            <p>Load existing trip from file.</p>
             <div className="form-group" role="group">
                 <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
             </div>

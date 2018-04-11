@@ -14,15 +14,13 @@ class Header extends Component{
           <p className="lead">"Want to travel far and wide?"</p>
             <ol >
               <li>
-                Choose options for trip planning, information to display about locations,
-                and how the trip map and itinerary should be saved.</li>
+                Search for your favorite destinations and add them to your trip!
+              </li>
               <li>
-                Choose your destinations by loading existing sets of destinations or
-                find more in an extensive database of locations worldwide.</li>
+                To plan your trip, choose any options you wish and click plan!</li>
               <li>
-                Plan the trip with the options you selected.
-                Review and revise the trip origin and order.
-                Save the trip map and itinerary for future reference.</li>
+                Finally save your trip so you can easily load it again later!</li>
+              <li>Already have a trip saved? Simply load it from a file!</li>
             </ol>
         </div>
     )

@@ -37,6 +37,7 @@ class Options extends Component{
   slider(){
     let step = this.props.config.optimization;
     let val = parseFloat(this.props.trip.options.optimization);
+    console.log("step: " + step);
     if (isNaN(val)) {
       val = 0.0;
     }
@@ -92,7 +93,7 @@ class Options extends Component{
         <div id="options" className="card">
           <div className="card-header bg_csu_green text-white">Options</div>
           <div className="card-body">
-            <p>Highlight the options you wish to use.</p>
+            <p>Select the options you wish to use.</p>
               <ButtonGroup>
                 <Container>
                   {this.distanceButtons()}
