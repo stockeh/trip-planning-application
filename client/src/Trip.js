@@ -5,6 +5,7 @@ import GMap from './GMap';
 import { Button } from 'reactstrap';
 import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
+import ReactTooltip from 'react-tooltip'
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -133,7 +134,6 @@ class Trip extends Component {
    */
   render(){
     this.checkDistance();
-    let map = this.getMap();
     return(
         <div id="trip" className="card">
           <div className="card-header bg_csu_green text-white">
@@ -147,12 +147,12 @@ class Trip extends Component {
               </span>
               <input id="trip-title" type="text" className="form-control trip-title" onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
               <span className="input-group-btn">
-              <Button className="green_logo green_hvr_logo">
+              <Button className="green_logo green_hvr_logo" data-tip="Download this trip!">
                 <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
-              </Button>
+              </Button> <ReactTooltip place="top" effect="solid"/>
             </span>
             </div>
-            {map}
+            {this.getMap()}
             <Itinerary trip={this.props.trip} removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip} updateStartingLocation={this.props.updateStartingLocation} resetDestinations={this.props.resetDestinations}/>
           </div>
         </div>

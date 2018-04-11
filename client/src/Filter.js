@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import FaFilter from 'react-icons/lib/fa/filter';
 import {Button} from 'reactstrap';
+import ReactTooltip from 'react-tooltip'
 
 /** Adds the component to select filtered items for
  * database search.
@@ -78,7 +79,7 @@ class Filter extends Component {
         <div id="filter">
           <Button className="btn btn-light btn-md"
                   onClick={() => this.openFilter()}>
-            <FaFilter/>
+            <FaFilter data-tip="Apply filters" data-for="filter"/> <ReactTooltip id="filter" place="top" effect="solid"/>
           </Button>
           {this.renderFilter()}
         </div>
