@@ -5,6 +5,7 @@ import MdRemoveCircleOutline from 'react-icons/lib/md/remove-circle-outline';
 import IoIosNavigateOutline from 'react-icons/lib/io/ios-navigate-outline';
 import { Button}  from 'reactstrap';
 import { remove_logo, add_logo} from './css/styling.css';
+import ReactTooltip from 'react-tooltip'
 
 
 class Itinerary extends Component {
@@ -54,14 +55,14 @@ class Itinerary extends Component {
                                 onClick={() => {
                                     this.props.updateStartingLocation(index);
                                 }}><br/>
-            <small><IoIosNavigateOutline className="add_logo" size={25}/></small>
+            <small><IoIosNavigateOutline className="add_logo" size={25} data-tip="Set starting point" data-for="start"/></small><ReactTooltip id="start" place="bottom" effect="solid"/>
             </a>);
     }else if(index == 0){destinationName.push(<br/>);}
     destinationName.push(<a key={item} className="font-weight-light text-danger"
                             style={{cursor:'pointer'}}
                             onClick={ () => {
                                 this.props.removedPlan(index);
-                            }}><small><MdRemoveCircleOutline className = "remove_logo" size={25}/></small></a>);
+                            }}><small><MdRemoveCircleOutline className = "remove_logo" size={25} data-tip="Remove" data-for="remove"/></small><ReactTooltip id="remove" place="right" effect="solid"/></a>);
     return destinationName;
   }
 
