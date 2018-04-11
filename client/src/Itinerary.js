@@ -55,7 +55,7 @@ class Itinerary extends Component {
                                 onClick={() => {
                                     this.props.updateStartingLocation(index);
                                 }}><br/>
-            <small><IoIosNavigateOutline className="add_logo" size={25} data-tip="Set starting point" data-for="start"/></small><ReactTooltip id="start" place="bottom" effect="solid"/>
+            <small><IoIosNavigateOutline className="add_logo" size={25} data-tip="Set As Start" data-for="start"/></small><ReactTooltip id="start" place="bottom" effect="solid"/>
             </a>);
     }else if(index == 0){destinationName.push(<br/>);}
     destinationName.push(<a key={item} className="font-weight-light text-danger"
