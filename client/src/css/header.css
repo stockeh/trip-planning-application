@@ -1,0 +1,476 @@
+/*
+Theme Name:     Jupiter Child Theme - CNS
+Theme URI: 	http://themeforest.net/user/artbees
+Description:    Child theme for the Jupiter theme for CNS
+Author:         Steve Garten
+Template:       jupiter
+Version:        1.0
+*/
+
+/*
+This file is pulled into each of the dept theme's, too. Used for "universal" styles across themes.
+*/
+
+.add-header-height{
+  background-color: #1E4D2B;
+  height: 90px;
+  line-height: 90px;
+}
+
+/* General Header Styles */
+#responsiveHeaderContainer{
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  height: 100%;
+}
+
+
+/* CSU Header Styles */
+@media only screen{
+  #csuLargeLogo{
+    display: inline-block;
+  }
+  #csuMedLogo,
+  #csuSmallLogo{
+    display: none;
+  }
+}
+@media only screen and (max-width: 1140px){
+  #csuMedLogo{
+    display: inline-block;
+  }
+  #csuLargeLogo,
+  #csuSmallLogo{
+    display: none;
+  }
+  /* If page has the page header, push it down to account for mobile menu */
+  #mk-page-introduce{
+    margin-top: 35px;
+  }
+}
+@media only screen and (max-width: 800px){
+  #csuSmallLogo{
+    display: inline-block;
+  }
+  #csuMedLogo,
+  #csuLargeLogo{
+    display: none;
+  }
+  /* Look into the A tag being 123px wide... this is the only case of the 3 that has that additional 10px */
+  #csuHeaderLink{
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+#csuHeaderLink{
+  margin-left: 15px;
+  z-index: 1000;
+  line-height: 0;
+}
+
+/* CNS Header Styles */
+#responsiveLogoSubsystem{
+  align-items: center;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  color: rgb(108, 108, 108);
+  display: flex;
+  font-family: Lato, sans-serif;
+  font-size: 0px;
+  height: 42.0469px;
+  line-height: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 32px;
+  position: relative;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+#responsiveLogoSubsystem::before{
+  border-left-color: rgb(255, 255, 255);
+  border-left-style: solid;
+  border-left-width: 2px;
+  bottom: 0px;
+  box-sizing: border-box;
+  content: "";
+  display: block;
+  height:42.0469px;
+  left: 0px;
+  margin-left: 15px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 999;
+}
+#cnsHeaderLink{
+  display: block;
+  color: #FFFFFF;
+  z-index: 2000;
+}
+#cnsHeaderLink h1{
+  margin: 0;
+  padding: 0;
+  z-index: 1001;
+}
+/* CSU Unit Identifier Font */
+.larger-CSUtext{
+  font-family: 'prox-light', sans-serif !important;
+  letter-spacing: .11em;
+  line-height: 1em;
+  font-size: 19px;
+  text-transform: uppercase;
+}
+#deptDIV a{
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: 15px;
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+/* Vertically Center Buttons in a Row */
+/* Work in progress... reference "Undergradute Research" page's buttons */
+.buttonRowVCenter .vc_btn3-container,
+.buttonRowVCenter .vc_btn3-container button{
+  vertical-align: middle;
+}
+
+
+/* Modify footer to span full width */
+.mk-footer-copyright{
+  width: 100%;
+}
+
+/* Since mobile menu has been moved below header,
+   make necessary adjustments */
+.mk-nav-responsive-link{
+  position: relative;
+  float: none;
+  margin: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #3C6548;
+  overflow: hidden;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.mk-css-icon-menu{
+  margin: 0 auto;
+  overflow: hidden;
+}
+.mk-responsive-wrap{
+  overflow: auto;
+  margin-top: 35px;
+}
+
+/* Brighten the menu item font color */
+.mk-header-holder .mk-main-navigation ul.sub-menu a.menu-item-link{
+  color: #bfbfbf;
+}
+
+/* Large Footer */
+#mk-footer .widget:not(.widget_social_networks) a{
+  color: #DDDDDD;
+}
+#mk-footer .widget:not(.widget_social_networks) a:hover{
+  color: #FFFFFF;
+}
+
+
+/* Custom Sub-Footer (Copyright) */
+.mk-footer-copyright{
+
+}
+
+
+/* Links */
+.mk-footer-copyright{
+  padding: 0px !important;
+}
+.mk-footer-copyright ul{
+  list-style-type: none;
+}
+.mk-footer-copyright li{
+  float: left;
+  margin-left: 0;
+  margin-right: 20px;
+}
+.mk-footer-copyright a{
+  color: #FFFFFF;
+}
+.mk-footer-copyright a:hover{
+  text-decoration: underline;
+}
+.flexbox-footer{
+  padding: 10px;
+}
+@media(min-width: 1141px){
+  .flexbox-footer{
+    display: flex;
+    align-items: center;
+  }
+}
+.flexbox-footer-left{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.flexbox-footer-left div{
+  display: block;
+}
+
+.flexbox-footer-left-bottom{
+  text-align: left;
+}
+.flexbox-footer-right{
+
+}
+
+
+/* For Admin VC Directory Settings Dialog Box */
+div[data-vc-shortcode-param-name="sg_vc_directory_group"] label.vc_checkbox-label{
+  display: block !important;
+}
+
+/*
+Failed CSS accessibility solution -> Try JS
+nav.mk-main-navigation ul#menu-main-nav li.menu-item-has-children a:focus{
+    border: 1px solid green !important;
+}
+nav.mk-main-navigation ul#menu-main-nav li.menu-item-has-children a:focus + ul.sub-menu{
+    display: block;
+}
+*/
+
+nav.mk-main-navigation ul#menu-main-nav li.menu-item-has-children a:focus{
+  border: 1px solid #AAA;
+}
+
+/* ISSUE IS WITH .mk-footer-copyright */
+
+/*
+<div id="theme-page" class="master-holder">
+	<div class="theme-page-wrapper mk-main wrapper mk-grid full-layout">
+		<div class="theme-content" itemprop="mainEntityOfPage".
+
+
+*/
+
+
+/* SOURCE FEED STYLES */
+.sourceNewsHolder{
+}
+.sourceNewsItem{
+  background: rgb(246, 246, 246);
+  margin-bottom: 40px;
+}
+.sniImageHolder{
+  display: block;
+  background-position: 50% 50%;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-size: cover;
+  box-sizing: border-box;
+  width: 100%;
+  height: 250px;
+}
+.sniTitle{
+  font-size: 1.2em !important;
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 0;
+}
+.sniExcerpt p{
+  font-size: 1em !important;
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 0;
+}
+.sniReadMoreButton{
+  border: 2px solid rgb(30, 77, 43);
+  color: rgb(30, 77, 43);
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px 10px 20px;
+  text-align: center;
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  vertical-align: middle;
+}
+.sniReadMoreButton:hover{
+  background: rgb(30, 77, 43);
+  color: rgb(255, 255, 255);
+}
+.sniReadMoreButton:hover a{
+  color: rgb(255, 255, 255);
+}
+
+
+/* Accessibility enhancements */
+.theme-content a:focus,
+#mk-footer a:focus{
+  outline: 1px solid #bbb;
+}
+.vc_btn3-container a:focus,
+.sniReadMoreButton a:focus{
+  background: #1e4d2b !important;
+  color: #fff !important;
+}
+
+/* Nudge "Contact Us" bubble to the left a bit */
+.contact-us-icon{
+  margin-left: -25px !important;
+}
+
+/* Search results metadata is loaded in core-js file - too much to tweak, just hide and keep its spacing */
+.search-date{
+  visibility: hidden;
+}
+
+/* Styles for seminars */
+.seminar-row-dept{
+  margin-top: 20px;
+}
+.seminar-info-col{
+  display: inline-block;
+  font-size: 16px;
+  float: left;
+  width: 800px;
+}
+.seminar-extra-col{
+  display: inline-block;
+  width: 300px;
+}
+
+.seminar-info-row{
+  margin-bottom: 10px;
+}
+.seminar-info-header{
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  padding-right: 5px;
+  text-align: right;
+  vertical-align: top;
+  width: 200px;
+}
+.seminar-info-data{
+  display: inline-block;
+  width: 590px;
+}
+
+.seminar-dept{
+  /*margin-top: 20px;*/
+}
+.seminar-list-row{
+  margin-bottom: 20px;
+}
+.seminar-list-title{
+  font-size: 1.4em;
+  font-weight: 600;
+}
+.seminar-list-details-div{
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.seminar-list-content-div{
+  margin-top: 10px;
+}
+.seminar-dept-widget{
+  line-height: 1.2em;
+}
+.seminar-dept-widget .seminar-div-widget{
+  margin-bottom: 20px;
+}
+.seminar-dept-widget .seminar-div-widget:last-child{
+  margin-bottom: 0;
+}
+.seminar-dept-widget .seminar-list-title-div{
+  font-size: 0.7em;
+}
+.seminar-dept-widget .seminar-list-details-div{
+  font-size: 0.9em;
+}
+
+/*.person-page-about{*/
+  /*font-family: 'Open Sans' !important;*/
+/*}*/
+.person-page-about p{
+  padding: 10px 0 10px 0;
+  margin-bottom: 0;
+}
+.person-page-about ul{
+  font-size: 16px;
+  margin-left: 40px !important;
+}
+.person-page-about ul li{
+  display: list-item !important;
+  list-style-type: circle;
+  list-style-position: outside;
+  padding: 5px 0 5px 5px !important;
+}
+
+.person-publication-item{
+  margin-bottom: 20px;
+}
+.person-publication-item .pub-title{
+  display: block;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+.person-publication-item .pub-authors{
+  display: block;
+}
+
+.dlci-row{
+  display: inline-block;
+}
+.dlci-row-after{
+  margin-left: 15px;
+}
+.directory-list-title{
+  font-size: 1.2em;
+  padding-left: 5px;
+}
+.directory-list-contact-info{
+  margin: 2px 0 10px 0;
+}
+.contact-info-title{
+  color: #1e4d2b;
+  font-weight: 600;
+}
+.sg-circle-photo{
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+.directory-default-row{
+  margin-bottom: 20px !important;
+}
+
+@media only screen and (max-width: 1140px){
+  .seminar-info-col,
+  .seminar-extra-col,
+  .seminar-info-data{
+    max-width: 100%;
+  }
+  .dlci-row{
+    display: block;
+  }
+  .seminar-info-header{
+    display: block;
+    text-align: left;
+  }
+
+  .dlci-row{
+    display: block;
+  }
+  .dlci-row-after{
+    margin-left: 0px;
+  }
+}
