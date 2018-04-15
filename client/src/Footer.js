@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './css/headerfooter.css'
+require('./images/CSU-Official-wrdmrk-Rev.png');
 
 /* Renders a text footer below the application with copyright
  * and other useful information.
@@ -19,7 +20,7 @@ class Footer extends Component {
         </div>
         <div className="col">
           <a href="http://www.colostate.edu/">
-            <img className="img-resize" src="../resources/CSU-Official-wrdmrk-Rev.png"
+            <img className="img-resize" src="./images/CSU-Official-wrdmrk-Rev.png"
                  alt="Colorado State University"/>
           </a>
         </div>
