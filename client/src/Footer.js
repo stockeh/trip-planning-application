@@ -12,9 +12,9 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="add-footer-height row">
-        <div className="col-lg-5 col-md-5 col-sm-12 footer-copyright">
-          <h4 className="larger-CSUtext-uncap" style={{color: 'white'}}>
+      <div className="add-footer row" style={{ margin: 0, padding: 0 }}>
+        <div className="col-lg-7 col-md-6 col-sm-12">
+          <h4 className="larger-CSUtext-uncap footer-copyright" style={{color: 'white'}}>
             © TripCo - t{this.props.number} {this.props.name} 2018
           </h4>
         </div>
