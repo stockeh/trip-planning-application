@@ -38,9 +38,15 @@ module.exports = {
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.scss&/, loaders: ["style-loader", "css-loader", "sass-loader"] },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: ["file-loader", "image-webpack-loader"]
+      { test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]'
+            }
+          }
+        ]
       }
     ]
   }
