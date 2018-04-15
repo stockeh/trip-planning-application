@@ -12,13 +12,13 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="add-footer-height row">
-        <div className="col-lg-5 col-md-5 col-sm-12 footer-copyright">
-          <h4 className="larger-CSUtext-uncap" style={{color: 'white'}}>
+      <div className="add-footer row no-gutters" style={{ margin: 0, padding: 0 }}>
+        <div className="col-xs-12 col-sm-6 col-md-6">
+          <h4 className="larger-CSUtext-uncap footer-copyright" style={{color: 'white'}}>
             © TripCo - t{this.props.number} {this.props.name} 2018
           </h4>
         </div>
-        <div className="col">
+        <div className="col-xs-12 col-sm-6 col-md-6">
           <a href="http://www.colostate.edu/">
             <img className="img-resize" src="./images/CSU-Official-wrdmrk-Rev.png"
                  alt="Colorado State University"/>
