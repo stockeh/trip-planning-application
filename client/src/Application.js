@@ -3,7 +3,8 @@ import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip';
 import { Button}  from 'reactstrap';
-import IoAndroidMenu from 'react-icons/lib/io/android-menu';
+import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
+import IoChevronRight from 'react-icons/lib/io/chevron-right';
 import Menu from "./Menu";
 
 /* Renders the application.
@@ -163,7 +164,7 @@ class Application extends Component {
                       config={this.props.config}/>
             </div>
               <Button id="side-menu-button">
-                  <IoAndroidMenu size={37} onClick={this.menu}/>
+                  <IoChevronRight size={40} onClick={this.menu}/>
               </Button>
             <Menu trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
                   reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}

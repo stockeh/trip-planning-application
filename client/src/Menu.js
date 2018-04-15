@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './css/w3.css';
 import Trip from './Trip';
-import IoAndroidMenu from 'react-icons/lib/io/android-menu';
+import IoChevronLeft from 'react-icons/lib/io/chevron-left';
+import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
 import { Button}  from 'reactstrap';
 
 /* Renders a menu that slides from the side
@@ -21,7 +22,7 @@ class Menu extends Component{
         return(
             <div className="w3-sidebar w3-bar-block col-xs-12 col-s-10 col-m-8 col-lg-6 w3-animate-left " id="side-menu">
                 <Button id="side-menu-close">
-                    <IoAndroidMenu size={37} onClick={this.closeMenu}/>
+                    <IoChevronLeft size={40} onClick={this.closeMenu}/>
                 </Button>
                 <div className="col-12">
                     <Trip trip={this.props.trip} updateTrip={this.props.updateTrip} updateInformation={this.props.updateInformation}

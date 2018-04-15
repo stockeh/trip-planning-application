@@ -204,6 +204,7 @@ input[type=range]::-webkit-slider-thumb {
 
 #side-menu {
     display:none;
+    top: 20%;
     width: 100%;
     left: 0;
 }
