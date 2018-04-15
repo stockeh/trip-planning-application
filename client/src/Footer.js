@@ -19,7 +19,7 @@ class Footer extends Component {
         </div>
         <div className="col">
           <a href="http://www.colostate.edu/">
-            <img className="img-resize" src="../resources/CSU-Official-wrdmrk-Rev.png"
+            <img className="img-resize" src="images/CSU-Official-wrdmrk-Rev.png"
                  alt="Colorado State University"/>
           </a>
         </div>
