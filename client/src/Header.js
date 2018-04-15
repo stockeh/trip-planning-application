@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Navigation from './Navigation';
+import './css/headerfooter.css';
 
 /* Renders a text heading above the application with useful information.
  */
@@ -11,28 +12,28 @@ class Header extends Component{
   render() {
     return(
         <div>
-          <div id="header" className="jumbotron">
-            {this.title()}
-            <p className="lead">"Want to travel far and wide?"</p>
-              <ol >
-                <li>
-                  Search for your favorite destinations and add them to your trip!
-                </li>
-                <li>
-                  To plan your trip, choose any options you wish and click plan!</li>
-                <li>
-                  Finally save your trip so you can easily load it again later!</li>
-                <li>Already have a trip saved? Simply load it from a file!</li>
-              </ol>
+          <div className="add-header-height">
+          <div id="responsiveHeaderContainer" className="">
+            <a href="http://colostate.edu" id="csuHeaderLink">
+              <img id="csuLargeLogo" src="../resources/signature-oneline.svg" width="350" height="45" alt="Colorado State University"/>
+                <img id="csuMedLogo" src="../resources/signature-stacked.svg" width="172" height="45" alt="Colorado State University"/>
+                  <img id="csuSmallLogo" src="../resources/signature-mobile.svg" width="113" height="45" alt="Colorado State University"/>
+            </a>
+
+            <div id="responsiveLogoSubsystem">
+              <a href="https://www.natsci.colostate.edu/" id="cnsHeaderLink" title="">
+                <h1 id="cnsHeaderText" className="larger-CSUtext">
+                  <span>COLLEGE OF</span> <span >NATURAL SCIENCES</span>
+                </h1>
+              </a>
+            </div>
           </div>
-          <Navigation/>
         </div>
+        <Navigation name={this.props.name}/>
+      </div>
     )
   }
 
-  title() {
-    return( <h3>TripCo <small>t{this.props.number} {this.props.name}</small></h3> )
-  }
 }
 
 export default Header;

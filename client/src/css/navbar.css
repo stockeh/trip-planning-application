@@ -1,9 +1,14 @@
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 800px) {
     .nav_bar{
         display:none;
     }
 }
 
+@media screen and (min-width: 800px){
+    .nav_side_bar{
+        display: none;
+    }
+}
 
 
 .nav_item{
@@ -48,7 +53,34 @@
 }
 
 .nav_side_bar{
-    vertical-align: center;
-    float:right;
+    background-color: #C8C372;
+    color:white;
+    margin-bottom:2em;
 }
 
+.dropdown_icon{
+    margin: 0 auto;
+    background-color:#C8C372;
+    border: none;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.dropdown_icon:hover{
+    background-color:#C8C372;
+}
+
+.dropdown_icon:focus{
+    background-color:#C8C372;
+    box-shadow: none !important;
+}
+
+.dropdown_icon:active{
+    background-color:#C8C372 !important;
+}
+
+.dropdown_item{
+    float:left;
+    color:#FFFFFF !important;
+}

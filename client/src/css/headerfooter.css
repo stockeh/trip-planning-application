@@ -1,0 +1,144 @@
+.add-header-height{
+  background-color: #1E4D2B;
+  height: 90px;
+  line-height: 90px;
+}
+
+.footer-copyright{
+  margin-top: 26px;
+  margin-left: 10px;
+}
+
+.add-footer-height{
+  background-color: #1E4D2B;
+}
+
+.img-resize {
+  width: 290px; /* you can use % */
+  height: auto;
+  float: right;
+  margin-right: 10px;
+}
+
+/* General Header Styles */
+#responsiveHeaderContainer{
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  height: 100%;
+}
+
+
+/* CSU Header Styles */
+@media only screen{
+  #csuLargeLogo{
+    display: inline-block;
+  }
+  #csuMedLogo,
+  #csuSmallLogo{
+    display: none;
+  }
+}
+@media only screen and (max-width: 1140px){
+  #csuMedLogo{
+    display: inline-block;
+  }
+  #csuLargeLogo,
+  #csuSmallLogo{
+    display: none;
+  }
+  /* If page has the page header, push it down to account for mobile menu */
+  #mk-page-introduce{
+    margin-top: 35px;
+  }
+}
+@media only screen and (max-width: 800px){
+  #csuSmallLogo{
+    display: inline-block;
+  }
+  #csuMedLogo,
+  #csuLargeLogo{
+    display: none;
+  }
+  /* Look into the A tag being 123px wide... this is the only case of the 3 that has that additional 10px */
+  #csuHeaderLink{
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+  }
+  .img-resize {
+    float: none;
+    margin-bottom: 10px;
+  }
+}
+#csuHeaderLink{
+  margin-left: 15px;
+  z-index: 1000;
+  line-height: 0;
+}
+
+/* CNS Header Styles */
+#responsiveLogoSubsystem{
+  align-items: center;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  color: rgb(108, 108, 108);
+  display: flex;
+  font-family: Lato, sans-serif;
+  font-size: 0;
+  height: 42.0469px;
+  line-height: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 32px;
+  position: relative;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+#responsiveLogoSubsystem::before{
+  border-left-color: rgb(255, 255, 255);
+  border-left-style: solid;
+  border-left-width: 2px;
+  bottom: 0;
+  box-sizing: border-box;
+  content: "";
+  display: block;
+  height:42.0469px;
+  left: 0;
+  margin-left: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+#cnsHeaderLink{
+  display: block;
+  color: #FFFFFF;
+  z-index: 2000;
+}
+#cnsHeaderLink h1{
+  margin: 0;
+  padding: 0;
+  z-index: 1001;
+}
+/* CSU Unit Identifier Font */
+.larger-CSUtext{
+  font-family: 'prox-light', sans-serif !important;
+  letter-spacing: .11em;
+  line-height: 1em;
+  font-size: 19px;
+  text-transform: uppercase;
+}
+
+.larger-CSUtext-uncap{
+  font-family: 'prox-light', sans-serif !important;
+  letter-spacing: .11em;
+  line-height: 1em;
+  font-size: 19px;
+}
+
+#deptDIV a{
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: 15px;
+  vertical-align: middle;
+  font-size: 24px;
+}

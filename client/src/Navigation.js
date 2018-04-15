@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,
     UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import './css/navbar.css';
+import { Button}  from 'reactstrap';
+import MdMenu from 'react-icons/lib/md/menu';
+import MdClose from 'react-icons/lib/md/close';
 
 
 class Navigation extends Component {
@@ -11,8 +14,9 @@ class Navigation extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.collapsable = this.collapsable.bind(this);
+        this.getToggler = this.getToggler.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
         };
     }
     toggle() {
@@ -21,36 +25,28 @@ class Navigation extends Component {
         });
     }
 
+    getToggler(){
+        if(!this.state.isOpen)return (<MdMenu size={25}/>);
+        else return (<MdClose size={25}/>);
+    }
+
     collapsable(){
+        let toggler = this.getToggler();
         return(
             <div className="">
-                <Navbar color="light" light expand="md">
-                    <NavbarToggler className="nav_side_bar" onClick={this.toggle} />
+                <Navbar className="nav_side_bar" light>
+                    <Button className="dropdown_icon" onClick={this.toggle}> {toggler}</Button>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
+                                <NavLink className="dropdown_item" href="">Trip Planner</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                                <NavLink className="dropdown_item" href="">Staff</NavLink>
                             </NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Options
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        Option 1
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        Option 2
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        Reset
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            <NavItem>
+                                <NavLink className="dropdown_item" href="">Development</NavLink>
+                            </NavItem>
                         </Nav>
                     </Collapse>
                 </Navbar>
@@ -65,7 +61,7 @@ class Navigation extends Component {
             <div className="">
                 {sidebar}
                 <Navbar className="nav_bar">
-                    <NavbarBrand className="nav_title" href="">Andromeda</NavbarBrand>
+                    <NavbarBrand className="nav_title" href="">{this.props.name}</NavbarBrand>
                     <div>
                         <NavLink className="nav_item" href="">Development</NavLink>
                         <NavLink className="nav_item" href="">Staff</NavLink>
