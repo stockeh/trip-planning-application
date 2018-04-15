@@ -17,7 +17,13 @@
   width: 290px; /* you can use % */
   height: auto;
   float: right;
-  padding-right: 6px;
+  margin-right: 12px;
+}
+@media only screen and (max-width: 575px){
+  .img-resize {
+    float: none;
+    margin-bottom: 10px;
+  }
 }
 
 /* General Header Styles */
@@ -64,10 +70,6 @@
   #csuHeaderLink{
     margin-right: 0 !important;
     padding-right: 0 !important;
-  }
-  .img-resize {
-    float: none;
-    margin-bottom: 10px;
   }
 }
 #csuHeaderLink{
@@ -133,7 +135,7 @@
   font-family: 'prox-light', sans-serif !important;
   letter-spacing: .11em;
   line-height: 1em;
-  font-size: 19px;
+  font-size: 18px;
 }
 
 #deptDIV a{
