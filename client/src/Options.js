@@ -90,25 +90,22 @@ class Options extends Component{
     let slider = null;
     if (this.props.config.optimization > 0) slider = this.slider();
     return(
-        <div id="options" className="card">
-          <div className="card-header bg_csu_green text-white">Options</div>
-          <div className="card-body">
-            <p>Select the options you wish to use.</p>
-              <ButtonGroup>
-                <Container>
-                  {this.distanceButtons()}
-                </Container>
-              </ButtonGroup>
-            <div className="row">
-                <div className="col-sm-6 order-last order-md-first">
-                    {slider}
-                </div>
-                <div className="col-sm-6 order-first order-md-last">
-                    {this.customUnitsOptions()}
-                </div>
+      <div id="options" >
+        <p>Select the options you wish to use.</p>
+          <ButtonGroup>
+            <Container>
+              {this.distanceButtons()}
+            </Container>
+          </ButtonGroup>
+        <div className="row">
+            <div className="col-sm-6 order-last order-md-first">
+                {slider}
             </div>
-          </div>
+            <div className="col-sm-6 order-first order-md-last">
+                {this.customUnitsOptions()}
+            </div>
         </div>
+      </div>
     )
   }
 }
