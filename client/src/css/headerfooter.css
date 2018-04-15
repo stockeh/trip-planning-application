@@ -1,16 +1,3 @@
-/*
-Theme Name:     Jupiter Child Theme - CNS
-Theme URI: 	http://themeforest.net/user/artbees
-Description:    Child theme for the Jupiter theme for CNS
-Author:         Steve Garten
-Template:       jupiter
-Version:        1.0
-*/
-
-/*
-This file is pulled into each of the dept theme's, too. Used for "universal" styles across themes.
-*/
-
 .add-header-height{
   background-color: #1E4D2B;
   height: 90px;

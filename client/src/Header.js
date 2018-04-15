@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './css/header.css';
+import './css/headerfooter.css';
 
 /* Renders a text heading above the application with useful information.
  */
