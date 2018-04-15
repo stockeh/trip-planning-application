@@ -45,21 +45,16 @@ class Destinations extends Component {
     // need to clean up the button
     const count = this.props.trip.places.length; // need to count the number in the trip
     return (
-        <div id="destinations" className="card">
-          <div className="card-header bg_csu_green text-white">
-            Destinations
-          </div>
-          <div className="card-body">
-            <p>Find destinations to add to your trip.</p>
-            <Query trip={this.props.trip} config={this.props.config} updatePlaces={this.props.updatePlaces}
-                   placeInformation={this.props.placeInformation}/>
-            <br/><p>Load existing trip from file.</p>
-            <div className="form-group" role="group">
-                <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
-            </div>
-            <h5>There are {count} destinations. </h5>
-          </div>
+      <div id="destinations">
+        <p>Find destinations to add to your trip.</p>
+        <Query trip={this.props.trip} config={this.props.config} updatePlaces={this.props.updatePlaces}
+               placeInformation={this.props.placeInformation}/>
+        <br/><p>Load existing trip from file.</p>
+        <div className="form-group" role="group">
+            <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
         </div>
+        <h5>There are {count} destinations. </h5>
+      </div>
     )
   }
 }

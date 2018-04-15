@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Options from './Options';
-import Destinations from './Destinations';
+
 import Trip from './Trip';
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -137,24 +136,12 @@ class Application extends Component {
 
   render() {
     return(
-        <div id="application" className="container">
-          <div className="row">
-            <div className="col-xs-12 col-md-6">
-                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions}
-                         updateOptionsUnits={this.updateOptionsUnits}/>
-            </div>
-            <div className="col-xs-12 col-md-6">
-                <Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip}
-                              updatePlaces={this.updatePlaces}
-                              updateInformation={this.updateInformation} placeInformation={this.placeInformation}/>
-            </div>
-            <div className="col-12">
-                <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
-                      reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
-                      resetDestinations={this.resetDestinations} placeInformation={this.placeInformation}
-                      config={this.props.config}/>
-            </div>
-          </div>
+        <div id="application">
+          <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
+                reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
+                resetDestinations={this.resetDestinations} placeInformation={this.placeInformation}
+                config={this.props.config} updateOptions={this.updateOptions}
+                updateOptionsUnits={this.updateOptionsUnits} updatePlaces={this.updatePlaces} />
         </div>
     )
   }

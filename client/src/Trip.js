@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import Map from './Map';
 import Itinerary from './Itinerary';
+import Options from './Options';
+import Destinations from './Destinations';
 import GMap from './GMap';
 import { Button } from 'reactstrap';
-import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
+import IoChevronRight from 'react-icons/lib/io/chevron-right';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
-import ReactTooltip from 'react-tooltip'
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -19,7 +20,8 @@ class Trip extends Component {
       this.distance = "miles";
 
       this.state = {
-          initialPlan : false
+          initialPlan : false,
+          displayMenu: false
       };
 
       this.plan = this.plan.bind(this);
@@ -30,6 +32,8 @@ class Trip extends Component {
       this.initialPlan = this.initialPlan.bind(this);
       this.getMap = this.getMap.bind(this);
       this.planAndSave = this.planAndSave.bind(this);
+
+      this.menuItems = this.menuItems.bind(this);
   }
 
   removedPlan(index) {
@@ -122,7 +126,7 @@ class Trip extends Component {
 
   getMap() {
       let map;
-      if (this.props.config.version < 9) { // set to 9 for testing purposes
+      if (this.props.trip.places.length > 0) { // set to 9 for testing purposes
           map = <Map trip={this.props.trip} config={this.props.config}/>;
       } else {
           map = <GMap trip={this.props.trip} config={this.props.config}/>;
@@ -132,20 +136,45 @@ class Trip extends Component {
 
   planAndSave() {
     return(
-      <div className="input-group" role="group">
-              <span className="input-group-btn">
-              <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip);
-                  this.initialPlan()}}>Plan</Button>
+        <div>
+          <div className="input-group" role="group" style={{paddingLeft: 90, paddingTop: 10}}>
+                <span className="input-group-btn">
+                  <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip);
+                      this.initialPlan()}}>Plan</Button>
+                </span>
+                <input id="trip-title" type="text" className="form-control trip-title"
+                       onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
+                <span className="input-group-btn">
+                  <Button className="green_logo green_hvr_logo">
+                    <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
+                  </Button>
               </span>
-        <input id="trip-title" type="text" className="form-control trip-title"
-               onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
-        <span className="input-group-btn">
-              <Button className="green_logo green_hvr_logo">
-                <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
-              </Button>
-            </span>
+          </div>
       </div>
     );
+  }
+
+  menuItems() {
+    const showHide = { 'display': this.state.displayMenu ? 'block' : 'none' };
+    return (
+      <div className="menu-items card col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+           style={showHide}>
+        <div className="card-header bg_csu_green text-white">
+          <h4 style={{textAlign:"center", paddingTop:10}} >Menu</h4>
+        </div>
+        <div className="card-body">
+          <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
+                   updateOptionsUnits={this.props.updateOptionsUnits}/>
+          <Destinations trip={this.props.trip} config={this.props.config} updateTrip={this.props.updateTrip}
+                        updatePlaces={this.props.updatePlaces} updateInformation={this.props.updateInformation}
+                        placeInformation={this.placeInformation}/>
+          <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
+                     removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
+                     updateStartingLocation={this.props.updateStartingLocation}
+                     resetDestinations={this.props.resetDestinations}/>
+        </div>
+      </div>
+    )
   }
 
   /* Renders the buttons, map, and itinerary.
@@ -153,20 +182,18 @@ class Trip extends Component {
    */
   render(){
     this.checkDistance();
+    const showReplyForm = () => {
+      this.setState({displayMenu: !this.state.displayMenu});
+    };
     return(
-        <div id="trip" className="card">
-          <div className="card-header bg_csu_green text-white">
-            Trip
+        <div id="trip" style={{margin: 20, marginTop: 0}}>
+          <div className="menu">
+            <Button id="menu-btn" onClick={showReplyForm}><IoChevronRight size={40}/></Button>
           </div>
-          <div className="card-body">
-            <p>Give your trip a title before planning or saving.</p>
-            {this.planAndSave()}
-            {this.getMap()}
-            <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
-                       removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
-                       updateStartingLocation={this.props.updateStartingLocation}
-                       resetDestinations={this.props.resetDestinations}/>
-          </div>
+          {this.menuItems()}
+          {this.planAndSave()}
+          <br/>
+          {this.getMap()}
         </div>
     )
   }

@@ -1,3 +1,42 @@
+.modal-backdrop {
+    /* bug fix - no overlay */
+    display: none;
+    z-index: 9999 !important;
+}
+.modal {
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    z-index: 9999 !important;
+}
+
+.menu {
+    z-index: 2;
+    position: absolute;
+}
+
+.menu-items {
+    z-index: 1;
+    position: absolute;
+    padding-left: 0;
+}
+
+#menu-btn {
+    background-color: white;
+    color: #1E4D2B;
+    border-width: .15em;
+    border-color: #1E4D2B;
+}
+
+#menu-btn:hover {
+    background-color: #1E4D2B;
+    border: 2px solid #1E4D2B;
+    color: white;
+}
+
+#trip-title {
+    height: 39px;
+}
+
 /* -----------Card----------- */
 
 .bg_csu_green  {
