@@ -1,0 +1,54 @@
+@media screen and (max-width: 680px) {
+    .nav_bar{
+        display:none;
+    }
+}
+
+
+
+.nav_item{
+    color: #FFFFFF;
+    float: right;
+    font-family: 'prox-regular';
+    letter-spacing: .11em;
+    line-height: 1.1em;
+    font-size: 14px;
+    text-transform:uppercase;
+    padding-bottom:0;
+    padding-right:0;
+    padding-left:0;
+    margin-right:1em;
+    margin-left:1em;
+}
+
+.nav_item:hover{
+    color:#FFFFFF;
+    border-bottom: 1px solid white;
+}
+
+.nav_title:hover{
+    color:#FFFFFF;
+}
+
+.nav_title{
+    color: #FFFFFF;
+    font-family: 'prox-regular';
+    letter-spacing: .11em;
+    line-height: 1.1em;
+    font-size: 19px;
+    text-transform:uppercase;
+}
+
+
+.nav_bar{
+    align-items:stretch;
+    background-color:#C8C372;
+    margin-bottom:2em;
+
+}
+
+.nav_side_bar{
+    vertical-align: center;
+    float:right;
+}
+

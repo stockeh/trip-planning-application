@@ -1,17 +1,31 @@
 import React, {Component} from 'react';
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,
     UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import './css/navbar.css';
 
 
-class Navbar extends Component {
+class Navigation extends Component {
 
+    constructor(props) {
+        super(props);
 
-    render() {
+        this.toggle = this.toggle.bind(this);
+        this.collapsable = this.collapsable.bind(this);
+        this.state = {
+            isOpen: false
+        };
+    }
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
+
+    collapsable(){
         return(
-            <div>
+            <div className="">
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">reactstrap</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
+                    <NavbarToggler className="nav_side_bar" onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
@@ -42,6 +56,28 @@ class Navbar extends Component {
                 </Navbar>
             </div>
         )
+
+    }
+
+    render() {
+        let sidebar = this.collapsable();
+        return(
+            <div className="">
+                {sidebar}
+                <Navbar className="nav_bar">
+                    <NavbarBrand className="nav_title" href="">Andromeda</NavbarBrand>
+                    <div>
+                        <NavLink className="nav_item" href="">Development</NavLink>
+                        <NavLink className="nav_item" href="">Staff</NavLink>
+                        <NavLink className="nav_item" href="">Trip Planner</NavLink>
+                    </div>
+                </Navbar>
+
+            </div>
+
+        )
     }
 
 }
+
+export default Navigation;

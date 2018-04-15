@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Navigation from './Navigation';
 
 /* Renders a text heading above the application with useful information.
  */
@@ -9,19 +10,22 @@ class Header extends Component{
 
   render() {
     return(
-        <div id="header" className="jumbotron">
-          {this.title()}
-          <p className="lead">"Want to travel far and wide?"</p>
-            <ol >
-              <li>
-                Search for your favorite destinations and add them to your trip!
-              </li>
-              <li>
-                To plan your trip, choose any options you wish and click plan!</li>
-              <li>
-                Finally save your trip so you can easily load it again later!</li>
-              <li>Already have a trip saved? Simply load it from a file!</li>
-            </ol>
+        <div>
+          <div id="header" className="jumbotron">
+            {this.title()}
+            <p className="lead">"Want to travel far and wide?"</p>
+              <ol >
+                <li>
+                  Search for your favorite destinations and add them to your trip!
+                </li>
+                <li>
+                  To plan your trip, choose any options you wish and click plan!</li>
+                <li>
+                  Finally save your trip so you can easily load it again later!</li>
+                <li>Already have a trip saved? Simply load it from a file!</li>
+              </ol>
+          </div>
+          <Navigation/>
         </div>
     )
   }
