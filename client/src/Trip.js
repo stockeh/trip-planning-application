@@ -157,7 +157,7 @@ class Trip extends Component {
   menuItems() {
     const showHide = { 'display': this.state.displayMenu ? 'block' : 'none' };
     return (
-      <div className="menu-items card col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12"
+      <div className="menu-items card w3-sidebar w3-bar-block col-xs-12 col-s-10 col-m-8 col-lg-6 w3-animate-left"
            style={showHide}>
         <div className="card-header bg_csu_green text-white">
           <h4 style={{textAlign:"center", paddingTop:10}} >Menu</h4>

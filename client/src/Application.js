@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 
 import Trip from './Trip';
-import { Button}  from 'reactstrap';
 import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
-import IoChevronRight from 'react-icons/lib/io/chevron-right';
-import Menu from "./Menu";
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -37,7 +34,6 @@ class Application extends Component {
     this.reverseTrip = this.reverseTrip.bind(this);
     this.resetDestinations = this.resetDestinations.bind(this);
     this.placeInformation = this.placeInformation.bind(this);
-    this.menu = this.menu.bind(this);
   }
 
   updateTrip(tffi){
@@ -139,10 +135,6 @@ class Application extends Component {
       this.setState({trip: newTrip});
   }
 
-  menu() {
-      document.getElementById("side-menu").style.display = "block";
-  }
-
   render() {
     return(
         <div id="application">
@@ -151,13 +143,6 @@ class Application extends Component {
                 resetDestinations={this.resetDestinations} placeInformation={this.placeInformation}
                 config={this.props.config} updateOptions={this.updateOptions}
                 updateOptionsUnits={this.updateOptionsUnits} updatePlaces={this.updatePlaces} />
-          <Button id="side-menu-button">
-              <IoChevronRight size={40} onClick={this.menu}/>
-          </Button>
-          <Menu trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
-                reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
-                resetDestinations={this.resetDestinations} placeInformation={this.placeInformation}
-                config={this.props.config}/>
         </div>
     )
   }
