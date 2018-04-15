@@ -5,7 +5,7 @@ import GMap from './GMap';
 import { Button } from 'reactstrap';
 import { green_btn, green_hvr, green_logo, green_hvr_logo, bg_csu_green } from './css/styling.css';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
-import ReactTooltip from 'react-tooltip'
+import IoChevronRight from 'react-icons/lib/io/chevron-right';
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -122,7 +122,7 @@ class Trip extends Component {
 
   getMap() {
       let map;
-      if (this.props.config.version < 9) { // set to 9 for testing purposes
+      if (this.props.config.version < 3) { // set to 9 for testing purposes
           map = <Map trip={this.props.trip} config={this.props.config}/>;
       } else {
           map = <GMap trip={this.props.trip} config={this.props.config}/>;
@@ -132,18 +132,21 @@ class Trip extends Component {
 
   planAndSave() {
     return(
-      <div className="input-group" role="group">
-              <span className="input-group-btn">
-              <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip);
-                  this.initialPlan()}}>Plan</Button>
+        <div>
+          <Button id="menu"><IoChevronRight className="" size={40}/></Button>{'  '}
+          <div className="input-group" role="group" style={{paddingLeft: 90, paddingTop: 10}}>
+                <span className="input-group-btn">
+                  <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip);
+                      this.initialPlan()}}>Plan</Button>
+                </span>
+                <input id="trip-title" type="text" className="form-control trip-title"
+                       onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
+                <span className="input-group-btn">
+                  <Button className="green_logo green_hvr_logo">
+                    <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
+                  </Button>
               </span>
-        <input id="trip-title" type="text" className="form-control trip-title"
-               onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
-        <span className="input-group-btn">
-              <Button className="green_logo green_hvr_logo">
-                <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
-              </Button>
-            </span>
+          </div>
       </div>
     );
   }
@@ -154,19 +157,14 @@ class Trip extends Component {
   render(){
     this.checkDistance();
     return(
-        <div id="trip" className="card">
-          <div className="card-header bg_csu_green text-white">
-            Trip
-          </div>
-          <div className="card-body">
-            <p>Give your trip a title before planning or saving.</p>
+        <div id="trip" style={{margin: 20, marginTop: 0}}>
             {this.planAndSave()}
+            <br/>
             {this.getMap()}
-            <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
-                       removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
-                       updateStartingLocation={this.props.updateStartingLocation}
-                       resetDestinations={this.props.resetDestinations}/>
-          </div>
+            {/*<Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}*/}
+                       {/*removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}*/}
+                       {/*updateStartingLocation={this.props.updateStartingLocation}*/}
+                       {/*resetDestinations={this.props.resetDestinations}/>*/}
         </div>
     )
   }

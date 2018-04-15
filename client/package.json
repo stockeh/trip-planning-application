@@ -21,7 +21,8 @@
     "react-tooltip": "^3.4.2",
     "react-transition-group": "^2.2.1",
     "reactstrap": "^4.8.0",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "recompose": "latest"
   },
   "devDependencies": {
     "css-loader": "^0.28.11",

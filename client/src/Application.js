@@ -137,17 +137,17 @@ class Application extends Component {
 
   render() {
     return(
-        <div id="application" className="container">
+        <div id="application">
           <div className="row">
-            <div className="col-xs-12 col-md-6">
-                <Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions}
-                         updateOptionsUnits={this.updateOptionsUnits}/>
-            </div>
-            <div className="col-xs-12 col-md-6">
-                <Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip}
-                              updatePlaces={this.updatePlaces}
-                              updateInformation={this.updateInformation} placeInformation={this.placeInformation}/>
-            </div>
+            {/*<div className="col-xs-12 col-md-6">*/}
+                {/*<Options config={this.props.config} trip={this.state.trip} updateOptions={this.updateOptions}*/}
+                         {/*updateOptionsUnits={this.updateOptionsUnits}/>*/}
+            {/*</div>*/}
+            {/*<div className="col-xs-12 col-md-6">*/}
+                {/*<Destinations trip={this.state.trip} config={this.props.config} updateTrip={this.updateTrip}*/}
+                              {/*updatePlaces={this.updatePlaces}*/}
+                              {/*updateInformation={this.updateInformation} placeInformation={this.placeInformation}/>*/}
+            {/*</div>*/}
             <div className="col-12">
                 <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
                       reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}

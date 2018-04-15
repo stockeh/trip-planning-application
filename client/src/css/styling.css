@@ -1,3 +1,15 @@
+#menu {
+    position: fixed;
+    background-color: white;
+    color: #1E4D2B;
+    border-width: .15em;
+    border-color: #1E4D2B;
+}
+
+#trip-title {
+    height: 39px;
+}
+
 /* -----------Card----------- */
 
 .bg_csu_green  {
