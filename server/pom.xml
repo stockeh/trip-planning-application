@@ -23,7 +23,7 @@
                 <directory>../client_bundle</directory>
             </resource>
             <resource>
-                <directory>../client/images</directory>
+                <directory>../client_bundle/public/images</directory>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
