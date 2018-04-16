@@ -7,7 +7,7 @@
     "userUnit"     : "some unit",
     "userRadius"   : "2090",
     "optimization" : "0.0",
-    "map"	   : "svg"
+    "map"	   : "kml"
   },
   "places"    : [
     {"id":"dnvr", "name":"Denver", "latitude":"39.7392° N", "longitude":"104.9903° W"},

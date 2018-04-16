@@ -21,9 +21,9 @@ public class TestDist {
   Distance distance;
   Distance distanceKM;
   Distance distanceUser;
-  Option options1 = new Option("miles", "", "", 0);
-  Option options2 = new Option("kilometers", "", "", 0);
-  Option options3 = new Option("user defined", "inches", "123456", 0);  //RADIUS NOT ACTUAL SIZE!!!!!!!!!!!!!!!!!!
+  Option options1 = new Option("miles", "", "", 0, "svg");
+  Option options2 = new Option("kilometers", "", "", 0, "svg");
+  Option options3 = new Option("user defined", "inches", "123456", 0, "svg");  //RADIUS NOT ACTUAL SIZE!!!!!!!!!!!!!!!!!!
 
   private ArrayList<Place> places;
   private ArrayList<Place> placesNew;

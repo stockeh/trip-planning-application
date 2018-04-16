@@ -98,8 +98,8 @@ public class Trip {
 
   /**
    * Builds a string in kml format to then be loaded back on the server.
-   * @param decimalCoordinates
-   * @return
+   * @param decimalCoordinates Contains the decimal degrees for each place.
+   * @return returns a string in kml format with the latitude/longitude under coordinates.
    */
   private String googleMap(ArrayList<Double> decimalCoordinates) {
     String kmlHeader = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"
@@ -125,7 +125,7 @@ public class Trip {
    * Version 1/2 trips will default to using the Colorado.svg.
    * Version 3+ will default to using the World.svg map.
    * @see GatherSVG class to get SVG components, i.e., map, lines and points.
-   *
+   * @param decimalDegrees Contains the decimal degrees for each place.
    * @return Returns the completed string containing an SVG.
    */
   private String svg(ArrayList<Double> decimalDegrees) {
