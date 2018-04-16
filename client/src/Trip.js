@@ -6,7 +6,9 @@ import Destinations from './Destinations';
 import GMap from './GMap';
 import { Button } from 'reactstrap';
 import IoChevronRight from 'react-icons/lib/io/chevron-right';
+import IoChevronLeft from 'react-icons/lib/io/chevron-left';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
+import './css/w3.css'
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -32,7 +34,6 @@ class Trip extends Component {
       this.initialPlan = this.initialPlan.bind(this);
       this.getMap = this.getMap.bind(this);
       this.planAndSave = this.planAndSave.bind(this);
-
       this.menuItems = this.menuItems.bind(this);
   }
 
@@ -157,7 +158,7 @@ class Trip extends Component {
   menuItems() {
     const showHide = { 'display': this.state.displayMenu ? 'block' : 'none' };
     return (
-      <div className="menu-items card w3-sidebar w3-bar-block col-xs-12 col-s-10 col-m-8 col-lg-6 w3-animate-left"
+      <div className="menu-items card w3-bar-block w3-border-right col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12 w3-animate-left"
            style={showHide}>
         <div className="card-header bg_csu_green text-white">
           <h4 style={{textAlign:"center", paddingTop:10}} >Menu</h4>
@@ -188,7 +189,7 @@ class Trip extends Component {
     return(
         <div id="trip" style={{margin: 20, marginTop: 0}}>
           <div className="menu">
-            <Button id="menu-btn" onClick={showReplyForm}><IoChevronRight size={40}/></Button>
+              <Button id="menu-btn" onClick={showReplyForm}> {this.state.displayMenu ? <IoChevronLeft size={40}/> : <IoChevronRight size={40}/>}</Button>
           </div>
           {this.menuItems()}
           {this.planAndSave()}
