@@ -18,9 +18,16 @@
     z-index: 1;
     position: absolute !important;
     padding-left: 0;
+    padding-right: 0;
     left: 0;
     height: 100%;
-    top: 15.8%;
+    top: 153px;
+}
+
+@media only screen and (max-width: 800px){
+    .menu-items {
+        top: 160px;
+    }
 }
 
 #menu-btn {
