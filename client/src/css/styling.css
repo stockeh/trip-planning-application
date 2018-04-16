@@ -16,7 +16,7 @@
 
 .menu-items {
     z-index: 1;
-    position: fixed !important;
+    position: absolute !important;
     padding-left: 0;
     left: 0;
     height: 100%;
