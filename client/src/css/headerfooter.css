@@ -11,6 +11,10 @@
 
 .add-footer{
   background-color: #1E4D2B;
+  bottom: 0px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .img-resize {
