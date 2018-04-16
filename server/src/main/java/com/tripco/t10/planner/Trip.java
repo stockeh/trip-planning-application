@@ -70,7 +70,8 @@ public class Trip {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
     this.distances = legDistances(decimalDegrees);
     decimalDegrees = getDecimalDegrees();
-    this.map = svg(decimalDegrees);
+    this.map = (this.options.map.toLowerCase().equals("kml"))
+        ? googleMap(decimalDegrees) : svg(decimalDegrees);
   }
 
   /**
@@ -96,10 +97,35 @@ public class Trip {
   }
 
   /**
+   * Builds a string in kml format to then be loaded back on the server.
+   * @param decimalCoordinates
+   * @return
+   */
+  private String googleMap(ArrayList<Double> decimalCoordinates) {
+    String kmlHeader = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"
+        + "<kml xmlns='http://www.opengis.net/kml/2.2' xmlns:atom='http://www.w3.org/2005/Atom' "
+        + "xmlns:xal='urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' xmlns:gx='http://www.google.com/kml/ext/2.2'>"
+        + "<Placemark><LineString><altitudeMode>clampToGround</altitudeMode><coordinates>";
+    String startingLocation = "";
+    String coordinates = "";
+    for (int index = 0; index < decimalCoordinates.size()-1; index += 2) {
+      if (index == 0) {
+        startingLocation = " " + Double.toString(decimalCoordinates.get(index))
+            + "," + Double.toString(decimalCoordinates.get(index + 1));
+      }
+      coordinates += " " + Double.toString(decimalCoordinates.get(index))
+          + "," + Double.toString(decimalCoordinates.get(index + 1));
+    }
+    String kmlFooter = "</coordinates></LineString></Placemark></kml>";
+    return kmlHeader + coordinates + startingLocation + kmlFooter;
+  }
+
+  /**
    * Returns an SVG containing the background and the legs of the trip.
    * Version 1/2 trips will default to using the Colorado.svg.
    * Version 3+ will default to using the World.svg map.
    * @see GatherSVG class to get SVG components, i.e., map, lines and points.
+   *
    * @return Returns the completed string containing an SVG.
    */
   private String svg(ArrayList<Double> decimalDegrees) {
