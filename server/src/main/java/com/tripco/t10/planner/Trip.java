@@ -70,8 +70,20 @@ public class Trip {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
     this.distances = legDistances(decimalDegrees);
     decimalDegrees = getDecimalDegrees();
-    this.map = (this.options.map.toLowerCase().equals("kml"))
-        ? googleMap(decimalDegrees) : svg(decimalDegrees);
+    if (this.options.map != null) {
+      this.map = (this.options.map.toLowerCase().equals("svg") && this.version < 3)
+          ? svg(decimalDegrees) : googleMap(decimalDegrees);
+    }
+    else {
+      if (this.version > 2) {
+        this.options.map = "kml";
+        this.map = googleMap(decimalDegrees);
+      }
+      else {
+        this.options.map = "svg";
+        this.map = svg(decimalDegrees);
+      }
+    }
   }
 
   /**

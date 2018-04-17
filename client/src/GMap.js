@@ -41,7 +41,7 @@ class GMap extends Component {
       const map = this.props.trip.map;
       return (
         <GoogleMap
-            defaultCenter={{lat: 10, lng: -20}} defaultZoom={2.8}>
+            defaultCenter={{lat: 20, lng: 11}} defaultZoom={2.8}>
             <Polyline path={GMap.makePath(map)}
                       options={{strokeColor: 'DeepSkyBlue'}}/>
         </GoogleMap>
