@@ -20,14 +20,17 @@ class GMap extends Component {
 
     // Create our path from the kml map
     static makePath(map) {
-      let coordinates = GMap.generateCoordinates(map);
+      let coordinates = "";
+      if (map !== undefined) {
+        coordinates = GMap.generateCoordinates(map);
+      }
       let path = [];
       for (let i = 0; i < coordinates.length; ++i) {
         let pair = coordinates[i].split(',');
         if (pair.length === 2) {
           path.push({
-            lat: Number(pair[1]),
-            lng: Number(pair[0])
+            lat: Number(pair[0]),
+            lng: Number(pair[1])
           });
         }
       }
@@ -38,7 +41,7 @@ class GMap extends Component {
       const map = this.props.trip.map;
       return (
         <GoogleMap
-            defaultCenter={{lat: 0, lng: -20}} defaultZoom={3}>
+            defaultCenter={{lat: 10, lng: -20}} defaultZoom={2.8}>
             <Polyline path={GMap.makePath(map)}
                       options={{strokeColor: 'DeepSkyBlue'}}/>
         </GoogleMap>
@@ -60,7 +63,7 @@ const TripMap = compose(
         + '&v=3.exp' + '&libraries=geometry,drawing,places',
         loadingElement: <div />,
         containerElement: <div/>,
-        mapElement: <div style={{ height: `100%`, marginBottom: '2%', maxHeight: 1000}} />
+        mapElement: <div style={{ height: `100%`, marginBottom: '2%', maxHeight: 1000 }} />
     }),
     withScriptjs,
     withGoogleMap,
