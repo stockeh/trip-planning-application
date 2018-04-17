@@ -194,7 +194,9 @@ class Trip extends Component {
           {this.menuItems()}
           {this.planAndSave()}
           <br/>
-          {this.getMap()}
+          <div className="">
+            {this.getMap()}
+          </div>
         </div>
     )
   }
