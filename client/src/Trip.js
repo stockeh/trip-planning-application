@@ -70,7 +70,8 @@ class Trip extends Component {
     try {
       let serverResponse = await this.fetchResponse(body);
       let tffi = await serverResponse.json();
-      // console.log("RESPONSE: " + JSON.stringify(tffi));
+      console.log("RESPONSE: \n"
+          + JSON.stringify(tffi, null, 2));
       this.props.updateTrip(tffi);
     } catch(err) {
       console.error(err);
@@ -126,13 +127,16 @@ class Trip extends Component {
   }
 
   getMap() {
-      let map;
-      if (this.props.trip.places.length > 0) { // set to 9 for testing purposes
-          map = <Map trip={this.props.trip} config={this.props.config}/>;
-      } else {
-          map = <GMap trip={this.props.trip} config={this.props.config}/>;
-      }
-      return map;
+    let googleMap = (<GMap trip={this.props.trip} config={this.props.config}/>);
+    if (this.props.trip.options.map === undefined) {
+      return googleMap;
+    }
+    else if (this.props.trip.options.map === "svg") {
+      return (<div className="container"> <Map trip={this.props.trip} config={this.props.config}/></div>);
+    } else {
+      return googleMap;
+    }
+
   }
 
   planAndSave() {
@@ -168,7 +172,7 @@ class Trip extends Component {
                    updateOptionsUnits={this.props.updateOptionsUnits}/>
           <Destinations trip={this.props.trip} config={this.props.config} updateTrip={this.props.updateTrip}
                         updatePlaces={this.props.updatePlaces} updateInformation={this.props.updateInformation}
-                        placeInformation={this.placeInformation}/>
+                        placeInformation={this.props.placeInformation}/>
           <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
                      removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
                      updateStartingLocation={this.props.updateStartingLocation}
@@ -194,7 +198,9 @@ class Trip extends Component {
           {this.menuItems()}
           {this.planAndSave()}
           <br/>
-          {this.getMap()}
+          <div>
+            {this.getMap()}
+          </div>
         </div>
     )
   }

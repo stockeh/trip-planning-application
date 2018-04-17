@@ -19,10 +19,10 @@ class Application extends Component {
           userUnit: "",
           userRadius: "",
           optimization: "0.0",
-          map: "svg" },
+          map: "kml" },
         places: [],
         distances: [],
-        map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
+        map: ""
       }
     };
     this.updateTrip = this.updateTrip.bind(this);
@@ -131,7 +131,7 @@ class Application extends Component {
       let newTrip = Object.assign({}, this.state.trip);
       newTrip.places = [];
       newTrip.distances = [];
-      newTrip.map = "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>";
+      newTrip.map = "";
       this.setState({trip: newTrip});
   }
 

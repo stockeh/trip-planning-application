@@ -180,8 +180,8 @@ class Query extends Component {
   }
 
   render() {
-    console.log("Query Filters\n|-- line 177 --|\nFilter:\n"
-        + JSON.stringify(this.state.filters, null, 2));
+    // console.log("Query Filters\n|-- line 177 --|\nFilter:\n"
+    //     + JSON.stringify(this.state.filters, null, 2));
     return(
       <div id="query">
         <Button id="lookUp" className="green_btn green_hvr" data-toggle="modal" data-target="#customSearchModal">Search</Button>
