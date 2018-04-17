@@ -57,6 +57,17 @@ public class Trip {
     places = placeList;
   }
 
+  private void undefinedMap(ArrayList<Double> decimalDegrees) {
+    if (this.version < 3) {
+      this.options.map = "svg";
+      this.map = svg(decimalDegrees);
+    }
+    else {
+      this.options.map = "kml";
+      this.map = googleMap(decimalDegrees);
+    }
+  }
+
   /**
    * The top level method that does planning.
    * Adds the map and distances for the places in order.
@@ -75,14 +86,7 @@ public class Trip {
           ? svg(decimalDegrees) : googleMap(decimalDegrees);
     }
     else {
-      if (this.version > 2) {
-        this.options.map = "kml";
-        this.map = googleMap(decimalDegrees);
-      }
-      else {
-        this.options.map = "svg";
-        this.map = svg(decimalDegrees);
-      }
+      undefinedMap(decimalDegrees);
     }
   }
 
@@ -109,6 +113,17 @@ public class Trip {
   }
 
   /**
+   * Resolved duplicated code.
+   * @param decimalCoordinates Contains the decimal degrees for each place.
+   * @param index location of current coordinates in ArrayList.
+   * @return A pair of coordinates.
+   */
+  private String buildCoordinates(ArrayList<Double> decimalCoordinates, int index) {
+    return " " + Double.toString(decimalCoordinates.get(index))
+        + "," + Double.toString(decimalCoordinates.get(index + 1));
+  }
+
+  /**
    * Builds a string in kml format to then be loaded back on the server.
    * @param decimalCoordinates Contains the decimal degrees for each place.
    * @return returns a string in kml format with the latitude/longitude under coordinates.
@@ -122,11 +137,9 @@ public class Trip {
     String coordinates = "";
     for (int index = 0; index < decimalCoordinates.size()-1; index += 2) {
       if (index == 0) {
-        startingLocation = " " + Double.toString(decimalCoordinates.get(index))
-            + "," + Double.toString(decimalCoordinates.get(index + 1));
+        startingLocation = buildCoordinates(decimalCoordinates, index);
       }
-      coordinates += " " + Double.toString(decimalCoordinates.get(index))
-          + "," + Double.toString(decimalCoordinates.get(index + 1));
+      coordinates += buildCoordinates(decimalCoordinates, index);
     }
     String kmlFooter = "</coordinates></LineString></Placemark></kml>";
     return kmlHeader + coordinates + startingLocation + kmlFooter;

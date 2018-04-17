@@ -36,7 +36,11 @@ public class Option {
    * @param userRadius is an option
    * @param optimization is an option
    */
-  public Option(String distance, String userUnit, String userRadius, double optimization, String map){
+  public Option(String distance,
+                String userUnit,
+                String userRadius,
+                double optimization,
+                String map){
     this.distance = distance;
     this.userUnit = userUnit;
     this.userRadius = userRadius;
