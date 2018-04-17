@@ -60,7 +60,7 @@ const TripMap = compose(
         + '&v=3.exp' + '&libraries=geometry,drawing,places',
         loadingElement: <div />,
         containerElement: <div/>,
-        mapElement: <div style={{ height: `100%` }} />
+        mapElement: <div style={{ height: `100%`, marginBottom: '2%', maxHeight: 1000}} />
     }),
     withScriptjs,
     withGoogleMap,
