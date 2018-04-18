@@ -17,8 +17,8 @@ public class Opt {
      * Constructor that sets memo and placesIndex array from Distance.java class
      * to local variables. They are pass by value so no new memory is used.
      *
-     * @param m is the memo table
-     * @param p is the placesIndex
+     * @param memo is the memo table
+     * @param placesIndex is the placesIndex
      * @param size is the number of places in the trip
      * @param places is the ArrayList of places from Distance.java
      * @see Distance class for more info on these variables.
