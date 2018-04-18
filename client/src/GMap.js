@@ -29,8 +29,8 @@ class GMap extends Component {
         let pair = coordinates[i].split(',');
         if (pair.length === 2) {
           path.push({
-            lat: Number(pair[0]),
-            lng: Number(pair[1])
+            lat: Number(pair[1]),
+            lng: Number(pair[0])
           });
         }
       }
@@ -41,9 +41,9 @@ class GMap extends Component {
       const map = this.props.trip.map;
       return (
         <GoogleMap
-            defaultCenter={{lat: 20, lng: 11}} defaultZoom={2.8}>
+            defaultCenter={{lat: 20, lng: 11}} defaultZoom={2.8} options={{minZoom: 2}}>
             <Polyline path={GMap.makePath(map)}
-                      options={{strokeColor: 'DeepSkyBlue'}}/>
+                      options={{strokeColor: '#A8002B', geodesic: true}}/>
         </GoogleMap>
       );
     }

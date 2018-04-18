@@ -119,8 +119,8 @@ public class Trip {
    * @return A pair of coordinates.
    */
   private String buildCoordinates(ArrayList<Double> decimalCoordinates, int index) {
-    return " " + Double.toString(decimalCoordinates.get(index))
-        + "," + Double.toString(decimalCoordinates.get(index + 1));
+    return " " + Double.toString(decimalCoordinates.get(index + 1))
+        + "," + Double.toString(decimalCoordinates.get(index));
   }
 
   /**
