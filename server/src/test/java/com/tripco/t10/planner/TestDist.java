@@ -163,33 +163,4 @@ public class TestDist {
     assertEquals(379, distance.constructNearestNeighbor(in5, size));
   }
 
-  @Test
-  public void testSetNewTrip(){
-    int[] newOrder = {0,1,2,3,4};
-    placesNew = new ArrayList<Place>();
-    distance.setNewTrip(newOrder, placesNew, places, 5);
-    assertEquals(places, placesNew);
-  }
-
-  @Test
-  public void testSetLegs(){
-    distance.memoizeDistance(degrees, 5);
-    ArrayList<Integer> legs = new ArrayList<Integer>(Arrays.asList(97,70,63,87,41));
-    int[] newOrder = {0,1,2,3,4};
-    assertEquals(legs, distance.setLegs(newOrder, 5));
-  }
-
-  @Test
-  public void testGetDistances(){
-    // tests getTourDist and getDist
-    int[] newOrder = {0,1,2,3,4};
-    distance.memoizeDistance(degrees, 5);
-    assertEquals(358, distance.getTourDist(newOrder, 5));
-    assertEquals(97, distance.getDist(newOrder,0,1));
-    assertEquals(70, distance.getDist(newOrder,1,2));
-    assertEquals(63, distance.getDist(newOrder,2,3));
-    assertEquals(87, distance.getDist(newOrder,3,4));
-    assertEquals(41, distance.getDist(newOrder,4,0));
-  }
-
 }
