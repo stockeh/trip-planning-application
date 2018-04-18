@@ -33,6 +33,7 @@ class Trip extends Component {
       this.getMap = this.getMap.bind(this);
       this.planAndSave = this.planAndSave.bind(this);
 
+      this.modal = this.modal.bind(this);
       this.menuItems = this.menuItems.bind(this);
   }
 
@@ -136,8 +137,8 @@ class Trip extends Component {
 
   planAndSave() {
     return(
-        <div>
-          <div className="input-group" role="group" style={{paddingLeft: 90, paddingTop: 10}}>
+        <div className="col col-xs-10 col-sm-10 col-md-11">
+          <div className="input-group" role="group">
                 <span className="input-group-btn">
                   <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip);
                       this.initialPlan()}}>Plan</Button>
@@ -152,6 +153,34 @@ class Trip extends Component {
           </div>
       </div>
     );
+  }
+
+  modal(){
+    return(
+      <div className="modal left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div className="modal-dialog" role="document">
+          <div class="modal-content">
+
+            <div className="modal-header">
+              <button type="button" className="close mb-3" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div className="modal-body">
+              <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
+                       updateOptionsUnits={this.props.updateOptionsUnits}/>
+              <Destinations trip={this.props.trip} config={this.props.config} updateTrip={this.props.updateTrip}
+                            updatePlaces={this.props.updatePlaces} updateInformation={this.props.updateInformation}
+                            placeInformation={this.placeInformation}/>
+              <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
+                         removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
+                         updateStartingLocation={this.props.updateStartingLocation}
+                         resetDestinations={this.props.resetDestinations}/>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    )
   }
 
   menuItems() {
@@ -182,16 +211,26 @@ class Trip extends Component {
    */
   render(){
     this.checkDistance();
-    const showReplyForm = () => {
-      this.setState({displayMenu: !this.state.displayMenu});
-    };
+    // const showReplyForm = () => {
+    //   this.setState({displayMenu: !this.state.displayMenu});
+    // };
     return(
-        <div id="trip" style={{margin: 20, marginTop: 0}}>
-          <div className="menu">
-            <Button id="menu-btn" onClick={showReplyForm}><IoChevronRight size={40}/></Button>
+        <div id="trip" className="m-4">
+          {/*<div className="menu">*/}
+            {/*<Button id="menu-btn" onClick={showReplyForm}><IoChevronRight size={40}/></Button>*/}
+          {/*</div>*/}
+
+          {/*<button type="button" className="modal-button" data-toggle="modal" data-target="#myModal">*/}
+            {/*<IoChevronRight size={30}/>*/}
+          {/*</button>*/}
+          <div className="row">
+            <div className="col col-xs-2 col-sm-2 col-md-1">
+              <Button className="" id="menu-btn" data-toggle="modal" data-target="#myModal">
+                <IoChevronRight size={20}/></Button>
+            </div>
+            {this.planAndSave()}
           </div>
-          {this.menuItems()}
-          {this.planAndSave()}
+          {this.modal()}
           <br/>
           {this.getMap()}
         </div>
