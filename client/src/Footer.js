@@ -12,7 +12,7 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="add-footer row no-gutters" style={{ margin: 0, padding: 0 }}>
+      <div className="add-footer row no-gutters">
         <div className="col-xs-12 col-sm-6 col-md-6">
           <h4 className="larger-CSUtext-uncap footer-copyright" style={{color: 'white'}}>
             © TripCo - t{this.props.number} {this.props.name} 2018

@@ -11,7 +11,7 @@ public class Config {
   public String type = "config";
   public int version = 3;
   public ArrayList<Filter> filters = new ArrayList<>();
-  public String[] maps = {"svg"};
+  public String[] maps = {"svg", "kml"};
   public int optimization = 2;
   public String[] units = {"miles","kilometers","nautical miles","user defined"};
 

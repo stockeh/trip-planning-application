@@ -6,7 +6,9 @@ import Destinations from './Destinations';
 import GMap from './GMap';
 import { Button } from 'reactstrap';
 import IoChevronRight from 'react-icons/lib/io/chevron-right';
+import IoChevronLeft from 'react-icons/lib/io/chevron-left';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
+import './css/w3.css'
 
 /* Trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
@@ -34,7 +36,7 @@ class Trip extends Component {
       this.planAndSave = this.planAndSave.bind(this);
 
       this.modal = this.modal.bind(this);
-      this.menuItems = this.menuItems.bind(this);
+      // this.menuItems = this.menuItems.bind(this);
   }
 
   removedPlan(index) {
@@ -70,7 +72,8 @@ class Trip extends Component {
     try {
       let serverResponse = await this.fetchResponse(body);
       let tffi = await serverResponse.json();
-      // console.log("RESPONSE: " + JSON.stringify(tffi));
+      console.log("RESPONSE: \n"
+          + JSON.stringify(tffi, null, 2));
       this.props.updateTrip(tffi);
     } catch(err) {
       console.error(err);
@@ -126,13 +129,16 @@ class Trip extends Component {
   }
 
   getMap() {
-      let map;
-      if (this.props.trip.places.length > 0) { // set to 9 for testing purposes
-          map = <Map trip={this.props.trip} config={this.props.config}/>;
-      } else {
-          map = <GMap trip={this.props.trip} config={this.props.config}/>;
-      }
-      return map;
+    let googleMap = (<GMap trip={this.props.trip} config={this.props.config}/>);
+    if (this.props.trip.options.map === undefined) {
+      return googleMap;
+    }
+    else if (this.props.trip.options.map === "svg") {
+      return (<div className="container"> <Map trip={this.props.trip} config={this.props.config}/></div>);
+    } else {
+      return googleMap;
+    }
+
   }
 
   planAndSave() {
@@ -183,28 +189,28 @@ class Trip extends Component {
     )
   }
 
-  menuItems() {
-    const showHide = { 'display': this.state.displayMenu ? 'block' : 'none' };
-    return (
-      <div className="menu-items card w3-sidebar w3-bar-block col-xs-12 col-s-10 col-m-8 col-lg-6 w3-animate-left"
-           style={showHide}>
-        <div className="card-header bg_csu_green text-white">
-          <h4 style={{textAlign:"center", paddingTop:10}} >Menu</h4>
-        </div>
-        <div className="card-body">
-          <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
-                   updateOptionsUnits={this.props.updateOptionsUnits}/>
-          <Destinations trip={this.props.trip} config={this.props.config} updateTrip={this.props.updateTrip}
-                        updatePlaces={this.props.updatePlaces} updateInformation={this.props.updateInformation}
-                        placeInformation={this.placeInformation}/>
-          <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
-                     removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
-                     updateStartingLocation={this.props.updateStartingLocation}
-                     resetDestinations={this.props.resetDestinations}/>
-        </div>
-      </div>
-    )
-  }
+  // menuItems() {
+  //   const showHide = { 'display': this.state.displayMenu ? 'block' : 'none' };
+  //   return (
+  //     <div className="menu-items card w3-bar-block w3-border-right col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12 w3-animate-left"
+  //          style={showHide}>
+  //       <div className="card-header bg_csu_green text-white">
+  //         <h4 style={{textAlign:"center", paddingTop:10}} >Menu</h4>
+  //       </div>
+  //       <div className="card-body">
+  //         <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
+  //                  updateOptionsUnits={this.props.updateOptionsUnits}/>
+  //         <Destinations trip={this.props.trip} config={this.props.config} updateTrip={this.props.updateTrip}
+  //                       updatePlaces={this.props.updatePlaces} updateInformation={this.props.updateInformation}
+  //                       placeInformation={this.props.placeInformation}/>
+  //         <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
+  //                    removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
+  //                    updateStartingLocation={this.props.updateStartingLocation}
+  //                    resetDestinations={this.props.resetDestinations}/>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   /* Renders the buttons, map, and itinerary.
    * The title should be specified before the plan or save buttons are valid.
@@ -232,7 +238,9 @@ class Trip extends Component {
           </div>
           {this.modal()}
           <br/>
-          {this.getMap()}
+          <div>
+            {this.getMap()}
+          </div>
         </div>
     )
   }

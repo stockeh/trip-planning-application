@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const port = 8088;
+const port = 10101;
 const url = "http//localhost:" + port;
 
 module.exports = {

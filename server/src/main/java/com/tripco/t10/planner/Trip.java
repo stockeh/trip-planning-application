@@ -57,6 +57,17 @@ public class Trip {
     places = placeList;
   }
 
+  private void undefinedMap(ArrayList<Double> decimalDegrees) {
+    if (this.version < 3) {
+      this.options.map = "svg";
+      this.map = svg(decimalDegrees);
+    }
+    else {
+      this.options.map = "kml";
+      this.map = googleMap(decimalDegrees);
+    }
+  }
+
   /**
    * The top level method that does planning.
    * Adds the map and distances for the places in order.
@@ -70,7 +81,13 @@ public class Trip {
     ArrayList<Double> decimalDegrees = getDecimalDegrees();
     this.distances = legDistances(decimalDegrees);
     decimalDegrees = getDecimalDegrees();
-    this.map = svg(decimalDegrees);
+    if (this.options.map != null) {
+      this.map = (this.options.map.toLowerCase().equals("svg") && this.version < 3)
+          ? svg(decimalDegrees) : googleMap(decimalDegrees);
+    }
+    else {
+      undefinedMap(decimalDegrees);
+    }
   }
 
   /**
@@ -96,10 +113,44 @@ public class Trip {
   }
 
   /**
+   * Resolved duplicated code.
+   * @param decimalCoordinates Contains the decimal degrees for each place.
+   * @param index location of current coordinates in ArrayList.
+   * @return A pair of coordinates.
+   */
+  private String buildCoordinates(ArrayList<Double> decimalCoordinates, int index) {
+    return " " + Double.toString(decimalCoordinates.get(index))
+        + "," + Double.toString(decimalCoordinates.get(index + 1));
+  }
+
+  /**
+   * Builds a string in kml format to then be loaded back on the server.
+   * @param decimalCoordinates Contains the decimal degrees for each place.
+   * @return returns a string in kml format with the latitude/longitude under coordinates.
+   */
+  private String googleMap(ArrayList<Double> decimalCoordinates) {
+    String kmlHeader = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"
+        + "<kml xmlns='http://www.opengis.net/kml/2.2' xmlns:atom='http://www.w3.org/2005/Atom' "
+        + "xmlns:xal='urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' xmlns:gx='http://www.google.com/kml/ext/2.2'>"
+        + "<Placemark><LineString><altitudeMode>clampToGround</altitudeMode><coordinates>";
+    String startingLocation = "";
+    String coordinates = "";
+    for (int index = 0; index < decimalCoordinates.size()-1; index += 2) {
+      if (index == 0) {
+        startingLocation = buildCoordinates(decimalCoordinates, index);
+      }
+      coordinates += buildCoordinates(decimalCoordinates, index);
+    }
+    String kmlFooter = "</coordinates></LineString></Placemark></kml>";
+    return kmlHeader + coordinates + startingLocation + kmlFooter;
+  }
+
+  /**
    * Returns an SVG containing the background and the legs of the trip.
    * Version 1/2 trips will default to using the Colorado.svg.
    * Version 3+ will default to using the World.svg map.
    * @see GatherSVG class to get SVG components, i.e., map, lines and points.
+   * @param decimalDegrees Contains the decimal degrees for each place.
    * @return Returns the completed string containing an SVG.
    */
   private String svg(ArrayList<Double> decimalDegrees) {
