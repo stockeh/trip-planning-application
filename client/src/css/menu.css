@@ -1,0 +1,86 @@
+/* ------------Sidebar Modal------------ */
+@media only screen and (max-width: 480px){
+  .modal-left .left-modal-dialog {
+    width:100%;
+  }
+}
+@media only screen and (max-width: 768px){
+  .modal-left .left-modal-dialog {
+    width:75%;
+  }
+}
+@media only screen and (max-width: 992px){
+  .modal-left .left-modal-dialog {
+    width:50%;
+  }
+}
+@media only screen and (max-width: 1200px){
+  .modal-left .left-modal-dialog {
+    width:33%;
+  }
+}
+@media only screen and (max-width: 1500px){
+  .modal-left .left-modal-dialog {
+    width:25%;
+  }
+}
+
+.modal.left .left-modal-dialog {
+  position: fixed;
+  margin: auto;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+  -ms-transform: translate3d(0%, 0, 0);
+  -o-transform: translate3d(0%, 0, 0);
+  transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .left-modal-content {
+  height: 100%;
+  /* STOP MOVING AROUND! (right/left)*/
+  overflow-x: hidden;
+  overflow-y: scroll !important;
+}
+
+.modal.left .modal-body {
+  padding: 15px 15px 80px;
+
+}
+
+/*Left*/
+.modal.left.fade .left-modal-dialog{
+  left: 0;
+  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+  transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .left-modal-dialog{
+  left: 0;
+}
+
+.left-modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.left-modal-open {
+  overflow: hidden;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-header {
+  border-bottom-color: #EEEEEE;
+  background-color: #FAFAFA;
+  min-height: 3.5rem !important;
+  padding-top: .5rem !important;
+  /*padding-right: 1.25rem !important;*/
+  padding-bottom: 1rem !important;
+}
+
+.left-modal-button {
+  left: -100px;
+}

@@ -158,7 +158,7 @@ class Query extends Component {
     return (
       <div className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title" id="searchModalLabel">Build a Custom Trip!</h5>
+          <h5 className="modal-title larger-CSUtext" id="searchModalLabel">Build a Custom Trip!</h5>
           <button type="button" className="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
