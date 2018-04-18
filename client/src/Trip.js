@@ -178,7 +178,7 @@ class Trip extends Component {
                        updateOptionsUnits={this.props.updateOptionsUnits}/>
               <Destinations trip={this.props.trip} config={this.props.config} updateTrip={this.props.updateTrip}
                             updatePlaces={this.props.updatePlaces} updateInformation={this.props.updateInformation}
-                            placeInformation={this.placeInformation}/>
+                            placeInformation={this.props.placeInformation}/>
               <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
                          removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
                          updateStartingLocation={this.props.updateStartingLocation}
