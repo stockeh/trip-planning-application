@@ -43,7 +43,7 @@ class GMap extends Component {
         <GoogleMap
             defaultCenter={{lat: 20, lng: 11}} defaultZoom={2.8} options={{minZoom: 2}}>
             <Polyline path={GMap.makePath(map)}
-                      options={{strokeColor: '#A8002B', geodesic: true}}/>
+                      options={{strokeColor: '#A8002B'}}/>
         </GoogleMap>
       );
     }
