@@ -186,6 +186,7 @@ public class Distance {
    * @param places is the arrayList of place objects to be rearranged.
    * @return the an arrayList containing the ordered distances.
    */
+
   public ArrayList<Integer> nearestNeighbor(ArrayList<Double> degrees, ArrayList<Place> places) {
     // Initialize Globals.
     int size = degrees.size()/2;
@@ -282,14 +283,14 @@ public class Distance {
 
   /**
    * Rotates one array by start positions and stores it into another.
-   * @param placesIndexCopy the array to copy over to.
-   * @param placesIndexOriginal the array that is being copied from.
+   * @param copyTo the array to copy over to.
+   * @param copyFrom the array that is being copied from.
    * @param start n indices to shift array.
    * @param size is the number of elements in the array.
    */
-  public static void rotateArray(int[] placesIndexCopy, int[] placesIndexOriginal, int start, int size) {
+  public static void rotateArray(int[] copyTo, int[] copyFrom, int start, int size) {
     for (int i = 0; i < size; i++) {
-      placesIndexCopy[i] = placesIndexOriginal[(i + start) % placesIndexOriginal.length];
+      copyTo[i] = copyFrom[(i + start) % copyFrom.length];
     }
   }
 
