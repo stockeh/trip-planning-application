@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Query from './Query';
 import { bg_csu_green } from './css/styling.css';
+import IoIosUploadOutline from 'react-icons/lib/io/ios-upload-outline';
 
 /* Destinations reside in the parent object so they may be shared
  * with the Trip object.
@@ -42,18 +42,12 @@ class Destinations extends Component {
   }
 
   render() {
-    // need to clean up the button
-    const count = this.props.trip.places.length; // need to count the number in the trip
     return (
       <div id="destinations">
-        <p>Find destinations to add to your trip.</p>
-        <Query trip={this.props.trip} config={this.props.config} updatePlaces={this.props.updatePlaces}
-               placeInformation={this.props.placeInformation}/>
-        <br/><p>Load existing trip from file.</p>
-        <div className="form-group" role="group">
-            <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
-        </div>
-        <h5>There are {count} destinations. </h5>
+        <input type="file" id="tffifile" className="form-control" hidden/>
+        <label for="tffifile" >
+          <IoIosUploadOutline className="green_logo green_hvr_logo" size={38} onChange={this.loadTFFI} />
+        </label>
       </div>
     )
   }

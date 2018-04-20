@@ -21,6 +21,20 @@
     /*left: 0;*/
     /*height: 100%;*/
 /*}*/
+
+#flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#flex-container > .flex-item {
+    flex: auto;
+}
+
+#flex-container > .raw-item {
+    width: initial;
+}
+
 .modal-backdrop {
     /* bug fix - no overlay */
     display: none;
