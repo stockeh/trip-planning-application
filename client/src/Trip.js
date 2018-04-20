@@ -3,8 +3,10 @@ import Map from './Map';
 import Itinerary from './Itinerary';
 import Options from './Options';
 import Destinations from './Destinations';
+import Query from './Query';
 import GMap from './GMap';
-import { Button } from 'reactstrap';
+import {Button, ButtonGroup} from 'reactstrap';
+import ReactTooltip from 'react-tooltip'
 import IoChevronRight from 'react-icons/lib/io/chevron-right';
 import IoIosDownloadOutline from 'react-icons/lib/io/ios-download-outline';
 import './css/w3.css';
@@ -143,20 +145,26 @@ class Trip extends Component {
 
   planAndSave() {
     return(
-        <div className="col col-xs-10 col-sm-10 col-md-11">
-          <div className="input-group" role="group">
-                <span className="input-group-btn">
-                  <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip);
-                      this.initialPlan()}}>Plan</Button>
-                </span>
-                <input id="trip-title" type="text" className="form-control trip-title"
-                       onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
-                <span className="input-group-btn">
-                  <Button className="green_logo green_hvr_logo">
-                    <IoIosDownloadOutline size={38} onClick={this.saveTFFI}/>
-                  </Button>
-              </span>
-          </div>
+      <div id="flex-container" className="flex-wrap-container" >
+        <div className="static-item">
+              <Query trip={this.props.trip} config={this.props.config} updatePlaces={this.props.updatePlaces}
+                     placeInformation={this.props.placeInformation}/>
+        </div>
+        <div className="static-item">
+          <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>
+        </div>
+        <div className="flex-item">
+          <input id="trip-title" type="text" className="form-control trip-title"
+                 onChange={this.updateT} value={this.props.trip.title} placeholder="Trip title..."/>
+        </div>
+        <div className="static-item">
+          <ButtonGroup>
+            <Destinations trip={this.props.trip} updateTrip={this.props.updateTrip} updateInformation={this.props.updateInformation}/>
+            <label><IoIosDownloadOutline className="green_logo green_hvr_logo" size={38}
+                                         onClick={this.saveTFFI} data-for="save" data-tip="Save"/></label>
+            <ReactTooltip id="save" place="bottom" effect="solid"/>
+          </ButtonGroup>
+        </div>
       </div>
     );
   }
@@ -176,9 +184,6 @@ class Trip extends Component {
             <div className="modal-body">
               <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
                        updateOptionsUnits={this.props.updateOptionsUnits}/>
-              <Destinations trip={this.props.trip} config={this.props.config} updateTrip={this.props.updateTrip}
-                            updatePlaces={this.props.updatePlaces} updateInformation={this.props.updateInformation}
-                            placeInformation={this.props.placeInformation}/>
               <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
                          removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
                          updateStartingLocation={this.props.updateStartingLocation}
@@ -196,22 +201,22 @@ class Trip extends Component {
    */
   render(){
     this.checkDistance();
-
+    const count = this.props.trip.places.length; // need to count the number in the trip
     return(
-        <div id="trip" className="m-4">
-          <div className="row">
-            <div className="col col-xs-2 col-sm-2 col-md-1">
-              <Button className="" id="menu-btn" data-toggle="modal" data-target="#myModal">
-                <IoChevronRight size={20}/></Button>
-            </div>
+      <div className="m-4">
+        <div id="flex-container">
+          <div className="static-item">
+            <Button className="" id="menu-btn" data-toggle="modal" data-target="#myModal">
+              <IoChevronRight size={25}/></Button>
+          </div>
+          <div className="flex-item" style={{marginLeft: 30}}>
             {this.planAndSave()}
           </div>
-          {this.modal()}
-          <br/>
-          <div>
-            {this.getMap()}
-          </div>
         </div>
+        <h6 style={{marginLeft: 78}}>There are {count} destinations. </h6>
+        {this.modal()}
+        {this.getMap()}
+      </div>
     )
   }
 }
