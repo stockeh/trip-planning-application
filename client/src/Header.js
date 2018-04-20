@@ -25,9 +25,9 @@ class Header extends Component{
             </a>
 
               <div id="responsiveLogoSubsystem">
-                <a href="https://www.natsci.colostate.edu/" id="cnsHeaderLink" title="">
+                <a href="https://www.cs.colostate.edu/" id="cnsHeaderLink">
                   <h1 id="cnsHeaderText" className="larger-CSUtext">
-                    <span>COLLEGE OF</span> <span >NATURAL SCIENCES</span>
+                    <span>COMPUTER SCIENCE</span>
                   </h1>
                 </a>
               </div>

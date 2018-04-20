@@ -119,12 +119,12 @@
 #cnsHeaderLink{
   display: block;
   color: #FFFFFF;
-  /*z-index: 2000;*/
+  z-index: 1000;
 }
 #cnsHeaderLink h1{
   margin: 0;
   padding: 0;
-  z-index: 1001;
+  z-index: 1000;
 }
 /* CSU Unit Identifier Font */
 .larger-CSUtext{
