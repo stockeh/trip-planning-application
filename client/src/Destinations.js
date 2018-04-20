@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { bg_csu_green } from './css/styling.css';
 import IoIosUploadOutline from 'react-icons/lib/io/ios-upload-outline';
+import ReactTooltip from 'react-tooltip'
 
 /* Destinations reside in the parent object so they may be shared
  * with the Trip object.
@@ -46,7 +47,8 @@ class Destinations extends Component {
       <div id="destinations">
         <input type="file" id="tffifile" className="form-control" hidden/>
         <label for="tffifile" >
-          <IoIosUploadOutline className="green_logo green_hvr_logo" size={38} onChange={this.loadTFFI} />
+          <IoIosUploadOutline className="green_logo green_hvr_logo" size={38} onChange={this.loadTFFI} data-for="upload" data-tip="Upload"/>
+          <ReactTooltip id="upload" place="bottom" effect="solid"/>
         </label>
       </div>
     )
