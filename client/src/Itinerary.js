@@ -89,12 +89,13 @@ class Itinerary extends Component {
    * Logic to populate the itinerary table with corresponding data
    */
   createTable () {
+    console.log("Creating Table");
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = this.getUnits();
 
     let destinations = this.props.trip.places.map((item, index) => <td>{this.buildDestination(item, index)}</td>);
     if (destinations.length > 1) // There is a round trip.
-        destinations.push(<td>{"Return to " + this.props.trip.places[0].name}</td>);
+        destinations.push(<td>{this.props.trip.places[0].name}</td>);
 
     let dists = this.props.trip.distances.map((item) => <td>{item}</td>);
     let cumul = 0;
@@ -106,8 +107,8 @@ class Itinerary extends Component {
     }
 
     let rows = [];
-      for (let i = 0; i < destinations.length; ++i) {
-          rows.push(<tr key={i}>{ destinations[i] }{ dists[i] }{ cumulative[i] }</tr>);
+      for (let i = 0; i < destinations.length-1; ++i) {
+          rows.push(<tr key={i}>{ destinations[i] }{destinations[i+1]}{ dists[i] }{ cumulative[i] }</tr>);
       }
 
     return {distance, units, rows};
@@ -177,7 +178,8 @@ class Itinerary extends Component {
               <table className="table_scroll table table-responsive table-hover">
                   <thead>
                   <tr>
-                      <th className="bg_csu_gold align-middle" scope="col">Destinations</th>
+                      <th className="bg_csu_gold align-middle" scope="col">From</th>
+                      <th className="bg_csu_gold align-middle" scope="col">To</th>
                       <th className="bg_csu_gold align-middle" scope="col">Leg Distance</th>
                       <th className="bg_csu_gold align-middle" scope="col">Total<br/>Distance</th>
                   </tr>

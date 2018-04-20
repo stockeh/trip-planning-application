@@ -19,7 +19,7 @@ class Destinations extends Component {
   }
 
   loadTFFI(event) {
-    // console.log(event.target.files[0].name);
+    console.log("TEST");
     var reader = new FileReader();
     try {
         reader.onload = this.parseFileLoad;
@@ -45,9 +45,9 @@ class Destinations extends Component {
   render() {
     return (
       <div id="destinations">
-        <input type="file" id="tffifile" className="form-control" hidden/>
+        <input type="file" id="tffifile" className="form-control" onChange={this.loadTFFI} hidden/>
         <label for="tffifile" >
-          <IoIosUploadOutline className="green_logo green_hvr_logo" size={38} onChange={this.loadTFFI} data-for="upload" data-tip="Upload"/>
+          <IoIosUploadOutline className="green_logo green_hvr_logo" size={38} data-for="upload" data-tip="Upload"/>
           <ReactTooltip id="upload" place="bottom" effect="solid"/>
         </label>
       </div>
