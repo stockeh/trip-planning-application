@@ -146,11 +146,11 @@ class Trip extends Component {
     return(
       <div id="flex-container" >
         <div className="raw-item">
-          <ButtonGroup>
               <Query trip={this.props.trip} config={this.props.config} updatePlaces={this.props.updatePlaces}
                      placeInformation={this.props.placeInformation}/>
-              <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>
-          </ButtonGroup>
+        </div>
+        <div className="raw-item">
+          <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>
         </div>
         <div className="flex-item">
           <input id="trip-title" type="text" className="form-control trip-title"
@@ -159,9 +159,7 @@ class Trip extends Component {
         <div className="raw-item" style={{marginLeft:"auto"}}>
           <ButtonGroup>
           <Destinations trip={this.props.trip} updateTrip={this.props.updateTrip} updateInformation={this.props.updateInformation}/>
-            <label>
-              <IoIosDownloadOutline className="green_logo green_hvr_logo" size={38} onClick={this.saveTFFI}/>
-            </label>
+            <label><IoIosDownloadOutline className="green_logo green_hvr_logo" size={38} onClick={this.saveTFFI}/></label>
           </ButtonGroup>
         </div>
       </div>
@@ -206,13 +204,13 @@ class Trip extends Component {
         <div id="flex-container">
           <div className="raw-item">
             <Button className="" id="menu-btn" data-toggle="modal" data-target="#myModal">
-              <IoChevronRight size={21}/></Button>
+              <IoChevronRight size={25}/></Button>
           </div>
           <div className="flex-item" style={{marginLeft: 30}}>
             {this.planAndSave()}
           </div>
         </div>
-        <h6 style={{paddingLeft: 50}}>There are {count} destinations. </h6>
+        <h6 style={{marginLeft: 78}}>There are {count} destinations. </h6>
         {this.modal()}
         {this.getMap()}
       </div>
