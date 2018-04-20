@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Map from './Map';
 import Itinerary from './Itinerary';
-import Options from './Options';
 import Destinations from './Destinations';
 import Query from './Query';
 import GMap from './GMap';
@@ -182,12 +181,14 @@ class Trip extends Component {
             </div>
 
             <div className="modal-body">
-              <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
-                       updateOptionsUnits={this.props.updateOptionsUnits}/>
+              {/*<Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}*/}
+                       {/*updateOptionsUnits={this.props.updateOptionsUnits}/>*/}
               <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
-                         removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
-                         updateStartingLocation={this.props.updateStartingLocation}
-                         resetDestinations={this.props.resetDestinations}/>
+                       removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
+                       updateStartingLocation={this.props.updateStartingLocation}
+                       resetDestinations={this.props.resetDestinations}
+                       updateOptionsUnits={this.props.updateOptionsUnits}
+                       config={this.props.config} updateOptions={this.props.updateOptions}/>
             </div>
 
           </div>
