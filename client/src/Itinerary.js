@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Options from './Options';
 import {table_scroll, canyon_btn, canyon_hvr, bg_csu_gold} from './css/styling.css';
 import GoTrashcan from 'react-icons/lib/go/trashcan';
 import MdRemoveCircleOutline from 'react-icons/lib/md/remove-circle-outline';
@@ -15,7 +16,8 @@ class Itinerary extends Component {
     this.state = {
             ID        : false,
             Latitude  : false,
-            Longitude : false
+            Longitude : false,
+            Advanced  : false
     };
 
     this.createTable = this.createTable.bind(this);
@@ -23,6 +25,8 @@ class Itinerary extends Component {
     this.showInformation = this.showInformation.bind(this);
     this.addInformation = this.addInformation.bind(this);
     this.renderCheckbox = this.renderCheckbox.bind(this);
+    this.advancedOptions = this.advancedOptions.bind(this);
+    this.optionsButton = this.optionsButton.bind(this);
   }
 
   /* Function to update the state that checkboxes are dependant on.
@@ -85,12 +89,13 @@ class Itinerary extends Component {
    * Logic to populate the itinerary table with corresponding data
    */
   createTable () {
+    console.log("Creating Table");
     let distance = this.props.trip.distances.reduce(function(a, b) { return a + b; }, 0);
     let units = this.getUnits();
 
     let destinations = this.props.trip.places.map((item, index) => <td>{this.buildDestination(item, index)}</td>);
     if (destinations.length > 1) // There is a round trip.
-        destinations.push(<td>{"Return to " + this.props.trip.places[0].name}</td>);
+        destinations.push(<td>{this.props.trip.places[0].name}</td>);
 
     let dists = this.props.trip.distances.map((item) => <td>{item}</td>);
     let cumul = 0;
@@ -102,8 +107,8 @@ class Itinerary extends Component {
     }
 
     let rows = [];
-      for (let i = 0; i < destinations.length; ++i) {
-          rows.push(<tr key={i}>{ destinations[i] }{ dists[i] }{ cumulative[i] }</tr>);
+      for (let i = 0; i < destinations.length-1; ++i) {
+          rows.push(<tr key={i}>{ destinations[i] }{destinations[i+1]}{ dists[i] }{ cumulative[i] }</tr>);
       }
 
     return {distance, units, rows};
@@ -115,38 +120,74 @@ class Itinerary extends Component {
     </div>;
   }
 
-  render() {
-    let table = this.createTable();
+  advancedOptions() {
+    return(
+      <div>
+        <div className="col-12">
+          <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
+                   updateOptionsUnits={this.props.updateOptionsUnits}/>
+        </div>
+        <div className="col-12">
+          <h5>Display Options</h5>
+        </div>
+        <div className="col-6">
+          {this.renderCheckbox("ID")}
+          {this.renderCheckbox("Latitude")}
+        </div>
+        <div className="col-6">
+          {this.renderCheckbox("Longitude")}
+          <div className="checkbox">
+            <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
+  optionsButton() {
+    const setAdvanced = () => {
+      this.setState({Advanced: !this.state.Advanced});
+    };
+    return(
+      <div>
+        <Button className="btn btn-light btn-md"
+              onClick={setAdvanced}>Advanced Options
+        </Button>
+      </div>
+    )
+  }
+
+
+  render() {
+    const visible = {
+      'display': this.state.Advanced ? 'block' : 'none'
+    };
+    let table = this.createTable();
     return(
         <div id="itinerary" className="container">
-            <div className="row">
-                <div className="col-xs-12 col-md-8 col-lg-6 col-xl-5 order-last order-md-first">
-                    <h4>Round trip distance: {table.distance} <b>{table.units}</b>. </h4>
-                    <table className="table_scroll table table-responsive table-hover">
-                        <thead>
-                        <tr>
-                            <th className="bg_csu_gold align-middle" scope="col">Destinations</th>
-                            <th className="bg_csu_gold align-middle" scope="col">Leg Distance</th>
-                            <th className="bg_csu_gold align-middle" scope="col">Total<br/>Distance</th>
-                        </tr>
-                        </thead>
-                        <tbody>{table.rows}</tbody>
-                    </table>
-                </div>
-                <div className="col-xs-12 col-md-4 order-first order-md-last">
-                    <h5>Display Options</h5>
-                    {this.renderCheckbox("ID")}
-                    {this.renderCheckbox("Latitude")}
-                    {this.renderCheckbox("Longitude")}
-                    <div className="checkbox">
-                        <label><input type="checkbox" onChange={this.props.reverseTrip}/> Reverse Trip </label>
-                    </div>
-                    <span className="input-group-btn">
-                        <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}><GoTrashcan size={20}/>  Remove All Destinations</Button>
-                    </span>
-                </div>
+          {this.optionsButton()}
+          <div className="row">
+            <div className="col-12" id="filter-content" style={visible}>
+              {this.advancedOptions()}
             </div>
+            <div className="col-12">
+              <span className="input-group-btn">
+                  <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}><GoTrashcan size={20}/>  Remove All Destinations</Button>
+              </span>
+              <h4>Round trip distance: {table.distance} <b>{table.units}</b>. </h4>
+              <table className="table_scroll table table-responsive table-hover">
+                  <thead>
+                  <tr>
+                      <th className="bg_csu_gold align-middle" scope="col">From</th>
+                      <th className="bg_csu_gold align-middle" scope="col">To</th>
+                      <th className="bg_csu_gold align-middle" scope="col">Leg Distance</th>
+                      <th className="bg_csu_gold align-middle" scope="col">Total<br/>Distance</th>
+                  </tr>
+                  </thead>
+                  <tbody>{table.rows}</tbody>
+              </table>
+            </div>
+          </div>
         </div>
     )
   }
