@@ -89,6 +89,7 @@ Story Points | *63*|
 Date | Tasks done  | Tasks in progress | Impediments
 :--- | :--- | :--- | :---
 *04/15/2018* | *Not Started Yet* | *ll* | *kk*
+*04/19/2018* | *Google Maps, UI Redesign, CSS, Branding, Menus* | *Two-opt, More UI Design* | *Difficulties with branding images, issues with z-index, difficulties implementing side menu*
 
 ## Review
 
