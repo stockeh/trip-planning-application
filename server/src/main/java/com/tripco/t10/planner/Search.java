@@ -10,6 +10,7 @@ public class Search {
   //fields for query tffi object
   public int version;
   public String type;
+  public int limit = 10;
   public String query;
   public ArrayList<Place> places;
   public Filter[] filters;
@@ -22,7 +23,7 @@ public class Search {
           + "INNER JOIN region ON country.id = region.iso_country "
           + "INNER JOIN airports as a ON region.id = a.iso_region WHERE ";
   private transient String orderBy = "ORDER BY continents.name, country.name, "
-          + "region.name, a.municipality, a.name limit 10";
+          + "region.name, a.municipality, a.name ";
   private static final String myDriver = "com.mysql.jdbc.Driver";
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
 
@@ -77,7 +78,8 @@ public class Search {
             + "%' OR a.longitude LIKE '%" + query
             + "%' OR a.latitude LIKE '%" + query + "%') ";
     constructQueryFromFilters();
-    join += orderBy;
+    String limitBy = (limit == 0) ? "" : "LIMIT " + Integer.toString(limit);
+    join += orderBy + limitBy;
     System.out.println(join);
   }
 
