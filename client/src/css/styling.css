@@ -1,3 +1,21 @@
+/* ---------- TEXT ---------- */
+.larger-CSUtext-uncap{
+    font-family: 'prox-light', sans-serif !important;
+    letter-spacing: .11em;
+    line-height: 1em;
+    font-size: 18px;
+}
+
+.larger-CSUtext{
+    font-family: 'prox-light', sans-serif !important;
+    letter-spacing: .11em;
+    line-height: 1em;
+    font-size: 19px;
+    text-transform: uppercase;
+}
+
+/* ---------- TEXTBOX ---------- */
+
 #flex-container {
     display: -webkit-flex; /* Safari */
     display: flex;

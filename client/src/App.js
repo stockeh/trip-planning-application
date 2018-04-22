@@ -8,7 +8,8 @@ class App extends Component {
     super(props);
     this.state = {
       number: "10",
-      name: "Andromeda",
+      name  : "Andromeda",
+      host  : location.host,
       config: {
         type        : "config",
         version     : 2,
@@ -16,11 +17,15 @@ class App extends Component {
         units       : [],
         maps        : [],
         filters     : []
-      },
-      host : location.host
+      }
     };
 
     this.getConfig = this.getConfig.bind(this);
+    this.updateHost = this.updateHost.bind(this);
+  }
+
+  updateHost(data) {
+    this.setState({host : data})
   }
 
   componentWillMount(){
@@ -39,6 +44,7 @@ class App extends Component {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
+      console.log(JSON.stringify(tffi));
       this.setState({config : tffi});
     } catch(err) {
       console.error(err);
@@ -49,7 +55,8 @@ class App extends Component {
     return(
         <div id="tripco">
             <Header number={this.state.number} name={this.state.name}/>
-            <Application config={this.state.config} host={this.state.host}/>
+            <Application config={this.state.config} host={this.state.host}
+                         updateHost={this.updateHost}/>
             <Footer number={this.state.number} name={this.state.name}/>
         </div>
     );

@@ -182,14 +182,13 @@ class Trip extends Component {
             </div>
 
             <div className="modal-body">
-              {/*<Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}*/}
-                       {/*updateOptionsUnits={this.props.updateOptionsUnits}/>*/}
               <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
-                       removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
-                       updateStartingLocation={this.props.updateStartingLocation}
-                       resetDestinations={this.props.resetDestinations}
-                       updateOptionsUnits={this.props.updateOptionsUnits}
-                       config={this.props.config} updateOptions={this.props.updateOptions}/>
+                        removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
+                        updateStartingLocation={this.props.updateStartingLocation}
+                        resetDestinations={this.props.resetDestinations}
+                        updateOptionsUnits={this.props.updateOptionsUnits}
+                        config={this.props.config} updateOptions={this.props.updateOptions}
+                        updateHost={this.props.updateHost}/>
             </div>
 
           </div>

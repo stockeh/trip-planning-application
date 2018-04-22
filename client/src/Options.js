@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {ButtonGroup, Button, Container} from 'reactstrap'
-import { green_btn, green_hvr, bg_csu_green, text_canyon, slider_container} from './css/styling.css';
+import ReactTooltip from 'react-tooltip'
+import './css/styling.css';
+import IoAndroidDone from 'react-icons/lib/io/android-done';
+import IoAndroidRefresh from 'react-icons/lib/io/android-refresh';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -11,11 +14,19 @@ class Options extends Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      serverName : ""
+    };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.updateUnit = this.updateUnit.bind(this);
     this.distanceButtons = this.distanceButtons.bind(this);
     this.slider = this.slider.bind(this);
     this.customUnitsOptions = this.customUnitsOptions.bind(this);
+    this.customServerConnection = this.customServerConnection.bind(this);
+  }
+
+  customServerConnection(e) {
+    this.setState({serverName : e.value})
   }
 
   handleOnChange(arg) {
@@ -91,7 +102,8 @@ class Options extends Component{
     if (this.props.config.optimization > 0) slider = this.slider();
     return(
       <div id="options" >
-        <p>Select the options you wish to use.</p>
+        <br/><hr/>
+        <h6 className="larger-CSUtext-uncap">Select the options you wish to use.</h6>
           <ButtonGroup>
             <Container>
               {this.distanceButtons()}
@@ -104,6 +116,26 @@ class Options extends Component{
             <div className="col-sm-6 order-first order-md-last">
                 {this.customUnitsOptions()}
             </div>
+        </div>
+        <br/>
+        <h6 className="larger-CSUtext-uncap">Custom Server Connection</h6>
+        <div id="flex-container">
+          <div className="flex-item">
+            <input id="trip-title" type="text" className="form-control"
+                 onChange={(e) => this.props.updateHost(e)} placeholder="Input host and port..."/>
+          </div>
+          <div className="static-item">
+            <ButtonGroup>
+              <label><IoAndroidDone className="green_logo green_hvr_logo" size={38}
+                                       onClick={() => this.props.updateHost(this.state.serverName)}
+                                       data-for="submit" data-tip="Submit"/></label>
+              <ReactTooltip id="submit" place="bottom" effect="solid"/>
+              <label><IoAndroidRefresh className="green_logo green_hvr_logo" size={38}
+                                           onClick={() => this.props.updateHost(location.host)}
+                                       data-for="reset" data-tip="Reset"/></label>
+              <ReactTooltip id="reset" place="bottom" effect="solid"/>
+            </ButtonGroup>
+          </div>
         </div>
       </div>
     )

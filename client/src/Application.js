@@ -142,7 +142,8 @@ class Application extends Component {
                 reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
                 resetDestinations={this.resetDestinations} placeInformation={this.placeInformation}
                 config={this.props.config} host={this.props.host} updateOptions={this.updateOptions}
-                updateOptionsUnits={this.updateOptionsUnits} updatePlaces={this.updatePlaces} />
+                updateOptionsUnits={this.updateOptionsUnits} updatePlaces={this.updatePlaces}
+                updateHost={this.props.updateHost}/>
         </div>
     )
   }
