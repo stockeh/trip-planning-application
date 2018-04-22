@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import FaFilter from 'react-icons/lib/fa/filter';
 import {Button} from 'reactstrap';
-
+// import DropdownInput from 'react-dropdown-input';
+import './css/FilterStyle.css';
 /** Adds the component to select filtered items for
  * database search.
  */
@@ -9,13 +10,36 @@ class Filter extends Component {
   constructor(props){
     super(props);
     this.state = {
-      displayFilter: false
+      displayFilter: false,
+      initialItems: [
+        "Apples",
+        "Broccoli",
+        "Chicken",
+        "Bacon",
+        "Eggs",
+        "Salmon",
+        "Granola",
+        "Bananas",
+        "Beer",
+        "Wine",
+        "Yogurt"
+      ],
+      item: "",
+      items: [],
+      showResults: false,
+      testFilters: []
     };
     this.buildCheckTable = this.buildCheckTable.bind(this);
     this.renderFilter = this.renderFilter.bind(this);
 
     this.handelFilter = this.handelFilter.bind(this);
     this.renderCheckbox = this.renderCheckbox.bind(this);
+
+    this.filterList = this.filterList.bind(this);
+    this.list = this.list.bind(this);
+    this.blur = this.blur.bind(this);
+    this.focus = this.focus.bind(this);
+    this.addFilter = this.addFilter.bind(this);
   }
 
   handelFilter(e, item, attribute) {
@@ -46,6 +70,15 @@ class Filter extends Component {
     return {attributes, rows}
   }
 
+  filterList(event) {
+    var updatedList = this.state.initialItems;
+    updatedList = updatedList.filter(function (item) {
+      return item.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    this.setState({items: updatedList});
+  }
+
   renderFilter() {
     let table = null;
     for (let index = 0; index < this.props.filters.length; ++index) {
@@ -65,11 +98,42 @@ class Filter extends Component {
     );
   }
 
+  list(){
+
+    if(this.state.showResults === true) {
+    return(
+         <ul className="dropdown">
+           {
+             Object.values(this.state.items).map(function (item) {
+               return <li key={item} onClick={() => this.addFilter(item)}>{item}</li>
+             }.bind(this))
+           }
+        </ul>
+    )
+
+    }else return(null)
+  }
+
+  blur(){
+    this.setState({showResults: false});
+  }
+
+  focus(){
+    this.setState({showResults: true});
+  }
+
+  addFilter(item){
+    console.log("test");
+    let arr = this.state.testFilters;
+    arr.push(item);
+    this.setState({testFilters: arr});
+    //   return <button type="button" className="btn btn-outline-secondary">{item}</button>
+    // })
+  }
+
   render() {
-    if (this.props.filters.length <= 0) {
-      return null;
-    }
-    else {
+      console.log("Items: " + this.state.items);
+      console.log(this.state.testFilters);
       const showHide = {
         'display': this.state.displayFilter ? 'block' : 'none'
       };
@@ -83,11 +147,28 @@ class Filter extends Component {
             <FaFilter/>
           </Button>
           <div id="filter-content" style={showHide}>
-            {this.renderFilter()}
+            {/*{this.renderFilter()}*/}
+            {/*<DropdownInput options={this.state.initialItems}*/}
+                           {/*menuClassName='dropdown-input'*/}
+                           {/*// onSelect={this.handleSearchFilter}*/}
+                           {/*placeholder='Search...'/>*/}
+            <div className="filter-list">
+              <div className="input-group">
+                {
+                  Object.values(this.state.testFilters).map(function (item) {
+                    return <button type="button" className="btn btn-outline-secondary">{item}</button>
+                  }.bind(this))
+                }
+                <input type="text" placeholder="Search" onChange={this.filterList}
+                       onFocus={this.focus}/>
+              </div>
+              {this.list()}
+            </div>
           </div>
+
         </div>
       );
-    }
+    // }
   }
 }
 
