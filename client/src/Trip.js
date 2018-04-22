@@ -63,8 +63,9 @@ class Trip extends Component {
     console.log(process.env.SERVICE_URL);
     console.log(requestBody);
 
-    return fetch('http://' + location.host + '/plan', {
+    return fetch('http://' + this.props.host + '/plan', {
     method:"POST",
+    header: {'Access-Control-Allow-Origin':'*'},
     body: JSON.stringify(requestBody)
     });
   }
@@ -147,7 +148,7 @@ class Trip extends Component {
       <div id="flex-container" className="flex-wrap-container" >
         <div className="static-item">
               <Query trip={this.props.trip} config={this.props.config} updatePlaces={this.props.updatePlaces}
-                     placeInformation={this.props.placeInformation}/>
+                     host={this.props.host} placeInformation={this.props.placeInformation}/>
         </div>
         <div className="static-item">
           <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>

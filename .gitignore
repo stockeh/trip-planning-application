@@ -7,3 +7,4 @@ client/*.log
 
 client_bundle/
 target/
+run

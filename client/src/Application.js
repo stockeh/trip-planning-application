@@ -141,7 +141,7 @@ class Application extends Component {
           <Trip trip={this.state.trip} updateTrip={this.updateTrip} updateInformation={this.updateInformation}
                 reverseTrip={this.reverseTrip} updateStartingLocation={this.updateStartingLocation}
                 resetDestinations={this.resetDestinations} placeInformation={this.placeInformation}
-                config={this.props.config} updateOptions={this.updateOptions}
+                config={this.props.config} host={this.props.host} updateOptions={this.updateOptions}
                 updateOptionsUnits={this.updateOptionsUnits} updatePlaces={this.updatePlaces} />
         </div>
     )

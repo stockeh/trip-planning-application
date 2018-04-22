@@ -4,4 +4,4 @@ npm install --prefix client && \
 npm run bundle --prefix client && \
 mvn package
 
-java -jar target/server-*.jar $*
+java -DsocksProxyHost=localhost -DsocksProxyPort=9000 -jar target/server-*.jar $*

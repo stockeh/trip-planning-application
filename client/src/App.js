@@ -16,7 +16,8 @@ class App extends Component {
         units       : [],
         maps        : [],
         filters     : []
-      }
+      },
+      host : location.host
     };
 
     this.getConfig = this.getConfig.bind(this);
@@ -28,8 +29,9 @@ class App extends Component {
 
   fetchResponse(){
 
-    return fetch('http://' + location.host + '/config', {
+    return fetch('http://' + this.state.host + '/config', {
       method:"GET",
+      header: {'Access-Control-Allow-Origin':'*'}
     });
   }
 
@@ -47,7 +49,7 @@ class App extends Component {
     return(
         <div id="tripco">
             <Header number={this.state.number} name={this.state.name}/>
-            <Application config={this.state.config}/>
+            <Application config={this.state.config} host={this.state.host}/>
             <Footer number={this.state.number} name={this.state.name}/>
         </div>
     );

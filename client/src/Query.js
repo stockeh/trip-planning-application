@@ -170,7 +170,7 @@ class Query extends Component {
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
                    placeholder="Search For Destinations..."/>
             <Search query={this.state.query} filters={this.state.filters}
-                    updateData={this.updateData}/>
+                    host={this.props.host} updateData={this.updateData}/>
           </InputGroup>
           <br/> {this.createTable()}
         </div>
