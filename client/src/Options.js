@@ -22,11 +22,14 @@ class Options extends Component{
     this.distanceButtons = this.distanceButtons.bind(this);
     this.slider = this.slider.bind(this);
     this.customUnitsOptions = this.customUnitsOptions.bind(this);
+
     this.customServerConnection = this.customServerConnection.bind(this);
+    this.interoperability = this.interoperability.bind(this);
   }
 
   customServerConnection(e) {
-    this.setState({serverName : e.value})
+    console.log("OPTIONS: " + e.target.value);
+    this.setState({serverName : e.target.value})
   }
 
   handleOnChange(arg) {
@@ -97,12 +100,38 @@ class Options extends Component{
     return null;
   }
 
+  interoperability() {
+    return (
+      <div>
+        <br/>
+        <h6 className="larger-CSUtext-uncap">Custom Server Connection</h6>
+        <div id="flex-container">
+          <div className="flex-item">
+            <input id="trip-title" type="text" className="form-control"
+                   onChange={(e) => this.customServerConnection(e)} placeholder="Input host and port..."/>
+          </div>
+          <div className="static-item">
+            <ButtonGroup>
+              <label><IoAndroidDone className="green_logo green_hvr_logo" size={38}
+                                    onClick={() => this.props.updateHost(this.state.serverName)}
+                                    data-for="submit" data-tip="Submit"/></label>
+              <ReactTooltip id="submit" place="bottom" effect="solid"/>
+              <label><IoAndroidRefresh className="green_logo green_hvr_logo" size={38}
+                                       onClick={() => this.props.updateHost(location.host)}
+                                       data-for="reset" data-tip="Reset"/></label>
+              <ReactTooltip id="reset" place="bottom" effect="solid"/>
+            </ButtonGroup>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     let slider = null;
     if (this.props.config.optimization > 0) slider = this.slider();
     return(
       <div id="options" >
-        <br/><hr/>
         <h6 className="larger-CSUtext-uncap">Select the options you wish to use.</h6>
           <ButtonGroup>
             <Container>
@@ -117,26 +146,7 @@ class Options extends Component{
                 {this.customUnitsOptions()}
             </div>
         </div>
-        <br/>
-        <h6 className="larger-CSUtext-uncap">Custom Server Connection</h6>
-        <div id="flex-container">
-          <div className="flex-item">
-            <input id="trip-title" type="text" className="form-control"
-                 onChange={(e) => this.props.updateHost(e)} placeholder="Input host and port..."/>
-          </div>
-          <div className="static-item">
-            <ButtonGroup>
-              <label><IoAndroidDone className="green_logo green_hvr_logo" size={38}
-                                       onClick={() => this.props.updateHost(this.state.serverName)}
-                                       data-for="submit" data-tip="Submit"/></label>
-              <ReactTooltip id="submit" place="bottom" effect="solid"/>
-              <label><IoAndroidRefresh className="green_logo green_hvr_logo" size={38}
-                                           onClick={() => this.props.updateHost(location.host)}
-                                       data-for="reset" data-tip="Reset"/></label>
-              <ReactTooltip id="reset" place="bottom" effect="solid"/>
-            </ButtonGroup>
-          </div>
-        </div>
+        {this.interoperability()}
       </div>
     )
   }

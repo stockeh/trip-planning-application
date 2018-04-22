@@ -127,6 +127,7 @@ class Itinerary extends Component {
           <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
                    updateOptionsUnits={this.props.updateOptionsUnits} updateHost={this.props.updateHost}/>
         </div>
+        <br/>
         <div className="col-12">
           <h6 className="larger-CSUtext-uncap">Display Options</h6>
         </div>
@@ -150,10 +151,9 @@ class Itinerary extends Component {
     };
     return(
       <div>
-        <Button className="btn btn-light btn-md larger-CSUtext"
+        <Button className="btn btn-light btn-md larger-CSUtext-uncap"
               onClick={setAdvanced}>Advanced Options
         </Button>
-        <br/><hr/>
       </div>
     )
   }
@@ -167,9 +167,11 @@ class Itinerary extends Component {
     return(
         <div id="itinerary" className="container">
           {this.optionsButton()}
+          <hr/>
           <div className="row">
             <div className="col-12" id="filter-content" style={visible}>
               {this.advancedOptions()}
+              <hr/>
             </div>
             <div className="col-12">
               <span className="input-group-btn">

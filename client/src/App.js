@@ -25,7 +25,10 @@ class App extends Component {
   }
 
   updateHost(data) {
-    this.setState({host : data})
+    this.setState({host : data}, () => {
+      this.getConfig();
+    });
+
   }
 
   componentWillMount(){
@@ -35,7 +38,7 @@ class App extends Component {
   fetchResponse(){
 
     return fetch('http://' + this.state.host + '/config', {
-      method:"GET",
+      method: "GET",
       header: {'Access-Control-Allow-Origin':'*'}
     });
   }
@@ -44,7 +47,7 @@ class App extends Component {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
-      console.log(JSON.stringify(tffi));
+      console.log(JSON.stringify(tffi, null, 2));
       this.setState({config : tffi});
     } catch(err) {
       console.error(err);
