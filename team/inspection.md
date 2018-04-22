@@ -1,4 +1,4 @@
-# Inspection - Team *T10
+# Inspection - Team *T10*
  
 Inspection | Details
 ----- | -----
