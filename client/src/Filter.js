@@ -153,16 +153,19 @@ class Filter extends Component {
                            {/*// onSelect={this.handleSearchFilter}*/}
                            {/*placeholder='Search...'/>*/}
             <div className="filter-list">
-              <div className="input-group">
+              <div className="input-group filter-input-group">
                 {
                   Object.values(this.state.testFilters).map(function (item) {
-                    return <button type="button" className="btn btn-outline-secondary">{item}</button>
+                    return <span className="input-group-addon">
+                      <button type="button" className="btn btn-sm btn-outline-secondary filter">{item}</button></span>
                   }.bind(this))
                 }
-                <input type="text" placeholder="Search" onChange={this.filterList}
+                <div>
+                  <input type="text" className="filter-box" placeholder="Search" onChange={this.filterList}
                        onFocus={this.focus}/>
+                  {this.list()}
+                </div>
               </div>
-              {this.list()}
             </div>
           </div>
 
