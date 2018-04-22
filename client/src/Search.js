@@ -17,8 +17,9 @@ class Search extends Component {
   fetchResponse(){
     // need to get the request body from the query in state object.
     let requestBody = {
-        "version" : 2,
+        "version" : 3,
         "type"    : "query",
+        "limit"   : 10,
         "query"   : this.props.query,
         "filters" : this.props.filters,
         "places"  : []
