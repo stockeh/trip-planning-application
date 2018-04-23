@@ -17,8 +17,9 @@ class Search extends Component {
   fetchResponse(){
     // need to get the request body from the query in state object.
     let requestBody = {
-        "version" : 2,
+        "version" : 3,
         "type"    : "query",
+        "limit"   : 10,
         "query"   : this.props.query,
         "filters" : this.props.filters,
         "places"  : []
@@ -28,8 +29,9 @@ class Search extends Component {
     console.log(process.env.SERVICE_URL);
     console.log(requestBody);
 
-    return fetch('http://' + location.host + '/query', {
+    return fetch('http://' + this.props.host + '/query', {
       method:"POST",
+      header: {'Access-Control-Allow-Origin':'*'},
       body: JSON.stringify(requestBody)
     });
   }

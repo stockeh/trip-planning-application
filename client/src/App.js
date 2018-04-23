@@ -8,7 +8,8 @@ class App extends Component {
     super(props);
     this.state = {
       number: "10",
-      name: "Andromeda",
+      name  : "Andromeda",
+      host  : location.host,
       config: {
         type        : "config",
         version     : 2,
@@ -20,6 +21,14 @@ class App extends Component {
     };
 
     this.getConfig = this.getConfig.bind(this);
+    this.updateHost = this.updateHost.bind(this);
+  }
+
+  updateHost(data) {
+    this.setState({host : data}, () => {
+      this.getConfig();
+    });
+
   }
 
   componentWillMount(){
@@ -28,8 +37,9 @@ class App extends Component {
 
   fetchResponse(){
 
-    return fetch('http://' + location.host + '/config', {
-      method:"GET",
+    return fetch('http://' + this.state.host + '/config', {
+      method: "GET",
+      header: {'Access-Control-Allow-Origin':'*'}
     });
   }
 
@@ -37,6 +47,7 @@ class App extends Component {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
+      console.log(JSON.stringify(tffi, null, 2));
       this.setState({config : tffi});
     } catch(err) {
       console.error(err);
@@ -47,7 +58,8 @@ class App extends Component {
     return(
         <div id="tripco">
             <Header number={this.state.number} name={this.state.name}/>
-            <Application config={this.state.config}/>
+            <Application config={this.state.config} host={this.state.host}
+                         updateHost={this.updateHost}/>
             <Footer number={this.state.number} name={this.state.name}/>
         </div>
     );

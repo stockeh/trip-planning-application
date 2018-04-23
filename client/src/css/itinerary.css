@@ -1,0 +1,85 @@
+/*
+Generic Styling, for Desktops/Laptops
+*/
+
+/*.table td, .table th {*/
+  /*padding-leftt: 2rem !important;*/
+  /*vertical-align: top;*/
+  /*border-top: 1px solid #dee2e6;*/
+/*}*/
+
+table {
+  width: 100%;
+  border-collapse: collapse !important;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
+}
+td, th {
+  padding: 6px !important;
+  border: 1px solid #ccc !important;
+  text-align: left;
+}
+
+/*
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media
+only screen and (max-width: 955px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  /* Force table to not be like tables anymore */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr { border: 1px solid #ccc; }
+
+  td {
+    /* Behave  like a "row" */
+    border: none !important;
+    /*border-bottom: .02em solid black !important;*/
+    position: relative;
+    padding-left: 50% !important;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  /*
+  Label the data
+  */
+  td:nth-of-type(1):before { content: "From:"; }
+  td:nth-of-type(2):before { content: "To:"; }
+  td:nth-of-type(3):before { content: "Leg Distance:"; }
+  td:nth-of-type(4):before { content: "Total Distance:"; }
+}
+
+.table_scroll {
+  max-height: 512px;
+  min-height: 0;
+  overflow: auto;
+}

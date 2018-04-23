@@ -63,8 +63,9 @@ class Trip extends Component {
     console.log(process.env.SERVICE_URL);
     console.log(requestBody);
 
-    return fetch('http://' + location.host + '/plan', {
+    return fetch('http://' + this.props.host + '/plan', {
     method:"POST",
+    header: {'Access-Control-Allow-Origin':'*'},
     body: JSON.stringify(requestBody)
     });
   }
@@ -147,7 +148,7 @@ class Trip extends Component {
       <div id="flex-container" className="flex-wrap-container" >
         <div className="static-item">
               <Query trip={this.props.trip} config={this.props.config} updatePlaces={this.props.updatePlaces}
-                     placeInformation={this.props.placeInformation}/>
+                     host={this.props.host} placeInformation={this.props.placeInformation}/>
         </div>
         <div className="static-item">
           <Button className="green_btn green_hvr" onClick={ () => {this.plan(this.props.trip); this.initialPlan()}}>Plan</Button>
@@ -181,14 +182,13 @@ class Trip extends Component {
             </div>
 
             <div className="modal-body">
-              {/*<Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}*/}
-                       {/*updateOptionsUnits={this.props.updateOptionsUnits}/>*/}
               <Itinerary trip={this.props.trip} placeInformation={this.props.placeInformation}
-                       removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
-                       updateStartingLocation={this.props.updateStartingLocation}
-                       resetDestinations={this.props.resetDestinations}
-                       updateOptionsUnits={this.props.updateOptionsUnits}
-                       config={this.props.config} updateOptions={this.props.updateOptions}/>
+                        removedPlan={this.removedPlan} reverseTrip={this.props.reverseTrip}
+                        updateStartingLocation={this.props.updateStartingLocation}
+                        resetDestinations={this.props.resetDestinations}
+                        updateOptionsUnits={this.props.updateOptionsUnits}
+                        config={this.props.config} updateOptions={this.props.updateOptions}
+                        updateHost={this.props.updateHost}/>
             </div>
 
           </div>

@@ -6,6 +6,7 @@ import MdRemoveCircleOutline from 'react-icons/lib/md/remove-circle-outline';
 import IoIosNavigateOutline from 'react-icons/lib/io/ios-navigate-outline';
 import { Button}  from 'reactstrap';
 import { remove_logo, add_logo} from './css/styling.css';
+import './css/itinerary.css';
 import ReactTooltip from 'react-tooltip'
 
 
@@ -61,7 +62,7 @@ class Itinerary extends Component {
                                 }}><br/>
             <small><IoIosNavigateOutline className="add_logo" size={25} data-tip="Set As Start" data-for="start"/></small><ReactTooltip id="start" place="bottom" effect="solid"/>
             </a>);
-    }else if(index == 0){destinationName.push(<br/>);}
+    }else if(index === 0){destinationName.push(<br/>);}
     destinationName.push(<a key={item} className="font-weight-light text-danger"
                             style={{cursor:'pointer'}}
                             onClick={ () => {
@@ -125,10 +126,11 @@ class Itinerary extends Component {
       <div>
         <div className="col-12">
           <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
-                   updateOptionsUnits={this.props.updateOptionsUnits}/>
+                   updateOptionsUnits={this.props.updateOptionsUnits} updateHost={this.props.updateHost}/>
         </div>
+        <br/>
         <div className="col-12">
-          <h5>Display Options</h5>
+          <h6 className="larger-CSUtext-uncap">Display Options</h6>
         </div>
         <div className="col-6">
           {this.renderCheckbox("ID")}
@@ -150,7 +152,7 @@ class Itinerary extends Component {
     };
     return(
       <div>
-        <Button className="btn btn-light btn-md"
+        <Button className="btn btn-light btn-md larger-CSUtext-uncap"
               onClick={setAdvanced}>Advanced Options
         </Button>
       </div>
@@ -166,16 +168,18 @@ class Itinerary extends Component {
     return(
         <div id="itinerary" className="container">
           {this.optionsButton()}
+          <hr/>
           <div className="row">
             <div className="col-12" id="filter-content" style={visible}>
               {this.advancedOptions()}
+              <hr/>
             </div>
             <div className="col-12">
               <span className="input-group-btn">
                   <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}><GoTrashcan size={20}/>  Remove All Destinations</Button>
               </span>
               <h4>Round trip distance: {table.distance} <b>{table.units}</b>. </h4>
-              <table className="table_scroll table table-responsive table-hover">
+              <table className="table_scroll table table-responsive">
                   <thead>
                   <tr>
                       <th className="bg_csu_gold align-middle" scope="col">From</th>
