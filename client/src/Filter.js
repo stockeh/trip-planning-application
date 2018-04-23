@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import FaFilter from 'react-icons/lib/fa/filter';
+import FaClose from 'react-icons/lib/fa/close';
 import {Button} from 'reactstrap';
 // import DropdownInput from 'react-dropdown-input';
 import './css/FilterStyle.css';
@@ -40,6 +41,8 @@ class Filter extends Component {
     this.blur = this.blur.bind(this);
     this.focus = this.focus.bind(this);
     this.addFilter = this.addFilter.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.buildFilter = this.buildFilter.bind(this);
   }
 
   handelFilter(e, item, attribute) {
@@ -79,6 +82,12 @@ class Filter extends Component {
     this.setState({items: updatedList});
   }
 
+  buildFilter() {
+      for (let index = 0; index < this.props.filters.length; ++index) {
+
+      }
+  }
+
   renderFilter() {
     let table = null;
     for (let index = 0; index < this.props.filters.length; ++index) {
@@ -98,18 +107,33 @@ class Filter extends Component {
     );
   }
 
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  handleClick(e){
+    if(!this.node.contains(e.target)) {
+
+      this.blur();
+    }
+  }
+
   list(){
 
     if(this.state.showResults === true) {
-    return(
-         <ul className="dropdown">
-           {
-             Object.values(this.state.items).map(function (item) {
-               return <li key={item} onClick={() => this.addFilter(item)}>{item}</li>
-             }.bind(this))
-           }
-        </ul>
-    )
+      return(
+           <ul className="dropdown" tabindex="-1" onBlur={this.blur} on={this.blur} onFocus={this.focus}>
+             {
+               Object.values(this.state.items).map(function (item) {
+                 return <li key={item} onClick={() => this.addFilter(item)}>{item}</li>
+               }.bind(this))
+             }
+          </ul>
+      )
 
     }else return(null)
   }
@@ -124,11 +148,23 @@ class Filter extends Component {
 
   addFilter(item){
     console.log("test");
-    let arr = this.state.testFilters;
-    arr.push(item);
-    this.setState({testFilters: arr});
-    //   return <button type="button" className="btn btn-outline-secondary">{item}</button>
-    // })
+    let filterArr = this.state.testFilters;
+    filterArr.push(item);
+
+    let filterer = this.state.items;
+    for(let i = 0; i < filterer.length; i++){
+      if(filterer[i] === item){
+        filterer.splice(i,1);
+      }
+    }
+
+    let original = this.state.initialItems;
+    for(let i = 0; i < original.length; i++){
+        if(original[i] === item){
+            original.splice(i,1);
+        }
+    }
+    this.setState({testFilters: filterArr, items: filterer, initialItems: original});
   }
 
   render() {
@@ -148,16 +184,12 @@ class Filter extends Component {
           </Button>
           <div id="filter-content" style={showHide}>
             {/*{this.renderFilter()}*/}
-            {/*<DropdownInput options={this.state.initialItems}*/}
-                           {/*menuClassName='dropdown-input'*/}
-                           {/*// onSelect={this.handleSearchFilter}*/}
-                           {/*placeholder='Search...'/>*/}
             <div className="filter-list">
-              <div className="input-group filter-input-group">
+              <div ref={node => this.node = node} className="input-group filter-input-group">
                 {
                   Object.values(this.state.testFilters).map(function (item) {
                     return <span className="input-group-addon">
-                      <button type="button" className="btn btn-sm btn-outline-secondary filter">{item}</button></span>
+                      <button type="button" className="btn btn-sm btn-outline-secondary filter">{item}{'  '}<FaClose className="filter-remove" size={12}/></button></span>
                   }.bind(this))
                 }
                 <div>

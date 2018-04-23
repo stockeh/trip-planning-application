@@ -50,4 +50,13 @@
 
 .filter-box {
     border: none;
+    padding: .35em 0 0 0;
+}
+
+.filter-box:focus {
+    outline:none;
+}
+
+.filter-remove {
+    margin-bottom: .11em;
 }
