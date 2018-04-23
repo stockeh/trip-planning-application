@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Header from './Header';
+import Navigation from './Navigation';
 import Application from './Application';
 import Footer from './Footer';
 
@@ -7,9 +8,10 @@ class App extends Component {
   constructor (props){
     super(props);
     this.state = {
-      number: "10",
-      name  : "Andromeda",
-      host  : location.host,
+      number  : "10",
+      name    : "Andromeda",
+      host    : location.host,
+      webpage : "trip",
       config: {
         type        : "config",
         version     : 2,
@@ -22,21 +24,25 @@ class App extends Component {
 
     this.getConfig = this.getConfig.bind(this);
     this.updateHost = this.updateHost.bind(this);
-  }
-
-  updateHost(data) {
-    this.setState({host : data}, () => {
-      this.getConfig();
-    });
-
+    this.updateWebpage = this.updateWebpage.bind(this);
   }
 
   componentWillMount(){
     this.getConfig();
   }
 
-  fetchResponse(){
+  updateHost(data) {
+    this.setState({host : data}, () => {
+      this.getConfig();
+    });
+  }
 
+  updateWebpage(e, page) {
+    e.preventDefault();
+    this.setState({webpage : page});
+  }
+
+  fetchResponse(){
     return fetch('http://' + this.state.host + '/config', {
       method: "GET",
       header: {'Access-Control-Allow-Origin':'*'}
@@ -58,6 +64,7 @@ class App extends Component {
     return(
         <div id="tripco">
             <Header number={this.state.number} name={this.state.name}/>
+            <Navigation name={this.state.name} updateWebpage={this.updateWebpage}/>
             <Application config={this.state.config} host={this.state.host}
                          updateHost={this.updateHost}/>
             <Footer number={this.state.number} name={this.state.name}/>

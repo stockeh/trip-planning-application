@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Navigation from './Navigation';
 import './css/headerfooter.css';
 require('./images/signature-oneline.svg');
 require('./images/signature-stacked.svg');
@@ -33,7 +32,6 @@ class Header extends Component{
               </div>
             </div>
           </div>
-        <Navigation name={this.props.name}/>
       </div>
     )
   }
