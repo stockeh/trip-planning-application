@@ -47,6 +47,7 @@ class Filter extends Component {
     this.buildFilter = this.buildFilter.bind(this);
     this.buildList = this.buildList.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
+
   }
 
   // handelFilter(e, item, attribute) {
@@ -98,6 +99,7 @@ class Filter extends Component {
         for(let filter = 0; filter < values.length; ++filter){
           newFilters.push({value: values[filter], attribute: attribute})
         }
+        console.log("Filters: " + newFilters);
         this.setState({initialFilters:newFilters});
       }
   }
@@ -137,8 +139,8 @@ class Filter extends Component {
   // }
 
   componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick, false);
-    this.buildFilter();
+      this.buildFilter();
+      document.addEventListener('mousedown', this.handleClick, false);
   }
 
   componentWillUnmount() {
@@ -158,7 +160,7 @@ class Filter extends Component {
 
   focus(){
     this.setState({showResults: true});
-  }a
+  }
 
   addFilter(item){
     console.log("test");
@@ -182,36 +184,42 @@ class Filter extends Component {
   }
 
   removeFilter(item) {
-    // let filter = event.target.id;
-    console.log(item + " " + item.attribute + " " + item.value);
-    let filterArr = this.state.selectedFilters;
-    for(let i = 0; i < filterArr.length; i++){
-        if(filterArr[i].value === item.value){
-            filterArr.splice(i,1);
-        }
-    }
+      // let filter = event.target.id;
+      console.log(item + " " + item.attribute + " " + item.value);
+      let filterArr = this.state.selectedFilters;
+      for (let i = 0; i < filterArr.length; i++) {
+          if (filterArr[i].value === item.value) {
+              filterArr.splice(i, 1);
+          }
+      }
 
-    let original = this.state.initialFilters;
-    original.push(item);
-    this.setState({selectedFilters: filterArr, initialFilters: original});
+
+      let original = this.state.initialFilters;
+      original.push(item);
+
+      // let updatedList = original;
+      // updatedList = updatedList.filter(function (item) {
+      //     return item.value.toLowerCase().search(
+      //         value.toLowerCase()) !== -1;});
+      this.setState({selectedFilters: filterArr, initialFilters: original});
 
   }
 
-  render() {{}
+
+  render() {
       const showHide = {
         'display': this.state.displayFilter ? 'block' : 'none'
       };
       const showReplyForm = () => {
         this.setState({displayFilter: !this.state.displayFilter});
       };
-      return (aplflu
+      return (
         <div id="filter">
           <Button className="btn btn-light btn-md"
                   onClick={showReplyForm}>
             <FaFilter/>
           </Button>
           <div id="filter-content" style={showHide}>
-            {/*{this.renderFilter()}*/}
             <div className="row pt-3">
               <div className="col filter-list">
                 <div ref={node => this.node = node} className="input-group">
