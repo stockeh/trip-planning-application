@@ -6,6 +6,7 @@ import MdRemoveCircleOutline from 'react-icons/lib/md/remove-circle-outline';
 import IoIosNavigateOutline from 'react-icons/lib/io/ios-navigate-outline';
 import { Button}  from 'reactstrap';
 import { remove_logo, add_logo} from './css/styling.css';
+import './css/itinerary.css';
 import ReactTooltip from 'react-tooltip'
 
 
@@ -178,7 +179,7 @@ class Itinerary extends Component {
                   <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}><GoTrashcan size={20}/>  Remove All Destinations</Button>
               </span>
               <h4>Round trip distance: {table.distance} <b>{table.units}</b>. </h4>
-              <table className="table_scroll table table-responsive table-hover">
+              <table className="table_scroll table table-responsive">
                   <thead>
                   <tr>
                       <th className="bg_csu_gold align-middle" scope="col">From</th>

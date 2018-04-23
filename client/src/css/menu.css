@@ -1,34 +1,10 @@
 /* ------------Sidebar Modal------------ */
-@media only screen and (max-width: 480px){
-  .modal-left .left-modal-dialog {
-    width:100%;
-  }
-}
-@media only screen and (max-width: 768px){
-  .modal-left .left-modal-dialog {
-    width:100%;
-  }
-}
-@media only screen and (max-width: 992px){
-  .modal-left .left-modal-dialog {
-    width:75%;
-  }
-}
-@media only screen and (max-width: 1200px){
-  .modal-left .left-modal-dialog {
-    width:50%;
-  }
-}
-@media only screen and (max-width: 1500px){
-  .modal-left .left-modal-dialog {
-    width:35%;
-  }
-}
-
 .modal.left .left-modal-dialog {
+  overflow-y: initial !important;
   position: fixed;
   margin: auto;
   height: 100%;
+  max-width: 650px;
   -webkit-transform: translate3d(0%, 0, 0);
   -ms-transform: translate3d(0%, 0, 0);
   -o-transform: translate3d(0%, 0, 0);
@@ -37,14 +13,11 @@
 
 .modal.left .left-modal-content {
   height: 100%;
-  /* STOP MOVING AROUND! (right/left)*/
-  overflow-x: hidden;
-  overflow-y: scroll !important;
 }
 
 .modal.left .modal-body {
   padding: 15px 15px 80px;
-
+  overflow-y: auto;
 }
 
 /*Left*/
@@ -65,8 +38,9 @@
   border: none;
 }
 
-.left-modal-open {
-  overflow: hidden;
+.modal-open {
+  padding-right: 0 !important;
+  overflow: scroll;
   position:fixed;
   width: 100%;
   height: 100%;
@@ -77,10 +51,5 @@
   background-color: #FAFAFA;
   min-height: 3.5rem !important;
   padding-top: .5rem !important;
-  /*padding-right: 1.25rem !important;*/
   padding-bottom: 1rem !important;
-}
-
-.left-modal-button {
-  left: -100px;
 }
