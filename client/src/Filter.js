@@ -112,30 +112,26 @@ class Filter extends Component {
     filterArr.push(item);
 
     let filterer = this.state.currentFilters;
-    for(let i = 0; i < filterer.length; i++){
-      if(filterer[i].value === item.value && filterer[i].attribute === item.attribute){
-        filterer.splice(i,1);
-      }
-    }
+    filterer = Filter.spliceArray(filterer,item);
 
     let original = this.state.initialFilters;
-    for(let i = 0; i < original.length; i++){
-        if(original[i].value === item.value && original[i].attribute === item.attribute){
-            original.splice(i,1);
-        }
-    }
+    original = Filter.spliceArray(original, item);
     this.handleFilter(true,item.value,item.attribute);
     this.setState({selectedFilters: filterArr, currentFilters: filterer, initialFilters: original});
   }
 
-  removeFilter(item) {
-      // let filter = event.target.id;
-      let filterArr = this.state.selectedFilters;
-      for (let i = 0; i < filterArr.length; i++) {
-          if (filterArr[i].value === item.value && filterArr[i].attribute === item.attribute) {
-              filterArr.splice(i, 1);
-          }
+  static spliceArray(arr, item){
+    for(let i = 0; i < arr.length; i++){
+      if(arr[i].value === item.value && arr[i].attribute === item.attribute){
+        arr.splice(i,1);
       }
+    }
+    return arr;
+  }
+
+  removeFilter(item) {
+      let filterArr = this.state.selectedFilters;
+      filterArr = Filter.spliceArray(filterArr,item);
 
       let original = this.state.initialFilters;
       original.push(item);
