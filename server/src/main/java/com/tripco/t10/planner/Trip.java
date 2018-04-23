@@ -57,16 +57,6 @@ public class Trip {
     places = placeList;
   }
 
-  private void undefinedMap(ArrayList<Double> decimalDegrees) {
-    if (this.version < 3) {
-      this.options.map = "svg";
-      this.map = svg(decimalDegrees);
-    }
-    else {
-      this.options.map = "kml";
-      this.map = googleMap(decimalDegrees);
-    }
-  }
 
   /**
    * The top level method that does planning.
@@ -82,11 +72,12 @@ public class Trip {
     this.distances = legDistances(decimalDegrees);
     decimalDegrees = getDecimalDegrees();
     if (this.options.map != null) {
-      this.map = (this.options.map.toLowerCase().equals("svg") && this.version < 3)
+      this.map = (this.options.map.toLowerCase().equals("svg"))
           ? svg(decimalDegrees) : googleMap(decimalDegrees);
     }
     else {
-      undefinedMap(decimalDegrees);
+      this.options.map = "kml";
+      this.map = googleMap(decimalDegrees);
     }
   }
 

@@ -14,35 +14,19 @@ class Filter extends Component {
       displayFilter: false,
       initialFilters: [{attribute:"country",value:"USA"},{attribute:"country",value:"Canada"},{attribute:"country",value:"China"},{attribute:"country",value:"Iceland"},{attribute:"country",value:"Mexico"}],
       currentFilters: [],
-      // initialItems: [
-      //   "Apples",
-      //   "Broccoli",
-      //   "Chicken",
-      //   "Bacon",
-      //   "Eggs",
-      //   "Salmon",
-      //   "Granola",
-      //   "Bananas",
-      //   "Beer",
-      //   "Wine",
-      //   "Yogurt"
-      // ],
       currentSearch: "",
       showResults: false,
-      selectedFilters: []
+      selectedFilters: [],
+      hasBuilt: false
     };
-    // this.buildCheckTable = this.buildCheckTable.bind(this);
-    // this.renderFilter = this.renderFilter.bind(this);
-
-    // this.handelFilter = this.handelFilter.bind(this);
-    // this.renderCheckbox = this.renderCheckbox.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
 
     this.filterList = this.filterList.bind(this);
     this.blur = this.blur.bind(this);
     this.focus = this.focus.bind(this);
     this.addFilter = this.addFilter.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
+    this.renderRow = this.renderRow.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
     this.buildFilter = this.buildFilter.bind(this);
     this.buildList = this.buildList.bind(this);
@@ -50,33 +34,9 @@ class Filter extends Component {
 
   }
 
-  // handelFilter(e, item, attribute) {
-  //   this.props.searchFilter(e.target.checked, item, attribute);
-  // }
-
-  // renderCheckbox(item, attribute) {
-  //   return (
-  //       <pre><label>
-  //         <input type="checkbox" style={{marginLeft: 15}}
-  //                onClick={(e)=>this.handelFilter(e, item, attribute)}/> { item }
-  //       </label></pre>
-  //   );
-  // }
-
-  // buildCheckTable(attribute, index) {
-  //   let attributes = [];
-  //   attributes.push(<h6 key={attribute} className="text-uppercase"
-  //                       style={{marginLeft: 12}}>
-  //                   <u>{attribute}</u></h6>);
-  //
-  //   let boxes = this.props.filters[index].values.map((item, index) =>
-  //       <td>{this.renderCheckbox(item, attribute)}</td>);
-  //   let rows = [];
-  //   for (let i = 0; i < this.props.filters[index].values.length; ++i) {
-  //     rows.push(<tr key={i}>{boxes[i]}{boxes[++i]}{boxes[++i]}</tr>);
-  //   }
-  //   return {attributes, rows}
-  // }
+  handleFilter(filtered, item, attribute) {
+    this.props.searchFilter(filtered, item, attribute);
+  }
 
   updateFilter(value){
       var updatedList = this.state.initialFilters;
@@ -92,51 +52,36 @@ class Filter extends Component {
   }
 
   buildFilter() {
-      for (let index = 0; index < this.props.filters.length; ++index) {
-        let attribute = this.props.filters[index].attribute;
-        let values = this.props.filters[index].values;
-        let newFilters = [];
-        for(let filter = 0; filter < values.length; ++filter){
-          newFilters.push({value: values[filter], attribute: attribute})
-        }
-        console.log("Filters: " + newFilters);
-        this.setState({initialFilters:newFilters});
+    let newFilters = [];
+    for (let index = 0; index < this.props.filters.length; ++index) {
+      let attribute = this.props.filters[index].attribute;
+      let values = this.props.filters[index].values;
+      for(let filter = 0; filter < values.length; ++filter){
+        newFilters.push({value: values[filter], attribute: attribute})
       }
+    }
+    if(this.props.filters.length > 0){
+      this.setState({initialFilters:newFilters, hasBuilt: true});
+    }
   }
 
   buildList(){
       if(this.state.showResults === true) {
           return(
-              <ul className="dropdown" tabIndex="-1" onBlur={this.blur} on={this.blur} onFocus={this.focus}>
-                  {
-                      Object.values(this.state.currentFilters).map(function (item) {
-                          return <li key={item.value} onClick={() => this.addFilter(item)}>{item.value}</li>
-                      }.bind(this))
-                  }
-              </ul>
+            <ul className="dropdown" tabIndex="-1" onBlur={this.blur} on={this.blur} onFocus={this.focus}>
+              {
+                Object.values(this.state.currentFilters).map(function (item) {
+                    return <li key={Math.random().toString(36).substring(2,15)}
+                               onMouseDown={() => this.addFilter(item)}>{item.value}</li>
+                }.bind(this))
+              }
+            </ul>
           )
 
-      }else return(null)
+      }else{
+        return null;
+      }
   }
-
-  // renderFilter() {
-  //   let table = null;
-  //   for (let index = 0; index < this.props.filters.length; ++index) {
-  //     let attribute = this.props.filters[index].attribute;
-  //     if (attribute.toLocaleLowerCase() === "type") {
-  //       table = this.buildCheckTable(attribute, index);
-  //     }
-  //   }
-  //   return (
-  //     <div>
-  //       <br/><h5>Filterable Options</h5>
-  //       {table.attributes}
-  //       <table className="table-responsive">
-  //         <tbody>{table.rows}</tbody>
-  //       </table>
-  //     </div>
-  //   );
-  // }
 
   componentWillMount() {
       this.buildFilter();
@@ -158,55 +103,78 @@ class Filter extends Component {
     this.setState({showResults: false});
   }
 
-  focus(){
-    this.setState({showResults: true});
+  focus () {
+    this.setState( { showResults : true } );
   }
 
   addFilter(item){
-    console.log("test");
     let filterArr = this.state.selectedFilters;
     filterArr.push(item);
 
     let filterer = this.state.currentFilters;
     for(let i = 0; i < filterer.length; i++){
-      if(filterer[i].value === item.value){
+      if(filterer[i].value === item.value && filterer[i].attribute === item.attribute){
         filterer.splice(i,1);
       }
     }
 
     let original = this.state.initialFilters;
     for(let i = 0; i < original.length; i++){
-        if(original[i].value === item.value){
+        if(original[i].value === item.value && original[i].attribute === item.attribute){
             original.splice(i,1);
         }
     }
+    this.handleFilter(true,item.value,item.attribute);
     this.setState({selectedFilters: filterArr, currentFilters: filterer, initialFilters: original});
   }
 
   removeFilter(item) {
       // let filter = event.target.id;
-      console.log(item + " " + item.attribute + " " + item.value);
       let filterArr = this.state.selectedFilters;
       for (let i = 0; i < filterArr.length; i++) {
-          if (filterArr[i].value === item.value) {
+          if (filterArr[i].value === item.value && filterArr[i].attribute === item.attribute) {
               filterArr.splice(i, 1);
           }
       }
 
-
       let original = this.state.initialFilters;
       original.push(item);
 
-      // let updatedList = original;
-      // updatedList = updatedList.filter(function (item) {
-      //     return item.value.toLowerCase().search(
-      //         value.toLowerCase()) !== -1;});
+      this.handleFilter(false,item.value,item.attribute);
       this.setState({selectedFilters: filterArr, initialFilters: original});
 
   }
 
+  renderRow(){
+    return(
+      <div className="row pt-3">
+        <div className="col filter-list">
+          <div ref={node => this.node = node} className="input-group">
+            <div>
+              <input type="text" className="" placeholder="Filter by..." onChange={this.filterList}
+                     onFocus={this.focus}/>
+              {this.buildList()}
+            </div>
+          </div>
+        </div>
+        <div className="col">
+          {
+            Object.values(this.state.selectedFilters).map(function (item) {
+              return <span className="input-group-addon">
+                          <button type="button" className="btn-sm filter-button">{item.value}{'  '}
+                            <FaClose className="filter-remove" id={item.value} onClick={() =>
+                              this.removeFilter(item)} size={12}/></button></span>
+            }.bind(this))
+          }
+        </div>
+      </div>
+    )
+  }
 
   render() {
+      if(!this.state.hasBuilt){
+        this.buildFilter();
+      }
       const showHide = {
         'display': this.state.displayFilter ? 'block' : 'none'
       };
@@ -220,30 +188,11 @@ class Filter extends Component {
             <FaFilter/>
           </Button>
           <div id="filter-content" style={showHide}>
-            <div className="row pt-3">
-              <div className="col filter-list">
-                <div ref={node => this.node = node} className="input-group">
-                  <div>
-                    <input type="text" className="" placeholder="Filter by..." onChange={this.filterList}
-                         onFocus={this.focus}/>
-                    {this.buildList()}
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                  {
-                      Object.values(this.state.selectedFilters).map(function (item) {
-                          return <span className="input-group-addon">
-                        <button type="button" className="btn btn-sm btn-outline-secondary">{item.value}{'  '}<FaClose className="filter-remove" id={item.value} onClick={() => this.removeFilter(item)} size={12}/></button></span>
-                      }.bind(this))
-                  }
-              </div>
-            </div>
+            {this.renderRow()}
           </div>
 
         </div>
       );
-    // }
   }
 }
 

@@ -111,6 +111,10 @@
     height: 2.55em !important;
 }
 
+.green_btn:focus{
+    box-shadow: none !important;
+}
+
 .green_hvr {
     background-color: white;
     color: #1E4D2B;

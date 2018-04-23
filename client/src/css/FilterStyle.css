@@ -26,7 +26,7 @@
 .dropdown li {
     margin: 0;
     cursor: pointer;
-    padding: .25em 8.15em .25em .25em;
+    padding: .25em 3em .25em .25em;
 }
 
 .dropdown li:hover{
@@ -36,4 +36,16 @@
 
 .filter-remove {
     margin-bottom: .11em;
+}
+
+.filter-button {
+    background-color: white; /* Green */
+    color: #1E4D2B;
+    border-width: .09em !important;
+    border-color: #1E4D2B;
+    cursor: pointer;
+}
+
+.filter-button:focus {
+    box-shadow: none !important;
 }
