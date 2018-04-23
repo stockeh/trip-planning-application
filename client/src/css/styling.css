@@ -37,18 +37,6 @@
     }
 }
 
-.modal-backdrop {
-    /* bug fix - no overlay */
-    display: none;
-    z-index: 9999 !important;
-}
-
-.modal {
-    background: rgba(0,0,0,0.5);
-    position: absolute;
-    z-index: 9999 !important;
-}
-
 .menu {
     z-index: 2;
     position: absolute;
@@ -95,12 +83,6 @@
 
 .bg_csu_gold  {
     background-color: #C8C372
-}
-
-.table_scroll {
-    max-height: 512px;
-    min-height: 0;
-    overflow: auto;
 }
 
 /* -----------Font----------- */
