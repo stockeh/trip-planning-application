@@ -9,16 +9,20 @@ import java.util.ArrayList;
 
 public class Config {
   public String type = "config";
-  public int version = 3;
+  public int version = 4;
   public ArrayList<Filter> filters = new ArrayList<>();
   public String[] maps = {"svg", "kml"};
   public int optimization = 2;
   public String[] units = {"miles","kilometers","nautical miles","user defined"};
 
   //add to this filterColumns array to add more filter columns
-  private static String[] filterColumns = new String[]{"type"};
+  private static String[] filterColumns = new String[]{"type","country.name","continents.name"};
   private static final String myDriver = "com.mysql.jdbc.Driver";
   private static final String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
+  private transient String join = " FROM continents "
+          + "INNER JOIN country ON continents.id = country.continent "
+          + "INNER JOIN region ON country.id = region.iso_country "
+          + "INNER JOIN airports as a ON region.id = a.iso_region";
 
   /**
    * Config constructor finds the filters.
@@ -35,7 +39,7 @@ public class Config {
    * @param column is the column to find distinct filters for
    */
   public void findFilters(String column){
-    String query = "SELECT distinct " + column + " from airports";
+    String query = "SELECT distinct " + column + join;
 
     try {
       Class.forName(myDriver);
