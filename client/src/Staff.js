@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
-import './css/StaffPage.css'
+import './css/StaffPage.css';
+import './images/bitmoji_superhero_Evan.png';
+import './images/Brian_Frisbee_Bitmoji.png';
+import './images/Jason_Mathmoji.png';
 
 class Staff extends Component {
 
   static JasonCard() {
     return (
       <div className="col-md-3 col-sm-3 col-xs-12">
-      <div className="row ourTeam-box text-center">
+      <div className="row section-jason ourTeam-box text-center">
         <div className="col-md-12 section1">
-          <img src=""/>
+          <img src="images/Jason_Mathmoji.png"/>
         </div>
         <div className="col-md-12 section2">
           <p>Jason Stock</p><br/>
@@ -33,13 +36,13 @@ class Staff extends Component {
   static EvanCard() {
     return (
       <div className="col-md-3 col-sm-3 col-xs-12">
-      <div className="row section-evan ourTeam-box text-center">
+      <div className="row ourTeam-box text-center">
         <div className="col-md-12 section1">
-          <img src=""/>
+          <img src="images/bitmoji_superhero_Evan.png"/>
         </div>
         <div className="col-md-12 section2">
-          <p>...</p><br/>
-          <h1>...</h1><br/>
+          <p>Evan Steiner</p><br/>
+          <h1>B.S. Computer Science and Mathematics</h1><br/>
         </div>
         <div className="col-md-12 section3">
           <p>
@@ -51,15 +54,15 @@ class Staff extends Component {
     );
   }
 
-  static BrainCard() {
+  static BrianCard() {
     return (
       <div className="col-md-3 col-sm-3 col-xs-12">
       <div className="row section-brian ourTeam-box text-center">
         <div className="col-md-12 section1">
-          <img src=""/>
+          <img src="images/Brian_Frisbee_Bitmoji.png"/>
         </div>
         <div className="col-md-12 section2">
-          <p>...</p><br/>
+          <p>Brian Martin</p><br/>
           <h1>...</h1>
         </div>
         <div className="col-md-12 section3">
@@ -80,7 +83,7 @@ class Staff extends Component {
           <img src=""/>
         </div>
         <div className="col-md-12 section2">
-          <p>...</p><br/>
+          <p>Alex Segura</p><br/>
           <h1>...</h1>
         </div>
         <div className="col-md-12 section3">
@@ -104,7 +107,7 @@ class Staff extends Component {
         <div className="row">
           {Staff.JasonCard()}
           {Staff.EvanCard()}
-          {Staff.BrainCard()}
+          {Staff.BrianCard()}
           {Staff.AlexCard()}
         </div>
       </div>
