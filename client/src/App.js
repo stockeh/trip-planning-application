@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
 import Header from './Header';
+import Navigation from './Navigation';
 import Application from './Application';
 import Footer from './Footer';
+import Staff from './Staff';
 
 class App extends Component {
   constructor (props){
     super(props);
     this.state = {
-      number: "10",
-      name  : "Andromeda",
-      host  : location.host,
+      number  : "10",
+      name    : "Andromeda",
+      host    : location.host,
+      webpage : "trip",
+
       config: {
         type        : "config",
         version     : 2,
@@ -20,30 +24,36 @@ class App extends Component {
       }
     };
 
-    this.getConfig = this.getConfig.bind(this);
-    this.updateHost = this.updateHost.bind(this);
+    this.getConfig     = this.getConfig.bind(this);
+    this.updateHost    = this.updateHost.bind(this);
+    this.updateWebpage = this.updateWebpage.bind(this);
+    this.webDisplay    = this.webDisplay.bind(this);
+
+  }
+
+  componentWillMount() {
+    this.getConfig();
   }
 
   updateHost(data) {
     this.setState({host : data}, () => {
       this.getConfig();
     });
-
   }
 
-  componentWillMount(){
-    this.getConfig();
+  updateWebpage(e, page) {
+    e.preventDefault();
+    this.setState({webpage : page});
   }
 
-  fetchResponse(){
-
+  fetchResponse() {
     return fetch('http://' + this.state.host + '/config', {
       method: "GET",
       header: {'Access-Control-Allow-Origin':'*'}
     });
   }
 
-  async getConfig(){
+  async getConfig() {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
@@ -54,14 +64,28 @@ class App extends Component {
     }
   }
 
+  webDisplay(page) {
+    return (
+      { 'display': this.state.webpage === (page) ? 'block' : 'none' }
+    );
+  }
+
   render() {
     return(
-        <div id="tripco">
-            <Header number={this.state.number} name={this.state.name}/>
+      <div id="tripco">
+          <Header number={this.state.number} name={this.state.name}/>
+          <Navigation name={this.state.name} updateWebpage={this.updateWebpage}/>
+
+          <div style={this.webDisplay("trip")}>
             <Application config={this.state.config} host={this.state.host}
                          updateHost={this.updateHost}/>
-            <Footer number={this.state.number} name={this.state.name}/>
-        </div>
+          </div>
+          <div style={this.webDisplay("staff")}>
+            <Staff />
+          </div>
+
+          <Footer number={this.state.number} name={this.state.name}/>
+      </div>
     );
   }
 }
