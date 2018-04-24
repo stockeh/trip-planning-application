@@ -10,7 +10,7 @@ Checklist | *reference, URL, etc.*
 Name | Role | Preparation Time
 ---- | ---- | ----
 Jason Stock | | 1.5 hr
- | |
+Brian Martin | | .5 hr
 
 ### Log
 file:line | defect | h/m/l | who found | github# 
@@ -26,5 +26,11 @@ file:line | defect | h/m/l | who found | github#
  Filter.js:17|currentSearch variable doesn't actually do anything| S |Evan Steiner|
  Filter.js:88|EventListener could also listen to filter buttons| S |Evan Steiner|
  Filter.js:71,151|onFocus, onBlur and on are unnecessary| M |Evan Steiner|
- 
+ Filter.js:54|buildFilter function should standardize code spacing| L |Brian Martin|
+ Filter.js:42|var used instead of let| M |Brian Martin|
+ Filter.js:71|on attribute not supposed to be there?| M |Brian Martin|
+ Filter.js:150|className is empty| L |Brian Martin|
+ Filter.js|standardize tab spacing| L |Brian Martin|
+ Filter.js:23,80,87|extra line| L |Brian Martin|
+ Filter.js:45|semi-colon not needed| L |Brian Martin|
  
