@@ -1,0 +1,119 @@
+.ourTeam-hedding{
+    height:200px;
+    width:100%;
+    background-size:100% 100%;
+}
+.ourTeam-hedding h1{
+    color: #716f71;
+    padding:70px 0;
+    font-family: 'prox-light', sans-serif !important;
+    letter-spacing: .11em;
+    line-height: 1em;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+.section-ourTeam{
+    margin-bottom: 110px; /*Spacing to Footer*/
+    /*height: 100%;*/
+}
+.ourTeam-box{
+    border-top: 6px solid #CC5430;
+    background-color: #FFFFFF;
+}
+
+
+
+.section1{
+    padding: 30px 0 0 0;
+}
+.section1 img{
+    border:5px solid #CC5430;
+    padding:5px;
+    border-radius:50%;
+    height:170px;
+    width: 170px;
+}
+.section2 h1{
+    font-size:20px;
+    color:#716f71;
+    margin:0;
+    border-bottom:2px solid #CC5430;
+    display: inline-block;
+    padding: 10px 0;
+}
+.section2 p{
+    background-color: #CC5430;
+    display: inline-block;
+    font-weight: bold;
+    color:#fff;
+    padding: 5px 15px;
+    border-radius: 3px;
+    margin-top: -20px;
+}
+.section2 span{
+    color:#716f71;
+}
+.section2 label{
+    background-color: #CC5430;
+    padding: 8px 10px 8px 10px;
+    color:#fff;
+    font-weight: normal;
+    margin: 30px 0 35px 0;
+    border-radius: 2px;
+}
+.section3 p{
+    padding: 10px 15px 0 15px;
+    font-size:12px;
+    color:#716f71;
+}
+
+
+
+.section-evan{
+    border-top:6px solid #105456;
+}
+.section-evan .section1 img{
+    border:5px solid #105456;
+    padding:5px;
+}
+.section-evan .section2 p{
+    background-color: #105456;
+    color:#fff;
+}
+.section-evan .section2 h1{
+    border-bottom:2px solid #105456;
+}
+
+
+
+.section-brian{
+    border-top:6px solid #12A4B6;
+}
+.section-brian .section2 p{
+    background-color: #12A4B6;
+    color:#fff;
+}
+.section-brian .section1 img{
+    border:5px solid #12A4B6;
+    padding:5px;
+}
+.section-brian .section2 h1{
+    border-bottom:2px solid #12A4B6;
+}
+
+
+
+.section-alex{
+    border-top:6px solid #ECC530;
+}
+.section-alex .section2 p{
+    background-color: #ECC530;
+    color:#fff;
+}
+.section-alex .section1 img{
+    border:5px solid #ECC530;
+    padding:5px;
+}
+.section-alex .section2 h1{
+    border-bottom:2px solid #ECC530;
+}

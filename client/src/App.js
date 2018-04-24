@@ -13,6 +13,7 @@ class App extends Component {
       name    : "Andromeda",
       host    : location.host,
       webpage : "trip",
+
       config: {
         type        : "config",
         version     : 2,
@@ -23,12 +24,14 @@ class App extends Component {
       }
     };
 
-    this.getConfig = this.getConfig.bind(this);
-    this.updateHost = this.updateHost.bind(this);
+    this.getConfig     = this.getConfig.bind(this);
+    this.updateHost    = this.updateHost.bind(this);
     this.updateWebpage = this.updateWebpage.bind(this);
+    this.webDisplay    = this.webDisplay.bind(this);
+
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this.getConfig();
   }
 
@@ -43,14 +46,14 @@ class App extends Component {
     this.setState({webpage : page});
   }
 
-  fetchResponse(){
+  fetchResponse() {
     return fetch('http://' + this.state.host + '/config', {
       method: "GET",
       header: {'Access-Control-Allow-Origin':'*'}
     });
   }
 
-  async getConfig(){
+  async getConfig() {
     try {
       let serverResponse = await this.fetchResponse();
       let tffi = await serverResponse.json();
@@ -61,28 +64,28 @@ class App extends Component {
     }
   }
 
+  webDisplay(page) {
+    return (
+      { 'display': this.state.webpage === (page) ? 'block' : 'none' }
+    );
+  }
+
   render() {
-    const showTrip = {
-      'display': this.state.webpage === ("trip") ? 'block' : 'none'
-    };
-
-    const showStaff = {
-      'display': this.state.webpage === ("staff") ? 'block' : 'none'
-    };
-
     return(
-        <div id="tripco">
-            <Header number={this.state.number} name={this.state.name}/>
-            <Navigation name={this.state.name} updateWebpage={this.updateWebpage}/>
-            <div style={showTrip}>
-              <Application  config={this.state.config} host={this.state.host}
-                           updateHost={this.updateHost}/>
-            </div>
-            <div style={showStaff}>
-              <Staff />
-            </div>
-            <Footer number={this.state.number} name={this.state.name}/>
-        </div>
+      <div id="tripco">
+          <Header number={this.state.number} name={this.state.name}/>
+          <Navigation name={this.state.name} updateWebpage={this.updateWebpage}/>
+
+          <div style={this.webDisplay("trip")}>
+            <Application config={this.state.config} host={this.state.host}
+                         updateHost={this.updateHost}/>
+          </div>
+          <div style={this.webDisplay("staff")}>
+            <Staff />
+          </div>
+
+          <Footer number={this.state.number} name={this.state.name}/>
+      </div>
     );
   }
 }

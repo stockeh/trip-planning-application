@@ -36,7 +36,7 @@
   renderNavItem(tab, name) {
     return (
         <NavItem>
-          <NavLink className="dropdown_item" href="" onClick={(e) => this.props.updateWebpage(e, "trip")}>{name}</NavLink>
+          <NavLink className="dropdown_item" href="" onClick={(e) => this.props.updateWebpage(e, tab)}>{name}</NavLink>
         </NavItem>
     )
   }
