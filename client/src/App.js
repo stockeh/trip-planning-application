@@ -3,6 +3,7 @@ import Header from './Header';
 import Navigation from './Navigation';
 import Application from './Application';
 import Footer from './Footer';
+import Staff from './Staff';
 
 class App extends Component {
   constructor (props){
@@ -61,12 +62,25 @@ class App extends Component {
   }
 
   render() {
+    const showTrip = {
+      'display': this.state.webpage === ("trip") ? 'block' : 'none'
+    };
+
+    const showStaff = {
+      'display': this.state.webpage === ("staff") ? 'block' : 'none'
+    };
+
     return(
         <div id="tripco">
             <Header number={this.state.number} name={this.state.name}/>
             <Navigation name={this.state.name} updateWebpage={this.updateWebpage}/>
-            <Application config={this.state.config} host={this.state.host}
-                         updateHost={this.updateHost}/>
+            <div style={showTrip}>
+              <Application  config={this.state.config} host={this.state.host}
+                           updateHost={this.updateHost}/>
+            </div>
+            <div style={showStaff}>
+              <Staff />
+            </div>
             <Footer number={this.state.number} name={this.state.name}/>
         </div>
     );
