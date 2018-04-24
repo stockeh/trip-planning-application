@@ -174,7 +174,7 @@ class Itinerary extends Component {
               {this.advancedOptions()}
               <hr/>
             </div>
-            <div className="col-12">
+            <div className="col-12 itinerary-view">
               <span className="input-group-btn">
                   <Button className="canyon_btn canyon_hvr" onClick={() => { if (window.confirm('Clear all destinations?')) this.props.resetDestinations() }}><GoTrashcan size={20}/>  Remove All Destinations</Button>
               </span>

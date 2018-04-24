@@ -8,20 +8,20 @@ Generic Styling, for Desktops/Laptops
   /*border-top: 1px solid #dee2e6;*/
 /*}*/
 
-table {
+.itinerary-view table {
   width: 100%;
   border-collapse: collapse !important;
 }
 /* Zebra striping */
-tr:nth-of-type(odd) {
+.itinerary-view tr:nth-of-type(odd) {
   background: #eee;
 }
-th {
+.itinerary-view th {
   background: #333;
   color: white;
   font-weight: bold;
 }
-td, th {
+.itinerary-view td, th {
   padding: 6px !important;
   border: 1px solid #ccc !important;
   text-align: left;
@@ -37,20 +37,20 @@ only screen and (max-width: 955px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
   /* Force table to not be like tables anymore */
-  table, thead, tbody, th, td, tr {
+  .itinerary-view table, thead, tbody, th, td, tr {
     display: block;
   }
 
   /* Hide table headers (but not display: none;, for accessibility) */
-  thead tr {
+  .itinerary-view thead tr {
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
 
-  tr { border: 1px solid #ccc; }
+  .itinerary-view tr { border: 1px solid #ccc; }
 
-  td {
+  .itinerary-view td {
     /* Behave  like a "row" */
     border: none !important;
     /*border-bottom: .02em solid black !important;*/
@@ -58,7 +58,7 @@ only screen and (max-width: 955px),
     padding-left: 50% !important;
   }
 
-  td:before {
+  .itinerary-view td:before {
     /* Now like a table header */
     position: absolute;
     /* Top/left values mimic padding */
@@ -72,10 +72,10 @@ only screen and (max-width: 955px),
   /*
   Label the data
   */
-  td:nth-of-type(1):before { content: "From:"; }
-  td:nth-of-type(2):before { content: "To:"; }
-  td:nth-of-type(3):before { content: "Leg Distance:"; }
-  td:nth-of-type(4):before { content: "Total Distance:"; }
+  .itinerary-view td:nth-of-type(1):before { content: "From:"; }
+  .itinerary-view td:nth-of-type(2):before { content: "To:"; }
+  .itinerary-view td:nth-of-type(3):before { content: "Leg Distance:"; }
+  .itinerary-view td:nth-of-type(4):before { content: "Total Distance:"; }
 }
 
 .table_scroll {
