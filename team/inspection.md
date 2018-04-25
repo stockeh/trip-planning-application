@@ -12,7 +12,7 @@ Name | Role | Preparation Time
 Jason Stock | Moderator, Ender user, Maintainer, Tester | 1.5 hr
 Brian Martin | Ender user, Maintainer, Tester | .5 hr
 Evan Steiner | Ender user, Maintainer, Tester | .5 hr
-Alex Segura | Ender user, Maintainer, Tester |
+Alex Segura | Ender user, Maintainer, Tester | .5 hr
 
 ### Log
 file:line | defect | h/m/l | who found | github# 
@@ -35,4 +35,4 @@ file:line | defect | h/m/l | who found | github#
  Filter.js|standardize tab spacing| L |Brian Martin| N/A
  Filter.js:23,80,87|extra line| L |Brian Martin| N/A
  Filter.js:45|semi-colon not needed| L |Brian Martin| N/A
- 
+ Filter.js:141,189|extra lines| L |Alex Segura| N/A
