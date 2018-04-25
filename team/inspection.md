@@ -4,7 +4,7 @@ Inspection | Details
 ----- | -----
 Subject | *Filter.js, lines 1-194*
 Meeting | *Tuesday, April 24, 2018 - 3:30 - Colorado State University, Stadium*
-Checklist | *reference, URL, etc.*
+Checklist | *Java Inspection Checklist by Christopher Fox, http://www.cs.toronto.edu/~sme/CSC444F/handouts/java_checklist.pdf*
 
 ### Roles
 Name | Role | Preparation Time
