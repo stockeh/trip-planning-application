@@ -61,6 +61,7 @@ class Staff extends Component {
   }
 
   static BrianCard() {
+    const quote = "Don't give up on your dreams. Keep sleeping.";
     return (
       <div className="col-md-3 col-sm-3 col-xs-12">
       <div className="row section-brian ourTeam-box text-center">
@@ -73,7 +74,7 @@ class Staff extends Component {
         </div>
           <div className="col-md-12 section3">
               <p>
-                  Don't give up on your dreams. Keep sleeping.
+                  {quote}
               </p>
           </div>
         <div className="col-md-12 section3">
