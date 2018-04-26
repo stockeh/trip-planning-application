@@ -38,7 +38,7 @@ only screen and (max-width: 955px),
 
   /* Force table to not be like tables anymore */
   .itinerary-view table, thead, tbody, th, td, tr {
-    display: block;
+    display:block;
   }
 
   /* Hide table headers (but not display: none;, for accessibility) */
@@ -55,7 +55,7 @@ only screen and (max-width: 955px),
     border: none !important;
     /*border-bottom: .02em solid black !important;*/
     position: relative;
-    padding-left: 50% !important;
+    padding-left: 42% !important;
   }
 
   .itinerary-view td:before {
@@ -81,5 +81,6 @@ only screen and (max-width: 955px),
 .table_scroll {
   max-height: 512px;
   min-height: 0;
-  overflow: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
