@@ -3,6 +3,7 @@ import './css/StaffPage.css';
 import './images/bitmoji_superhero_Evan.png';
 import './images/Brian_Frisbee_Bitmoji.png';
 import './images/Jason_Mathmoji.png';
+import FaLinkedinSquare from 'react-icons/lib/fa/linkedin-square';
 
 class Staff extends Component {
 
@@ -25,7 +26,7 @@ class Staff extends Component {
         </div>
         <div className="col-md-12 section3">
           <p>
-            - Some link to resume here -
+              <a href="https://www.linkedin.com/in/jason-stock/" target="_blank"><FaLinkedinSquare size={35} /></a>
           </p>
         </div>
       </div>
@@ -48,6 +49,11 @@ class Staff extends Component {
           <p>
             ...
           </p>
+            <div className="col-md-12 section3">
+                <p>
+                    <a href="https://www.linkedin.com/in/evan-steiner/" target="_blank"><FaLinkedinSquare size={35} /></a>
+                </p>
+            </div>
         </div>
       </div>
     </div>
@@ -55,6 +61,7 @@ class Staff extends Component {
   }
 
   static BrianCard() {
+    const quote = "Don't give up on your dreams. Keep sleeping.";
     return (
       <div className="col-md-3 col-sm-3 col-xs-12">
       <div className="row section-brian ourTeam-box text-center">
@@ -63,11 +70,16 @@ class Staff extends Component {
         </div>
         <div className="col-md-12 section2">
           <p>Brian Martin</p><br/>
-          <h1>...</h1>
+            <h1><span>B.S. Computer Science<br/></span><br/></h1>
         </div>
+          <div className="col-md-12 section3">
+              <p>
+                  {quote}
+              </p>
+          </div>
         <div className="col-md-12 section3">
           <p>
-            ...
+              <a href="https://www.linkedin.com/in/brianlmart/" target="_blank"><FaLinkedinSquare size={35} /></a>
           </p>
         </div>
       </div>
