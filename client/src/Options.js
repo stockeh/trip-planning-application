@@ -25,6 +25,8 @@ class Options extends Component{
 
     this.customServerConnection = this.customServerConnection.bind(this);
     this.interoperability = this.interoperability.bind(this);
+    this.interopButtonGroup = this.interopButtonGroup.bind(this);
+    this.resetHost = this.resetHost.bind(this);
   }
 
   customServerConnection(e) {
@@ -94,6 +96,42 @@ class Options extends Component{
     return null;
   }
 
+  resetHost() {
+    document.getElementById("host-title").value = "";
+    this.props.updateHost(location.host);
+  }
+
+  /*
+   * Validate input is in correct format before connecting,
+   * i.e., does not include "http:", or a "/", but does
+   * include ":" followed by some number (port).
+   */
+  interopButtonGroup() {
+    let visible = true;
+    let serverName = this.state.serverName;
+    if(!serverName.match(/:[0-9]/g) || serverName.includes("/") || serverName.includes("http:")) {
+      visible = false;
+    }
+    const showButton = {
+      'pointerEvents': visible ? 'auto' : 'none',
+      'opacity': visible ? '1' : '.5'
+    };
+    return(
+      <ButtonGroup>
+        <label style={showButton}>
+          <IoAndroidDone className="green_logo green_hvr_logo" size={38}
+                         onClick={() => this.props.updateHost(this.state.serverName)}
+                         data-for="connect" data-tip="Connect"/></label>
+        <ReactTooltip id="connect" place="bottom" effect="solid"/>
+        <label>
+          <IoAndroidRefresh className="green_logo green_hvr_logo" size={38}
+                            onClick={() => this.resetHost()}
+                            data-for="reset" data-tip="Reset"/></label>
+        <ReactTooltip id="reset" place="bottom" effect="solid"/>
+      </ButtonGroup>
+    );
+  }
+
   interoperability() {
     return (
       <div>
@@ -101,20 +139,11 @@ class Options extends Component{
         <h6 className="larger-CSUtext-uncap">Custom Server Connection</h6>
         <div id="flex-container">
           <div className="flex-item">
-            <input id="trip-title" type="text" className="form-control"
+            <input id="host-title" type="text" className="form-control"
                    onChange={(e) => this.customServerConnection(e)} placeholder={this.props.host}/>
           </div>
           <div className="static-item">
-            <ButtonGroup>
-              <label><IoAndroidDone className="green_logo green_hvr_logo" size={38}
-                                    onClick={() => this.props.updateHost(this.state.serverName)}
-                                    data-for="submit" data-tip="Submit"/></label>
-              <ReactTooltip id="submit" place="bottom" effect="solid"/>
-              <label><IoAndroidRefresh className="green_logo green_hvr_logo" size={38}
-                                       onClick={() => this.props.updateHost(location.host)}
-                                       data-for="reset" data-tip="Reset"/></label>
-              <ReactTooltip id="reset" place="bottom" effect="solid"/>
-            </ButtonGroup>
+            {this.interopButtonGroup()}
           </div>
         </div>
       </div>
