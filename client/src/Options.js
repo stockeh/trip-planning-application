@@ -51,22 +51,17 @@ class Options extends Component{
   slider(){
     let step = this.props.config.optimization;
     let val = parseFloat(this.props.trip.options.optimization);
-    console.log("step: " + step);
     if (isNaN(val)) {
       val = 0.0;
     }
     let warning = Options.warning(val);
     if (step !== undefined)
       return(
-        <div className="slider_container">
-          <br/><input type="range" id="optimizer" min="0" max="1.00" step={1.00/step} value={val} className="slider" onInput={this.handleOnChange} />
-          <div className="row pt-2 pl-3">
-            <div className="col-12">
-              <div className="row">
-                <h6 className="pr-4 m-0">Longer</h6>
-                <h6 className="m-0">Shorter</h6>
-              </div>
-            </div>
+        <div>
+          <div id="flex-container">
+            <h6 className="static-item">Longer</h6>
+            <br/><input type="range" id="optimizer" min="0" max="1.00" step={1.00/step} value={val} className="slider flex-item" onInput={this.handleOnChange} />
+            <h6 className="static-item">Shorter</h6>
           </div>
           {warning}
         </div>
@@ -79,11 +74,10 @@ class Options extends Component{
     for (let index = 0; index < options.length; ++index) {
       options[index] = options[index].charAt(0).toUpperCase() + options[index].substr(1);
     }
-    const buttons = options.map((option) =>
+    return options.map((option) =>
         <Button key={option} active={(this.props.trip.options.distance === "" ? "miles" : this.props.trip.options.distance) === option.toLowerCase()} value={option.toLowerCase()}
                 onClick={this.handleOnChange} className="green_btn green_hvr">{option}</Button>
     );
-    return buttons;
   }
 
   customUnitsOptions() {
@@ -108,7 +102,7 @@ class Options extends Component{
         <div id="flex-container">
           <div className="flex-item">
             <input id="trip-title" type="text" className="form-control"
-                   onChange={(e) => this.customServerConnection(e)} placeholder="Input host and port..."/>
+                   onChange={(e) => this.customServerConnection(e)} placeholder={this.props.host}/>
           </div>
           <div className="static-item">
             <ButtonGroup>
@@ -138,14 +132,8 @@ class Options extends Component{
               {this.distanceButtons()}
             </Container>
           </ButtonGroup>
-        <div className="row">
-            <div className="col-sm-6 order-last order-md-first">
-                {slider}
-            </div>
-            <div className="col-sm-6 order-first order-md-last">
-                {this.customUnitsOptions()}
-            </div>
-        </div>
+        {slider}
+        {this.customUnitsOptions()}
         {this.interoperability()}
       </div>
     )
