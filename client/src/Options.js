@@ -37,7 +37,11 @@ class Options extends Component{
   }
 
   updateUnit(arg) {
-    this.props.updateOptionsUnits(arg.target.id, arg.target.value);
+    let value = arg.target.value;
+    if(!isNaN(value)) {
+      value = value >= 0 ? value : 2000;
+    }
+    this.props.updateOptionsUnits(arg.target.id, value);
   }
 
   static warning(val){
