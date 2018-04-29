@@ -102,11 +102,6 @@ class Itinerary extends Component {
     let cumul = 0;
     let cumulative = this.props.trip.distances.map((item) => <td>{ cumul += item }</td>);
 
-    if (this.props.trip.distances.length > 0) { // Append a leading '0' for trip distances.
-      dists.unshift(<td>{"0"}</td>);
-      cumulative.unshift(<td>{"0"}</td>);
-    }
-
     let rows = [];
       for (let i = 0; i < destinations.length-1; ++i) {
           rows.push(<tr key={i}>{ destinations[i] }{destinations[i+1]}{ dists[i] }{ cumulative[i] }</tr>);
@@ -125,7 +120,7 @@ class Itinerary extends Component {
     return(
       <div>
         <div className="col-12">
-          <Options config={this.props.config} trip={this.props.trip} updateOptions={this.props.updateOptions}
+          <Options config={this.props.config} host={this.props.host} trip={this.props.trip} updateOptions={this.props.updateOptions}
                    updateOptionsUnits={this.props.updateOptionsUnits} updateHost={this.props.updateHost}/>
         </div>
         <br/>
@@ -169,7 +164,7 @@ class Itinerary extends Component {
         <div id="itinerary" className="container">
           {this.optionsButton()}
           <hr/>
-          <div className="row">
+          <div className="row" style={{maxWidth: "400px"}}>
             <div className="col-12" id="filter-content" style={visible}>
               {this.advancedOptions()}
               <hr/>

@@ -188,7 +188,7 @@ class Trip extends Component {
                         resetDestinations={this.props.resetDestinations}
                         updateOptionsUnits={this.props.updateOptionsUnits}
                         config={this.props.config} updateOptions={this.props.updateOptions}
-                        updateHost={this.props.updateHost}/>
+                        updateHost={this.props.updateHost} host={this.props.host}/>
             </div>
 
           </div>
