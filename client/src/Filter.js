@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import FaFilter from 'react-icons/lib/fa/filter';
 import FaClose from 'react-icons/lib/fa/close';
 import {Button} from 'reactstrap';
-// import DropdownInput from 'react-dropdown-input';
 import './css/FilterStyle.css';
 /** Adds the component to select filtered items for
  * database search.
@@ -12,7 +11,7 @@ class Filter extends Component {
     super(props);
     this.state = {
       displayFilter: false,
-      initialFilters: [{attribute:"country",value:"USA"},{attribute:"country",value:"Canada"},{attribute:"country",value:"China"},{attribute:"country",value:"Iceland"},{attribute:"country",value:"Mexico"}],
+      initialFilters: [],
       currentFilters: [],
       currentSearch: "",
       showResults: false,
@@ -39,7 +38,7 @@ class Filter extends Component {
   }
 
   updateFilter(value){
-      var updatedList = this.state.initialFilters;
+      let updatedList = this.state.initialFilters;
       updatedList = updatedList.filter(function (item) {
           return item.value.toLowerCase().search(
               value.toLowerCase()) !== -1;});
@@ -57,7 +56,7 @@ class Filter extends Component {
       let attribute = this.props.filters[index].attribute;
       let values = this.props.filters[index].values;
       for(let filter = 0; filter < values.length; ++filter){
-        newFilters.push({value: values[filter], attribute: attribute})
+        newFilters.push({value: values[filter], attribute: attribute});
       }
     }
     if(this.props.filters.length > 0){
@@ -157,9 +156,9 @@ class Filter extends Component {
           {
             Object.values(this.state.selectedFilters).map(function (item) {
               return <span className="input-group-addon">
-                          <button type="button" className="btn-sm filter-button">{item.value}{'  '}
+                          <Button className="btn-sm filter-button">{item.value}{'  '}
                             <FaClose className="filter-remove" id={item.value} onClick={() =>
-                              this.removeFilter(item)} size={12}/></button></span>
+                              this.removeFilter(item)} size={12}/></Button></span>
             }.bind(this))
           }
         </div>
