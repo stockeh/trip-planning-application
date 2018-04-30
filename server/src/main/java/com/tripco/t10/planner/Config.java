@@ -12,7 +12,7 @@ public class Config {
   public int version = 4;
   public ArrayList<Filter> filters = new ArrayList<>();
   public String[] maps = {"svg", "kml"};
-  public int optimization = 2;
+  public int optimization = 3;
   public String[] units = {"miles","kilometers","nautical miles","user defined"};
 
   //add to this filterColumns array to add more filter columns
@@ -59,8 +59,4 @@ public class Config {
       System.err.println("Exception: " + e.getMessage());
     }
   }
-
-
-
-
 }

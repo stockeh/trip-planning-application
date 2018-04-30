@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public class Opt {
 
     public int size;
-    public int[][] memo;
+    public static int[][] memo;
     public int[] placesIndex;
     public ArrayList<Place> places;
 
@@ -114,7 +114,7 @@ public class Opt {
      * @param size the number of locations in the trip
      * @return Returns the cummulative distance of a trip represented by places
      */
-    public int getTourDist(int[] places, int size){
+    public static int getTourDist(int[] places, int size){
         int totalDistance = 0;
         for (int i = 0; i < size; ++i) {
             totalDistance += memo[places[i]][places[(i+1) % size]];
@@ -129,7 +129,7 @@ public class Opt {
      * @param orig the ArrayList indexed by places
      * @param size the number of places in the trip
      */
-    public void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
+    public static void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
         better.clear();
         for (int y = 0; y < size; y++) {
             better.add(orig.get(places[y]));
@@ -143,7 +143,7 @@ public class Opt {
      * @param size the number of places in the trip
      * @return Returns the leg distances of the trip represented by places
      */
-    public ArrayList<Integer> setLegs(int[] places, int size){
+    public static ArrayList<Integer> setLegs(int[] places, int size){
         ArrayList<Integer> dist = new ArrayList<>();
         for (int y = 0; y < size; y++) {
             dist.add(memo[places[y]][places[(y+1) % size]]);
@@ -168,5 +168,4 @@ public class Opt {
             end--;
         }
     }
-
 }
