@@ -174,6 +174,19 @@ public class Distance {
 
     return dist;
   }
+
+  public ArrayList<Integer> threeOpt(ArrayList<Double> coordDegrees, ArrayList<Place> places){
+    int size = coordDegrees.size()/2;
+    this.memoizeDistance(coordDegrees, size);
+    this.placesIndex = IntStream.range(0, places.size()).toArray();
+    ArrayList<Integer> dist3 = new ArrayList<>();
+
+    ThreeOpt tripp = new ThreeOpt(this.memo, this.placesIndex, this.placesIndex.length, places);
+    dist3 = tripp.threeOptimization();
+
+    return dist3;
+  }
+
   /**
    * Compute the nearest neighbor between all given places.
    * Iterates over every starting point, comparing the total trip distances with others.
@@ -199,7 +212,7 @@ public class Distance {
     int start = 0;
 
     while (start < size) {
-      currCumulDist = this.constructNearestNeighbor(placesIndexCopy, size);
+      currCumulDist = this.constructNearestNeighbor(placesIndexCopy, size, this.memo);
       if (start++ == 0) {
         totalCumulDist = currCumulDist;
         placesIndex = placesIndexCopy.clone();
@@ -244,7 +257,7 @@ public class Distance {
    * @param size is the number of elements in the array.
    * @return Returns a integer of the total cumulative distance.
    */
-  public static int constructNearestNeighbor(int[] placesIndexCopy, int size) {
+  public static int constructNearestNeighbor(int[] placesIndexCopy, int size, int[][] memo) {
     int src;
     int nearestSrc;
     int temp;
@@ -293,5 +306,4 @@ public class Distance {
       copyTo[i] = copyFrom[(i + start) % copyFrom.length];
     }
   }
-
 }
