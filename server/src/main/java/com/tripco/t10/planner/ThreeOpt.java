@@ -4,8 +4,8 @@ import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.stream.IntStream;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ThreeOpt {
 
@@ -35,10 +35,10 @@ public class ThreeOpt {
     public ArrayList<Integer> threeOptimization(){
         ArrayList<Place> newTrip = new ArrayList<>();
         int[] placesNearN = placesIndex.clone();
-        int bestDistance = getTourDist(placesIndex,size);
+        int bestDistance = Opt.getTourDist(placesIndex,size,memo);
         int newDistance;
-        setNewTrip(placesIndex, newTrip, places, size);
-        ArrayList<Integer> dist = setLegs(placesIndex,size);
+        Opt.setNewTrip(placesIndex, newTrip, places, size);
+        ArrayList<Integer> dist = Opt.setLegs(placesIndex,size,memo);
         //System.out.println(Arrays.toString(places));
 
         for (int x = 1; x <= placesIndex.length; x++) {
@@ -47,8 +47,8 @@ public class ThreeOpt {
             newDistance = threeOptHelper(placesNearN, bestDistance, size);
             if (newDistance < bestDistance){
                 //System.out.println("new Dist: " + newDistance);
-                setNewTrip(placesNearN, newTrip, places, size);
-                dist = setLegs(placesNearN, size);
+                Opt.setNewTrip(placesNearN, newTrip, places, size);
+                dist = Opt.setLegs(placesNearN, size, memo);
                 bestDistance = newDistance;
             }
             Distance.rotateArray(placesNearN, placesIndex, x, size);
@@ -66,19 +66,13 @@ public class ThreeOpt {
 
         while(improvement){
             improvement = false;
-            for (int i=0; i < size-3; i++){
-                for (int j=i+1; j < size-2; j++) {
-                    for (int k = j+1; k < size-1; k++) {
+            for (int i=0; i < size-2; i++){
+                for (int j=i+1; j < size-1; j++) {
+                    for (int k = j+1; k < size; k++) {
                         thisDistance = getDist0(places, i, j, k);
                         if (thisDistance > getDist1(places, i, j, k)){
                             thisDistance = getDist1(places,i,j,k);
                             exchange1(places, i , j , k);
-                            improvement = true;
-                            continue;
-                        }
-                        if (thisDistance > getDist2(places, i, j, k)){
-                            thisDistance = getDist2(places,i,j,k);
-                            exchange2(places, i , j , k);
                             improvement = true;
                             continue;
                         }
@@ -88,15 +82,15 @@ public class ThreeOpt {
                             improvement = true;
                             continue;
                         }
-                        if (thisDistance > getDist4(places, i, j, k)){
-                            thisDistance = getDist4(places,i,j,k);
-                            exchange4(places, i , j , k);
+                        if (thisDistance > getDist2(places, i, j, k)){
+                            thisDistance = getDist2(places,i,j,k);
+                            exchange2(places, i , j , k);
                             improvement = true;
                             continue;
                         }
-                        if (thisDistance > getDist5(places, i, j, k)){
-                            thisDistance = getDist5(places,i,j,k);
-                            exchange5(places, i , j , k);
+                        if (thisDistance > getDist4(places, i, j, k)){
+                            thisDistance = getDist4(places,i,j,k);
+                            exchange4(places, i , j , k);
                             improvement = true;
                             continue;
                         }
@@ -112,12 +106,18 @@ public class ThreeOpt {
                             improvement = true;
                             continue;
                         }
+                        if (thisDistance > getDist6(places, i, j, k)){
+                            thisDistance = getDist6(places,i,j,k);
+                            exchange6(places, i , j , k);
+                            improvement = true;
+                            continue;
+                        }
                     }
                 }
             }
         }
 
-        thisDistance = getTourDist(places, size);
+        thisDistance = Opt.getTourDist(places, size, memo);
         if (thisDistance < bestDist) {
             return thisDistance;
         }
@@ -127,53 +127,55 @@ public class ThreeOpt {
     }
 
     public int getDist0(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[i+1]]+
-                memo[places[j]][places[j+1]]+
-                memo[places[k]][places[k+1]];
+        return   memo[places[i]][places[i+1]]
+                +memo[places[j]][places[j+1]]
+                +memo[places[k]][places[(k+1)%size]];
     }
 
     public int getDist1(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[j+1]]+
-                memo[places[k]][places[i+1]]+
-                memo[places[j]][places[k+1]];
+        return   memo[places[i]][places[j+1]]
+                +memo[places[k]][places[i+1]]
+                +memo[places[j]][places[(k+1)%size]];
     }
+
     public int getDist2(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[k]]+
-                memo[places[j+1]][places[i+1]]+
-                memo[places[j]][places[k+1]];
+        return  memo[places[i]][places[k]]
+                +memo[places[j+1]][places[i+1]]
+                +memo[places[j]][places[(k+1)%size]];
     }
 
     public int getDist3(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[j+1]]+
-                memo[places[k+1]][places[i+1]]+
-                memo[places[j]][places[k]];
+        return   memo[places[i]][places[j+1]]
+                +memo[places[(k+1)%size]][places[i+1]]
+                +memo[places[j]][places[k]];
     }
 
     public int getDist4(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[j]]+
-                memo[places[k]][places[i+1]]+
-                memo[places[j+1]][places[k+1]];
+        return   memo[places[i]][places[j]]
+                +memo[places[k]][places[i+1]]
+                +memo[places[j+1]][places[(k+1)%size]];
     }
 
     public int getDist5(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[k]]+
-                memo[places[j]][places[j+1]]+
-                memo[places[i+1]][places[k+1]];
+        return   memo[places[i]][places[k]]
+                +memo[places[j]][places[j+1]]
+                +memo[places[i+1]][places[(k+1)%size]];
     }
 
     public int getDist6(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[i+1]]+
-                memo[places[k]][places[j]]+
-                memo[places[j+1]][places[k+1]];
+        return   memo[places[i]][places[i+1]]
+                +memo[places[k]][places[j]]
+                +memo[places[j+1]][places[(k+1)%size]];
     }
 
     public int getDist7(int[] places, int i, int j, int k){
-        return  memo[places[i]][places[j]]+
-                memo[places[j+1]][places[i+1]]+
-                memo[places[k]][places[k+1]];
+        return   memo[places[i]][places[j]]
+                +memo[places[j+1]][places[i+1]]
+                +memo[places[k]][places[(k+1)%size]];
     }
 
     public void exchange1(int[] places, int i, int j, int k){
+        // j+1 >> k, i+1 >> j
         int[] tmp = new int[places.length];
         int counter = 0;
         for (int z = 0; z <= i; z++){
@@ -308,49 +310,5 @@ public class ThreeOpt {
         for (int a = 0; a < places.length; a++){
             places[a] = tmp[a];
         }
-    }
-
-    /**
-     * Method to return the cummulative distance of a trip given by interpretting places.
-     * Places contains indices used to lookup up distances in memo.
-     * @param places keeps track of the ordered indices of the trip
-     * @param size the number of locations in the trip
-     * @return Returns the cummulative distance of a trip represented by places
-     */
-    public int getTourDist(int[] places, int size){
-        int totalDistance = 0;
-        for (int i = 0; i < size; ++i) {
-            totalDistance += memo[places[i]][places[(i+1) % size]];
-        }
-        return totalDistance;
-    }
-
-    /**
-     * Method to copy over a trip in a specific order determined from places.
-     * @param places keeps track of the ordered indices of places with respect to placesOrig
-     * @param better the ArrayList to copy over to
-     * @param orig the ArrayList indexed by places
-     * @param size the number of places in the trip
-     */
-    public void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
-        better.clear();
-        for (int y = 0; y < size; y++) {
-            better.add(orig.get(places[y]));
-        }
-    }
-
-    /**
-     * Method to return the leg distances in the same order as maintained by places.
-     * Places is used to lookup distances between consecutive trip locations in memo.
-     * @param places keeps track of the ordered indices of the trip
-     * @param size the number of places in the trip
-     * @return Returns the leg distances of the trip represented by places
-     */
-    public ArrayList<Integer> setLegs(int[] places, int size){
-        ArrayList<Integer> dist = new ArrayList<>();
-        for (int y = 0; y < size; y++) {
-            dist.add(memo[places[y]][places[(y+1) % size]]);
-        }
-        return dist;
     }
 }
