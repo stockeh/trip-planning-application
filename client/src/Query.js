@@ -17,7 +17,8 @@ class Query extends Component {
     this.state = {
         query : "",
         places: [],
-        filters : []
+        filters : [],
+        enterPressed: false
     };
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
@@ -32,6 +33,9 @@ class Query extends Component {
 
     this.modalContent = this.modalContent.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
+
+    this.handleEnterPress = this.handleEnterPress.bind(this);
+    this.hasSearched = this.hasSearched.bind(this);
   }
 
   newFilter(val, attr){
@@ -153,6 +157,16 @@ class Query extends Component {
     )
   }
 
+  handleEnterPress(e) {
+    if (e.key === 'Enter') {
+      this.setState({enterPressed: true});
+    }
+  }
+
+  hasSearched(){
+    this.setState({enterPressed: false});
+  }
+
   modalContent() {
     let footer = this.modalFooter();
     return (
@@ -168,8 +182,9 @@ class Query extends Component {
                     searchFilter={this.searchFilter}/> <br/>
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
-                   placeholder="Search For Destinations..."/>
+                   onKeyPress={(e)=>this.handleEnterPress(e)} placeholder="Search For Destinations..."/>
             <Search query={this.state.query} filters={this.state.filters}
+                    hasSearched={this.hasSearched} enterPressed={this.state.enterPressed}
                     host={this.props.host} updateData={this.updateData}/>
           </InputGroup>
           <br/> {this.createTable()}

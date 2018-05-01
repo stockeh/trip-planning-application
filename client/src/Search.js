@@ -47,7 +47,13 @@ class Search extends Component {
     }
   }
 
+
+
   render() {
+    if(this.props.enterPressed === true){
+      this.search();
+      this.props.hasSearched();
+    }
     let isVisible = true;
     if (this.props.query.length > 0) {
       isVisible = false;
