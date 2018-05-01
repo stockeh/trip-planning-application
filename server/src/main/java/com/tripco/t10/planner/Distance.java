@@ -212,7 +212,7 @@ public class Distance {
     int start = 0;
 
     while (start < size) {
-      currCumulDist = this.constructNearestNeighbor(placesIndexCopy, size);
+      currCumulDist = this.constructNearestNeighbor(placesIndexCopy, size, this.memo);
       if (start++ == 0) {
         totalCumulDist = currCumulDist;
         placesIndex = placesIndexCopy.clone();
@@ -257,7 +257,7 @@ public class Distance {
    * @param size is the number of elements in the array.
    * @return Returns a integer of the total cumulative distance.
    */
-  public static int constructNearestNeighbor(int[] placesIndexCopy, int size) {
+  public static int constructNearestNeighbor(int[] placesIndexCopy, int size, int[][] memo) {
     int src;
     int nearestSrc;
     int temp;

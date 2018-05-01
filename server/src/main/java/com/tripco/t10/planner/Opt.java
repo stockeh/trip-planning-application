@@ -44,7 +44,7 @@ public class Opt {
         ArrayList<Integer> dist = setLegs(placesIndex,size,this.memo);
 
         for (int x = 1; x <= placesIndex.length; x++){
-            Distance.constructNearestNeighbor(placesNearN, size);
+            Distance.constructNearestNeighbor(placesNearN, size, this.memo);
             newDistance = twoOptHelper(placesNearN, bestDistance ,size);
             if (newDistance < bestDistance){
                 setNewTrip(placesNearN, newTrip, places, size);
