@@ -11,6 +11,8 @@
     list-style-type: none;
     border-radius: 0 0 4px 4px;
     max-height: 150px;
+    min-width: 215px;
+    max-width: 215px;
     overflow-y: scroll;
 
 }
@@ -26,7 +28,7 @@
 .dropdown li {
     margin: 0;
     cursor: pointer;
-    padding: .25em 3em .25em .25em;
+    padding: .25em .25em .25em .25em;
 }
 
 .dropdown li:hover{
