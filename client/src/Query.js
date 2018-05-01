@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Search from './Search';
 import Filter from './Filter';
-import { InputGroup, Input, Button } from 'reactstrap';
+import { InputGroup, Input, Button, Dropdown, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
 import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country} from './css/styling.css';
 import ReactTooltip from 'react-tooltip'
@@ -17,8 +17,11 @@ class Query extends Component {
     this.state = {
         query : "",
         places: [],
-        filters : []
+        filters : [],
+        limit : 50,
+        dropdownOpen: false
     };
+
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
 
@@ -31,6 +34,7 @@ class Query extends Component {
     this.mutateFilter = this.mutateFilter.bind(this);
 
     this.modalContent = this.modalContent.bind(this);
+    this.modalSearchLimit = this.modalSearchLimit.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
   }
 
@@ -39,7 +43,7 @@ class Query extends Component {
     newArray.push({attribute: attr, values: [val]});
     this.setState( {filters : newArray} );
   }
-
+InputGroup
   mutateValue(checked, val, index) {
     let newFilter = Object.assign([], this.state.filters);
     if (checked) {
@@ -153,6 +157,22 @@ class Query extends Component {
     )
   }
 
+  modalSearchLimit() {
+
+    return (
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.updateData(!this.state.dropdownOpen, "dropdownOpen")}>
+            <DropdownToggle caret>
+                {this.state.limit}
+            </DropdownToggle>
+            <DropdownMenu>
+                <div>10</div>
+                <div>25</div>
+                <div>50</div>
+            </DropdownMenu>
+        </Dropdown>
+    )
+  }
+
   modalContent() {
     let footer = this.modalFooter();
     return (
@@ -172,6 +192,7 @@ class Query extends Component {
             <Search query={this.state.query} filters={this.state.filters}
                     host={this.props.host} updateData={this.updateData}/>
           </InputGroup>
+            {this.modalSearchLimit()}
           <br/> {this.createTable()}
         </div>
           {footer}
