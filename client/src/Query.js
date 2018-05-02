@@ -42,7 +42,7 @@ class Query extends Component {
     newArray.push({attribute: attr, values: [val]});
     this.setState( {filters : newArray} );
   }
-InputGroup
+
   mutateValue(checked, val, index) {
     let newFilter = Object.assign([], this.state.filters);
     if (checked) {
