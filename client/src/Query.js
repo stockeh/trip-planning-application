@@ -18,8 +18,7 @@ class Query extends Component {
         query : "",
         places: [],
         filters : [],
-        limit : 10,
-        dropdownOpen: false
+        limit : 10
     };
 
     this.updateData = this.updateData.bind(this);
