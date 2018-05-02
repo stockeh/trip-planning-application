@@ -38,17 +38,17 @@ public class Opt {
     public ArrayList<Integer> twoOptimization() {
         ArrayList<Place> newTrip = new ArrayList<>();
         int[] placesNearN = placesIndex.clone();
-        int bestDistance = getTourDist(placesIndex,size);
+        int bestDistance = getTourDist(placesIndex,size,this.memo);
         int newDistance;
         setNewTrip(placesIndex, newTrip, places, size);
-        ArrayList<Integer> dist = setLegs(placesIndex,size);
+        ArrayList<Integer> dist = setLegs(placesIndex,size,this.memo);
 
         for (int x = 1; x <= placesIndex.length; x++){
-            Distance.constructNearestNeighbor(placesNearN, size);
+            Distance.constructNearestNeighbor(placesNearN, size, this.memo);
             newDistance = twoOptHelper(placesNearN, bestDistance ,size);
             if (newDistance < bestDistance){
                 setNewTrip(placesNearN, newTrip, places, size);
-                dist = setLegs(placesNearN, size);
+                dist = setLegs(placesNearN, size, this.memo);
                 bestDistance = newDistance;
             }
             Distance.rotateArray(placesNearN, placesIndex, x, size);
@@ -86,7 +86,7 @@ public class Opt {
                 }
             }
         }
-        thisDistance = getTourDist(places, size);
+        thisDistance = getTourDist(places, size, this.memo);
 
         if (thisDistance < bestDist) {
             return thisDistance;
@@ -112,9 +112,10 @@ public class Opt {
      * Places contains indices used to lookup up distances in memo.
      * @param places keeps track of the ordered indices of the trip
      * @param size the number of locations in the trip
+     * @param memo is the memoization table used to look up distances
      * @return Returns the cummulative distance of a trip represented by places
      */
-    public int getTourDist(int[] places, int size){
+    public static int getTourDist(int[] places, int size, int[][] memo){
         int totalDistance = 0;
         for (int i = 0; i < size; ++i) {
             totalDistance += memo[places[i]][places[(i+1) % size]];
@@ -129,7 +130,7 @@ public class Opt {
      * @param orig the ArrayList indexed by places
      * @param size the number of places in the trip
      */
-    public void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
+    public static void setNewTrip(int[] places, ArrayList<Place> better, ArrayList<Place> orig, int size){
         better.clear();
         for (int y = 0; y < size; y++) {
             better.add(orig.get(places[y]));
@@ -141,9 +142,10 @@ public class Opt {
      * Places is used to lookup distances between consecutive trip locations in memo.
      * @param places keeps track of the ordered indices of the trip
      * @param size the number of places in the trip
+     * @param memo is the memoization table used to look up distances
      * @return Returns the leg distances of the trip represented by places
      */
-    public ArrayList<Integer> setLegs(int[] places, int size){
+    public static ArrayList<Integer> setLegs(int[] places, int size, int[][] memo){
         ArrayList<Integer> dist = new ArrayList<>();
         for (int y = 0; y < size; y++) {
             dist.add(memo[places[y]][places[(y+1) % size]]);
@@ -168,5 +170,4 @@ public class Opt {
             end--;
         }
     }
-
 }
