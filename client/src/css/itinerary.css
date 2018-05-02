@@ -81,6 +81,6 @@ only screen and (max-width: 955px),
 .table_scroll {
   max-height: 512px;
   min-height: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
