@@ -91,6 +91,18 @@
     color: #CC5430;
 }
 
+/* -----------Limit Dropdown----------- */
+.limit {
+    position: absolute;
+    left: 20px;
+}
+
+.limit_dropdown {
+    padding: 0 !important;
+    outline: none;
+    height: 1.55em !important;
+}
+
 /* -----------Buttons----------- */
 
 /* Green */

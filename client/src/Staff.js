@@ -48,7 +48,8 @@ class Staff extends Component {
         </div>
         <div className="col-md-12 section3">
           <p>
-            ...
+            "Courage doesn't always roar. Sometimes courage is a quiet voice at the end of
+            the day saying, 'I will try again tomorrow.'" -Mary Anne Radmacher
           </p>
             <div className="col-md-12 section3">
                 <p>

@@ -19,7 +19,7 @@ class Search extends Component {
     let requestBody = {
         "version" : 3,
         "type"    : "query",
-        "limit"   : 10,
+        "limit"   : this.props.limit,
         "query"   : this.props.query,
         "filters" : this.props.filters,
         "places"  : []
@@ -47,7 +47,13 @@ class Search extends Component {
     }
   }
 
+
+
   render() {
+    if(this.props.enterPressed === true){
+      this.search();
+      this.props.hasSearched();
+    }
     let isVisible = true;
     if (this.props.query.length > 0) {
       isVisible = false;

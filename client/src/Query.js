@@ -3,7 +3,7 @@ import Search from './Search';
 import Filter from './Filter';
 import { InputGroup, Input, Button } from 'reactstrap';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
-import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country} from './css/styling.css';
+import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country, limit, limit_dropdown} from './css/styling.css';
 import ReactTooltip from 'react-tooltip'
 
 /* Adds the component to build a custom trip
@@ -17,8 +17,11 @@ class Query extends Component {
     this.state = {
         query : "",
         places: [],
-        filters : []
+        filters : [],
+        limit : 10,
+        enterPressed: false
     };
+
     this.updateData = this.updateData.bind(this);
     this.updateDestinations = this.updateDestinations.bind(this);
 
@@ -31,7 +34,11 @@ class Query extends Component {
     this.mutateFilter = this.mutateFilter.bind(this);
 
     this.modalContent = this.modalContent.bind(this);
+    this.modalSearchLimit = this.modalSearchLimit.bind(this);
     this.modalFooter = this.modalFooter.bind(this);
+
+    this.handleEnterPress = this.handleEnterPress.bind(this);
+    this.hasSearched = this.hasSearched.bind(this);
   }
 
   newFilter(val, attr){
@@ -143,6 +150,7 @@ class Query extends Component {
 
     return (
       <div className="modal-footer">
+        <span id="limit" className="limit">Showing {this.modalSearchLimit()} results</span>
         <div className="justify-content-between" id="button-grouping">
             <Button id="add-all" size="sm" className="gold_btn gold_hvr"
                     onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
@@ -151,6 +159,26 @@ class Query extends Component {
         </div>
       </div>
     )
+  }
+
+  modalSearchLimit() {
+      return (
+          <select id="limit-dropdown" className="green_btn green_hvr limit_dropdown" onChange={(e) => this.updateData(e.target.value, "limit")}>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={35}>35</option>
+          </select>
+      )
+  }
+
+  handleEnterPress(e) {
+    if (e.key === 'Enter') {
+      this.setState({enterPressed: true});
+    }
+  }
+
+  hasSearched(){
+    this.setState({enterPressed: false});
   }
 
   modalContent() {
@@ -168,10 +196,12 @@ class Query extends Component {
                     searchFilter={this.searchFilter}/> <br/>
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
-                   placeholder="Search For Destinations..."/>
-            <Search query={this.state.query} filters={this.state.filters}
+                   onKeyPress={(e)=>this.handleEnterPress(e)} placeholder="Search For Destinations..."/>
+            <Search limit={this.state.limit} query={this.state.query} filters={this.state.filters}
+                    hasSearched={this.hasSearched} enterPressed={this.state.enterPressed}
                     host={this.props.host} updateData={this.updateData}/>
           </InputGroup>
+
           <br/> {this.createTable()}
         </div>
           {footer}

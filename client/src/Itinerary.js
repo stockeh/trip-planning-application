@@ -164,7 +164,7 @@ class Itinerary extends Component {
         <div id="itinerary" className="container">
           {this.optionsButton()}
           <hr/>
-          <div className="row" style={{maxWidth: "400px"}}>
+          <div className="row">
             <div className="col-12" id="filter-content" style={visible}>
               {this.advancedOptions()}
               <hr/>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import FaFilter from 'react-icons/lib/fa/filter';
 import FaClose from 'react-icons/lib/fa/close';
-import {Button} from 'reactstrap';
+import {Input, Button} from 'reactstrap';
 import './css/FilterStyle.css';
 /** Adds the component to select filtered items for
  * database search.
@@ -67,7 +67,7 @@ class Filter extends Component {
   buildList(){
       if(this.state.showResults === true) {
           return(
-            <ul className="dropdown" tabIndex="-1" onBlur={this.blur} on={this.blur} onFocus={this.focus}>
+            <ul className="dropdown" tabIndex="1">
               {
                 Object.values(this.state.currentFilters).map(function (item) {
                     return <li key={Math.random().toString(36).substring(2,15)}
@@ -83,7 +83,6 @@ class Filter extends Component {
   }
 
   componentWillMount() {
-      this.buildFilter();
       document.addEventListener('mousedown', this.handleClick, false);
   }
 
@@ -128,6 +127,7 @@ class Filter extends Component {
     return arr;
   }
 
+
   removeFilter(item) {
       let filterArr = this.state.selectedFilters;
       filterArr = Filter.spliceArray(filterArr,item);
@@ -146,7 +146,7 @@ class Filter extends Component {
         <div className="col filter-list">
           <div ref={node => this.node = node} className="input-group">
             <div>
-              <input type="text" className="" placeholder="Filter by..." onChange={this.filterList}
+              <Input type="text" className="" placeholder="Filter by..." onChange={this.filterList}
                      onFocus={this.focus}/>
               {this.buildList()}
             </div>

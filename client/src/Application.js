@@ -18,7 +18,7 @@ class Application extends Component {
           distance: "miles",
           userUnit: "",
           userRadius: "",
-          optimization: "0.0",
+          optimization: "0.68",
           map: "kml" },
         places: [],
         distances: [],
