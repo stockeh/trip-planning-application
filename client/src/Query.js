@@ -3,7 +3,7 @@ import Search from './Search';
 import Filter from './Filter';
 import { InputGroup, Input, Button } from 'reactstrap';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
-import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country} from './css/styling.css';
+import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country, limit, limit_dropdown} from './css/styling.css';
 import ReactTooltip from 'react-tooltip'
 
 /* Adds the component to build a custom trip
@@ -147,7 +147,7 @@ InputGroup
 
     return (
       <div className="modal-footer">
-        <span id="limit">Showing {this.modalSearchLimit()} results</span>
+        <span id="limit" className="limit">Showing {this.modalSearchLimit()} results</span>
         <div className="justify-content-between" id="button-grouping">
             <Button id="add-all" size="sm" className="gold_btn gold_hvr"
                     onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
@@ -160,7 +160,7 @@ InputGroup
 
   modalSearchLimit() {
       return (
-          <select className="green_btn green_hvr" onChange={(e) => this.updateData(e.target.value, "limit")}>
+          <select id="limit-dropdown" className="green_btn green_hvr limit_dropdown" onChange={(e) => this.updateData(e.target.value, "limit")}>
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={35}>35</option>
