@@ -92,6 +92,8 @@ Date | Tasks done  | Tasks in progress | Impediments
 *04/19/2018* | *Google Maps, UI Redesign, CSS, Branding, Menus* | *Two-opt, More UI Design* | *Difficulties with branding images, issues with z-index, difficulties implementing side menu*
 *04/21/2018* | *Refactored Distance.java, Itinerary Layout Update* | *Filters, Itinerary Design, Interoperability, 3-opt, adding limit to query* | *difficulties in filter design, getting interop working*
 *04/24/2018* | *Filters, More UI Design, Interoperability, limit in query, Bug Fixes, Staff page layout/bitmojis* | *3-opt, Clean up filter class, logic to display google map or SVG, Staff page information* | *difficulties with page display on different browsers and mobile*
+*05/01/2018* | *3-opt, More Staff page work, Menu updates, UI changes, Enter button searching* | *limiting searches, plan on load* | *issues with bootstrap dropdown menu*
+*05/02/2018* | ** | ** | **
 
 ## Review
 
