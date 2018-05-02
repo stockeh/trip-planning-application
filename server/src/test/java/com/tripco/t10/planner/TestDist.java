@@ -144,23 +144,23 @@ public class TestDist {
     int size = degrees.size()/2;
     distance.memoizeDistance(degrees, size);
     int[] in1 = new int[]{0,1,2,3,4};
-    assertEquals(337, distance.constructNearestNeighbor(in1, size));
+    assertEquals(337, distance.constructNearestNeighbor(in1, size, distance.memo));
 
 
     int[] in2 = new int[]{1,2,3,4,0};
-    assertEquals(375, distance.constructNearestNeighbor(in2, size));
+    assertEquals(375, distance.constructNearestNeighbor(in2, size, distance.memo));
 
 
     int[] in3 = new int[]{2,3,4,0,1};
-    assertEquals(337, distance.constructNearestNeighbor(in3, size));
+    assertEquals(337, distance.constructNearestNeighbor(in3, size, distance.memo));
 
 
     int[] in4 = new int[]{3,4,0,1,2};
-    assertEquals(337, distance.constructNearestNeighbor(in4, size));
+    assertEquals(337, distance.constructNearestNeighbor(in4, size, distance.memo));
 
 
     int[] in5 = new int[]{4,0,1,2,3};
-    assertEquals(379, distance.constructNearestNeighbor(in5, size));
+    assertEquals(379, distance.constructNearestNeighbor(in5, size, distance.memo));
   }
 
 }

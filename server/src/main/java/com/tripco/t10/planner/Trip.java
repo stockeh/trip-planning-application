@@ -205,17 +205,21 @@ public class Trip {
     }
     double optimization = Double.parseDouble(distance.options.optimization);
 
-    if (optimization <= (1.0 / 3.0)) {
+    if (optimization <= (1.0 / 4.0)) {
       distance.options.optimization = "0.0";
       dist = distance.inOrder(coordDegrees);
     }
-    else if (optimization > (1.0 / 3.0) && optimization <= (2.0 / 3.0)) {
-      distance.options.optimization = "0.5";
+    else if (optimization > (1.0 / 4.0) && optimization <= (2.0 / 4.0)) {
+      distance.options.optimization = "0.33";
       dist = distance.nearestNeighbor(coordDegrees, this.places);
+    }
+    else if (optimization > (2.0 / 4.0) && optimization <= (3.0 / 4.0)) {
+      distance.options.optimization = "0.66";
+      dist = distance.twoOpt(coordDegrees, this.places);
     }
     else {
       distance.options.optimization = "1.0";
-      dist = distance.twoOpt(coordDegrees, this.places);
+      dist = distance.threeOpt(coordDegrees, this.places);
     }
     distance.memo = null;
     return dist;

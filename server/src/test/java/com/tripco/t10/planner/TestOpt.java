@@ -56,7 +56,7 @@ public class TestOpt {
         int[] newOrder = {0,1,2,3,4};
         optTest = new Opt(distance.memo, newOrder, 5, places);
         ArrayList<Integer> legs = new ArrayList<Integer>(Arrays.asList(97,70,63,87,41));
-        assertEquals(legs, optTest.setLegs(newOrder, 5));
+        assertEquals(legs, optTest.setLegs(newOrder, 5,distance.memo));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class TestOpt {
         int[] newOrder = {0,1,2,3,4};
         // tests getTourDist and getDist
         optTest = new Opt(distance.memo, newOrder, 5, places);
-        assertEquals(358, optTest.getTourDist(newOrder, 5));
+        assertEquals(358, optTest.getTourDist(newOrder, 5,distance.memo));
         assertEquals(97, optTest.getDist(newOrder,0,1));
         assertEquals(70, optTest.getDist(newOrder,1,2));
         assertEquals(63, optTest.getDist(newOrder,2,3));
