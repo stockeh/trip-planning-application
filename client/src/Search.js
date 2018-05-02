@@ -19,7 +19,7 @@ class Search extends Component {
     let requestBody = {
         "version" : 3,
         "type"    : "query",
-        "limit"   : 10,
+        "limit"   : this.props.limit,
         "query"   : this.props.query,
         "filters" : this.props.filters,
         "places"  : []
