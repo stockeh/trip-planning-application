@@ -127,6 +127,7 @@ class Filter extends Component {
     return arr;
   }
 
+
   removeFilter(item) {
       let filterArr = this.state.selectedFilters;
       filterArr = Filter.spliceArray(filterArr,item);
