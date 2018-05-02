@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Search from './Search';
 import Filter from './Filter';
-import { InputGroup, Input, Button, Dropdown, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { InputGroup, Input, Button } from 'reactstrap';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline';
 import { gold_btn, gold_hvr, canyon_btn, canyon_hvr, add_logo, query_country} from './css/styling.css';
 import ReactTooltip from 'react-tooltip'
@@ -18,7 +18,7 @@ class Query extends Component {
         query : "",
         places: [],
         filters : [],
-        limit : 50,
+        limit : 10,
         dropdownOpen: false
     };
 
@@ -147,6 +147,7 @@ InputGroup
 
     return (
       <div className="modal-footer">
+        <span id="limit">Showing {this.modalSearchLimit()} results</span>
         <div className="justify-content-between" id="button-grouping">
             <Button id="add-all" size="sm" className="gold_btn gold_hvr"
                     onClick={()=>this.updateDestinations(0, size)}>Add All</Button>{' '}
@@ -158,19 +159,13 @@ InputGroup
   }
 
   modalSearchLimit() {
-
-    return (
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.updateData(!this.state.dropdownOpen, "dropdownOpen")}>
-            <DropdownToggle caret>
-                {this.state.limit}
-            </DropdownToggle>
-            <DropdownMenu>
-                <div>10</div>
-                <div>25</div>
-                <div>50</div>
-            </DropdownMenu>
-        </Dropdown>
-    )
+      return (
+          <select className="green_btn green_hvr" onChange={(e) => this.updateData(e.target.value, "limit")}>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={35}>35</option>
+          </select>
+      )
   }
 
   modalContent() {
@@ -189,10 +184,10 @@ InputGroup
           <InputGroup>
             <Input onChange={(e)=>this.updateData(e.target.value, "query")}
                    placeholder="Search For Destinations..."/>
-            <Search query={this.state.query} filters={this.state.filters}
+            <Search limit={this.state.limit} query={this.state.query} filters={this.state.filters}
                     host={this.props.host} updateData={this.updateData}/>
           </InputGroup>
-            {this.modalSearchLimit()}
+
           <br/> {this.createTable()}
         </div>
           {footer}
