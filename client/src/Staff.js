@@ -98,7 +98,7 @@ class Staff extends Component {
         </div>
         <div className="col-md-12 section2">
           <p>Alex Segura</p><br/>
-          <h1>B.S. Computer Engineering</h1>
+          <h1><span>B.S. Computer Engineering<br/></span><br/></h1>
         </div>
         <div className="col-md-12 section3">
           <p>
