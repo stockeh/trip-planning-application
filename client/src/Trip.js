@@ -159,7 +159,8 @@ class Trip extends Component {
         </div>
         <div className="static-item">
           <ButtonGroup>
-            <Destinations trip={this.props.trip} updateTrip={this.props.updateTrip} updateInformation={this.props.updateInformation}/>
+            <Destinations trip={this.props.trip} updateTrip={this.props.updateTrip}
+                          plan={this.plan} updateInformation={this.props.updateInformation}/>
             <label><IoIosDownloadOutline className="green_logo green_hvr_logo" size={38}
                                          onClick={this.saveTFFI} data-for="save" data-tip="Save"/></label>
             <ReactTooltip id="save" place="bottom" effect="solid"/>
