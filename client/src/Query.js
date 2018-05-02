@@ -163,7 +163,7 @@ class Query extends Component {
 
   modalSearchLimit() {
       return (
-          <select id="limit-dropdown" className="green_btn green_hvr limit_dropdown" onChange={(e) => this.updateData(e.target.value, "limit")}>
+          <select id="limit-dropdown" className="green_btn green_hvr limit_dropdown" onChange={(e) => {this.updateData(e.target.value, "limit"); this.updateData(true, "enterPressed")}}>
               <option value={10}>10</option>
               <option value={20}>20</option>
               <option value={35}>35</option>
