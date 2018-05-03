@@ -81,8 +81,8 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks | *32* |
-Story Points | *63*|
+Tasks | *32* | *78*
+Story Points | *63*| *76*
 
 ## Daily Scrums
 
@@ -98,26 +98,37 @@ Date | Tasks done  | Tasks in progress | Impediments
 ## Review
 
 #### Completed epics in Sprint Backlog
-* *user story*:  *comments*
-*
+* *Improve UI*:  *nicer css layout etc*
+* *TFFI Update* *added limit to tffi*
+* *Staff Page* *cool staff page with bitmojis* 
+* *Shorter Trips #3* *3-opt!*
+* *Zoom and Pan Map* *Google Map implementation*
+* *Filtering* *added filters*
+* *Interopt* *interoperation between clients and servers*
 
 #### Incomplete epics in Sprint Backlog
-* *user story*: *explanation...*
-*
+* *Save Options as default*: *not enough time*
+* *Speed up server computation* *not enough time*
+* *View trip in other tools* *not enough time*
+* *System testing* *not enough time*
 
 #### What went well
-* *something*
-*
+* *User Interface*
+* *Splitting up tasks*
+* *good prioritization of tasks*
 
 #### Problems encountered and resolutions
-* *something*
-*
+* *Dropdown table issues with reactstrap, resolution was use select element*
+* *Images not working correctly, solution was lots of googling*
+* *difficulties with safari, solution was to not support it*
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  |
-What we did well |  |  |
-What we need to work on |  |  |
-What we will change next time |  |  |
+What we will change this time | Walk through our code with each other for better understanding for complex tasks
+| Allow for more time for testing possibly earlier commits | Get more familiar with KML and Jest. 
+Make the UI better
+What we did well | splitting up tasks | better planning | nice CSS
+What we need to work on | more communication | More test driven development | Jest
+What we will change next time | N/A | N/A | N/A
