@@ -17,3 +17,5 @@
   - Alex Segura
 * Sprint 4
   - Brian Martin
+* Sprint 5
+  - Evan Steiner
