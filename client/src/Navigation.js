@@ -51,7 +51,6 @@
               <Nav className="ml-auto" navbar>
                 {this.renderNavItem("trip", "Trip Planner")}
                 {this.renderNavItem("staff", "Staff")}
-                {this.renderNavItem("dev", "Development")}
               </Nav>
             </Collapse>
           </Navbar>
@@ -67,7 +66,6 @@
         <Navbar className="nav_bar">
             <NavbarBrand className="nav_title" href="">{this.props.name}</NavbarBrand>
             <div>
-              <NavLink className="nav_item" href="" onClick={(e) => this.props.updateWebpage(e, "dev")}>Development</NavLink>
               <NavLink className="nav_item" href="" onClick={(e) => this.props.updateWebpage(e, "staff")}>Staff</NavLink>
               <NavLink className="nav_item" href="" onClick={(e) => this.props.updateWebpage(e, "trip")}>Trip Planner</NavLink>
             </div>
