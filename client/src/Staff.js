@@ -90,6 +90,7 @@ class Staff extends Component {
   }
 
   static AlexCard() {
+    const quote="No Quote Needed"
     return (
       <div className="col-md-3 col-sm-3 col-xs-12">
       <div className="row section-alex ourTeam-box text-center">
@@ -100,6 +101,11 @@ class Staff extends Component {
           <p>Alex Segura</p><br/>
           <h1><span>B.S. Computer Engineering<br/></span><br/></h1>
         </div>
+          <div className="col-md-12 section3">
+              <p>
+                  {quote}
+              </p>
+          </div>
         <div className="col-md-12 section3">
           <p>
               <a href="https://www.linkedin.com/in/alexsegura64/" target="_blank"><FaLinkedinSquare size={35} /></a>
